@@ -19,9 +19,9 @@ public class AddOnController : ControllerBase
         _context = context;
     }
     
-    // [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     // POST: api/admin/addAddon
-    [Authorize]
+    // [Authorize()]
     [HttpPost("addAddon")]
     public IActionResult AddAddon([FromBody] Addon addon)
     {

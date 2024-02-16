@@ -94,56 +94,91 @@ public class SpringappApplicationTests
         string responseBody = await response1.Content.ReadAsStringAsync();
     }
 
-    [Test, Order(5)]
-public async Task Backend_TestAddAddon()
-{
-    // Assuming registration and login have already been done in previous test cases
+//     [Test]
+// public async Task Backend_TestAddAddon()
+// {
+//     // Assuming registration and login have already been done in previous test cases
 
-    // Use a dynamic and unique userName for admin (appending timestamp)
-    string uniqueUsername = $"admin_{Guid.NewGuid()}";
-    string uniqueEmail = $"abcd{Guid.NewGuid()}@gmail.com";
+//     // Use a dynamic and unique userName for admin (appending timestamp)
+//     string uniqueUsername = $"admin_{Guid.NewGuid()}";
+//     string uniqueEmail = $"abcd{Guid.NewGuid()}@gmail.com";
 
-    // Register the admin user
-    string adminRegistrationRequestBody = $"{{\"password\": \"abc@123A\", \"Username\": \"{uniqueUsername}\",\"role\": \"admin\",\"email\": \"{uniqueEmail}\"}}";
-    HttpResponseMessage adminRegistrationResponse = await _httpClient.PostAsync("/api/register", new StringContent(adminRegistrationRequestBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, adminRegistrationResponse.StatusCode);
+//     // Register the admin user
+//     string adminRegistrationRequestBody = $"{{\"password\": \"abc@123A\", \"Username\": \"{uniqueUsername}\",\"role\": \"admin\",\"email\": \"{uniqueEmail}\"}}";
+//     HttpResponseMessage adminRegistrationResponse = await _httpClient.PostAsync("/api/register", new StringContent(adminRegistrationRequestBody, Encoding.UTF8, "application/json"));
+//     Assert.AreEqual(HttpStatusCode.OK, adminRegistrationResponse.StatusCode);
 
-    // Login the admin user
-    string adminLoginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"abc@123A\"}}";
-    HttpResponseMessage adminLoginResponse = await _httpClient.PostAsync("/api/login", new StringContent(adminLoginRequestBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, adminLoginResponse.StatusCode);
-    string adminLoginResponseBody = await adminLoginResponse.Content.ReadAsStringAsync();
-    dynamic adminLoginResponseMap = JsonConvert.DeserializeObject(adminLoginResponseBody);
+//     // Login the admin user
+//     string adminLoginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"abc@123A\"}}";
+//     HttpResponseMessage adminLoginResponse = await _httpClient.PostAsync("/api/login", new StringContent(adminLoginRequestBody, Encoding.UTF8, "application/json"));
+//     Assert.AreEqual(HttpStatusCode.OK, adminLoginResponse.StatusCode);
+//     string adminLoginResponseBody = await adminLoginResponse.Content.ReadAsStringAsync();
+//     dynamic adminLoginResponseMap = JsonConvert.DeserializeObject(adminLoginResponseBody);
 
-    // Store the generated token
-    _generatedToken = adminLoginResponseMap.token;
+//     // Store the generated token
+//     _generatedToken = adminLoginResponseMap.token;
+//     var uniqueAddonName = "addon"
+//     // Create addon data
+//     string uniqueAddonName = $"addon_{Guid.NewGuid()}";
+//     decimal addonPrice = 10.99m;
+//     string addonDetails = "test description";
+//     string addonValidity = "test validity";
 
-    // Create addon data
-    string uniqueAddonName = $"addon_{Guid.NewGuid()}";
-    decimal addonPrice = 10.99m;
-    string addonDetails = "test description";
-    string addonValidity = "test validity";
+//     // Update the addonJson to match your Swagger JSON structure
+//     string addonJson = $"{{\"userId\": {adminLoginResponseMap.userId}, \"addonName\":\"{uniqueAddonName}\",\"addonPrice\":{addonPrice},\"addonDetails\":\"{addonDetails}\",\"addonValidity\":\"{addonValidity}\"}}";
 
-    // Update the addonJson to match your Swagger JSON structure
-    string addonJson = $"{{\"userId\": {adminLoginResponseMap.userId}, \"addonName\":\"{uniqueAddonName}\",\"addonPrice\":{addonPrice},\"addonDetails\":\"{addonDetails}\",\"addonValidity\":\"{addonValidity}\"}}";
+//     // Set Authorization header with the stored token
+//     _httpClient.DefaultRequestHeaders.Clear();  // Clear any existing headers
+//     _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + _generatedToken);
 
-    // Set Authorization header with the stored token
-    _httpClient.DefaultRequestHeaders.Clear();  // Clear any existing headers
-    _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + _generatedToken);
+//     // Send request to AddAddon endpoint
+//     HttpResponseMessage addonResponse = await _httpClient.PostAsync("/api/addAddon",
+//         new StringContent(addonJson, Encoding.UTF8, "application/json"));
 
-    // Send request to AddAddon endpoint
-    HttpResponseMessage addonResponse = await _httpClient.PostAsync("/api/addAddon",
-        new StringContent(addonJson, Encoding.UTF8, "application/json"));
+//     // Print response content in case of failure
+//     if (addonResponse.StatusCode != HttpStatusCode.OK)
+//     {
+//         string responseContent = await addonResponse.Content.ReadAsStringAsync();
+//         Console.WriteLine($"Response Content: {responseContent}");
+//     }
 
-    // Print response content in case of failure
-    if (addonResponse.StatusCode != HttpStatusCode.OK)
+//     // Assert the response status code is OK
+//     Assert.AreEqual(HttpStatusCode.OK, addonResponse.StatusCode);
+// }
+[Test]
+    public async Task Backend_TestAddAddon()
     {
-        string responseContent = await addonResponse.Content.ReadAsStringAsync();
-        Console.WriteLine($"Response Content: {responseContent}");
+        string uniqueId = Guid.NewGuid().ToString();
+ 
+        string uniqueusername = $"abcd_{uniqueId}";
+        string uniquepassword = $"abcdA{uniqueId}@123";
+        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+        string requestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+ 
+        string requestBody1 = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+        HttpResponseMessage response1 = await _httpClient.PostAsync("/api/login", new StringContent(requestBody1, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, response1.StatusCode);
+        string responseBody = await response1.Content.ReadAsStringAsync();
+ 
+        string responseString = await response.Content.ReadAsStringAsync();
+        dynamic responseMap = JsonConvert.DeserializeObject(responseString);
+        string customerAuthToken = responseMap.token;
+ 
+        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+ 
+        var review = new
+        {
+            AddonValidity = "Test subject",
+            AddonDetails = "Test body",
+            AddonPrice = 5,
+            AddonName = "sample name"
+        };
+ 
+        string requestBody3 = JsonConvert.SerializeObject(review);
+        HttpResponseMessage response3 = await _httpClient.PostAsync("api/addAddon", new StringContent(requestBody3, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, response3.StatusCode);
     }
-
-    // Assert the response status code is OK
-    Assert.AreEqual(HttpStatusCode.OK, addonResponse.StatusCode);
-}
 
 }
