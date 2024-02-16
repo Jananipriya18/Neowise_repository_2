@@ -185,7 +185,7 @@ public async Task Backend_TestAddAddon()
 }
 
 [Test]
-public async Task Backend_TestGetAddons()
+public async Task Backend_TestGetAddonsAsAdmin()
 {
     // Generate unique identifiers
     string uniqueId = Guid.NewGuid().ToString();
@@ -220,5 +220,160 @@ public async Task Backend_TestGetAddons()
     Assert.IsTrue(addons.Any());
 }
 
+[Test]
+public async Task Backend_TestGetAddonsAsCustomer()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"customer\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to get addons
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+    // Make a request to get addons
+    HttpResponseMessage getAddonsResponse = await _httpClient.GetAsync("api/getAddon");
+    Assert.AreEqual(HttpStatusCode.OK, getAddonsResponse.StatusCode);
+
+    // Validate the response content (assuming the response is a JSON array of addons)
+    string getAddonsResponseBody = await getAddonsResponse.Content.ReadAsStringAsync();
+    var addons = JsonConvert.DeserializeObject<List<Addon>>(getAddonsResponseBody);
+    Assert.IsNotNull(addons);
+    Assert.IsTrue(addons.Any());
+}
+
+[Test]
+public async Task Backend_TestUpdateAddon()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add an addon
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+    // Add an addon
+    var addAddonReview = new
+    {
+        AddonValidity = "Test subject",
+        AddonDetails = "Test body",
+        AddonPrice = 5,
+        AddonName = "sample name"
+    };
+
+    string addonRequestBody = JsonConvert.SerializeObject(addAddonReview);
+    HttpResponseMessage addonResponse = await _httpClient.PostAsync("api/addAddon", new StringContent(addonRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, addonResponse.StatusCode);
+
+    // Get the list of addons
+    HttpResponseMessage getAddonsResponse = await _httpClient.GetAsync("api/getAddon");
+    Assert.AreEqual(HttpStatusCode.OK, getAddonsResponse.StatusCode);
+    string getAddonsResponseBody = await getAddonsResponse.Content.ReadAsStringAsync();
+    var addons = JsonConvert.DeserializeObject<List<Addon>>(getAddonsResponseBody);
+    Assert.IsNotNull(addons);
+    Assert.IsTrue(addons.Any());
+
+    // Update the newly added addon
+    var updatedAddon = new
+    {
+        AddonValidity = "Updated subject",
+        AddonDetails = "Updated body",
+        AddonPrice = 10,
+        AddonName = "updated name"
+    };
+
+    string updateAddonRequestBody = JsonConvert.SerializeObject(updatedAddon);
+
+    // Assuming AddonId property exists in Addon model
+    long addonIdToUpdate = addons.FirstOrDefault()?.AddonId ?? 1;
+    HttpResponseMessage updateAddonResponse = await _httpClient.PutAsync($"api/editAddon/{addonIdToUpdate}", new StringContent(updateAddonRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, updateAddonResponse.StatusCode);
+}
+
+[Test]
+public async Task Backend_TestDeleteAddon()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add an addon
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+    // Add an addon
+    var addAddonReview = new
+    {
+        AddonValidity = "Test subject",
+        AddonDetails = "Test body",
+        AddonPrice = 5,
+        AddonName = "sample name"
+    };
+
+    string addonRequestBody = JsonConvert.SerializeObject(addAddonReview);
+    HttpResponseMessage addonResponse = await _httpClient.PostAsync("api/addAddon", new StringContent(addonRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, addonResponse.StatusCode);
+
+    // Get the list of addons
+    HttpResponseMessage getAddonsResponse = await _httpClient.GetAsync("api/getAddon");
+    Assert.AreEqual(HttpStatusCode.OK, getAddonsResponse.StatusCode);
+    string getAddonsResponseBody = await getAddonsResponse.Content.ReadAsStringAsync();
+    var addons = JsonConvert.DeserializeObject<List<Addon>>(getAddonsResponseBody);
+    Assert.IsNotNull(addons);
+    Assert.IsTrue(addons.Any());
+
+    // Delete the newly added addon
+    // Assuming AddonId property exists in Addon model
+    long addonIdToDelete = addons.FirstOrDefault()?.AddonId ?? 1;
+    HttpResponseMessage deleteAddonResponse = await _httpClient.DeleteAsync($"api/deleteAddon/{addonIdToDelete}");
+    Assert.AreEqual(HttpStatusCode.OK, deleteAddonResponse.StatusCode);
+
+    // Verify that the addon is deleted
+    HttpResponseMessage verifyDeleteResponse = await _httpClient.GetAsync($"api/getAddon/{addonIdToDelete}");
+    Assert.AreEqual(HttpStatusCode.NotFound, verifyDeleteResponse.StatusCode);
+}
 
 }
