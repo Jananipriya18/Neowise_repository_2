@@ -57,7 +57,7 @@ public class RechargeController : ControllerBase
     }
 
     [Authorize(Roles = "admin,customer")]
-    [HttpGet("getPricesByUser/{userId}")]
+    [HttpPost("getPricesByUser/{userId}")]
     public IActionResult GetPricesByUserId(long userId)
     {
         var prices = _rechargeService.GetPricesByUserId(userId);

@@ -635,33 +635,33 @@ public async Task Backend_TestAddRecharge()
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
 
     var rechargeDetails = new
-{
-    RechargeId = 0,
-    Price = 20,
-    RechargeDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
-    ValidityDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
-    UserId = 1, // Assuming the user is registered with ID 1
-    PlanId = 1, // Assuming the plan is already registered with ID 1
-    User = new
     {
-        UserId = 0,
-        Email = "string",
-        Password = "string",
-        Username = "string",
-        MobileNumber = "string",
-        Role = "string"
-    },
-    Plan = new
-    {
-        PlanId = 0,
-        PlanType = "string",
-        PlanName = "string",
-        PlanValidity = "string",
-        PlanOffer = "string",
-        PlanDescription = "string",
-        PlanPrice = 0
-    }
-};
+        RechargeId = 0,
+        Price = 20,
+        RechargeDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+        ValidityDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
+        UserId = 1, // Assuming the user is registered with ID 1
+        PlanId = 1, // Assuming the plan is already registered with ID 1
+        User = new
+        {
+            UserId = 0,
+            Email = "string",
+            Password = "string",
+            Username = "string",
+            MobileNumber = "string",
+            Role = "string"
+        },
+        Plan = new
+        {
+            PlanId = 0,
+            PlanType = "string",
+            PlanName = "string",
+            PlanValidity = "string",
+            PlanOffer = "string",
+            PlanDescription = "string",
+            PlanPrice = 0
+        }
+    };
 
 
     string rechargeRequestBody = JsonConvert.SerializeObject(rechargeDetails);
@@ -671,5 +671,74 @@ public async Task Backend_TestAddRecharge()
     Assert.AreEqual(HttpStatusCode.OK, rechargeResponse.StatusCode);
 }
 
+[Test]
+public async Task Backend_TestGetRechargeById()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"customer\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add a recharge
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+    // Assuming you have a rechargeId from a previous recharge
+    long rechargeId = 1; // Replace with the actual rechargeId
+
+    HttpResponseMessage getRechargeResponse = await _httpClient.GetAsync($"/api/getRecharge/{rechargeId}");
+
+    // Assert that the response is successful
+    Assert.AreEqual(HttpStatusCode.OK, getRechargeResponse.StatusCode);
+}
+
+[Test]
+public async Task Backend_TestGetRechargesByUserId()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"customer\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to get recharges by user ID
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+    // Assuming there is a user with ID 1
+    long userId = 1;
+
+    HttpResponseMessage getRechargesResponse = await _httpClient.GetAsync($"/api/getRechargesByUser/{userId}");
+
+    // Assert that the response is successful
+    Assert.AreEqual(HttpStatusCode.OK, getRechargesResponse.StatusCode);
+
+    // Additional assertions or validations based on your specific requirements
+}
 
 }
