@@ -550,4 +550,63 @@ public async Task Backend_TestGetAllReviews()
        
         Assert.AreEqual(HttpStatusCode.OK, getReviewsResponse.StatusCode);
 }
+
+[Test]
+public async Task Backend_TestPostReviews()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"customer\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add a review
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+    var reviewDetails = new
+    {
+        ReviewId = 0,
+        UserId = 1,
+        Subject = "Test Subject",
+        Body = "Test Body",
+        Rating = 4,
+        DateCreated = DateTime.Now,
+        User = new
+        {
+            UserId = 0,
+            Email = "string",
+            Password = "string",
+            Username = "string",
+            MobileNumber = "string",
+            Role = "string"
+        }
+    };
+
+    string reviewRequestBody = JsonConvert.SerializeObject(reviewDetails);
+    HttpResponseMessage addReviewResponse = await _httpClient.PostAsync("/api", new StringContent(reviewRequestBody, Encoding.UTF8, "application/json"));
+
+    // Assert that the review is added successfully
+    if (addReviewResponse.StatusCode != HttpStatusCode.OK)
+    {
+        // Additional information about the response
+        string responseContent = await addReviewResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Content: {responseContent}");
+    }
+
+    Assert.AreEqual(HttpStatusCode.OK, addReviewResponse.StatusCode);
+}
+
 }
