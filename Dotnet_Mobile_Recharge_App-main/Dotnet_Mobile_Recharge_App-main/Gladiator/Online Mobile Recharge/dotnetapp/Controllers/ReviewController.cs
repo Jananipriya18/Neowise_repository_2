@@ -19,7 +19,7 @@ namespace dotnetapp.Controllers
             _reviewService = reviewService;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllReviews()
         {

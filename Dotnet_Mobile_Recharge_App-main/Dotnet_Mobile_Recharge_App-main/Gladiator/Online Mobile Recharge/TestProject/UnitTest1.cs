@@ -474,8 +474,49 @@ public async Task Backend_TestGetPlans()
 }
 
 
+// [Test]
+// public async Task Backend_TestGetRecharge()
+// {
+//     // Generate unique identifiers
+//     string uniqueId = Guid.NewGuid().ToString();
+//     string uniqueusername = $"abcd_{uniqueId}";
+//     string uniquepassword = $"abcdA{uniqueId}@123";
+//     string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+//     // Register a customer
+//     string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
+//     HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+//     Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+//     // Login the registered customer
+//     string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+//     HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+//     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+//     string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+//     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+//     string customerAuthToken = loginResponseMap.token;
+
+//     // Use the obtained token in the request to add an addon
+//     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+
+//     var rechargeDetails = new
+//     {
+//         Price = 20,
+//         RechargeDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
+//         ValidityDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-ddTHH:mm:ss"),
+//         UserId = 1, // Replace with an existing user ID
+//         PlanId = 1, // Replace with an existing plan ID
+//     };
+
+//     string rechargeRequestBody = JsonConvert.SerializeObject(rechargeDetails);
+//     HttpResponseMessage rechargeResponse = await _httpClient.PostAsync("api/addRecharge", new StringContent(rechargeRequestBody, Encoding.UTF8, "application/json"));
+
+//     // Assert that the recharge is added successfully
+//     Assert.AreEqual(HttpStatusCode.OK, rechargeResponse.StatusCode);
+// }
+
 [Test]
-public async Task Backend_TestGetRecharge()
+public async Task Backend_TestGetAllReviews()
 {
     // Generate unique identifiers
     string uniqueId = Guid.NewGuid().ToString();
@@ -499,4 +540,14 @@ public async Task Backend_TestGetRecharge()
     // Use the obtained token in the request to add an addon
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
 
+    string responseString = await loginResponse.Content.ReadAsStringAsync();
+        dynamic responseMap = JsonConvert.DeserializeObject(responseString);
+        string adminAuthToken = responseMap.token;
+ 
+        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", adminAuthToken);
+ 
+        HttpResponseMessage getReviewsResponse = await _httpClient.GetAsync("/api");
+       
+        Assert.AreEqual(HttpStatusCode.OK, getReviewsResponse.StatusCode);
+}
 }
