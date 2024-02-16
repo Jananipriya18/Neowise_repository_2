@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnetapp.Migrations
 {
-    public partial class uhafiu : Migration
+    public partial class app : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -73,7 +73,8 @@ namespace dotnetapp.Migrations
                     PlanType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlanName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlanValidity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlanDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlanOffer = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlanDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PlanPrice = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>

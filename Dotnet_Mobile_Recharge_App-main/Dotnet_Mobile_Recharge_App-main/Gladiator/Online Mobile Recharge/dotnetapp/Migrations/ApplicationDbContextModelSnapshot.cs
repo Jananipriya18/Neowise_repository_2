@@ -58,11 +58,15 @@ namespace dotnetapp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("PlanId"), 1L, 1);
 
-                    b.Property<string>("PlanDetails")
+                    b.Property<string>("PlanDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlanName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlanOffer")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
