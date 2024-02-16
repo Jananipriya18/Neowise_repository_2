@@ -9,7 +9,8 @@ namespace dotnetapp.Models
         public string PlanType { get; set; }
         public string PlanName { get; set; }
         public string PlanValidity { get; set; }
-        public string PlanDetails { get; set; }
+        public string PlanOffer { get; set; }
+        public string PlanDescription { get; set; }
         public double PlanPrice { get; set; }
     }
 }

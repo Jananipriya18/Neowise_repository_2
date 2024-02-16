@@ -63,7 +63,8 @@ public class PlanController : ControllerBase
         existingPlan.PlanType = updatedPlan.PlanType;
         existingPlan.PlanName = updatedPlan.PlanName;
         existingPlan.PlanValidity = updatedPlan.PlanValidity;
-        existingPlan.PlanDetails = updatedPlan.PlanDetails;
+        existingPlan.PlanOffer = updatedPlan.PlanOffer;
+        existingPlan.PlanDescription = updatedPlan.PlanDescription;
         existingPlan.PlanPrice = updatedPlan.PlanPrice;
 
         _context.SaveChanges();
