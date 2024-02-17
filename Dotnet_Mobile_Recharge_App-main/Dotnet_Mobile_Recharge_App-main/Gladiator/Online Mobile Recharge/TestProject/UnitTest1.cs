@@ -635,13 +635,13 @@ public async Task Backend_TestPutReviews()
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     
-
-    var initialReviewDetails = new
+    var reviewDetails = new
     {
-        UserId = 0,
-        Subject = "Initial Subject",
-        Body = "Initial Body",
-        Rating = 3,
+        ReviewId = 0,
+        UserId = 1,
+        Subject = "Test Subject",
+        Body = "Test Body",
+        Rating = 4,
         DateCreated = DateTime.Now,
         User = new
         {
@@ -667,13 +667,14 @@ public async Task Backend_TestPutReviews()
 
     if (reviewId.HasValue)
     {
-        // Update the review
-        var updatedReviewDetails = new
+                // Update the review
+        var reviewDetails = new
         {
-            UserId =0,
+            ReviewId = 0,
+            UserId = 1,
             Subject = "Updated Subject",
             Body = "Updated Body",
-            Rating = 5,
+            Rating = 4,
             DateCreated = DateTime.Now,
             User = new
             {
@@ -685,6 +686,7 @@ public async Task Backend_TestPutReviews()
                 Role = "string"
             }
         };
+    };
 
         long reviewID = 1;
         string updateReviewRequestBody = JsonConvert.SerializeObject(updatedReviewDetails);
