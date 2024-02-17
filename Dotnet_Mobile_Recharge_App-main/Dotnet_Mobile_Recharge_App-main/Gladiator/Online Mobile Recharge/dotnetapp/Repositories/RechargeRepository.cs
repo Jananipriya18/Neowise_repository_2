@@ -30,6 +30,10 @@ public class RechargeRepository : IRechargeRepository
             .Include(r => r.Plan)
             .FirstOrDefault(r => r.RechargeId == rechargeId);
     }
+return _context.Recharges
+    .Include(r => r.User)
+    .Include(r => r.Plan)
+    .FirstOrDefault(r => r.RechargeId == rechargeId);
 
     public List<Recharge> GetRechargesByUserId(long userId)
     {
