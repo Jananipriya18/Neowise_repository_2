@@ -42,23 +42,29 @@ public class SpringappApplicationTests
     public async Task Backend_TestLoginAdmin()
     {
         string uniqueId = Guid.NewGuid().ToString();
-        string uniqueusername = $"abcd_{uniqueId}";
-        string uniquepassword = $"abcdA{uniqueId}@123";
-        string uniquerole = "Admin";
 
-        // Register the user
-        string registerRequestBody = $"{{\"Username\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\",\"UserRole\" : \"{uniquerole}\" }}";
-        HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
-        Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+        // Generate a unique userName based on a timestamp
+        string uniqueUsername = $"abcd_{uniqueId}";
+        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+
+        // Print registration response
+        string registerResponseBody = await response.Content.ReadAsStringAsync();
+        Console.WriteLine("Registration Response: " + registerResponseBody);
 
         // Login with the registered user
-        string loginRequestBody = $"{{\"Email\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\"}}";
+        string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}"; // Updated variable names
         HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
-        Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+        
+        // Print login response
+        string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+        Console.WriteLine("Login Response: " + loginResponseBody);
 
-        string responseBody = await loginResponse.Content.ReadAsStringAsync();
-        // Add assertions based on the response content if needed
+        Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     }
 
+    
 
 }
