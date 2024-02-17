@@ -10,10 +10,12 @@ namespace dotnetapp.Controllers
 {
     [Route("api/")]
     [ApiController]
+    
     public class AuthController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+
         private readonly UserService _userService;
 
         public AuthController(UserService userService, ApplicationDbContext context, UserManager<IdentityUser> userManager)
@@ -24,6 +26,7 @@ namespace dotnetapp.Controllers
         }
 
         [HttpPost("register")]
+        // [Authorize(Roles = "admin,customer")]
         public async Task<IActionResult> Register([FromBody] User user)
         {
             if (user == null)
@@ -58,6 +61,7 @@ namespace dotnetapp.Controllers
             return BadRequest("Registration failed. Username may already exist.");
         }
 
+    //    [Authorize(Roles = "admin,customer")]
        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
@@ -72,11 +76,11 @@ namespace dotnetapp.Controllers
             // Retrieve the user from UserManager to get their roles
             var user = await _userManager.FindByEmailAsync(request.Email);
             Console.WriteLine("role"+user);
-            // Console.WriteLine("UserId: " + user.Id);
+            
             var roles = await _userManager.GetRolesAsync(user);
  
-            return Ok(new { Token = token, Roles = roles, UserID = user.Id });
-    
+            return Ok(new { Token = token, Roles = roles });
         }
     }
 }
+
