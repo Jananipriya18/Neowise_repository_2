@@ -547,30 +547,8 @@ public async Task Backend_TestAddRecharge()
         RechargeId = 0,
         Price = 20,
         RechargeDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
-        ValidityDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
-        UserId = 1, // Assuming the user is registered with ID 1
-        PlanId = 1, // Assuming the plan is already registered with ID 1
-        User = new
-        {
-            UserId = 0,
-            Email = "string",
-            Password = "string",
-            Username = "string",
-            MobileNumber = "string",
-            Role = "string"
-        },
-        Plan = new
-        {
-            PlanId = 0,
-            PlanType = "string",
-            PlanName = "string",
-            PlanValidity = "string",
-            PlanOffer = "string",
-            PlanDescription = "string",
-            PlanPrice = 0
-        }
+        ValidityDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
     };
-
 
     string rechargeRequestBody = JsonConvert.SerializeObject(rechargeDetails);
     HttpResponseMessage rechargeResponse = await _httpClient.PostAsync("/api/addRecharge", new StringContent(rechargeRequestBody, Encoding.UTF8, "application/json"));
