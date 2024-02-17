@@ -20,7 +20,7 @@ public class Tests
          _httpClient = new HttpClient();
         // _httpClient.BaseAddress = new Uri("https://localhost:7266"); 
         // _httpClient.BaseAddress = new Uri("https://api.example.com/"); 
-        _httpClient.BaseAddress = new Uri("https://8080-bfdeeddcedfabcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/"); 
+        _httpClient.BaseAddress = new Uri("https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/"); 
 
 
     }
@@ -105,4 +105,6 @@ public class Tests
         Assert.AreEqual(HttpStatusCode.OK, response1.StatusCode);
         string responseBody = await response1.Content.ReadAsStringAsync();
     }
+
+    
 }
