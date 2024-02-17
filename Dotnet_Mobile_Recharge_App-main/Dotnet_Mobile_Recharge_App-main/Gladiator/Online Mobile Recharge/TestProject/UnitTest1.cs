@@ -635,13 +635,13 @@ public async Task Backend_TestPutReviews()
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     
-    var reviewDetails = new
+    // Add a review to update
+    var initialReviewDetails = new
     {
-        ReviewId = 0,
         UserId = 1,
-        Subject = "Test Subject",
-        Body = "Test Body",
-        Rating = 4,
+        Subject = "Initial Subject",
+        Body = "Initial Body",
+        Rating = 3,
         DateCreated = DateTime.Now,
         User = new
         {
@@ -661,16 +661,16 @@ public async Task Backend_TestPutReviews()
     // Get the added review details
     string addReviewResponseBody = await addReviewResponse.Content.ReadAsStringAsync();
     dynamic addReviewResponseMap = JsonConvert.DeserializeObject(addReviewResponseBody);
-    
+
     // Handle the potential null value for the review ID
     int? reviewId = addReviewResponseMap?.Id;
 
     if (reviewId.HasValue)
     {
-                // Update the review
-        var reviewDetails = new
+        // Update the review with the correct reviewId
+        var updatedReviewDetails = new
         {
-            ReviewId = 0,
+            ReviewId = reviewId,
             UserId = 1,
             Subject = "Updated Subject",
             Body = "Updated Body",
@@ -686,9 +686,7 @@ public async Task Backend_TestPutReviews()
                 Role = "string"
             }
         };
-    };
 
-        long reviewID = 1;
         string updateReviewRequestBody = JsonConvert.SerializeObject(updatedReviewDetails);
         HttpResponseMessage updateReviewResponse = await _httpClient.PutAsync($"/api/{reviewId}", new StringContent(updateReviewRequestBody, Encoding.UTF8, "application/json"));
 
@@ -704,6 +702,10 @@ public async Task Backend_TestPutReviews()
     }
     else
     {
+        // Log additional information for debugging
+        string responseContent = await addReviewResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Add Review Response Content: {responseContent}");
+
         Assert.Fail("Review ID is null or not found in the response.");
     }
 }
