@@ -7,52 +7,66 @@ using System.Linq;
 
 namespace dotnetapp.Repositories
 {
-public class RechargeRepository : IRechargeRepository
-{
-    private readonly ApplicationDbContext _context;
-
-    public RechargeRepository(ApplicationDbContext context)
+    public class RechargeRepository : IRechargeRepository
     {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _context;
 
-    public Recharge AddRecharge(Recharge recharge)
-    {
-        _context.Recharges.Add(recharge);
-        _context.SaveChanges();
-        return recharge;
-    }
+        public RechargeRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-    public Recharge GetRechargeById(long rechargeId)
-    {
-        return _context.Recharges
-            .Include(r => r.User)
-            .Include(r => r.Plan)
-            .FirstOrDefault(r => r.RechargeId == rechargeId);
-    }
-return _context.Recharges
-    .Include(r => r.User)
-    .Include(r => r.Plan)
-    .FirstOrDefault(r => r.RechargeId == rechargeId);
+        public Recharge AddRecharge(Recharge recharge)
+        {
+            // Ensure that the associated User and Plan entities exist
+            var existingUser = _context.Users.FirstOrDefault(u => u.UserId == recharge.UserId);
+            var existingPlan = _context.Plans.FirstOrDefault(p => p.PlanId == recharge.PlanId);
 
-    public List<Recharge> GetRechargesByUserId(long userId)
-    {
-        return _context.Recharges
-            .Include(r => r.User)
-            .Include(r => r.Plan)
-            .Where(r => r.User.UserId == userId)
-            .ToList();
-    }
+            if (existingUser == null || existingPlan == null)
+            {
+                // Handle the case where User or Plan does not exist
+                // You might want to throw an exception or handle it based on your application logic
+                // For now, I'm just returning null
+                return null;
+            }
 
-    public List<Recharge> GetAllRecharges()
-    {
-        return _context.Recharges
-            .Include(r => r.User)
-            .Include(r => r.Plan)
-            .ToList();
-    }
+            // Associate User and Plan with the Recharge entity
+            recharge.User = existingUser;
+            recharge.Plan = existingPlan;
 
-    public List<int> GetPricesByUserId(long userId)
+            // Add and save changes
+            _context.Recharges.Add(recharge);
+            _context.SaveChanges();
+
+            return recharge;
+        }
+
+        public Recharge GetRechargeById(long rechargeId)
+        {
+            return _context.Recharges
+                .Include(r => r.User)
+                .Include(r => r.Plan)
+                .FirstOrDefault(r => r.RechargeId == rechargeId);
+        }
+
+        public List<Recharge> GetRechargesByUserId(long userId)
+        {
+            return _context.Recharges
+                .Include(r => r.User)
+                .Include(r => r.Plan)
+                .Where(r => r.User.UserId == userId)
+                .ToList();
+        }
+
+        public List<Recharge> GetAllRecharges()
+        {
+            return _context.Recharges
+                .Include(r => r.User)
+                .Include(r => r.Plan)
+                .ToList();
+        }
+
+        public List<int> GetPricesByUserId(long userId)
         {
             var recharges = _context.Recharges
                 .Where(r => r.UserId == userId)
@@ -60,5 +74,5 @@ return _context.Recharges
                 .ToList();
             return recharges;
         }
-}
+    }
 }
