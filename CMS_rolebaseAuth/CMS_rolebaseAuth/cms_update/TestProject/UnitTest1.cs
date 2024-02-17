@@ -42,21 +42,23 @@ public class SpringappApplicationTests
     public async Task Backend_TestLoginAdmin()
     {
         string uniqueId = Guid.NewGuid().ToString();
-
         string uniqueusername = $"abcd_{uniqueId}";
         string uniquepassword = $"abcdA{uniqueId}@123";
-        string uniquerole = "Admin"; // Adjusted to match the role check in the controller
-        string requestBody = $"{{\"Username\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\",\"UserRole\" : \"{uniquerole}\" }}";
+        string uniquerole = "Admin";
 
-        HttpResponseMessage response = await _httpClient.PostAsync("/api/login", new StringContent(requestBody, Encoding.UTF8, "application/json"));
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        // Register the user
+        string registerRequestBody = $"{{\"Username\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\",\"UserRole\" : \"{uniquerole}\" }}";
+        HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
-        string requestBody1 = $"{{\"Email\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\"}}";
-        HttpResponseMessage response1 = await _httpClient.PostAsync("/api/login", new StringContent(requestBody1, Encoding.UTF8, "application/json"));
-        Assert.AreEqual(HttpStatusCode.OK, response1.StatusCode);
+        // Login with the registered user
+        string loginRequestBody = $"{{\"Email\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\"}}";
+        HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
 
-        string responseBody = await response1.Content.ReadAsStringAsync();
+        string responseBody = await loginResponse.Content.ReadAsStringAsync();
         // Add assertions based on the response content if needed
     }
+
 
 }
