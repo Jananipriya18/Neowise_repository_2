@@ -14,11 +14,11 @@ namespace dotnetapp.Models
 
     // Foreign key for User table
     [ForeignKey("User")]
-    public long? UserId { get; set; }
+    public long UserId { get; set; }
 
     // Foreign key for Plan table
     [ForeignKey("Plan")]
-    public long? PlanId { get; set; }
+    public long PlanId { get; set; }
 
     // Navigation properties
     [JsonIgnore]
