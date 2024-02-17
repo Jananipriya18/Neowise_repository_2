@@ -422,101 +422,6 @@ public async Task Backend_TestGetPlans()
     Assert.IsTrue(plans.Any());
 }
 
-[Test]
-public async Task Backend_TestPutPlan()
-{
-    // Generate unique identifiers
-    string uniqueId = Guid.NewGuid().ToString();
-    string uniqueusername = $"abcd_{uniqueId}";
-    string uniquepassword = $"abcdA{uniqueId}@123";
-    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
-
-    // Register a customer
-    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
-    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
-
-    // Login the registered customer
-    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
-    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
-    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
-    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
-    string adminAuthToken = loginResponseMap.token;
-
-    // Use the obtained token in the request to add a plan
-    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", adminAuthToken);
-
-    var planDetails = new
-    {
-        PlanName = "Test Plan",
-        PlanPrice = 10,
-        PlanDescription = "Test plan description",
-        PlanType = "prepaid",
-        PlanValidity = "30",
-        PlanOffer = "Test Offer"
-    };
-
-    string planRequestBody = JsonConvert.SerializeObject(planDetails);
-    HttpResponseMessage addPlanResponse = await _httpClient.PostAsync("api/addPlan", new StringContent(planRequestBody, Encoding.UTF8, "application/json"));
-    
-    // Assert that the plan is added successfully
-    Assert.AreEqual(HttpStatusCode.OK, addPlanResponse.StatusCode);
-
-    // Get the added plan details
-    string addPlanResponseBody = await addPlanResponse.Content.ReadAsStringAsync();
-    dynamic addPlanResponseMap = JsonConvert.DeserializeObject(addPlanResponseBody);
-
-    // Handle the potential null value for the plan ID
-    int? planId = addPlanResponseMap?.Id;
-
-    if (planId.HasValue)
-    {
-        // Update the plan with the correct planId
-        var updatedPlanDetails = new
-        {
-            PlanId = planId,
-            PlanName = "Updated Test Plan",
-            PlanPrice = 15,
-            PlanDescription = "Updated test plan description",
-            PlanType = "postpaid",
-            PlanValidity = "60",
-            PlanOffer = "Updated Test Offer"
-        };
-
-        string updatePlanRequestBody = JsonConvert.SerializeObject(updatedPlanDetails);
-        HttpResponseMessage updatePlanResponse = await _httpClient.PutAsync($"api/updatePlan/{planId}", new StringContent(updatePlanRequestBody, Encoding.UTF8, "application/json"));
-
-        // Assert that the plan is updated successfully
-        if (updatePlanResponse.StatusCode != HttpStatusCode.OK)
-        {
-            // Additional information about the response
-            string responseContent = await updatePlanResponse.Content.ReadAsStringAsync();
-            Console.WriteLine($"Response Content: {responseContent}");
-
-            // Attempt to deserialize the response for further analysis
-            try
-            {
-                var deserializedResponse = JsonConvert.DeserializeObject(responseContent);
-                Console.WriteLine($"Deserialized Response: {deserializedResponse}");
-            }
-            catch (JsonReaderException jsonException)
-            {
-                Console.WriteLine($"JSON Deserialization Exception: {jsonException.Message}");
-            }
-        }
-
-        Assert.AreEqual(HttpStatusCode.OK, updatePlanResponse.StatusCode);
-    }
-    else
-    {
-        // Log additional information for debugging
-        string responseContent = await addPlanResponse.Content.ReadAsStringAsync();
-        Console.WriteLine($"Add Plan Response Content: {responseContent}");
-
-        Assert.Fail("Plan ID is null or not found in the response.");
-    }
-}
 
 [Test]
 public async Task Backend_TestGetAllReviews()
@@ -926,5 +831,178 @@ public async Task Backend_TestDeleteReview()
     }
 }
 
+[Test]
+public async Task Backend_TestPutPlan()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string adminAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add a plan
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", adminAuthToken);
+
+    var planDetails = new
+    {
+        PlanName = "Test Plan",
+        PlanPrice = 10,
+        PlanDescription = "Test plan description",
+        PlanType = "prepaid",
+        PlanValidity = "30",
+        PlanOffer = "Test Offer"
+    };
+
+    string planRequestBody = JsonConvert.SerializeObject(planDetails);
+    HttpResponseMessage planResponse = await _httpClient.PostAsync("api/addPlan", new StringContent(planRequestBody, Encoding.UTF8, "application/json"));
+    
+    // Assert that the plan is added successfully
+    Assert.AreEqual(HttpStatusCode.OK, planResponse.StatusCode);
+
+    // Use the obtained token in the request to get plans
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", adminAuthToken);
+
+    // Make a request to get all plans
+    HttpResponseMessage getPlansResponse = await _httpClient.GetAsync("api/getAllPlan");
+    Assert.AreEqual(HttpStatusCode.OK, getPlansResponse.StatusCode);
+
+    // Validate the response content (assuming the response is a JSON array of plans)
+    string getPlansResponseBody = await getPlansResponse.Content.ReadAsStringAsync();
+    var plans = JsonConvert.DeserializeObject<List<Plan>>(getPlansResponseBody);
+    Assert.IsNotNull(plans);
+    Assert.IsTrue(plans.Any());
+
+    // Update the first plan (assuming at least one plan exists)
+    long planIdToUpdate = plans.First().PlanId;
+
+    var updatedPlanDetails = new
+    {
+        PlanId = planIdToUpdate,
+        PlanType = "Updated Type",
+        PlanName = "Updated Name",
+        PlanValidity = "Updated Validity",
+        PlanOffer = "Updated Offer",
+        PlanDescription = "Updated Description",
+        PlanPrice = 20
+    };
+
+    string updatePlanRequestBody = JsonConvert.SerializeObject(updatedPlanDetails);
+    HttpResponseMessage updatePlanResponse = await _httpClient.PutAsync($"api/editPlan/{planIdToUpdate}", new StringContent(updatePlanRequestBody, Encoding.UTF8, "application/json"));
+
+    // Assert that the plan is updated successfully
+    if (updatePlanResponse.StatusCode != HttpStatusCode.OK)
+    {
+        // Additional information about the response
+        string responseContent = await updatePlanResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Content: {responseContent}");
+
+        // Attempt to deserialize the response for further analysis
+        try
+        {
+            var deserializedResponse = JsonConvert.DeserializeObject(responseContent);
+            Console.WriteLine($"Deserialized Response: {deserializedResponse}");
+        }
+        catch (JsonReaderException jsonException)
+        {
+            Console.WriteLine($"JSON Deserialization Exception: {jsonException.Message}");
+        }
+    }
+
+    Assert.AreEqual(HttpStatusCode.OK, updatePlanResponse.StatusCode);
+}
+
+[Test]
+public async Task Backend_TestDeletePlan()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string adminAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add a plan
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", adminAuthToken);
+
+    var planDetails = new
+    {
+        PlanName = "Test Plan",
+        PlanPrice = 10,
+        PlanDescription = "Test plan description",
+        PlanType = "prepaid",
+        PlanValidity = "30",
+        PlanOffer = "Test Offer"
+    };
+
+    string planRequestBody = JsonConvert.SerializeObject(planDetails);
+    HttpResponseMessage planResponse = await _httpClient.PostAsync("api/addPlan", new StringContent(planRequestBody, Encoding.UTF8, "application/json"));
+    
+    // Assert that the plan is added successfully
+    Assert.AreEqual(HttpStatusCode.OK, planResponse.StatusCode);
+
+    // Use the obtained token in the request to get plans
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", adminAuthToken);
+
+    // Make a request to get all plans
+    HttpResponseMessage getPlansResponse = await _httpClient.GetAsync("api/getAllPlan");
+    Assert.AreEqual(HttpStatusCode.OK, getPlansResponse.StatusCode);
+
+    // Validate the response content (assuming the response is a JSON array of plans)
+    string getPlansResponseBody = await getPlansResponse.Content.ReadAsStringAsync();
+    var plans = JsonConvert.DeserializeObject<List<Plan>>(getPlansResponseBody);
+    Assert.IsNotNull(plans);
+    Assert.IsTrue(plans.Any());
+
+    // Delete the first plan (assuming at least one plan exists)
+    long planIdToDelete = plans.First().PlanId;
+
+    HttpResponseMessage deletePlanResponse = await _httpClient.DeleteAsync($"api/deletePlan/{planIdToDelete}");
+
+    // Assert that the plan is deleted successfully
+    if (deletePlanResponse.StatusCode != HttpStatusCode.OK)
+    {
+        // Additional information about the response
+        string responseContent = await deletePlanResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Content: {responseContent}");
+
+        // Attempt to deserialize the response for further analysis
+        try
+        {
+            var deserializedResponse = JsonConvert.DeserializeObject(responseContent);
+            Console.WriteLine($"Deserialized Response: {deserializedResponse}");
+        }
+        catch (JsonReaderException jsonException)
+        {
+            Console.WriteLine($"JSON Deserialization Exception: {jsonException.Message}");
+        }
+    }
+
+    Assert.AreEqual(HttpStatusCode.OK, deletePlanResponse.StatusCode);
+}
 
 }
