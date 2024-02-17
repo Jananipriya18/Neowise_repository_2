@@ -39,7 +39,7 @@ public class SpringappApplicationTests
     }
 
     [Test, Order(2)]
-    public async Task Backend_TestLoginAdmin()
+    public async Task Backend_TestLoginUser()
     {
         string uniqueId = Guid.NewGuid().ToString();
 
@@ -65,6 +65,23 @@ public class SpringappApplicationTests
         Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     }
 
-    
+    [Test, Order()]
+    public async Task Backend_TestRegisterUser()
+    {
+        string uniqueId = Guid.NewGuid().ToString();
+
+        // Generate a unique userName based on a timestamp
+        string uniqueUsername = $"abcd_{uniqueId}";
+        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+
+        Console.WriteLine(response.StatusCode);
+        string responseString = await response.Content.ReadAsStringAsync();
+
+        Console.WriteLine(responseString);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
 
 }
