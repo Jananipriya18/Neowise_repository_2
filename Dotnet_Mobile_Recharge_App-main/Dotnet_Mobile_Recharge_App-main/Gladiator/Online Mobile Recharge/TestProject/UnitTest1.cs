@@ -610,6 +610,104 @@ public async Task Backend_TestPostReviews()
 }
 
 [Test]
+public async Task Backend_TestPutReviews()
+{
+    // Generate unique identifiers
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueusername = $"abcd_{uniqueId}";
+    string uniquepassword = $"abcdA{uniqueId}@123";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    // Register a customer
+    string registerRequestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"customer\" }}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered customer
+    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquepassword}\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string customerAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to add a review
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    
+
+    var initialReviewDetails = new
+    {
+        UserId = 0,
+        Subject = "Initial Subject",
+        Body = "Initial Body",
+        Rating = 3,
+        DateCreated = DateTime.Now,
+        User = new
+        {
+            UserId = 0,
+            Email = "string",
+            Password = "string",
+            Username = "string",
+            MobileNumber = "string",
+            Role = "string"
+        }
+    };
+
+    string initialReviewRequestBody = JsonConvert.SerializeObject(initialReviewDetails);
+    HttpResponseMessage addReviewResponse = await _httpClient.PostAsync("/api", new StringContent(initialReviewRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, addReviewResponse.StatusCode);
+
+    // Get the added review details
+    string addReviewResponseBody = await addReviewResponse.Content.ReadAsStringAsync();
+    dynamic addReviewResponseMap = JsonConvert.DeserializeObject(addReviewResponseBody);
+    
+    // Handle the potential null value for the review ID
+    int? reviewId = addReviewResponseMap?.Id;
+
+    if (reviewId.HasValue)
+    {
+        // Update the review
+        var updatedReviewDetails = new
+        {
+            UserId =0,
+            Subject = "Updated Subject",
+            Body = "Updated Body",
+            Rating = 5,
+            DateCreated = DateTime.Now,
+            User = new
+            {
+                UserId = 0,
+                Email = "string",
+                Password = "string",
+                Username = "string",
+                MobileNumber = "string",
+                Role = "string"
+            }
+        };
+
+        long reviewID = 1;
+        string updateReviewRequestBody = JsonConvert.SerializeObject(updatedReviewDetails);
+        HttpResponseMessage updateReviewResponse = await _httpClient.PutAsync($"/api/{reviewId}", new StringContent(updateReviewRequestBody, Encoding.UTF8, "application/json"));
+
+        // Assert that the review is updated successfully
+        if (updateReviewResponse.StatusCode != HttpStatusCode.OK)
+        {
+            // Additional information about the response
+            string responseContent = await updateReviewResponse.Content.ReadAsStringAsync();
+            Console.WriteLine($"Response Content: {responseContent}");
+        }
+
+        Assert.AreEqual(HttpStatusCode.OK, updateReviewResponse.StatusCode);
+    }
+    else
+    {
+        Assert.Fail("Review ID is null or not found in the response.");
+    }
+}
+
+
+[Test]
 public async Task Backend_TestAddRecharge()
 {
     // Generate unique identifiers
