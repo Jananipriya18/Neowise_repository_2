@@ -72,10 +72,10 @@ namespace dotnetapp.Controllers
             // Retrieve the user from UserManager to get their roles
             var user = await _userManager.FindByEmailAsync(request.Email);
             Console.WriteLine("role"+user);
-            Console.WriteLine("UserId: " + user.Id); // Log UserId
+            // Console.WriteLine("UserId: " + user.Id);
             var roles = await _userManager.GetRolesAsync(user);
  
-            return Ok(new { Token = token, Roles = roles, UserId = user?.Id });
+            return Ok(new { Token = token, Roles = roles, UserID = user.Id });
     
         }
     }
