@@ -19,12 +19,27 @@ public class RechargeController : ControllerBase
     }
 
     [Authorize(Roles = "customer")]
-    [HttpPost("addRecharge")]
-    public IActionResult AddRecharge([FromBody] Recharge recharge)
+[HttpPost("addRecharge")]
+public IActionResult AddRecharge([FromBody] Recharge recharge)
+{
+    // Check if the current user has the "customer" role
+    var isCustomer = User.IsInRole("customer");
+
+    if (!isCustomer)
     {
-        var addedRecharge = _rechargeService.AddRecharge(recharge);
-        return Ok(addedRecharge);
+        return Forbid(); // Return 403 Forbidden if the user doesn't have the required role
     }
+
+    var addedRecharge = _rechargeService.AddRecharge(recharge);
+
+    if (addedRecharge == null)
+    {
+        return BadRequest("Unable to add recharge. User or Plan does not exist.");
+    }
+
+    return CreatedAtAction(nameof(GetRechargeById), new { rechargeId = addedRecharge.RechargeId }, addedRecharge);
+}
+
 
     [Authorize(Roles = "admin,customer")]
     [HttpGet("getRecharge/{rechargeId}")]
