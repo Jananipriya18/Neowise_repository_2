@@ -21,6 +21,13 @@ public class SpringappApplicationTests
         _httpClient.BaseAddress = new Uri("https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"); 
     }
 
+    [TearDown]
+    public void TearDown()
+    {
+        // Clean up resources, if any
+        _httpClient.Dispose();
+    }
+
     [Test, Order(1)]
     public async Task Backend_TestRegisterUser()
     {
@@ -539,22 +546,47 @@ public async Task Backend_TestAddRecharge()
     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
     string customerAuthToken = loginResponseMap.token;
 
-    // Use the obtained token in the request to add a recharge
+    // Use the obtained token in the request to add a review
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", customerAuthToken);
 
+    // Retrieve user and plan IDs dynamically (you need to adjust the actual endpoint URLs)
     var rechargeDetails = new
-    {
-        RechargeId = 0,
-        Price = 20,
-        RechargeDate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fffZ"),
-        ValidityDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-ddTHH:mm:ss.fffZ")
-    };
+        {
+            RechargeId = 0,
+            Price = 1000,
+            RechargeDate = "2024-02-17T07:03:25.692Z",
+            ValidityDate = "2024-02-17T07:03:25.692Z",
+            userId: 10,
+            planId: 70,
+            user: {
+                "userId": 10,
+                "email": "abcd804fe033-8a04-40fe-844a-e372aba8e422@gmail.com",
+                "password": "abcdA804fe033-8a04-40fe-844a-e372aba8e422@123",
+                "username": "abcd_804fe033-8a04-40fe-844a-e372aba8e422",
+                "mobileNumber": "1234567890",
+                "role": "admin"
+            },
+            plan: {
+                "planId": 70,
+                "planType": "prepaid",
+                "planName": "Test Plan",
+                "planValidity": "30",
+                "planOffer": "Test Offer",
+                "planDescription": "Test plan description",
+                "planPrice": 10
+            }
+        };
 
-    string rechargeRequestBody = JsonConvert.SerializeObject(rechargeDetails);
-    HttpResponseMessage rechargeResponse = await _httpClient.PostAsync("/api/addRecharge", new StringContent(rechargeRequestBody, Encoding.UTF8, "application/json"));
+        string rechargeRequestBody = JsonConvert.SerializeObject(rechargeDetails);
 
-    // Assert that the recharge is added successfully
-    Assert.AreEqual(HttpStatusCode.OK, rechargeResponse.StatusCode);
+        // Act
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/addRecharge", new StringContent(rechargeRequestBody, Encoding.UTF8, "application/json"));
+        string responseContent = await response.Content.ReadAsStringAsync();
+        Console.WriteLine("Response Content: " + responseContent);  // Print the response content
+
+        Assert.AreEqual(System.Net.HttpStatusCode.Created, response.StatusCode);
+        // Assert
+        Assert.AreEqual(System.Net.HttpStatusCode.Created, response.StatusCode);
 }
 
 [Test]
