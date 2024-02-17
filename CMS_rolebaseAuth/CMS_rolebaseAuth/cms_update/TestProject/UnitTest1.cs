@@ -111,44 +111,98 @@ public class SpringappApplicationTests
         Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     }
 
-    [Test]
-public async Task Backend_TestGetContainersAsAdmin()
+//     [Test]
+// public async Task Backend_TestGetContainersAsAdmin()
+// {
+//     // Register a user with the "Admin" role
+//     string uniqueId = Guid.NewGuid().ToString();
+//     string uniqueUsername = $"abcd_{uniqueId}";
+//     string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+//     string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+//     HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+//     Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+//     // Login the registered user
+//     string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+//     HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+//     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+//     string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+//     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+//     string userAuthToken = loginResponseMap.token;
+
+//     // Use the obtained token in the request to get containers
+//     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+
+//     // Make a request to get containers
+//     HttpResponseMessage getContainersResponse = await _httpClient.GetAsync("api/container");
+//     Assert.AreEqual(HttpStatusCode.OK, getContainersResponse.StatusCode);
+
+//     // Validate the response content
+//     string getContainersResponseBody = await getContainersResponse.Content.ReadAsStringAsync();
+//     var containers = JsonConvert.DeserializeObject<List<Container>>(getContainersResponseBody);
+
+//     // Assert that containers are not null and there is at least one container
+//     Assert.IsNotNull(containers);
+//     Assert.IsTrue(containers.Any());
+
+//     // Add more assertions based on the response content if needed
+// }
+
+
+[Test]
+public async Task Backend_TestPostAndGetContainerAsAdmin()
 {
-    // Generate unique identifiers
+    // Register a user with the "Admin" role
     string uniqueId = Guid.NewGuid().ToString();
     string uniqueUsername = $"abcd_{uniqueId}";
-    string uniquePassword = $"abcdA{uniqueId}@123";
     string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-    // Register a user with the "Admin" role
-    string registerRequestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"{uniquePassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"admin\" }}";
-    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(registerRequestBody, Encoding.UTF8, "application/json"));
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
     Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
     // Login the registered user
-    string loginRequestBody = $"{{\"email\": \"{uniqueEmail}\",\"password\": \"{uniquePassword}\"}}";
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
     HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
     string userAuthToken = loginResponseMap.token;
 
-    // Use the obtained token in the request to get containers
+    // Use the obtained token in the request to post a new container
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
-    // Make a request to get containers
-    HttpResponseMessage getContainersResponse = await _httpClient.GetAsync("api/container");
-    Assert.AreEqual(HttpStatusCode.OK, getContainersResponse.StatusCode);
+    // Post a new container
+    var newContainer = new Container
+    {
+        Type = "string",
+        Status = "string",
+        Capacity = 100,  // Set your desired values
+        Location = "string",
+        Weight = 50.5,  // Set your desired values
+        Owner = "string",
+        CreationDate = DateTime.UtcNow,
+        LastInspectionDate = DateTime.UtcNow
+    };
+
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+
+    // Retrieve the posted container
+    HttpResponseMessage getContainerResponse = await _httpClient.GetAsync("/api/container");
+    Assert.AreEqual(HttpStatusCode.OK, getContainerResponse.StatusCode);
 
     // Validate the response content
-    string getContainersResponseBody = await getContainersResponse.Content.ReadAsStringAsync();
-    var containers = JsonConvert.DeserializeObject<List<Container>>(getContainersResponseBody);
-    
+    string getContainerResponseBody = await getContainerResponse.Content.ReadAsStringAsync();
+    var containers = JsonConvert.DeserializeObject<List<Container>>(getContainerResponseBody);
+
     // Assert that containers are not null and there is at least one container
     Assert.IsNotNull(containers);
-    Assert.IsTrue(containers.Any());
-    
+    Assert.IsTrue(containers.Any(c => c.ContainerId == newContainer.ContainerId));
+
     // Add more assertions based on the response content if needed
 }
-  
+
 }
