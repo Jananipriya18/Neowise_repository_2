@@ -1,5 +1,6 @@
 using System;
 using dotnetapp.Data;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dotnetapp.Models
@@ -23,8 +24,8 @@ namespace dotnetapp.Models
 
     // Navigation properties
     [JsonIgnore]
-    public virtual User User { get; set; }
+    public virtual User? User { get; set; }
     [JsonIgnore]
-    public virtual Plan Plan { get; set; }
+    public virtual Plan? Plan { get; set; }
 }
 }
