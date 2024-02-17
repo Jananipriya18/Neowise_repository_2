@@ -25,13 +25,6 @@ public class Tests
 
     }
 
-    // [Test]
-    // public void Test1()
-    // {
-    //     Assert.Pass();
-    // }
-
-    
     [Test, Order(1)]
     public async Task Backend_TestRegisterUser()
     {
@@ -41,7 +34,7 @@ public class Tests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"Role\": \"customer\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"Role\": \"Operator\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
@@ -60,7 +53,7 @@ public class Tests
         string uniqueusername = $"abcd_{uniqueId}";
         string uniquepassword = $"abcdA{uniqueId}@123";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
-        string uniquerole = "customer";
+        string uniquerole = "Operator";
         string requestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"{uniquerole}\" }}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -78,7 +71,7 @@ public class Tests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"Role\": \"admin\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"Role\": \"Admin\"}}";
         
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
@@ -95,7 +88,7 @@ public class Tests
         string uniqueusername = $"abcd_{uniqueId}";
         string uniquepassword = $"abcdA{uniqueId}@123";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
-        string uniquerole = "admin";
+        string uniquerole = "Admin";
         string requestBody = $"{{\"Username\": \"{uniqueusername}\", \"Password\": \"{uniquepassword}\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\",\"Role\" : \"{uniquerole}\" }}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
