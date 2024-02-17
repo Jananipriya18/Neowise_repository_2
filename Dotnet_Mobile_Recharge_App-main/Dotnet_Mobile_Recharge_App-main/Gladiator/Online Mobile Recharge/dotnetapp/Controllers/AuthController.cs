@@ -75,13 +75,7 @@ namespace dotnetapp.Controllers
             Console.WriteLine("UserId: " + user.Id); // Log UserId
             var roles = await _userManager.GetRolesAsync(user);
  
-            
-        return Ok(new
-    {
-        Token = token,
-        Roles = roles,
-        UserId = user != null ? Convert.ToInt32(user.Id) : 0
-    });
+            return Ok(new { Token = token, Roles = roles, UserId = user?.Id });
     
         }
     }
