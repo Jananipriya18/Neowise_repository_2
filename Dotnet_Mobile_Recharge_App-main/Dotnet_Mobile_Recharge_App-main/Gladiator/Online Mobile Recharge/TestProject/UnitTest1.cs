@@ -946,4 +946,3 @@ public async Task Backend_TestDeletePlan()
 
 }
 
-https://github.com/Jananipriya18/dotnet_mobileRecharge_Solution.git
