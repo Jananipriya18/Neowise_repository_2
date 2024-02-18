@@ -554,34 +554,328 @@ public async Task Backend_TestGetAssignmentById()
 
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
-    // Assume you have an existing assignmentId for testing, replace it with a valid assignmentId
-    long assignmentId = 1;
+    // Create a new container payload
+    var newContainer = new
+    {
+        Type = "string",
+        Status = "string",
+        Capacity = 0,
+        Location = "string",
+        Weight = 0,
+        Owner = "string",
+        CreationDate = "2024-02-18T03:08:57.598Z",
+        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+    };
 
-    // GET: Retrieve a specific assignment by ID
-    HttpResponseMessage getAssignmentByIdResponse = await _httpClient.GetAsync($"/api/assignment/{assignmentId}");
+    // Convert the newContainer object to JSON string
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
 
-    // Log request and response details for debugging
-    Console.WriteLine($"GET Assignment by ID Response Status Code: {getAssignmentByIdResponse.StatusCode}");
-    Console.WriteLine($"GET Assignment by ID Response Body: {await getAssignmentByIdResponse.Content.ReadAsStringAsync()}");
+    // POST: Create a new container
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
 
     // Assert the response status code
-    Assert.AreEqual(HttpStatusCode.OK, getAssignmentByIdResponse.StatusCode);
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
 
-    // Validate the response content
-    string getAssignmentByIdResponseBody = await getAssignmentByIdResponse.Content.ReadAsStringAsync();
-    Console.WriteLine($"GET Assignment by ID Response Body: {getAssignmentByIdResponseBody}");
+    // Extract the created container from the response
+    var createdContainer = JsonConvert.DeserializeObject<dynamic>(await postContainerResponse.Content.ReadAsStringAsync());
 
-    // Extract the retrieved assignment from the response
-    var retrievedAssignment = JsonConvert.DeserializeObject<dynamic>(getAssignmentByIdResponseBody);
+    // Check if the createdContainer is not null and contains the ContainerId property
+    if (createdContainer != null && createdContainer.ContainerId != null)
+    {
+        // Use the obtained ContainerId in the newAssignment JSON
+        long uniqueContainerId = GenerateUniqueContainerId(); // Replace with your logic to generate a unique long value
 
-    // Log the retrieved assignment for debugging purposes
-    Console.WriteLine($"Retrieved Assignment: {retrievedAssignment}");
+        var newAssignment = new
+        {
+            AssignmentId = 0,
+            ContainerId = uniqueContainerId,
+            UserId = 1,
+            Status = "string",
+            UpdateTime = "2024-02-18T02:11:12.528Z",
+            Route = "string",
+            Shipment = "string",
+            Destination = "string"
+        };
 
-    // Assert that the retrieved assignment is not null
-    Assert.IsNotNull(retrievedAssignment);
+        // Convert the newAssignment object to JSON string
+        string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
 
+        // POST: Create a new assignment
+        HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
+
+        // Log request and response details for debugging
+        Console.WriteLine($"Request Body: {postAssignmentBody}");
+        Console.WriteLine($"Response Status Code: {postAssignmentResponse.StatusCode}");
+        Console.WriteLine($"Response Body: {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code
+        Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+
+        // Validate the response content
+        string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Body: {postAssignmentResponseBody}");
+
+        // Extract the created assignment from the response
+        var createdAssignment = JsonConvert.DeserializeObject<dynamic>(postAssignmentResponseBody);
+
+        // Assert that the assignment is not null
+        Assert.IsNotNull(createdAssignment);
+
+        // Log in as an operator and retrieve assignments by user ID
+        // Assuming you have an operator's credentials
+        string operatorEmail = "operator@example.com";
+        string operatorPassword = "operatorPassword";
+
+        // Log in as an operator
+        HttpResponseMessage operatorLoginResponse = await _httpClient.PostAsync("/api/login", new StringContent($"{{\"Email\" : \"{operatorEmail}\",\"Password\" : \"{operatorPassword}\"}}", Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, operatorLoginResponse.StatusCode);
+
+        // Retrieve assignments by user ID
+        HttpResponseMessage getAssignmentsByUserIdResponse = await _httpClient.GetAsync($"/api/assignment/user/{createdAssignment.UserId}");
+        
+        // Log request and response details for debugging
+        Console.WriteLine($"GET Assignments by User ID Response Status Code: {getAssignmentsByUserIdResponse.StatusCode}");
+        Console.WriteLine($"GET Assignments by User ID Response Body: {await getAssignmentsByUserIdResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code for retrieving assignments by user ID
+        Assert.AreEqual(HttpStatusCode.OK, getAssignmentsByUserIdResponse.StatusCode);
+        
+        // Validate the response content if needed
+
+        // You can add more assertions based on your specific requirements
+    }
+
+long GenerateUniqueContainerId()
+{
+    return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+}
 }
 
+[Test]
+public async Task Backend_TestPostAndPutAssignmentByUserId()
+{
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
+
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+
+    // Create a new container payload
+    var newContainer = new
+    {
+        Type = "string",
+        Status = "string",
+        Capacity = 0,
+        Location = "string",
+        Weight = 0,
+        Owner = "string",
+        CreationDate = "2024-02-18T03:08:57.598Z",
+        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+    };
+
+    // Convert the newContainer object to JSON string
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
+
+    // POST: Create a new container
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+
+    // Assert the response status code
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+
+    // Extract the created container from the response
+    var createdContainer = JsonConvert.DeserializeObject<dynamic>(await postContainerResponse.Content.ReadAsStringAsync());
+
+    // Check if the createdContainer is not null and contains the ContainerId property
+    if (createdContainer != null && createdContainer.ContainerId != null)
+    {
+        // Use the obtained ContainerId in the newAssignment JSON
+        long uniqueContainerId = GenerateUniqueContainerId(); // Replace with your logic to generate a unique long value
+
+        var newAssignment = new
+        {
+            AssignmentId = 0,
+            ContainerId = uniqueContainerId,
+            UserId = 1,
+            Status = "string",
+            UpdateTime = "2024-02-18T02:11:12.528Z",
+            Route = "string",
+            Shipment = "string",
+            Destination = "string"
+        };
+
+        // Convert the newAssignment object to JSON string
+        string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
+
+        // POST: Create a new assignment
+        HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
+
+        // Log request and response details for debugging
+        Console.WriteLine($"Request Body (POST Assignment): {postAssignmentBody}");
+        Console.WriteLine($"Response Status Code (POST Assignment): {postAssignmentResponse.StatusCode}");
+        Console.WriteLine($"Response Body (POST Assignment): {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code for POSTing assignment
+        Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+
+        // Validate the response content
+        string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Body (POST Assignment): {postAssignmentResponseBody}");
+
+        // Extract the created assignment from the response
+        var createdAssignment = JsonConvert.DeserializeObject<dynamic>(postAssignmentResponseBody);
+
+        // Assert that the assignment is not null
+        Assert.IsNotNull(createdAssignment);
+
+        // Update the created assignment
+        createdAssignment.Status = "UpdatedStatus";
+        createdAssignment.Route = "UpdatedRoute";
+
+        // Convert the updatedAssignment object to JSON string
+        string putAssignmentBody = JsonConvert.SerializeObject(createdAssignment);
+
+        // PUT: Update the assignment
+        HttpResponseMessage putAssignmentResponse = await _httpClient.PutAsync($"/api/assignment/{createdAssignment.AssignmentId}", new StringContent(putAssignmentBody, Encoding.UTF8, "application/json"));
+
+        // Log request and response details for debugging
+        Console.WriteLine($"Request Body (PUT Assignment): {putAssignmentBody}");
+        Console.WriteLine($"Response Status Code (PUT Assignment): {putAssignmentResponse.StatusCode}");
+        Console.WriteLine($"Response Body (PUT Assignment): {await putAssignmentResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code for PUTting assignment
+        Assert.AreEqual(HttpStatusCode.OK, putAssignmentResponse.StatusCode);
+
+        // Validate the response content if needed
+
+        // You can add more assertions based on your specific requirements
+    }
+
+long GenerateUniqueContainerId()
+{
+    return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+}
+}
+
+[Test]
+public async Task Backend_TestPostAndDeleteAssignmentByUserId()
+{
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
+
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+
+    // Create a new container payload
+    var newContainer = new
+    {
+        Type = "string",
+        Status = "string",
+        Capacity = 0,
+        Location = "string",
+        Weight = 0,
+        Owner = "string",
+        CreationDate = "2024-02-18T03:08:57.598Z",
+        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+    };
+
+    // Convert the newContainer object to JSON string
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
+
+    // POST: Create a new container
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+
+    // Assert the response status code
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+
+    // Extract the created container from the response
+    var createdContainer = JsonConvert.DeserializeObject<dynamic>(await postContainerResponse.Content.ReadAsStringAsync());
+
+    // Check if the createdContainer is not null and contains the ContainerId property
+    if (createdContainer != null && createdContainer.ContainerId != null)
+    {
+        // Use the obtained ContainerId in the newAssignment JSON
+        long uniqueContainerId = GenerateUniqueContainerId(); // Replace with your logic to generate a unique long value
+
+        var newAssignment = new
+        {
+            AssignmentId = 0,
+            ContainerId = uniqueContainerId,
+            UserId = 1,
+            Status = "string",
+            UpdateTime = "2024-02-18T02:11:12.528Z",
+            Route = "string",
+            Shipment = "string",
+            Destination = "string"
+        };
+
+        // Convert the newAssignment object to JSON string
+        string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
+
+        // POST: Create a new assignment
+        HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
+
+        // Log request and response details for debugging
+        Console.WriteLine($"Request Body (POST Assignment): {postAssignmentBody}");
+        Console.WriteLine($"Response Status Code (POST Assignment): {postAssignmentResponse.StatusCode}");
+        Console.WriteLine($"Response Body (POST Assignment): {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code for POSTing assignment
+        Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+
+        // Validate the response content
+        string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
+        Console.WriteLine($"Response Body (POST Assignment): {postAssignmentResponseBody}");
+
+        // Extract the created assignment from the response
+        var createdAssignment = JsonConvert.DeserializeObject<dynamic>(postAssignmentResponseBody);
+
+        // Assert that the assignment is not null
+        Assert.IsNotNull(createdAssignment);
+
+        // DELETE: Delete the assignment
+        HttpResponseMessage deleteAssignmentResponse = await _httpClient.DeleteAsync($"/api/assignment/{createdAssignment.AssignmentId}");
+
+        // Log request and response details for debugging
+        Console.WriteLine($"Response Status Code (DELETE Assignment): {deleteAssignmentResponse.StatusCode}");
+        Console.WriteLine($"Response Body (DELETE Assignment): {await deleteAssignmentResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code for DELETing assignment
+        Assert.AreEqual(HttpStatusCode.OK, deleteAssignmentResponse.StatusCode);
+
+        // Validate the response content if needed
+
+        // You can add more assertions based on your specific requirements
+    }
+}
+
+long GenerateUniqueContainerId()
+{
+    return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
+}
 
 //     [Test]
 //     public async Task Backend_TestGetAllReportedIssues()
