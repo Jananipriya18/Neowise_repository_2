@@ -494,5 +494,121 @@ public async Task Backend_TestDeleteContainer()
 //     // This depends on your API design and available endpoints
 // }
 
+    [Test]
+    public async Task Backend_TestGetAllReportedIssues()
+    {
+        string uniqueId = Guid.NewGuid().ToString();
+        string uniqueUsername = $"abcd_{uniqueId}";
+        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
+        HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+        // Login the registered user
+        string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+        HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+        string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+        dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+        string userAuthToken = loginResponseMap.token;
+
+        // Use the obtained token in the request to post a new container
+        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+       // Create a new issue payload
+    var newIssue = new
+    {
+        Description = "SampleIssueDescription",
+        Severity = "Medium",
+        ReportedDate = DateTime.UtcNow,
+        UserId = 1,  // Set the desired UserId
+        AssignmentId = 0,  // Set the desired AssignmentId
+        User = new
+        {
+            UserId = 1,
+            Email = "sample.user@example.com",
+            Password = "userpassword",
+            Username = "SampleUser",
+            MobileNumber = "1234567890",
+            UserRole = "User"
+        },
+        Assignment = "SampleAssignment"
+    };
+
+    // Convert the newIssue object to JSON string
+    string postIssueBody = JsonConvert.SerializeObject(newIssue);
+
+    // POST: Create a new issue
+    HttpResponseMessage postIssueResponse = await _httpClient.PostAsync("/api/issue", new StringContent(postIssueBody, Encoding.UTF8, "application/json"));
+
+    // Assert the response status code
+    Assert.AreEqual(HttpStatusCode.Created, postIssueResponse.StatusCode, $"Post Issue Response: {postIssueResponse.Content.ReadAsStringAsync().Result}");
+
+    // Validate the response content
+    string postIssueResponseBody = await postIssueResponse.Content.ReadAsStringAsync();
+    Console.WriteLine($"Post Issue Response Body: {postIssueResponseBody}");
+
+    // Extract the created issue from the response
+    var createdIssue = JsonConvert.DeserializeObject<dynamic>(postIssueResponseBody);
+
+    // Assert that the issue is not null
+    Assert.IsNotNull(createdIssue);
+
+    // Add additional assertions as needed for the response content
+    // ...
+
+    // Debug information to assist in troubleshooting
+    Console.WriteLine("Debug Information:");
+    Console.WriteLine($"Database State: Check the state of the 'Issues' table in the database.");
+    Console.WriteLine($"Test Data Seeding: Ensure that the test database is properly seeded with data.");
+    Console.WriteLine($"Issue Creation Logic: Review the logic for creating and storing issues.");
+    Console.WriteLine($"User Authorization: Confirm that the user has the necessary role or permissions.");
+
+    // Fail the test if there are validation errors in the created issue
+    if (createdIssue.errors != null && createdIssue.errors.Count > 0)
+    {
+        Assert.Fail($"Validation errors occurred: {JsonConvert.SerializeObject(createdIssue.errors)}");
+    }
+
+    // Fail the test if there are validation errors in the response body
+    if (createdIssue.Issue != null && createdIssue.Issue.errors != null && createdIssue.Issue.errors.Count > 0)
+    {
+        Assert.Fail($"Validation errors occurred in the created issue: {JsonConvert.SerializeObject(createdIssue.Issue.errors)}");
+    }
+
+    // GET: Get all reported issues
+    HttpResponseMessage getIssuesResponse = await _httpClient.GetAsync("/api/issue");
+
+    // Assert the response status code
+    Assert.AreEqual(HttpStatusCode.OK, getIssuesResponse.StatusCode);
+
+    // Validate the response content
+    string getIssuesResponseBody = await getIssuesResponse.Content.ReadAsStringAsync();
+    Console.WriteLine($"Get Issues Response Body: {getIssuesResponseBody}");
+
+    // Extract the list of reported issues from the response
+    var reportedIssues = JsonConvert.DeserializeObject<List<dynamic>>(getIssuesResponseBody);
+
+    // Log the count of reported issues for debugging purposes
+    Console.WriteLine($"Number of Reported Issues: {reportedIssues.Count}");
+
+    // Assert that the list is not null and contains reported issues
+    Assert.IsNotNull(reportedIssues);
+
+    // Log the reported issues for debugging purposes
+    foreach (var issue in reportedIssues)
+    {
+        Console.WriteLine($"Issue: {issue}");
+    }
+
+    // Add additional assertions as needed for the response content
+    // ...
+
+    // Fail the test if there are no reported issues (modify this assertion based on your data)
+    Assert.IsTrue(reportedIssues.Count > 0, "There should be reported issues.");
+
+}
+    
+
 
 }
