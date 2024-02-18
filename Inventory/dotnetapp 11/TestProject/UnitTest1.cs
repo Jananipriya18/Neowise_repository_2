@@ -93,7 +93,7 @@ public class SpringappApplicationTests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"InventoryManager\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
