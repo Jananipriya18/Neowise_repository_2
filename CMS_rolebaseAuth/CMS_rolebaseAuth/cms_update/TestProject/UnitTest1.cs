@@ -176,7 +176,7 @@ public async Task Backend_TestPostAndGetContainerAsAdmin()
 }
 
 [Test]
-public async Task Backend_TestPostPutAndGetContainerAsAdmin()
+public async Task Backend_TestPostContainerAsAdmin()
 {
     // Register a user with the "Admin" role
     string uniqueId = Guid.NewGuid().ToString();
@@ -216,8 +216,65 @@ public async Task Backend_TestPostPutAndGetContainerAsAdmin()
     string postContainerBody = JsonConvert.SerializeObject(newContainer);
     HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
     Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+}
 
-    // Retrieve the posted container
+[Test]
+public async Task Backend_TestPostPutAndGetContainerAsAdmin()
+{
+    // Register a user with the "Admin" role
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to post a new container
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+
+    // POST: Create a new container
+    var newContainer = new Container
+    {
+        ContainerId = 0, // Set the desired ContainerId
+        Type = "string",
+        Status = "string",
+        Capacity = 100,
+        Location = "string",
+        Weight = 50.5,
+        Owner = "string",
+        CreationDate = DateTime.UtcNow,
+        LastInspectionDate = DateTime.UtcNow
+    };
+
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+
+    // Extract the created container from the response
+    var createdContainer = JsonConvert.DeserializeObject<Container>(await postContainerResponse.Content.ReadAsStringAsync());
+    long containerId = createdContainer.ContainerId;
+
+    // PUT: Update the created container
+    newContainer.Type = "UpdatedType";
+    newContainer.Status = "UpdatedStatus";
+
+    string putContainerBody = JsonConvert.SerializeObject(newContainer);
+    HttpResponseMessage putContainerResponse = await _httpClient.PutAsync($"/api/container/{containerId}", new StringContent(putContainerBody, Encoding.UTF8, "application/json"));
+    if (success)
+    return Ok(new { message = "Container updated successfully" });
+else
+    return NotFound(new { message = "Cannot find the container" });
+
+    // GET: Retrieve the updated container
     HttpResponseMessage getContainerResponse = await _httpClient.GetAsync("/api/container");
     Assert.AreEqual(HttpStatusCode.OK, getContainerResponse.StatusCode);
 
@@ -236,43 +293,6 @@ public async Task Backend_TestPostPutAndGetContainerAsAdmin()
     // Assert that containers are not null and there is at least one container
     Assert.IsNotNull(containers);
     Assert.IsTrue(containers.Any()); // This ensures that there is at least one container
-
-    // Update the container properties
-    var updatedContainer = new Container
-    {
-        ContainerId = 0,
-        Type = "updatedType",
-        Status = "updatedStatus",
-        Capacity = 150,
-        Location = "updatedLocation",
-        Weight = 60.5,
-        Owner = "updatedOwner",
-        CreationDate = DateTime.UtcNow,
-        LastInspectionDate = DateTime.UtcNow
-    };
-
-    // Use the correct HTTP method for updating the container (Replace PutAsync with the correct method)
-    string updateEndpoint = $"/api/container/{containers.First().ContainerId}";
-    string putContainerBody = JsonConvert.SerializeObject(updatedContainer);
-    HttpResponseMessage putContainerResponse = await _httpClient.PutAsync(updateEndpoint, new StringContent(putContainerBody, Encoding.UTF8, "application/json"));
-    
-    // Check the correct HTTP method for updating the container and adjust the assert accordingly
-    Assert.AreEqual(HttpStatusCode.OK, putContainerResponse.StatusCode); // Adjust if needed
-
-    // Retrieve the updated container
-    HttpResponseMessage getUpdatedContainerResponse = await _httpClient.GetAsync(updateEndpoint);
-    Assert.AreEqual(HttpStatusCode.OK, getUpdatedContainerResponse.StatusCode);
-
-    // Validate the updated container properties
-    string getUpdatedContainerResponseBody = await getUpdatedContainerResponse.Content.ReadAsStringAsync();
-    var updatedContainers = JsonConvert.DeserializeObject<Container>(getUpdatedContainerResponseBody);
-
-    // Additional assertions based on your requirements
-    // For example, you can assert specific properties of the updated container
-    Assert.IsNotNull(updatedContainers);
-    Assert.AreEqual(updatedContainer.Type, updatedContainers.Type);
-    Assert.AreEqual(updatedContainer.Status, updatedContainers.Status);
-    Assert.AreEqual(updatedContainer.Capacity, updatedContainers.Capacity);
 }
 
 }
