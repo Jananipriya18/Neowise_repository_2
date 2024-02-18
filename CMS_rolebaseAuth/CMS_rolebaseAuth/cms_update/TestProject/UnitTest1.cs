@@ -158,15 +158,15 @@ public async Task Backend_TestGetContainer()
 
     // Validate the response content
     string getContainerResponseBody = await getContainerResponse.Content.ReadAsStringAsync();
-    Console.WriteLine($"Response Body: {getContainerResponseBody}");
+    // Console.WriteLine($"Response Body: {getContainerResponseBody}");
 
     var containers = JsonConvert.DeserializeObject<List<Container>>(getContainerResponseBody);
 
     // Console log to inspect containers
-    foreach (var container in containers)
-    {
-        Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
-    }
+    // foreach (var container in containers)
+    // {
+    //     Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
+    // }
 
     // Assert that containers are not null and there is at least one container
     Assert.IsNotNull(containers);
@@ -244,7 +244,7 @@ public async Task Backend_TestPutContainer()
     // POST: Create a new container
     var newContainer = new Container
     {
-        ContainerId = 0, // Set the desired ContainerId
+        ContainerId = 0, 
         Type = "string",
         Status = "string",
         Capacity = 100,
@@ -296,10 +296,10 @@ public async Task Backend_TestPutContainer()
     var containers = JsonConvert.DeserializeObject<List<Container>>(getContainerResponseBody);
 
     //Console log to inspect containers
-    foreach (var container in containers)
-    {
-        Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
-    }
+    // foreach (var container in containers)
+    // {
+    //     Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
+    // }
 
     // Assert that containers are not null and there is at least one container
     Assert.IsNotNull(containers);
@@ -411,11 +411,12 @@ public async Task Backend_TestPostAssignmentAsAdmin()
     // Use the obtained token in the request to post a new container
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
     
-    // Create a new assignment payload
+    var uniqueContainerId = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+
     var newAssignment = new
     {
         AssignmentId = 0,
-        ContainerId = 8,
+        ContainerId = uniqueContainerId,
         UserId = 1,
         Status = "string",
         UpdateTime = "2024-02-18T02:11:12.528Z",
@@ -423,6 +424,7 @@ public async Task Backend_TestPostAssignmentAsAdmin()
         Shipment = "string",
         Destination = "string"
     };
+
 
     // Convert the newAssignment object to JSON string
     string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
@@ -448,11 +450,98 @@ public async Task Backend_TestPostAssignmentAsAdmin()
     // Assert that the assignment is not null
     Assert.IsNotNull(createdAssignment);
 
-    // Add additional assertions as needed for the response content
+}
+
+[Test]
+public async Task Backend_TestGetAssignmentAsAdmin()
+{
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
+
+    // Use the obtained token in the request to post a new container
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+    // Create a new assignment payload for POST
+   var newAssignment = new
+    {
+        AssignmentId = 0,
+        ContainerId = Guid.NewGuid(), 
+        UserId = 1,
+        Status = "string",
+        UpdateTime = "2024-02-18T02:11:12.528Z",
+        Route = "string",
+        Shipment = "string",
+        Destination = "string"
+    };
+
+    // Convert the newAssignment object to JSON string for POST
+    string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
+
+    // POST: Create a new assignment
+    HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
+
+    // Log request and response details for debugging
+    Console.WriteLine($"POST Request Body: {postAssignmentBody}");
+    Console.WriteLine($"POST Response Status Code: {postAssignmentResponse.StatusCode}");
+    Console.WriteLine($"POST Response Body: {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+
+    // Assert the response status code for POST
+    Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+
+    // Validate the response content for POST
+    string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
+    Console.WriteLine($"POST Response Body: {postAssignmentResponseBody}");
+
+    // Extract the created assignment from the response for POST
+    var createdAssignment = JsonConvert.DeserializeObject<dynamic>(postAssignmentResponseBody);
+
+    // Assert that the assignment is not null for POST
+    Assert.IsNotNull(createdAssignment);
+
+    // Add additional assertions as needed for the response content for POST
     // ...
 
-    // You may also want to test retrieving the assignment by its ID
-    // This depends on your API design and available endpoints
+    // GET: Retrieve all assignments
+    HttpResponseMessage getAssignmentsResponse = await _httpClient.GetAsync("/api/assignment");
+
+    // Log request and response details for debugging
+    Console.WriteLine($"GET Response Status Code: {getAssignmentsResponse.StatusCode}");
+    Console.WriteLine($"GET Response Body: {await getAssignmentsResponse.Content.ReadAsStringAsync()}");
+
+    // Assert the response status code for GET
+    Assert.AreEqual(HttpStatusCode.OK, getAssignmentsResponse.StatusCode);
+
+    // Validate the response content for GET
+    string getAssignmentsResponseBody = await getAssignmentsResponse.Content.ReadAsStringAsync();
+    Console.WriteLine($"GET Response Body: {getAssignmentsResponseBody}");
+
+    // Extract the list of assignments from the response for GET
+    var assignments = JsonConvert.DeserializeObject<List<dynamic>>(getAssignmentsResponseBody);
+
+    // Log the count of assignments for debugging purposes
+    Console.WriteLine($"Number of Assignments: {assignments.Count}");
+
+    // Assert that the list is not null and contains assignments for GET
+    Assert.IsNotNull(assignments);
+
+    // Log the assignments for debugging purposes
+    foreach (var assignment in assignments)
+    {
+        Console.WriteLine($"Assignment: {assignment}");
+    }
+
 }
 
     [Test]
