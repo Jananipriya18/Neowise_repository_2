@@ -555,10 +555,10 @@ public async Task Backend_TestGetAssignmentById()
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
     // Assume you have an existing assignmentId for testing, replace it with a valid assignmentId
-    long assignmentIdToRetrieve = 1;
+    long assignmentId = 1;
 
     // GET: Retrieve a specific assignment by ID
-    HttpResponseMessage getAssignmentByIdResponse = await _httpClient.GetAsync($"/api/assignment/{assignmentIdToRetrieve}");
+    HttpResponseMessage getAssignmentByIdResponse = await _httpClient.GetAsync($"/api/assignment/{assignmentId}");
 
     // Log request and response details for debugging
     Console.WriteLine($"GET Assignment by ID Response Status Code: {getAssignmentByIdResponse.StatusCode}");
@@ -580,14 +580,6 @@ public async Task Backend_TestGetAssignmentById()
     // Assert that the retrieved assignment is not null
     Assert.IsNotNull(retrievedAssignment);
 
-    // Add additional assertions as needed for the response content
-    // ...
-
-    // Debug information to assist in troubleshooting
-    Console.WriteLine("Debug Information:");
-    Console.WriteLine($"Database State: Check the state of the 'Assignments' table in the database.");
-    Console.WriteLine($"Test Data Seeding: Ensure that the test database is properly seeded with data.");
-    Console.WriteLine($"Assignment Retrieval Logic: Review the logic for retrieving assignments by ID.");
 }
 
 
