@@ -393,31 +393,36 @@ public async Task Backend_TestDeleteContainer()
 public async Task Backend_TestPostAssignmentAsAdmin()
 {
     // Register a user with the "Admin" role
-    string uniqueId = Guid.NewGuid().ToString();
-    string uniqueUsername = $"abcd_{uniqueId}";
-    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+    // Create a new user
+    var newUser = new
+    {
+        Email = "user@example.com",
+        Password = "password",
+        Username = "sampleUser",
+        MobileNumber = "1234567890",
+        UserRole = "User"
+    };
 
-    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
-    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+    string postUserBody = JsonConvert.SerializeObject(newUser);
+    HttpResponseMessage postUserResponse = await _httpClient.PostAsync("/api/register", new StringContent(postUserBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, postUserResponse.StatusCode);
 
-    // Login the registered user
-    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
-    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
-    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
-    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
-    string userAuthToken = loginResponseMap.token;
+    // Login the created user
+    string loginUserRequestBody = $"{{\"Email\" : \"{newUser.Email}\",\"Password\" : \"{newUser.Password}\"}}";
+    HttpResponseMessage loginUserResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginUserRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginUserResponse.StatusCode);
+    dynamic loginUserResponseMap = JsonConvert.DeserializeObject(await loginUserResponse.Content.ReadAsStringAsync());
+    string userAuthToken = loginUserResponseMap.token;
 
-    // Use the obtained token in the request to post a new assignment
+
+    // Use the obtained token in the request to post a new container
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
     // Create a new assignment payload
     var newAssignment = new
     {
-        AssignmentId = 0,
-        ContainerId = 0,
-        UserId = 0,
+        ContainerId = 1, // Set the desired ContainerId
+        UserId = 1, // Set the desired UserId
         Status = "string",
         UpdateTime = DateTime.UtcNow,
         Route = "string",
@@ -425,43 +430,9 @@ public async Task Backend_TestPostAssignmentAsAdmin()
         Destination = "string",
         Issue = new
         {
-            IssueId = 0,
             Description = "string",
             Severity = "string",
-            ReportedDate = DateTime.UtcNow,
-            UserId = 0,
-            AssignmentId = 0,
-            User = new
-            {
-                UserId = 0,
-                Email = "string",
-                Password = "string",
-                Username = "string",
-                MobileNumber = "string",
-                UserRole = "string"
-            },
-            Assignment = "string"
-        },
-        Container = new
-        {
-            ContainerId = 0,
-            Type = "string",
-            Status = "string",
-            Capacity = 0,
-            Location = "string",
-            Weight = 0,
-            Owner = "string",
-            CreationDate = DateTime.UtcNow,
-            LastInspectionDate = DateTime.UtcNow
-        },
-        User = new
-        {
-            UserId = 0,
-            Email = "string",
-            Password = "string",
-            Username = "string",
-            MobileNumber = "string",
-            UserRole = "string"
+            ReportedDate = DateTime.UtcNow
         }
     };
 
@@ -470,7 +441,15 @@ public async Task Backend_TestPostAssignmentAsAdmin()
 
     // POST: Create a new assignment
     HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+
+        // Log request and response details for debugging
+        Console.WriteLine($"Request Body: {postAssignmentBody}");
+        Console.WriteLine($"Response Status Code: {postAssignmentResponse.StatusCode}");
+        Console.WriteLine($"Response Body: {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+
+        // Assert the response status code
+        Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+
 
     // Validate the response content
     string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
