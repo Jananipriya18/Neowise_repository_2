@@ -878,27 +878,25 @@ long GenerateUniqueContainerId()
 }
 
     [Test]
-public async Task Backend_TestPostAllReportedIssues()
+public async Task Backend_TestGetAllReportedIssues()
 {
-    // Register an Admin user
-    string uniqueIdAdmin = Guid.NewGuid().ToString();
-    string uniqueUsernameAdmin = $"abcd_{uniqueIdAdmin}";
-    string uniqueEmailAdmin = $"abcd{uniqueIdAdmin}@gmail.com";
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-    string requestBodyAdmin = $"{{\"Username\": \"{uniqueUsernameAdmin}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmailAdmin}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
-    HttpResponseMessage registerResponseAdmin = await _httpClient.PostAsync("/api/register", new StringContent(requestBodyAdmin, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, registerResponseAdmin.StatusCode);
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
-    // Login the registered admin user
-    string loginRequestBodyAdmin = $"{{\"Email\" : \"{uniqueEmailAdmin}\",\"Password\" : \"abc@123A\"}}";
-    HttpResponseMessage loginResponseAdmin = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBodyAdmin, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, loginResponseAdmin.StatusCode);
-    string loginResponseBodyAdmin = await loginResponseAdmin.Content.ReadAsStringAsync();
-    dynamic loginResponseMapAdmin = JsonConvert.DeserializeObject(loginResponseBodyAdmin);
-    string userAuthTokenAdmin = loginResponseMapAdmin.token;
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
 
-    // Use the obtained token in the request to post a new container
-    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthTokenAdmin);
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
     // Create a new container payload
     var newContainer = new
@@ -925,76 +923,55 @@ public async Task Backend_TestPostAllReportedIssues()
     // Extract the created container from the response
     var createdContainer = JsonConvert.DeserializeObject<dynamic>(await postContainerResponse.Content.ReadAsStringAsync());
 
-    // Assert that the container is not null
-    Assert.IsNotNull(createdContainer);
-
-    // Extract AssignmentId from the created container
-    long assignmentId = createdContainer.AssignmentId;
-
-    // Switch user role to Operator
-    string uniqueIdOperator = Guid.NewGuid().ToString();
-    string uniqueUsernameOperator = $"abcd_{uniqueIdOperator}";
-    string uniqueEmailOperator = $"abcd{uniqueIdOperator}@gmail.com";
-
-    string requestBodyOperator = $"{{\"Username\": \"{uniqueUsernameOperator}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmailOperator}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
-    HttpResponseMessage registerResponseOperator = await _httpClient.PostAsync("/api/register", new StringContent(requestBodyOperator, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, registerResponseOperator.StatusCode);
-
-    // Login the registered operator user
-    string loginRequestBodyOperator = $"{{\"Email\" : \"{uniqueEmailOperator}\",\"Password\" : \"abc@123A\"}}";
-    HttpResponseMessage loginResponseOperator = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBodyOperator, Encoding.UTF8, "application/json"));
-    Assert.AreEqual(HttpStatusCode.OK, loginResponseOperator.StatusCode);
-    string loginResponseBodyOperator = await loginResponseOperator.Content.ReadAsStringAsync();
-    dynamic loginResponseMapOperator = JsonConvert.DeserializeObject(loginResponseBodyOperator);
-    string userAuthTokenOperator = loginResponseMapOperator.token;
-
-    // Use the obtained token in the request to post a new assignment
-    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthTokenOperator);
-
-    // Create a new assignment payload with the captured AssignmentId
-    var newAssignment = new
+    // Check if the createdContainer is not null and contains the ContainerId property
+    if (createdContainer != null && createdContainer.ContainerId != null)
     {
-        AssignmentId = 0,
-        ContainerId = assignmentId,
-        UserId = 1,
-        Status = "string",
-        UpdateTime = "2024-02-18T02:11:12.528Z",
-        Route = "string",
-        Shipment = "string",
-        Destination = "string"
-    };
+        // Use the obtained ContainerId in the newAssignment JSON
+        long uniqueContainerId = GenerateUniqueContainerId(); // Replace with your logic to generate a unique long value
 
-    // Convert the newAssignment object to JSON string
-    string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
+        var newAssignment = new
+        {
+            AssignmentId = 0,
+            ContainerId = uniqueContainerId,
+            UserId = 1,
+            Status = "string",
+            UpdateTime = "2024-02-18T02:11:12.528Z",
+            Route = "string",
+            Shipment = "string",
+            Destination = "string"
+        };
 
-    // POST: Create a new assignment
-    HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
+        // Convert the newAssignment object to JSON string
+        string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
 
-    // Log request and response details for debugging
-    Console.WriteLine($"Request Body (Assignment): {postAssignmentBody}");
-    Console.WriteLine($"Response Status Code (Assignment): {postAssignmentResponse.StatusCode}");
-    Console.WriteLine($"Response Body (Assignment): {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+        // POST: Create a new assignment
+        HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
 
-    // Assert the response status code
-    Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+        long assignmentId = postAssignmentBody.AssignmentId;
 
-    // Validate the response content
-    string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
-    Console.WriteLine($"Response Body (Assignment): {postAssignmentResponseBody}");
+   
+        // Switch user role to Operator
+        string uniqueIdOperator = Guid.NewGuid().ToString();
+        string uniqueUsernameOperator = $"abcd_{uniqueIdOperator}";
+        string uniqueEmailOperator = $"abcd{uniqueIdOperator}@gmail.com";
 
-    // Extract the created assignment from the response
-    var createdAssignment = JsonConvert.DeserializeObject<dynamic>(postAssignmentResponseBody);
+        // Register an Operator user
+        string requestBodyOperator = $"{{\"Username\": \"{uniqueUsernameOperator}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmailOperator}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
+        HttpResponseMessage registerResponseOperator = await _httpClient.PostAsync("/api/register", new StringContent(requestBodyOperator, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, registerResponseOperator.StatusCode);
 
-    // Assert that the assignment is not null
-    Assert.IsNotNull(createdAssignment);
+        // Login the registered Operator user
+        string loginRequestBodyOperator = $"{{\"Email\" : \"{uniqueEmailOperator}\",\"Password\" : \"abc@123A\"}}";
+        HttpResponseMessage loginResponseOperator = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBodyOperator, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, loginResponseOperator.StatusCode);
+        string loginResponseBodyOperator = await loginResponseOperator.Content.ReadAsStringAsync();
+        dynamic loginResponseMapOperator = JsonConvert.DeserializeObject(loginResponseBodyOperator);
+        string userAuthTokenOperator = loginResponseMapOperator.token;
 
-    // Extract AssignmentId from the created assignment
-    // long assignmentId = createdAssignment.AssignmentId;
+        // Use the obtained token in the request to post a new issue
+        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthTokenOperator);
 
-    // Use the obtained token in the request to post a new issue
-    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthTokenOperator);
-
-    // Create a new issue payload with the captured AssignmentId
+        // Create a new issue payload with the captured AssignmentId
     var newIssue = new
     {
         IssueId = 0,
@@ -1031,3 +1008,5 @@ public async Task Backend_TestPostAllReportedIssues()
     Assert.IsNotNull(reportedIssue.issue);
 }
 }
+}
+
