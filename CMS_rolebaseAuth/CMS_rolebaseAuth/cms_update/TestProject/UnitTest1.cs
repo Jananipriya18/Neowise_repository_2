@@ -458,7 +458,7 @@ if (createdContainer != null && createdContainer.ContainerId != null)
     // Convert the newAssignment object to JSON string
 string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
 
-public long GenerateUniqueContainerId()
+long GenerateUniqueContainerId()
 {
     return (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalMilliseconds;
 }
@@ -487,97 +487,109 @@ public long GenerateUniqueContainerId()
 }
 }
 
-// [Test]
-// public async Task Backend_TestGetAssignmentAsAdmin()
-// {
-//     string uniqueId = Guid.NewGuid().ToString();
-//     string uniqueUsername = $"abcd_{uniqueId}";
-//     string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+[Test]
+public async Task Backend_TestGetAssignmentAsAdmin()
+{
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-//     string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
-//     HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
-//     // Login the registered user
-//     string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
-//     HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
-//     string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
-//     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
-//     string userAuthToken = loginResponseMap.token;
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
 
-//     // Use the obtained token in the request to post a new container
-//     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
-//     // Create a new assignment payload for POST
-//    var newAssignment = new
-//     {
-//         AssignmentId = 0,
-//         ContainerId = Guid.NewGuid(), 
-//         UserId = 1,
-//         Status = "string",
-//         UpdateTime = "2024-02-18T02:11:12.528Z",
-//         Route = "string",
-//         Shipment = "string",
-//         Destination = "string"
-//     };
+    // Use the obtained token in the request to post a new container
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+    // Create a new assignment payload for POST
+    // GET: Retrieve assignments
+    HttpResponseMessage getAssignmentsResponse = await _httpClient.GetAsync("/api/assignment");
 
-//     // Convert the newAssignment object to JSON string for POST
-//     string postAssignmentBody = JsonConvert.SerializeObject(newAssignment);
+    // Log request and response details for debugging
+    Console.WriteLine($"GET Assignments Response Status Code: {getAssignmentsResponse.StatusCode}");
+    Console.WriteLine($"GET Assignments Response Body: {await getAssignmentsResponse.Content.ReadAsStringAsync()}");
 
-//     // POST: Create a new assignment
-//     HttpResponseMessage postAssignmentResponse = await _httpClient.PostAsync("/api/assignment", new StringContent(postAssignmentBody, Encoding.UTF8, "application/json"));
+    // Assert the response status code
+    Assert.AreEqual(HttpStatusCode.OK, getAssignmentsResponse.StatusCode);
 
-//     // Log request and response details for debugging
-//     Console.WriteLine($"POST Request Body: {postAssignmentBody}");
-//     Console.WriteLine($"POST Response Status Code: {postAssignmentResponse.StatusCode}");
-//     Console.WriteLine($"POST Response Body: {await postAssignmentResponse.Content.ReadAsStringAsync()}");
+    // Validate the response content
+    string getAssignmentsResponseBody = await getAssignmentsResponse.Content.ReadAsStringAsync();
+    Console.WriteLine($"GET Assignments Response Body: {getAssignmentsResponseBody}");
 
-//     // Assert the response status code for POST
-//     Assert.AreEqual(HttpStatusCode.Created, postAssignmentResponse.StatusCode);
+    // Extract the list of assignments from the response
+    var assignments = JsonConvert.DeserializeObject<List<dynamic>>(getAssignmentsResponseBody);
 
-//     // Validate the response content for POST
-//     string postAssignmentResponseBody = await postAssignmentResponse.Content.ReadAsStringAsync();
-//     Console.WriteLine($"POST Response Body: {postAssignmentResponseBody}");
+    // Log the count of assignments for debugging purposes
+    Console.WriteLine($"Number of Assignments: {assignments.Count}");
 
-//     // Extract the created assignment from the response for POST
-//     var createdAssignment = JsonConvert.DeserializeObject<dynamic>(postAssignmentResponseBody);
+    // Assert that the list is not null and contains assignments
+    Assert.IsNotNull(assignments);
+}
 
-//     // Assert that the assignment is not null for POST
-//     Assert.IsNotNull(createdAssignment);
+[Test]
+public async Task Backend_TestGetAssignmentById()
+{
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-//     // Add additional assertions as needed for the response content for POST
-//     // ...
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
-//     // GET: Retrieve all assignments
-//     HttpResponseMessage getAssignmentsResponse = await _httpClient.GetAsync("/api/assignment");
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
 
-//     // Log request and response details for debugging
-//     Console.WriteLine($"GET Response Status Code: {getAssignmentsResponse.StatusCode}");
-//     Console.WriteLine($"GET Response Body: {await getAssignmentsResponse.Content.ReadAsStringAsync()}");
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
-//     // Assert the response status code for GET
-//     Assert.AreEqual(HttpStatusCode.OK, getAssignmentsResponse.StatusCode);
+    // Assume you have an existing assignmentId for testing, replace it with a valid assignmentId
+    long assignmentIdToRetrieve = 1;
 
-//     // Validate the response content for GET
-//     string getAssignmentsResponseBody = await getAssignmentsResponse.Content.ReadAsStringAsync();
-//     Console.WriteLine($"GET Response Body: {getAssignmentsResponseBody}");
+    // GET: Retrieve a specific assignment by ID
+    HttpResponseMessage getAssignmentByIdResponse = await _httpClient.GetAsync($"/api/assignment/{assignmentIdToRetrieve}");
 
-//     // Extract the list of assignments from the response for GET
-//     var assignments = JsonConvert.DeserializeObject<List<dynamic>>(getAssignmentsResponseBody);
+    // Log request and response details for debugging
+    Console.WriteLine($"GET Assignment by ID Response Status Code: {getAssignmentByIdResponse.StatusCode}");
+    Console.WriteLine($"GET Assignment by ID Response Body: {await getAssignmentByIdResponse.Content.ReadAsStringAsync()}");
 
-//     // Log the count of assignments for debugging purposes
-//     Console.WriteLine($"Number of Assignments: {assignments.Count}");
+    // Assert the response status code
+    Assert.AreEqual(HttpStatusCode.OK, getAssignmentByIdResponse.StatusCode);
 
-//     // Assert that the list is not null and contains assignments for GET
-//     Assert.IsNotNull(assignments);
+    // Validate the response content
+    string getAssignmentByIdResponseBody = await getAssignmentByIdResponse.Content.ReadAsStringAsync();
+    Console.WriteLine($"GET Assignment by ID Response Body: {getAssignmentByIdResponseBody}");
 
-//     // Log the assignments for debugging purposes
-//     foreach (var assignment in assignments)
-//     {
-//         Console.WriteLine($"Assignment: {assignment}");
-//     }
+    // Extract the retrieved assignment from the response
+    var retrievedAssignment = JsonConvert.DeserializeObject<dynamic>(getAssignmentByIdResponseBody);
 
-// }
+    // Log the retrieved assignment for debugging purposes
+    Console.WriteLine($"Retrieved Assignment: {retrievedAssignment}");
+
+    // Assert that the retrieved assignment is not null
+    Assert.IsNotNull(retrievedAssignment);
+
+    // Add additional assertions as needed for the response content
+    // ...
+
+    // Debug information to assist in troubleshooting
+    Console.WriteLine("Debug Information:");
+    Console.WriteLine($"Database State: Check the state of the 'Assignments' table in the database.");
+    Console.WriteLine($"Test Data Seeding: Ensure that the test database is properly seeded with data.");
+    Console.WriteLine($"Assignment Retrieval Logic: Review the logic for retrieving assignments by ID.");
+}
+
 
 //     [Test]
 //     public async Task Backend_TestGetAllReportedIssues()
