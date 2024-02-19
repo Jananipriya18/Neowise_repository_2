@@ -3,8 +3,8 @@ e
 <!-- add-course.component.html -->
 <div class="add-course-container">
   <h2>Course Management</h2>
-  <button type="button" (click)="toggleCourseForm()">Add new course</button>
-  <button type="button" (click)="toggleCourseList()">List of Available Courses</button>
+  <!-- <button type="button" (click)="toggleCourseForm()">Add new course</button>
+  <button type="button" (click)="toggleCourseList()">List of Available Courses</button> -->
 
   <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
     <!-- ... (your form fields) -->
