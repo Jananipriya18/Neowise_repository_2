@@ -24,8 +24,14 @@ export class CourseService {
   }
 
   createCourse(course: Course): Observable<Course> {
-    return this.http.post<Course>(`${this.apiUrl}/api/Course`, course);
-  }
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
+      });
+      return this.http.post<Course>(`${this.apiUrl}/api/Course`, course {headers});
+    }
+ 
 
   updateCourse(courseId: number, course: Course): Observable<Course> {
     return this.http.put<Course>(`${this.apiUrl}/api/Course/${courseId}`, course);
