@@ -12,8 +12,6 @@ import { CustomerDashboardComponent } from './components/customer-dashboard/cust
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AddReviewComponent } from './components/add-review/add-review.component';
-import { AdminViewReviewComponent } from './components/admin-view-review/admin-view-review.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +23,6 @@ import { AdminViewReviewComponent } from './components/admin-view-review/admin-v
     AdminDashboardComponent,
     CustomerDashboardComponent,
     NavbarComponent,
-    AddReviewComponent,
-    AdminViewReviewComponent,
   ],
   imports: [
     BrowserModule,
