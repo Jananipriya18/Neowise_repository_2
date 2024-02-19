@@ -1,10 +1,39 @@
 <!-- add-course.component.html -->
+e
+<!-- add-course.component.html -->
 <div class="add-course-container">
   <h2>Course Management</h2>
-  <button type="button" >Add new course</button>
-  <button type="button" >List of Available Courses</button>
+  <button type="button" (click)="toggleCourseForm()">Add new course</button>
+  <button type="button" (click)="toggleCourseList()">List of Available Courses</button>
 
-  <form [formGroup]="newCourseForm" (ngSubmit)="addCourse()">
+  <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
+    <!-- ... (your form fields) -->
+    <div class="button-group">
+      <button type="submit">Add Course</button>
+    </div>
+  </form>
+
+  <div *ngIf="!isNewCourse" class="course-list-container">
+    <h3>List of Available Courses</h3>
+
+    <div *ngFor="let course of courses" class="course-card">
+      <h4>{{ course.courseName }}</h4>
+      <p><strong>Description:</strong> {{ course.description }}</p>
+      <p><strong>Duration:</strong> {{ course.duration }}</p>
+      <p><strong>Amount:</strong> {{ course.amount }}</p>
+      <div class="button-group">
+        <button type="button" (click)="viewCourseDetails(course)">View Course</button>
+        <button type="button" (click)="deleteCourse(course.id)">Delete Course</button>
+      </div>
+    </div>
+  </div>
+<div class="add-course-container">
+  <h2>Course Management</h2>
+
+  <button type="button" (click)="isNewCourse = true">Add new course</button>
+  <button type="button" (click)="isNewCourse = false">List of Available Courses</button>
+
+  <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
     <div class="form-group">
       <label for="courseName">Course Name:</label>
       <input type="text" id="courseName" formControlName="courseName">
@@ -49,7 +78,13 @@
   <div *ngIf="!isNewCourse" class="additional-buttons">
     <button type="button" (click)="deleteCourse()">Delete Course</button>
     <button type="button" (click)="viewCourseDetails()">View Course</button>
-  </div>
 
- 
+    <h3>Fetched Courses</h3>
+    <ul>
+      <li *ngFor="let course of courses">
+        {{ course.courseName }} - {{ course.description }}
+      </li>
+    </ul>
+  </div>
 </div>
+
