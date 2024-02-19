@@ -1,0 +1,7 @@
+<!-- course-list.component.html -->
+<div *ngFor="let course of courses">
+    <h2>{{ course.courseName }}</h2>
+    <p>{{ course.description }}</p>
+    <button (click)="deleteCourse(course.courseID)">Delete</button>
+  </div>
+  

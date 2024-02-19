@@ -12,6 +12,7 @@ import { CustomerDashboardComponent } from './components/customer-dashboard/cust
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CourseListComponent } from './components/course-list/course-list.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     AdminDashboardComponent,
     CustomerDashboardComponent,
     NavbarComponent,
+    CourseListComponent,
   ],
   imports: [
     BrowserModule,
