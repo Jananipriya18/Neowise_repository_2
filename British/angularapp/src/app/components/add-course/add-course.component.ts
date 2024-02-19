@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
-import { AuthGuard } from 'src/app/guards/auth.guard'; // Import your AuthGuard
 
 @Component({
   selector: 'app-add-course',
@@ -12,14 +11,9 @@ import { AuthGuard } from 'src/app/guards/auth.guard'; // Import your AuthGuard
 })
 export class AddCourseComponent {
 
-  newCourseForm: FormGroup;
+  newCourseForm: FormGroup; 
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private courseService: CourseService,
-    private router: Router,
-    private authGuard: AuthGuard  // Inject the AuthGuard
-  ) {
+  constructor(private formBuilder: FormBuilder, private courseService: CourseService, private router: Router) {
     this.newCourseForm = this.formBuilder.group({
       courseName: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -29,29 +23,34 @@ export class AddCourseComponent {
   }
 
   addCourse(): void {
-    if (this.newCourseForm.valid) {
+    if (this.newCourseForm.valid) { // Check if the form is valid
       const newCourse: Course = this.newCourseForm.value as Course;
 
-      // Get user role from AuthGuard
-      const userRole = this.authGuard.getUserRole();
-
-      // Include authentication headers
-      const httpOptions = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + this.authGuard.getAuthToken()  // Use the AuthGuard method to get the token
-      };
-
-      this.courseService.createCourse(newCourse, httpOptions).subscribe(
+      this.courseService.createCourse(newCourse).subscribe(
         (createdCourse: Course) => {
+          // Handle successful creation, e.g., show a success message or navigate to another page
           console.log('Course created successfully:', createdCourse);
-          this.router.navigate(['/']);
+          this.router.navigate(['/']); // Navigate to the courses page after successful creation
         },
         (error) => {
+          // Handle error, e.g., display an error message
           console.error('Error creating course:', error);
         }
       );
     } else {
+      // Form is not valid, display an error message or handle it as needed
       console.error('Form is not valid');
     }
+
+    this.courseService.getAllCourses().subscribe(
+  (courses: Course[]) => {
+    // Handle the retrieved courses
+    console.log('Courses:', courses);
+  },
+  (error) => {
+    // Handle the error
+    console.error('Error fetching courses:', error);
+  }
+);
   }
 }

@@ -39,7 +39,7 @@ namespace dotnetapp.Controllers
             }
             return Ok(enquiry);
         }
-// [Authorize(Roles="Customer")]
+[Authorize(Roles="Customer")]
 
         [HttpPost]
         public async Task<IActionResult> CreateEnquiry(Enquiry enquiry)
