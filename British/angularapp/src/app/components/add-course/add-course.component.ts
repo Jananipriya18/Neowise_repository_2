@@ -30,7 +30,7 @@ export class AddCourseComponent {
         (createdCourse: Course) => {
           // Handle successful creation, e.g., show a success message or navigate to another page
           console.log('Course created successfully:', createdCourse);
-          this.router.navigate(['/courses']); // Navigate to the courses page after successful creation
+          this.router.navigate(['/']); // Navigate to the courses page after successful creation
         },
         (error) => {
           // Handle error, e.g., display an error message
