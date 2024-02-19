@@ -6,13 +6,13 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CourseListComponent } from './components/course-list/course-list.component';
-// import { AddCourseComponent } from './components/add-course/add-course.component';
+import { AddCourseComponent } from './components/add-course/add-course.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegistrationComponent },
-  // { path: 'admin/add/course', component: AddCourseComponent, canActivate: [AuthGuard] },
+  { path: 'admin/add/course', component: AddCourseComponent, canActivate: [AuthGuard] },
   { path: 'error', component: ErrorComponent, data: { message: 'Oops! Something went wrong.' }},
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
 ];
