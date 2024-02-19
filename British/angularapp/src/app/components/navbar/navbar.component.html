@@ -1,14 +1,13 @@
+<!-- course-navbar.component.html -->
+
 <nav>
   <h1>British English Certification [BEC]</h1>
   <ul class="nav-links">
-    <ng-container *ngIf="!isLoggedIn">
-      <li><a routerLink="/signup">Register</a></li>
-      <li><a routerLink="/login">Login</a></li>
-    </ng-container>
+    <li><a routerLink="/">Home</a></li>
+    <li><a routerLink="/courses">Courses</a></li>
+    <li><a routerLink="/enquiries">Enquiries</a></li>
     <ng-container *ngIf="isLoggedIn">
-      <li><a routerLink="/">Home</a></li>
-      <li> <app-admin-dashboard></app-admin-dashboard>
-      </li>
+      <li> <app-admin-dashboard></app-admin-dashboard></li>
       <li><app-customer-dashboard></app-customer-dashboard></li>
       <li>
         <button class="button button-logout" (click)="showLogoutPopup = true">
