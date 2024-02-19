@@ -13,7 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './components/course-list/course-list.component';
-import { AddCourseComponent } from './components/add-course/add-course.component';
+// import { AddCourseComponent } from './components/add-course/add-course.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
     CustomerDashboardComponent,
     NavbarComponent,
     CourseListComponent,
-    AddCourseComponent,
+    // AddCourseComponent,
   ],
   imports: [
     BrowserModule,

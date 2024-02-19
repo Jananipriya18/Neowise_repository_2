@@ -9,7 +9,7 @@ import { Course } from '../models/course.model';
   providedIn: 'root',
 })
 export class CourseService {
-  private apiUrl = '/api/course';
+  private apiUrl = 'your-api-url/api/course';
 
   constructor(private http: HttpClient) {}
 
