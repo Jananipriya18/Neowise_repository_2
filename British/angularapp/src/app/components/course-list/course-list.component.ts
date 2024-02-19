@@ -23,10 +23,4 @@ export class CourseListComponent implements OnInit {
       this.courses = data;
     });
   }
-
-  deleteCourse(courseId: number): void {
-    this.courseService.deleteCourse(courseId).subscribe(() => {
-      this.loadCourses();
-    });
-  }
 }

@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class AddCourseComponent {
 
   newCourseForm: FormGroup;
+  isNewCourse: boolean = true; 
 
   constructor(
     private formBuilder: FormBuilder,

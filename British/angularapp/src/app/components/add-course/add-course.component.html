@@ -1,6 +1,8 @@
 <!-- add-course.component.html -->
 <div class="add-course-container">
   <h2>Course Management</h2>
+  <button type="button" >Add new course</button>
+  <button type="button" >List of Available Courses</button>
 
   <form [formGroup]="newCourseForm" (ngSubmit)="addCourse()">
     <div class="form-group">
@@ -48,4 +50,6 @@
     <button type="button" (click)="deleteCourse()">Delete Course</button>
     <button type="button" (click)="viewCourseDetails()">View Course</button>
   </div>
+
+ 
 </div>
