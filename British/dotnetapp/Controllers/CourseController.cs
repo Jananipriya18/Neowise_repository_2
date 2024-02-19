@@ -39,7 +39,7 @@ namespace dotnetapp.Controllers
             return Ok(course);
         }
 
-        [Authorize(Roles="Admin")]
+        // [Authorize(Roles="Admin")]
        [HttpPost]
         public async Task<IActionResult> CreateCourse(Course course)
         {
