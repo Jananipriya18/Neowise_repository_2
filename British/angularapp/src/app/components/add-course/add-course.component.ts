@@ -36,7 +36,7 @@ export class AddCourseComponent {
       this.courseService.createCourse(newCourse).subscribe(
         (createdCourse: Course) => {
           console.log('Course created successfully:', createdCourse);
-          this.router.navigate(['/']);
+          this.router.navigate(['/courses']);
           // Fetch all courses after successful creation
           this.fetchAllCourses();
         },
