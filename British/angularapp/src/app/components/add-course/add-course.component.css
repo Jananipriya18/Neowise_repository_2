@@ -28,7 +28,7 @@
   padding: 12px 24px; /* Increase padding for a larger button */
   cursor: pointer;
   background-color: #28a745; /* Use a brighter green color */
-  color: #fff;
+  color: #d015e5;
   border: none;
   border-radius: 10px; /* Increase border radius for a rounder button */
   transition: background-color 0.3s ease;
@@ -40,6 +40,7 @@
 
 /* Form styles */
 .form-group {
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 
