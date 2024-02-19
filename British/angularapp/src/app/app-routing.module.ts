@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegistrationComponent },
-  {path: 'course', component: CourseListComponent},
+  // { path: 'admin/add/course', component: AddCourseComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'error', component: ErrorComponent, data: { message: 'Oops! Something went wrong.' }},
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
 ];
