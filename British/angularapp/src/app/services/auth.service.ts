@@ -10,7 +10,7 @@ import { apiUrl } from 'src/apiconfig';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<string | null>;
   public currentUser: Observable<string | null>;
-  public apiUrl = apiUrl; // Replace with your Spring Boot backend URL
+  public apiUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"; // Replace with your Spring Boot backend URL
   private userRoleSubject = new BehaviorSubject<string>('');
   private userIdSubject = new BehaviorSubject<string>('');
   userRole$: Observable<string> = this.userRoleSubject.asObservable();
