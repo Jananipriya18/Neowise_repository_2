@@ -9,7 +9,7 @@ import { Course } from '../models/course.model';
   providedIn: 'root',
 })
 export class CourseService {
-  public apiUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"; 
+  public apiUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/api/Course"; 
 
   // private apiUrl = '/api/Course';
 
