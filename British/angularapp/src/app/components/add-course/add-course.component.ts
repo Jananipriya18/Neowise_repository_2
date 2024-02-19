@@ -41,5 +41,16 @@ export class AddCourseComponent {
       // Form is not valid, display an error message or handle it as needed
       console.error('Form is not valid');
     }
+
+    this.courseService.getAllCourses().subscribe(
+  (courses: Course[]) => {
+    // Handle the retrieved courses
+    console.log('Courses:', courses);
+  },
+  (error) => {
+    // Handle the error
+    console.error('Error fetching courses:', error);
+  }
+);
   }
 }
