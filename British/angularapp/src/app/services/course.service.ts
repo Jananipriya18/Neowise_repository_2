@@ -1,6 +1,6 @@
 // course.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../models/course.model';
 
@@ -11,33 +11,38 @@ import { Course } from '../models/course.model';
 export class CourseService {
   public apiUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"; 
 
-  // private apiUrl = '/api/Course';
-
   constructor(private http: HttpClient) {}
 
+  private createAuthorizationHeader(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
   getAllCourses(): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/api/Course`);
+    const headers = this.createAuthorizationHeader();
+    return this.http.get<Course[]>(`${this.apiUrl}/api/Course`, { headers });
   }
 
   getCourseById(courseId: number): Observable<Course> {
-    return this.http.get<Course>(`${this.apiUrl}/api/Course/${courseId}`);
+    const headers = this.createAuthorizationHeader();
+    return this.http.get<Course>(`${this.apiUrl}/api/Course/${courseId}`, { headers });
   }
 
   createCourse(course: Course): Observable<Course> {
-      const token = localStorage.getItem('token');
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
-      });
-      return this.http.post<Course>(`${this.apiUrl}/api/Course`, course {headers});
-    }
- 
+    const headers = this.createAuthorizationHeader();
+    return this.http.post<Course>(`${this.apiUrl}/api/Course`, course, { headers });
+  }
 
   updateCourse(courseId: number, course: Course): Observable<Course> {
-    return this.http.put<Course>(`${this.apiUrl}/api/Course/${courseId}`, course);
+    const headers = this.createAuthorizationHeader();
+    return this.http.put<Course>(`${this.apiUrl}/api/Course/${courseId}`, course, { headers });
   }
 
   deleteCourse(courseId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/api/Course/${courseId}`);
+    const headers = this.createAuthorizationHeader();
+    return this.http.delete<void>(`${this.apiUrl}/api/Course/${courseId}`, { headers });
   }
 }
