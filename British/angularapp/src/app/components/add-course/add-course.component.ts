@@ -11,7 +11,7 @@ import { CourseService } from 'src/app/services/course.service';
 })
 export class AddCourseComponent {
 
-  newCourseForm: FormGroup; // Define a form group
+  newCourseForm: FormGroup; 
 
   constructor(private formBuilder: FormBuilder, private courseService: CourseService, private router: Router) {
     this.newCourseForm = this.formBuilder.group({
