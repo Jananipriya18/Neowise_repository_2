@@ -1,5 +1,7 @@
 // add-course.component.ts
 import { Component } from '@angular/core';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course.service';
 
 
 @Component({
