@@ -82,3 +82,11 @@ h2 {
   font-weight: bold; /* Bold text */
   padding:20px;
 }
+
+
+#list-courses{
+  padding:10px;
+  background-color: rgb(24, 229, 215);
+  
+
+}
