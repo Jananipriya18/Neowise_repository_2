@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegistrationComponent },
   { path: 'course', component: AddCourseComponent, canActivate: [AuthGuard] },
+  { path: 'courselist', component: CourseListComponent },
   { path: 'error', component: ErrorComponent, data: { message: 'Oops! Something went wrong.' }},
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
 ];

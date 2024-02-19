@@ -71,6 +71,12 @@ export class AddCourseComponent {
       }
     );
   }
+  // Add this method to your component class
+viewCourseDetails(courseId: number): void {
+  // Implement logic to navigate or display details for the specific course
+  console.log('View details for course with ID:', courseId);
+}
+
 
   updateCourse(courseId: number): void {
     if (this.authService.isAdmin()) {
