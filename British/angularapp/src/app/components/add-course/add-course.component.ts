@@ -132,4 +132,9 @@ viewCourseDetails(courseId: number): void {
       console.error('Only admins can delete courses');
     }
   }
+
+  // Add a method to navigate to the course list
+  navigateToCourseList(): void {
+    this.router.navigate(['/courselist']);
+  }
 }

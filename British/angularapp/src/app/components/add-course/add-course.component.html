@@ -1,15 +1,6 @@
 <!-- add-course.component.html -->
-<div class="add-course-container">
+<!-- <div class="add-course-container">
   <h2>Course Management</h2>
-  <!-- <button type="button" (click)="toggleCourseForm()">Add new course</button>
-  <button type="button" (click)="toggleCourseList()">List of Available Courses</button> -->
-
-  <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
-    <!-- ... (your form fields) -->
-    <div class="button-group">
-      <button type="submit">Add Course</button>
-    </div>
-  </form>
 
   <div *ngIf="!isNewCourse" class="course-list-container">
     <h3>List of Available Courses</h3>
@@ -24,13 +15,10 @@
         <button type="button" (click)="deleteCourse(course.id)">Delete Course</button>
       </div>
     </div>
-  </div>
+  </div> -->
 <div class="add-course-container">
-  <h2>Course Management</h2>
-
-  <button type="button" (click)="isNewCourse = true">Add new course</button>
-  <button type="button" (click)="isNewCourse = false">List of Available Courses</button>
-
+  <h2>Add Course</h2>
+  <button type="button" (click)="navigateToCourseList()">List of Available Courses</button>
   <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
     <div class="form-group">
       <label for="courseName">Course Name:</label>
