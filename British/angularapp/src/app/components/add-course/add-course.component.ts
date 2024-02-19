@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
-import { AuthService } from 'src/app/services/auth.service'; // Import your AuthService
-
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-course',
@@ -13,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service'; // Import your Auth
 })
 export class AddCourseComponent {
 
-  newCourseForm: FormGroup; 
+  newCourseForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +48,7 @@ export class AddCourseComponent {
     }
   }
 
-  // Fetch all courses and log them
+  // Common method to fetch all courses and log them
   private fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
@@ -97,21 +96,22 @@ export class AddCourseComponent {
       console.error('Only admins can view course details');
     }
   }
-    deleteCourse(courseId: number): void {
-      if (this.authService.isAdmin()) {
-        // Implement delete logic here using courseService.deleteCourse()
-        this.courseService.deleteCourse(courseId).subscribe(
-          () => {
-            console.log('Course deleted successfully');
-            // Fetch all courses after successful deletion
-            this.fetchAllCourses();
-          },
-          (error) => {
-            console.error('Error deleting course:', error);
-          }
-        );
-      } else {
-        console.error('Only admins can delete courses');
-      }
+
+  deleteCourse(courseId: number): void {
+    if (this.authService.isAdmin()) {
+      // Implement delete logic here using courseService.deleteCourse()
+      this.courseService.deleteCourse(courseId).subscribe(
+        () => {
+          console.log('Course deleted successfully');
+          // Fetch all courses after successful deletion
+          this.fetchAllCourses();
+        },
+        (error) => {
+          console.error('Error deleting course:', error);
+        }
+      );
+    } else {
+      console.error('Only admins can delete courses');
     }
+  }
 }
