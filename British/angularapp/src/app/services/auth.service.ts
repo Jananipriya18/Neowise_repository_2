@@ -87,22 +87,15 @@ export class AuthService {
     return false;
   }
 
-  // isCustomer(): boolean {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     const decodedToken = this.decodeToken(token);
-  //     return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Customer';
-  //   }
-  //   return false;
-  // }
   isCustomer(): boolean {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = this.decodeToken(token);
-      return decodedToken['role'] === 'Customer';  // Use the same key 'role'
+      return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Customer';
     }
     return false;
   }
+
 
   getCustomerName(): string {
     const token = localStorage.getItem('token');
