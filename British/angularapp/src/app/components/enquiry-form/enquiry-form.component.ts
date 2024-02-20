@@ -26,14 +26,13 @@ export class EnquiryFormComponent implements OnInit {
     private router: Router
   ) {
     this.newEnquiryForm = this.formBuilder.group({
-      enquiryID: [null],
-      enquiryDate: [null, Validators.required],
-      userId: [null, Validators.required],
-      title: [null, Validators.required],
-      description: [null, Validators.required],
-      emailID: [null, [Validators.required, Validators.email]],
-      enquiryType: [null, Validators.required],
-      courseName: [null, Validators.required],
+      enquiryDate: ['', Validators.required],
+      userId: ['', Validators.required],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      emailID: ['', [Validators.required, Validators.email]],
+      enquiryType: ['', Validators.required],
+      courseName: ['', Validators.required],
     });
   }
 
@@ -53,30 +52,6 @@ export class EnquiryFormComponent implements OnInit {
   }
 
   
-
-//  createEnquiry(): void {
-//   console.log('Before form validation');
-//   if (this.newEnquiryForm.valid) {
-//     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
-//     console.log('Form Validity:', this.newEnquiryForm.valid);
-
-//     this.enquiryService.createEnquiry(newEnquiry).subscribe(
-//       (createdEnquiry: Enquiry) => {
-//         console.log('Enquiry created successfully:', createdEnquiry);
-//         // Log the response from the server
-//         console.log('Response:', createdEnquiry);
-
-//         // Navigate to the enquiries page after successful creation
-//         this.router.navigate(['/enquiries']);
-//       },
-//       (error) => {
-//         console.error('Error creating enquiry:', error);
-//       }
-//     );
-//   } else {
-//     console.error('Only customers can create enquiries or form is not valid');
-//   }
-
 
 createEnquiry(): void {
   console.log(this.authService.isCustomer(),this.newEnquiryForm.valid)
