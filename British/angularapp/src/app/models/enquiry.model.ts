@@ -3,7 +3,7 @@ import { Course } from "./course.model";
 export interface Enquiry {
     enquiryID: number;
     enquiryDate: Date;
-    userId: string;
+    userId?: string;
     title: string;
     description: string;
     emailID: string;
