@@ -94,22 +94,23 @@ button {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: #d112dc;
 }
 
 /* Styles for the submit button */
 button[type="submit"] {
-  background-color: #4caf50;
+  background-color: #e21e7d;
   color: #fff;
   cursor: pointer;
 }
 
 button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #d112dc;
 }
 
 /* Styles for the cancel button */
 button[type="button"] {
-  background-color: #ccc;
+  background-color: ;
   color: #333;
   cursor: pointer;
 }
