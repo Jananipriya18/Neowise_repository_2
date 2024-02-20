@@ -55,8 +55,10 @@ export class EnquiryFormComponent implements OnInit {
   
 
  createEnquiry(): void {
+  console.log('Before form validation');
   if (this.newEnquiryForm.valid) {
     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
+    console.log('Form Validity:', this.newEnquiryForm.valid);
 
     this.enquiryService.createEnquiry(newEnquiry).subscribe(
       (createdEnquiry: Enquiry) => {
@@ -71,8 +73,8 @@ export class EnquiryFormComponent implements OnInit {
         console.error('Error creating enquiry:', error);
       }
     );
-  // } else {
-  //   console.error('Only customers can create enquiries or form is not valid');
+  } else {
+    console.error('Only customers can create enquiries or form is not valid');
   }
 
 

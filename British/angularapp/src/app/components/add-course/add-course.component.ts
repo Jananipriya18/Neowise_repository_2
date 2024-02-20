@@ -61,7 +61,7 @@ export class AddCourseComponent {
   //     }
   //   );
   // }
-  
+
   private fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
@@ -72,6 +72,7 @@ export class AddCourseComponent {
       }
     );
   }
+  
   // Add this method to your component class
 viewCourseDetails(courseId: number): void {
   // Implement logic to navigate or display details for the specific course
