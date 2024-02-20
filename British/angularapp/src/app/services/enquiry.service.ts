@@ -36,6 +36,5 @@ export class EnquiryService {
     return this.http.get<Enquiry>(url, { headers });
   }
 
-  // You can add more methods like updateEnquiry and deleteEnquiry as needed
-  // Adjust the API endpoint URLs accordingly
+
 }
