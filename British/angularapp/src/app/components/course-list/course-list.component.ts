@@ -104,6 +104,26 @@ export class CourseListComponent implements OnInit {
     }
   }
 
+
+  deleteCourse(courseID: number): void {
+    if (this.authService.isAdmin()) {
+      if (confirm('Are you sure you want to delete this course?')) {
+        this.courseService.deleteCourse(courseID).subscribe(
+          () => {
+            console.log('Course deleted successfully');
+            // Fetch all courses after successful deletion
+            this.fetchAllCourses();
+          },
+          (error) => {
+            console.error('Error deleting course:', error);
+          }
+        );
+      }
+    } else {
+      console.error('Only admins can delete courses');
+    }
+  }
+  
   closeEditModal(): void {
     // Reset form and hide the edit modal
     this.editCourseForm.reset();

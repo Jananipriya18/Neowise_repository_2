@@ -40,3 +40,82 @@ h3 {
   color: #333;
   font-size: 14px;
 }
+
+/* course-list.component.css */
+
+/* course-list.component.css */
+
+/* Styles for the modal overlay */
+.modal-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  z-index: 999; /* Ensure the overlay is above other elements */
+}
+
+/* Styles for the modal container */
+.modal-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Styles for the modal content */
+.modal-content {
+  background-color: #fff; /* White background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Styles for the form labels */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Styles for form inputs */
+input,
+textarea,
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styles for the submit button */
+button[type="submit"] {
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Styles for the cancel button */
+button[type="button"] {
+  background-color: #ccc;
+  color: #333;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background-color: #bbb;
+}
+
+/* Add any additional styles as needed */
