@@ -53,6 +53,28 @@
         </div>
       </div>
   
+      <div class="form-group">
+        <label for="enquiryType">Enquiry Type:</label>
+        <select id="enquiryType" formControlName="enquiryType">
+          <option value="General">General</option>
+          <option value="Technical">Technical</option>
+          <!-- Add more options as needed -->
+        </select>
+        <div *ngIf="newEnquiryForm.get('enquiryType').hasError('required') && newEnquiryForm.get('enquiryType').touched">
+          Enquiry Type is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="courseName">Course Name:</label>
+        <select id="courseName" formControlName="courseName">
+          <option *ngFor="let course of courses" [value]="course.courseName">{{ course.courseName }}</option>
+        </select>
+        <div *ngIf="newEnquiryForm.get('courseName').hasError('required') && newEnquiryForm.get('courseName').touched">
+          Course Name is required.
+        </div>
+      </div>
+  
       <div class="button-group">
         <button type="submit" *ngIf="isNewEnquiry">Submit Enquiry</button>
         <button type="button" *ngIf="!isNewEnquiry" (click)="updateEnquiry()">Update Enquiry</button>
