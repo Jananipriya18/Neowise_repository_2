@@ -76,7 +76,9 @@
       </div>
   
       <div class="button-group">
-        <button type="submit" *ngIf="isNewEnquiry" (click)="createEnquiry()">Submit Enquiry</button>
+        <!-- <button type="submit" *ngIf="isNewEnquiry" (click)="createEnquiry()">Submit Enquiry</button> -->
+        <button type="submit" *ngIf="isNewEnquiry">Submit Enquiry</button>
+
         <button type="button" *ngIf="!isNewEnquiry" (click)="updateEnquiry()">Update Enquiry</button>
       </div>
     </form>

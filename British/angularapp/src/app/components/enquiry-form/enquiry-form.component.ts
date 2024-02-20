@@ -71,8 +71,8 @@ export class EnquiryFormComponent implements OnInit {
         console.error('Error creating enquiry:', error);
       }
     );
-  } else {
-    console.error('Only customers can create enquiries or form is not valid');
+  // } else {
+  //   console.error('Only customers can create enquiries or form is not valid');
   }
 
 
