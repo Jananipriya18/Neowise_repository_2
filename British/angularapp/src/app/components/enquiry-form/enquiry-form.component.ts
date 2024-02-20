@@ -55,7 +55,7 @@ export class EnquiryFormComponent implements OnInit {
   
 
  createEnquiry(): void {
-  if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+  if (this.newEnquiryForm.valid) {
     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
 
     this.enquiryService.createEnquiry(newEnquiry).subscribe(
@@ -74,6 +74,39 @@ export class EnquiryFormComponent implements OnInit {
   } else {
     console.error('Only customers can create enquiries or form is not valid');
   }
+
+
+// createEnquiry(): void {
+//   if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+//     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
+
+//     this.enquiryService.createEnquiry(newEnquiry).subscribe(
+//       (createdEnquiry: Enquiry) => {
+//         console.log('Enquiry created successfully:', createdEnquiry);
+//         // Log the response from the server
+//         console.log('Response:', createdEnquiry);
+
+//         // Navigate to the enquiries page after successful creation
+//         this.router.navigate(['/enquiries']);
+//       },
+//       (error) => {
+//         console.error('Error creating enquiry:', error);
+
+//         // Log the error response from the server
+//         console.error('Error Response:', error);
+
+//         // You can also handle specific error cases here if needed
+//         if (error.status === 403) {
+//           console.error('Permission denied: Only customers can create enquiries.');
+//         } else {
+//           console.error('Unexpected error occurred.');
+//         }
+//       }
+//     );
+//   } else {
+//     console.error('Only customers can create enquiries or form is not valid');
+//   }
 }
+
 
 }

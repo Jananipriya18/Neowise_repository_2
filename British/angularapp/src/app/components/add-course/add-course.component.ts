@@ -61,6 +61,7 @@ export class AddCourseComponent {
   //     }
   //   );
   // }
+  
   private fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
