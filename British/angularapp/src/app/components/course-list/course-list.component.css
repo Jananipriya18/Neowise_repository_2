@@ -17,7 +17,7 @@
   transition: transform 0.3s ease;
   height: 300px; /* Set a fixed height for all cards */
   flex-grow: 1; /* Fill available vertical space */
-  box-sizing: border-box; /* Include padding and borders in the total height */
+  box-sizing: 50px; /* Include padding and borders in the total height */
 }
 
 .custom-card:hover {
