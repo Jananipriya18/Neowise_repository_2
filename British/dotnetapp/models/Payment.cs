@@ -8,8 +8,8 @@ public class Payment
 {
     [Key]
     public int PaymentID { get; set; }
-    public long ?UserId { get; set; }
-    public int ?CourseID { get; set; }
+    public long UserId { get; set; }
+    public int CourseID { get; set; }
     public decimal AmountPaid { get; set; }
     public DateTime PaymentDate { get; set; }
     public string PaymentMethod { get; set; }
