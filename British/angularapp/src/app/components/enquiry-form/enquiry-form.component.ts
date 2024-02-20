@@ -19,13 +19,13 @@ export class EnquiryFormComponent implements OnInit {
   courses: Course[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private enquiryService: EnquiryService,
     private courseService: CourseService,
     private router: Router
   ) {
-    this.newEnquiryForm = this.fb.group({
+    this.newEnquiryForm = this.formBuilder.group({
       enquiryID: [null],
       enquiryDate: [null, Validators.required],
       userId: [null, Validators.required],
@@ -96,18 +96,12 @@ createEnquiry(): void {
 
         // Log the error response from the server
          console.error('Error Response:', error);
-
          // You can also handle specific error cases here if needed
-         if (error.status === 403) {
-           console.error('Permission denied: Only customers can create enquiries.');
-         } else {
-           console.error('Unexpected error occurred.');
-//         }
-//       }
-//     );
-//   } else {
-//     console.error('Only customers can create enquiries or form is not valid');
-//   }
+        }
+    );
+   } else {
+     console.error('Only customers can create enquiries or form is not valid');
+   }
 }
 
 
