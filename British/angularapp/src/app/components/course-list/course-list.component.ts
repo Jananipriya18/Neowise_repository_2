@@ -123,10 +123,12 @@ export class CourseListComponent implements OnInit {
       console.error('Only admins can delete courses');
     }
   }
-  
+
   closeEditModal(): void {
     // Reset form and hide the edit modal
     this.editCourseForm.reset();
     this.editCourseModalVisible = false;
   }
+  
+  
 }
