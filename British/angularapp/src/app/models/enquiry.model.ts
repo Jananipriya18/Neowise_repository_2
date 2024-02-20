@@ -1,3 +1,5 @@
+import { Course } from "./course.model";
+
 export interface Enquiry {
     enquiryID: number;
     enquiryDate: Date;
@@ -6,6 +8,6 @@ export interface Enquiry {
     description: string;
     emailID: string;
     enquiryType: string;
-    courseName: string;
+    course: Course;
   }
   

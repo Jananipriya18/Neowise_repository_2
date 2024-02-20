@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './components/course-list/course-list.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
+import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
     NavbarComponent,
     CourseListComponent,
     AddCourseComponent,
+    EnquiryFormComponent,
   ],
   imports: [
     BrowserModule,
