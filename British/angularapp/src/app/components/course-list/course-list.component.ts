@@ -94,11 +94,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
+  newCourseForm: FormGroup; 
   courses: Course[] = [];
 
   constructor(
     private courseService: CourseService,
     private authService: AuthService,
+    private formBuilder: FormBuilder,
     private router: Router
   ) {}
 
@@ -112,22 +114,22 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  deleteCourse(courseId: number): void {
-    if (this.authService.isAdmin()) {
-      this.courseService.deleteCourse(courseId).subscribe(
-        () => {
-          console.log('Course deleted successfully');
-          this.fetchAllCourses();
-        },
-        (error) => {
-          console.error('Error deleting course:', error);
-        }
-      );
-    } else {
-      console.error('Only admins can delete courses');
-    }
-  }
-
+  // deleteCourse(courseId: number): void {
+  //   if (this.authService.isAdmin()) {
+  //     this.courseService.deleteCourse(courseId).subscribe(
+  //       () => {
+  //         console.log('Course deleted successfully');
+  //         this.fetchAllCourses();
+  //       },
+  //       (error) => {
+  //         console.error('Error deleting course:', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Only admins can delete courses');
+  //   }
+  // }
+//
   private fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
@@ -141,8 +143,20 @@ export class CourseListComponent implements OnInit {
 
   updateCourse(courseId: number): void {
     if (this.authService.isAdmin()) {
-      // Assuming you have an EditCourseComponent for updating course details
-      this.router.navigate(['/courselist/edit', courseId]);
+      // Implement update logic here using courseService.updateCourse()
+      // For example, assuming there is a method updateCourse in CourseService:
+      const updatedCourse: Course = this.newCourseForm.value as Course;
+
+      this.courseService.updateCourse(courseId, updatedCourse).subscribe(
+        (updatedCourse: Course) => {
+          console.log('Course updated successfully:', updatedCourse);
+          // Fetch all courses after successful update
+          this.fetchAllCourses();
+        },
+        (error) => {
+          console.error('Error updating course:', error);
+        }
+      );
     } else {
       console.error('Only admins can update courses');
     }

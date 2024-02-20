@@ -67,28 +67,6 @@ viewCourseDetails(courseId: number): void {
   console.log('View details for course with ID:', courseId);
 }
 
-
-  updateCourse(courseId: number): void {
-    if (this.authService.isAdmin()) {
-      // Implement update logic here using courseService.updateCourse()
-      // For example, assuming there is a method updateCourse in CourseService:
-      const updatedCourse: Course = this.newCourseForm.value as Course;
-
-      this.courseService.updateCourse(courseId, updatedCourse).subscribe(
-        (updatedCourse: Course) => {
-          console.log('Course updated successfully:', updatedCourse);
-          // Fetch all courses after successful update
-          this.fetchAllCourses();
-        },
-        (error) => {
-          console.error('Error updating course:', error);
-        }
-      );
-    } else {
-      console.error('Only admins can update courses');
-    }
-  }
-
   getCourseDetails(courseId: number): void {
     if (this.authService.isAdmin()) {
       // Implement logic to get course details using courseService.getCourseById()
