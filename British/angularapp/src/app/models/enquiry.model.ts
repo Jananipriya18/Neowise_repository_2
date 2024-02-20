@@ -8,6 +8,6 @@ export interface Enquiry {
     description: string;
     emailID: string;
     enquiryType: string;
-    course: Course;
-  }
-  
+    courseID?: number;
+    course?: Course; 
+}
