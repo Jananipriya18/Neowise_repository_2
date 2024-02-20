@@ -24,6 +24,7 @@ export class CustomerDashboardComponent implements OnInit {
   }
 
   
+  
   ngOnInit(): void {
     // Initialize the properties on component initialization
     this.isLoggedIn = this.authService.isAuthenticated();
