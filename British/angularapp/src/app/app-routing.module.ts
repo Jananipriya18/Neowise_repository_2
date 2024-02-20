@@ -7,6 +7,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CourseListComponent } from './components/course-list/course-list.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
+import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'signup', component: RegistrationComponent },
   { path: 'course', component: AddCourseComponent, canActivate: [AuthGuard] },
   { path: 'courselist', component: CourseListComponent },
+  { path: 'enquiry', component: EnquiryFormComponent, canActivate: [AuthGuard] },
   { path: 'error', component: ErrorComponent, data: { message: 'Oops! Something went wrong.' }},
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
 ];

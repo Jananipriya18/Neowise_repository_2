@@ -27,6 +27,7 @@ namespace dotnetapp.Controllers
             var enquiries = await _enquiryService.GetAllEnquiries();
             return Ok(enquiries);
         }
+        
 [Authorize(Roles="Admin,Customer")]
 
         [HttpGet("{EnquiryID}")]
