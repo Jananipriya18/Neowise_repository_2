@@ -16,6 +16,7 @@ export class CourseListComponent implements OnInit {
   editCourseForm: FormGroup;
   courses: Course[] = [];
   selectedCourse: Course;
+  deleteConfirmationState: { [key: number]: boolean } = {};
 
   constructor(
     private courseService: CourseService,
@@ -105,23 +106,37 @@ export class CourseListComponent implements OnInit {
   }
 
 
+  showDeleteConfirmation(course: Course): void {
+    // Set deleteConfirmationState for the specific course to true
+    this.deleteConfirmationState[course.courseID] = true;
+  }
+
+  // Method to confirm delete operation
   deleteCourse(courseID: number): void {
     if (this.authService.isAdmin()) {
-      if (confirm('Are you sure you want to delete this course?')) {
-        this.courseService.deleteCourse(courseID).subscribe(
-          () => {
-            console.log('Course deleted successfully');
-            // Fetch all courses after successful deletion
-            this.fetchAllCourses();
-          },
-          (error) => {
-            console.error('Error deleting course:', error);
-          }
-        );
-      }
+      // Perform the delete operation here
+      this.courseService.deleteCourse(courseID).subscribe(
+        () => {
+          console.log('Course deleted successfully');
+          // Fetch all courses after successful deletion
+          this.fetchAllCourses();
+        },
+        (error) => {
+          console.error('Error deleting course:', error);
+        }
+      );
     } else {
       console.error('Only admins can delete courses');
     }
+
+    // Reset deleteConfirmationState for the specific course
+    this.deleteConfirmationState[courseID] = false;
+  }
+
+  // Method to cancel delete operation
+  cancelDelete(course: Course): void {
+    // Reset deleteConfirmationState for the specific course
+    this.deleteConfirmationState[course.courseID] = false;
   }
 
   closeEditModal(): void {
