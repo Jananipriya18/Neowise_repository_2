@@ -12,6 +12,7 @@ import { EnquiryService } from 'src/app/services/enquiry.service';
 })
 export class EnquiryFormComponent {
   newEnquiryForm: FormGroup;
+  isNewEnquiry: boolean = true;
 
   constructor(
     private fb: FormBuilder,
