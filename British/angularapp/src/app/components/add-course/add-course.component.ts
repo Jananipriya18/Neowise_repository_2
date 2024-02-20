@@ -50,18 +50,6 @@ export class AddCourseComponent {
     }
   }
 
-  // Common method to fetch all courses and log them
-  // private fetchAllCourses(): void {
-  //   this.courseService.getAllCourses().subscribe(
-  //     (courses: Course[]) => {
-  //       console.log('Courses:', courses);
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching courses:', error);
-  //     }
-  //   );
-  // }
-
   private fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
