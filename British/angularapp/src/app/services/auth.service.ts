@@ -74,7 +74,6 @@ export class AuthService {
     // Check if the user is authenticated by verifying the token
     const token = localStorage.getItem('token');
     console.log(token);
-
     return !!token; // Return true if the token exists
   }
 

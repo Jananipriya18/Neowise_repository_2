@@ -27,7 +27,7 @@ namespace dotnetapp.Controllers
             var enquiries = await _enquiryService.GetAllEnquiries();
             return Ok(enquiries);
         }
-        
+
 [Authorize(Roles="Admin,Customer")]
 
         [HttpGet("{EnquiryID}")]
@@ -41,14 +41,25 @@ namespace dotnetapp.Controllers
             return Ok(enquiry);
         }
 
-        [Authorize(Roles="Customer")]
+        // [Authorize(Roles="Customer")]
 
+        // [HttpPost]
+        // public async Task<IActionResult> CreateEnquiry(Enquiry enquiry)
+        // {
+        //     await _enquiryService.CreateEnquiry(enquiry);
+        //     return CreatedAtAction(nameof(GetEnquiryById), new { id = enquiry.EnquiryID }, enquiry);
+        // }
+        [Authorize(Roles="Customer")]
         [HttpPost]
         public async Task<IActionResult> CreateEnquiry(Enquiry enquiry)
         {
+            var claims = User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
+            Console.WriteLine($"Role Claims: {string.Join(", ", claims)}");
+
             await _enquiryService.CreateEnquiry(enquiry);
             return CreatedAtAction(nameof(GetEnquiryById), new { id = enquiry.EnquiryID }, enquiry);
         }
+
 
         [HttpPut("{EnquiryID}")]
         public async Task<IActionResult> UpdateEnquiry(int EnquiryID, Enquiry enquiry)
