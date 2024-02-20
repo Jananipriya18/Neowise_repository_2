@@ -118,4 +118,20 @@ button[type="button"]:hover {
   background-color: #bbb;
 }
 
-/* Add any additional styles as needed */
+
+.delete-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px; /* Half of the height */
+  margin-left: -25px; /* Half of the width */
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-card-content {
+  text-align: center;
+}
