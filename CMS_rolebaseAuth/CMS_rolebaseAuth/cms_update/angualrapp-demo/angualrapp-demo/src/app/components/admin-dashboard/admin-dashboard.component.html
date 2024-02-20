@@ -1,0 +1,45 @@
+<nav class="navbar">
+    <div class="navbar-left">
+        <h1>Container Management System - Admin</h1>
+    </div>
+    <div class="navbar-right">
+        <button (click)="logout()">Logout</button>
+        <button (click)="toggleSidebar()">☰</button>
+    </div>
+  </nav>
+
+<div class="sidebar" *ngIf="showSidebar">
+    <ul>
+      <li (click)="displayDashboard()">Dashboard</li>
+      <li>
+        <a (click)="toggleContainerDropdown()">Container</a>
+        <ul *ngIf="showContainerDropdown">
+            <li><a (click)="navigateTo('add-container')">Add Container</a></li>
+            <li><a (click)="navigateTo('view-containers')">View All Containers</a></li>
+          </ul>
+      </li>
+      <li>
+        <a (click)="toggleAssignmentDropdown()">Assignment</a>
+        <ul *ngIf="showAssignmentDropdown">
+          <li><a routerLink="navigateTo('add-assignment')">Add Assignment</a></li>
+          <li><a routerLink="navigateTo('view-assignments')">View All Assignments</a></li>
+        </ul>
+      </li>
+      <li><a routerLink="/issues">Issues</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+<div class="countboard" *ngIf="showCountboard">
+    <div class="left">
+        <h2>Total Container</h2>
+        <p>{{ containerCount }}</p>
+    </div>
+    <div class="right">
+        <h2>Available Operator</h2>
+        <p>{{ operatorCount }}</p>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
+</div>

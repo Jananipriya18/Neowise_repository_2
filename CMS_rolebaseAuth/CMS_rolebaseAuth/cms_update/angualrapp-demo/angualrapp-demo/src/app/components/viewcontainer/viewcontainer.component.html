@@ -1,0 +1,78 @@
+<div class="container">
+    <div *ngFor="let container of containers" class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{container.Type}}</h5>
+            <p class="card-text">
+                Status: {{container.Status}}<br>
+                Capacity: {{container.Capacity}}<br>
+                Location: {{container.Location}}<br>
+                Weight: {{container.Weight}}<br>
+                Owner: {{container.Owner}}<br>
+                Creation Date: {{container.CreationDate | date:'mediumDate'}}
+            </p>
+            <button class="btn btn-edit" (click)="editContainer(container.ContainerId)">Edit</button>
+            <button class="btn btn-delete" (click)="toggleModal(container.ContainerId)">Delete</button>
+        </div>
+    </div>
+</div>
+<div class="popmodal-backdrop" *ngIf="showModal"></div>
+<div class="popmodal" *ngIf="showModal">
+    <h2>Delete Confirmation</h2>
+    <p>Do you confirm the deletion of this data?</p>
+    <button class="yes-button" (click)="deleteContainer(containerToDelete); toggleModal()">Yes</button>
+    <button class="no-button" (click)="toggleModal()">No</button>
+</div>
+
+<div class="popmodal-backdrop" *ngIf="editModal"></div>
+<div class="editmodal" *ngIf="editModal">
+    <h2 class="edithead" >Edit Container</h2>
+    <form [formGroup]="containerForm" (ngSubmit)="onSubmit()">
+        <label>
+            Type:
+            <select formControlName="Type">
+                <option value="">Select Container Type</option>
+                <option value="Standard">Standard</option>
+                <option value="HighCube">High Cube</option>
+                <option value="Reefer">Reefer</option>
+                <option value="OpenTop">Open Top</option>
+                <option value="FlatRack">Flat Rack</option>
+                <option value="Tank">Tank</option>
+                <option value="Insulated">Insulated</option>
+                <option value="DoubleDoor">Double Door</option>
+            </select>
+        </label>
+        <label>
+            Status:
+            <select formControlName="Status">
+                <option value="">Select Status</option>
+                <option value="Pending">Loaded</option>
+                <option value="Inspected">Inspected</option>
+                <option value="Not Inspected">Not Inspected</option>
+                <!-- Add more options as needed -->
+            </select>
+        </label>
+        <label>
+            Capacity:
+            <input type="text" formControlName="Capacity">
+        </label>
+        <label>
+            Location:
+            <input type="text" formControlName="Location">
+        </label>
+        <label>
+            Weight:
+            <input type="text" formControlName="Weight">
+        </label>
+        <label>
+            Owner:
+            <input type="text" formControlName="Owner">
+        </label>
+        <button class="update-button" type="submit">Update</button>
+        <button class="cancel-button" type="button" (click)="editModal = false">Cancel</button>
+    </form>
+</div>
+
+<div class="popmodal-backdrop" *ngIf="updateSuccessModal"></div>
+<div class="editpopmodal" *ngIf="updateSuccessModal">
+    <h3>Update Successful</h3>
+</div>

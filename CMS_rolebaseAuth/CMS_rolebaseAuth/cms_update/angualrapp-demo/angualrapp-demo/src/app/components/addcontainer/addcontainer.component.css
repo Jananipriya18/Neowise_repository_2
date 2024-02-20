@@ -1,0 +1,116 @@
+/* Container for the form */
+.container {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+  
+  /* Style for the form groups */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Style for labels */
+  .form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Style for required symbol */
+  .form-group .required-symbol {
+    color: red;
+  }
+  
+  /* Style for input fields */
+  .form-group input , select {
+    width: 90%;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  /* Style for error messages */
+  .form-group .text-danger {
+    color: red;
+    font-size: 12px;
+  }
+  
+  /* Style for submit button */
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+/* Modal styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease; /* Slower transition */
+}
+
+.modal-dialog {
+    max-width: 500px; /* Larger modal */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px; /* More padding */
+    border-radius: 10px; /* Larger border radius */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3); /* Larger, softer shadow */
+}
+
+.modal-title {
+    margin-bottom: 20px; /* More margin */
+    font-size: 22px; /* Larger font size */
+    font-weight: bold; /* Bold font */
+    color: #333; /* Darker color */
+}
+
+.modal-body {
+    margin-bottom: 20px; /* More margin */
+    font-size: 16px; /* Larger font size */
+    line-height: 1.5; /* More line spacing */
+    color: #555; /* Darker color */
+}
+
+.show-modal {
+    opacity: 1;
+    pointer-events: auto;
+    text-align: center;
+}
