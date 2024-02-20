@@ -20,9 +20,9 @@
   box-sizing: 50px; /* Include padding and borders in the total height */
 }
 
-.custom-card:hover {
+/* .custom-card:hover {
   transform: scale(1.05);
-}
+} */
 
 .card-content {
   display: flex;
@@ -128,7 +128,6 @@ button[type="button"]:hover {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 50px;
   height: 50px;
   background-color: white;
@@ -136,6 +135,4 @@ button[type="button"]:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.delete-card-content {
-  text-align: center;
-}
+
