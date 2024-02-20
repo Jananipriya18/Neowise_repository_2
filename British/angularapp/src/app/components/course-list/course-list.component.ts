@@ -1,92 +1,10 @@
-// // course-list.component.ts
-// import { Component, OnInit } from '@angular/core';
-// import { Course } from 'src/app/models/course.model';
-// import { CourseService } from 'src/app/services/course.service';
-// import { AuthService } from 'src/app/services/auth.service';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
-
-// @Component({
-//   selector: 'app-course-list',
-//   templateUrl: './course-list.component.html',
-//   styleUrls: ['./course-list.component.css'],
-// })
-// export class CourseListComponent implements OnInit {
-//   courses: Course[] = [];
-//   newCourseForm: FormGroup; 
-
-//   constructor(private courseService: CourseService,
-//     private authService: AuthService,
-//     private formBuilder: FormBuilder 
-//     ) {}
-
-//   ngOnInit(): void {
-//     this.getAllCourses();
-//   }
-
-//   getAllCourses(): void {
-//     this.courseService.getAllCourses().subscribe((data) => {
-//       this.courses = data;
-//     });
-//   }
-
-//   deleteCourse(courseId: number): void {
-//     if (this.authService.isAdmin()) {
-//       // Implement delete logic here using courseService.deleteCourse()
-//       this.courseService.deleteCourse(courseId).subscribe(
-//         () => {
-//           console.log('Course deleted successfully');
-//           // Fetch all courses after successful deletion
-//           this.fetchAllCourses();
-//         },
-//         (error) => {
-//           console.error('Error deleting course:', error);
-//         }
-//       );
-//     } else {
-//       console.error('Only admins can delete courses');
-//     }
-//   }
-
-//   private fetchAllCourses(): void {
-//     this.courseService.getAllCourses().subscribe(
-//       (courses: Course[]) => {
-//         this.courses = courses; // Store the fetched courses
-//       },
-//       (error) => {
-//         console.error('Error fetching courses:', error);
-//       }
-//     );
-//   }
-
-//   updateCourse(courseId: number): void {
-//     if (this.authService.isAdmin()) {
-//       // Implement update logic here using courseService.updateCourse()
-//       // For example, assuming there is a method updateCourse in CourseService:
-//       const updatedCourse: Course = this.newCourseForm.value as Course;
-
-//       this.courseService.updateCourse(courseId, updatedCourse).subscribe(
-//         (updatedCourse: Course) => {
-//           console.log('Course updated successfully:', updatedCourse);
-//           // Fetch all courses after successful update
-//           this.fetchAllCourses();
-//         },
-//         (error) => {
-//           console.error('Error updating course:', error);
-//         }
-//       );
-//     } else {
-//       console.error('Only admins can update courses');
-//     }
-//   }
-// }
-
 // course-list.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';  
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-course-list',
@@ -94,8 +12,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./course-list.component.css'],
 })
 export class CourseListComponent implements OnInit {
-  newCourseForm: FormGroup; 
+  editCourseModalVisible = false;
+  editCourseForm: FormGroup;
   courses: Course[] = [];
+  selectedCourse: Course;
 
   constructor(
     private courseService: CourseService,
@@ -106,6 +26,13 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCourses();
+    // Initialize the form controls
+    this.editCourseForm = this.formBuilder.group({
+      courseName: ['', Validators.required],
+      description: ['', Validators.required],
+      duration: ['', Validators.required],
+      amount: ['', Validators.required],
+    });
   }
 
   getAllCourses(): void {
@@ -114,22 +41,6 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  // deleteCourse(courseId: number): void {
-  //   if (this.authService.isAdmin()) {
-  //     this.courseService.deleteCourse(courseId).subscribe(
-  //       () => {
-  //         console.log('Course deleted successfully');
-  //         this.fetchAllCourses();
-  //       },
-  //       (error) => {
-  //         console.error('Error deleting course:', error);
-  //       }
-  //     );
-  //   } else {
-  //     console.error('Only admins can delete courses');
-  //   }
-  // }
-//
   private fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
@@ -141,17 +52,38 @@ export class CourseListComponent implements OnInit {
     );
   }
 
-  updateCourse(courseId: number): void {
+  updateCourse(courseID: number): void {
     if (this.authService.isAdmin()) {
-      // Implement update logic here using courseService.updateCourse()
-      // For example, assuming there is a method updateCourse in CourseService:
-      const updatedCourse: Course = this.newCourseForm.value as Course;
+      // Show the edit modal
+      this.selectedCourse = this.courses.find(course => course.courseID === courseID);
+      this.editCourseForm.patchValue({
+        courseName: this.selectedCourse.courseName,
+        description: this.selectedCourse.description,
+        duration: this.selectedCourse.duration,
+        amount: this.selectedCourse.amount,
+      });
+      this.editCourseModalVisible = true;
+    } else {
+      console.error('Only admins can update courses');
+    }
+  }
 
-      this.courseService.updateCourse(courseId, updatedCourse).subscribe(
+  saveChanges(): void {
+    if (this.authService.isAdmin()) {
+      // Update the selected course with form values
+      const updatedCourse: Course = {
+        ...this.selectedCourse,
+        ...this.editCourseForm.value,
+      };
+
+      // Update the course in the database
+      this.courseService.updateCourse(this.selectedCourse.courseID, updatedCourse).subscribe(
         (updatedCourse: Course) => {
           console.log('Course updated successfully:', updatedCourse);
           // Fetch all courses after successful update
           this.fetchAllCourses();
+          // Close the edit modal
+          this.closeEditModal();
         },
         (error) => {
           console.error('Error updating course:', error);
@@ -160,5 +92,11 @@ export class CourseListComponent implements OnInit {
     } else {
       console.error('Only admins can update courses');
     }
+  }
+
+  closeEditModal(): void {
+    // Reset form and hide the edit modal
+    this.editCourseForm.reset();
+    this.editCourseModalVisible = false;
   }
 }
