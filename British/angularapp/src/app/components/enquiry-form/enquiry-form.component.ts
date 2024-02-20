@@ -52,24 +52,28 @@ export class EnquiryFormComponent implements OnInit {
     );
   }
 
-  createEnquiry(): void {
-    if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
-      const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
+  
 
-      this.enquiryService.createEnquiry(newEnquiry).subscribe(
-        (createdEnquiry: Enquiry) => {
-          console.log('Enquiry created successfully:', createdEnquiry);
-          this.router.navigate(['/enquiries']);
-          // Fetch all enquiries after successful creation
-          // You might want to implement a method to fetch all enquiries in your service
-          // and subscribe to it in your component.
-        },
-        (error) => {
-          console.error('Error creating enquiry:', error);
-        }
-      );
-    } else {
-      console.error('Only customers can create enquiries or form is not valid');
-    }
+ createEnquiry(): void {
+  if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+    const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
+
+    this.enquiryService.createEnquiry(newEnquiry).subscribe(
+      (createdEnquiry: Enquiry) => {
+        console.log('Enquiry created successfully:', createdEnquiry);
+        // Log the response from the server
+        console.log('Response:', createdEnquiry);
+
+        // Navigate to the enquiries page after successful creation
+        this.router.navigate(['/enquiries']);
+      },
+      (error) => {
+        console.error('Error creating enquiry:', error);
+      }
+    );
+  } else {
+    console.error('Only customers can create enquiries or form is not valid');
   }
+}
+
 }
