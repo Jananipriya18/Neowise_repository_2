@@ -54,6 +54,7 @@ export class EnquiryFormComponent implements OnInit {
   
 
 createEnquiry(): void {
+  // console.log(course)
   console.log(this.authService.isCustomer(),this.newEnquiryForm.valid)
   if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
