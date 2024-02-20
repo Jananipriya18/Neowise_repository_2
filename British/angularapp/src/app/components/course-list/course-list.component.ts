@@ -54,19 +54,29 @@ export class CourseListComponent implements OnInit {
 
   updateCourse(courseID: number): void {
     if (this.authService.isAdmin()) {
-      // Show the edit modal
       this.selectedCourse = this.courses.find(course => course.courseID === courseID);
-      this.editCourseForm.patchValue({
-        courseName: this.selectedCourse.courseName,
-        description: this.selectedCourse.description,
-        duration: this.selectedCourse.duration,
-        amount: this.selectedCourse.amount,
-      });
-      this.editCourseModalVisible = true;
+  
+      if (this.selectedCourse) {
+        console.log('Selected Course:', this.selectedCourse);
+        // Reset the form to clear any previous values
+        this.editCourseForm.reset();
+        // Patch the form values with the selected course
+        this.editCourseForm.patchValue({
+          courseName: this.selectedCourse.courseName,
+          description: this.selectedCourse.description,
+          duration: this.selectedCourse.duration,
+          amount: this.selectedCourse.amount,
+        });
+        this.editCourseModalVisible = true;
+      } else {
+        console.error('Course not found');
+      }
     } else {
       console.error('Only admins can update courses');
     }
   }
+  
+  
 
   saveChanges(): void {
     if (this.authService.isAdmin()) {
