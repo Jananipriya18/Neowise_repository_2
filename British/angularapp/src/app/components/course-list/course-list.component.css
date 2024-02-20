@@ -15,6 +15,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease;
+  height: 300px; /* Set a fixed height for all cards */
+  flex-grow: 1; /* Fill available vertical space */
+  box-sizing: border-box; /* Include padding and borders in the total height */
 }
 
 .custom-card:hover {
@@ -22,6 +25,9 @@
 }
 
 .card-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 20px;
 }
 
@@ -32,6 +38,7 @@ h3 {
 .card-description {
   color: #555;
   margin-bottom: 15px;
+  flex-grow: 1; /* Allow the description to take remaining vertical space */
 }
 
 .card-details {
@@ -40,8 +47,6 @@ h3 {
   color: #333;
   font-size: 14px;
 }
-
-/* course-list.component.css */
 
 /* course-list.component.css */
 
@@ -110,7 +115,7 @@ button[type="submit"]:hover {
 
 /* Styles for the cancel button */
 button[type="button"] {
-  background-color: ;
+  background-color: #e21e7d;
   color: #333;
   cursor: pointer;
 }
@@ -119,19 +124,16 @@ button[type="button"]:hover {
   background-color: #bbb;
 }
 
-
 .delete-card {
   position: fixed;
-  top: 100px;
-  left: 100px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 50px;
   height: 50px;
-  margin-top: -25px; /* Half of the height */
-  margin-left: -25px; /* Half of the width */
   background-color: white;
   padding: auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
 }
 
 .delete-card-content {
