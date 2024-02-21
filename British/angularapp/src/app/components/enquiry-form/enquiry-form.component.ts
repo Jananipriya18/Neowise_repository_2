@@ -146,17 +146,50 @@ export class EnquiryFormComponent implements OnInit {
     );
   }
 
+  // createEnquiry(): void {
+  //   if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+  //     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
+
+  //     // Map the selected course name to course ID
+  //     const selectedCourseName = this.newEnquiryForm.get('courseName').value;
+  //     const selectedCourseID = this.courseNameIdMapping[selectedCourseName];
+      
+  //     // Assign the course ID to the newEnquiry object
+  //     newEnquiry.courseID = selectedCourseID;
+
+  //     this.enquiryService.createEnquiry(newEnquiry).subscribe(
+  //       (createdEnquiry: Enquiry) => {
+  //         console.log('Enquiry created successfully:', createdEnquiry);
+  //         // Navigate to the enquiries page after successful creation
+  //         this.router.navigate(['/enquiries']);
+  //       },
+  //       (error) => {
+  //         console.error('Error creating enquiry:', error);
+  //         console.error('Error Response:', error);
+  //         // You can also handle specific error cases here if needed
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Only customers can create enquiries or form is not valid');
+  //   }
+  // }
   createEnquiry(): void {
     if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
       const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
-
+  
       // Map the selected course name to course ID
       const selectedCourseName = this.newEnquiryForm.get('courseName').value;
       const selectedCourseID = this.courseNameIdMapping[selectedCourseName];
       
       // Assign the course ID to the newEnquiry object
       newEnquiry.courseID = selectedCourseID;
-
+  
+      // Get the current user ID
+      const currentUserId = this.authService.getCurrentUserId();
+  
+      // Assign the user ID to the newEnquiry object
+      newEnquiry.userId = currentUserId;
+  
       this.enquiryService.createEnquiry(newEnquiry).subscribe(
         (createdEnquiry: Enquiry) => {
           console.log('Enquiry created successfully:', createdEnquiry);
@@ -173,4 +206,5 @@ export class EnquiryFormComponent implements OnInit {
       console.error('Only customers can create enquiries or form is not valid');
     }
   }
+  
 }

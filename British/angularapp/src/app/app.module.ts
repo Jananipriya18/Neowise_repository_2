@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './components/course-list/course-list.component';
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.component';
+import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.com
     CourseListComponent,
     AddCourseComponent,
     EnquiryFormComponent,
+    EnquiryListComponent,
   ],
   imports: [
     BrowserModule,

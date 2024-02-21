@@ -127,6 +127,10 @@ export class AuthService {
       return null;
     }
   }
+// Add this method to your AuthService
+getCurrentUserId(): string {
+  return localStorage.getItem('userId') || '';
+}
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
