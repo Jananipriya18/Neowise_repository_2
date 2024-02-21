@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
 import { Payment } from '../../models/payment.model';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-payment-list',

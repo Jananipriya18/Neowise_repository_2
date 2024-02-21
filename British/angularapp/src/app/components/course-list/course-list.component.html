@@ -12,8 +12,9 @@
         <div class="card-actions">
           <!-- Button to trigger edit modal -->
           <!-- Conditionally display Pay now button for non-admin users -->
-          <!-- Button to trigger payment with course ID -->
-          <!-- <button type="button" routerLink="/payment">Pay  now</button> -->
+          <button *ngIf=" authService.isCustomer()" type="button" routerLink="/payment">Pay now</button>
+          <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
+          
           <!-- Card for delete functionality -->
           <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
             <div class="delete-card-content">
@@ -22,6 +23,7 @@
                 <button type="button" (click)="deleteCourse(course.courseID)">Confirm Delete</button>
                 <button type="button" (click)="cancelDelete(course)">Cancel</button>
               </div>
+             
             </div>
           </div>
           
