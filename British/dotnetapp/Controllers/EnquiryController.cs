@@ -19,7 +19,7 @@ namespace dotnetapp.Controllers
         {
             _enquiryService = enquiryService;
         }
- [Authorize(Roles="Admin,Customer")]
+//  [Authorize(Roles="Admin,Customer")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllEnquiries()
