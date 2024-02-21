@@ -17,7 +17,7 @@ namespace dotnetapp.Repository
         public async Task<IEnumerable<Enquiry>> GetAllEnquiries()
         {
 
-                             return await _context.Enquiries
+                        return await _context.Enquiries
                          .Include(b => b.User) 
                          .Include(c => c.Course) 
                          .ToListAsync();       

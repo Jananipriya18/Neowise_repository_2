@@ -13,10 +13,11 @@ public class Enquiry
     public string Description { get; set; }
     public string EmailID { get; set; }
     public string EnquiryType { get; set; }
-    public int? CourseID { get; set; }
+    public int CourseID { get; set; }
     [ForeignKey(nameof(CourseID))]
     public Course? Course { get; set; }
-    public long?  UserId { get; set; }
+
+    public long  UserId { get; set; }
     [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
 }
