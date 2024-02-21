@@ -9,6 +9,7 @@ import { CourseListComponent } from './components/course-list/course-list.compon
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.component';
 import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.component';
+import {}
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'courselist', component: CourseListComponent },
   { path: 'enquiry', component: EnquiryFormComponent, canActivate: [AuthGuard] },
   { path: 'enquirylist', component: EnquiryListComponent },
+  { path: 'payments', component: PaymentListComponent },
   { path: 'error', component: ErrorComponent, data: { message: 'Oops! Something went wrong.' }},
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
 ];

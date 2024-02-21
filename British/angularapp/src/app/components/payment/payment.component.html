@@ -1,1 +1,25 @@
-<p>payment works!</p>
+<!-- payment-list.component.html -->
+
+<div class="payment-list">
+    <h2>Payments</h2>
+  
+    <!-- Payment Input -->
+    <div>
+      <label for="amountToPay">Amount to Pay:</label>
+      <input type="number" id="amountToPay" [(ngModel)]="amountToPay" />
+    </div>
+  
+    <!-- Make Payment Button (Visible only to customers) -->
+    <button *ngIf="isCustomer()" (click)="makePayment()">Make Payment</button>
+  
+    <!-- Payments List -->
+    <div *ngIf="payments.length > 0">
+      <h3>Payment History</h3>
+      <ul>
+        <li *ngFor="let payment of payments">
+          {{ payment.amountPaid | currency }} - {{ payment.paymentDate | date: 'medium' }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  
