@@ -4,12 +4,12 @@ import { Payment } from '../../models/payment.model';
 
 @Component({
   selector: 'app-payment-list',
-  templateUrl: './payment-list.component.html',
-  styleUrls: ['./payment-list.component.css']
+  templateUrl: './payment.component.html',
+  styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
   payments: Payment[] = [];
-  amountToPay: number = 0; // Assuming you have an input for the payment amount in the template
+  amountToPay: number = 0;
 
   constructor(private paymentService: PaymentService) {}
 
