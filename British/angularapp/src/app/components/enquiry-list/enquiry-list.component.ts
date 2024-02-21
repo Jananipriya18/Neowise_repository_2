@@ -21,6 +21,7 @@ export class EnquiryListComponent implements OnInit {
     this.enquiryService.getAllEnquiries().subscribe(
       (enquiries: Enquiry[]) => {
         this.enquiries = enquiries;
+        console.log(this.enquiries);
       },
       (error) => {
         console.error('Error fetching enquiries:', error);

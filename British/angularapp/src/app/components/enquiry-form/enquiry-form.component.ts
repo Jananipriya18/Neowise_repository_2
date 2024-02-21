@@ -206,5 +206,9 @@ export class EnquiryFormComponent implements OnInit {
       console.error('Only customers can create enquiries or form is not valid');
     }
   }
+
+  navigateToCourseList(): void {
+    this.router.navigate(['/enquirylist']);
+  }
   
 }
