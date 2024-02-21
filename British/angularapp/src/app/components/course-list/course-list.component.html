@@ -11,18 +11,19 @@
         </div>
         <div class="card-actions">
           <!-- Button to trigger edit modal -->
-          <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
-
+          <!-- Conditionally display Pay now button for non-admin users -->
+          <button *ngIf="authService.isCustomer()" type="button" routerLink="/payment">Pay now</button>
+          <!-- Button to trigger payment with course ID -->
+          <button *ngIf="authService.isCustomer()" type="button" [routerLink]="['/payment', course.courseID]">Pay now</button>
+          <!-- <button type="button" routerLink="/payment">Pay  now</button> -->
           <!-- Card for delete functionality -->
           <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
             <div class="delete-card-content">
               <div class="modal-content" style="width: 563%; margin-left: -139px;">
                 <p>Are you sure you want to delete this course?</p>
-                
                 <button type="button" (click)="deleteCourse(course.courseID)">Confirm Delete</button>
                 <button type="button" (click)="cancelDelete(course)">Cancel</button>
               </div>
-             
             </div>
           </div>
           
@@ -31,6 +32,7 @@
       </div>
     </div>
   </div>
+  
 </div>
 
 <!-- Edit Course Modal -->
