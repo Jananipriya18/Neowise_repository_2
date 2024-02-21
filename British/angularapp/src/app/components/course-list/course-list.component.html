@@ -8,11 +8,16 @@
         <div class="card-details">
           <p><strong>Duration:</strong> {{ course.duration }}</p>
           <p><strong>Amount:</strong> {{ course.amount }}</p>
+          
         </div>
         <div class="card-actions">
           <!-- Button to trigger edit modal -->
           <!-- Conditionally display Pay now button for non-admin users -->
-          <button *ngIf=" authService.isCustomer()" type="button" routerLink="/payment">Pay now</button>
+          <!-- <button *ngIf=" authService.isCustomer()" type="button" routerLink="/payment">Pay now</button> -->
+          <div class="card-actions">
+            <button *ngIf="authService.isCustomer()" type="button" (click)="redirectToPayment(course)">Pay now</button>
+            <!-- ... Other buttons ... -->
+          </div>
           <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
           
           <!-- Card for delete functionality -->

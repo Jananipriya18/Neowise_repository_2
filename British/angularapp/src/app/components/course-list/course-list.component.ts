@@ -145,5 +145,16 @@ export class CourseListComponent implements OnInit {
     this.editCourseModalVisible = false;
   }
   
+  redirectToPayment(course: Course): void {
+    if (this.authService.isCustomer()) {
+      // Assuming you have a route defined for the payment page with a parameter named 'courseId'
+      this.router.navigate(['/payment', course.courseID], {
+        queryParams: {
+          courseName: course.courseName,
+          // userId: /* Get the user ID here using your authentication service */,
+        },
+      });
+    }
+  }
   
 }

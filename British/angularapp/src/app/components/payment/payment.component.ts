@@ -24,6 +24,11 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllPayments();
+
+      this.courseId = +this.route.snapshot.paramMap.get('courseId');
+      this.courseName = this.route.snapshot.queryParamMap.get('courseName');
+      this.userId = this.route.snapshot.queryParamMap.get('userId');
+    
   }
 
   fetchAllPayments(): void {
