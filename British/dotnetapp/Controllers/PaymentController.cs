@@ -19,7 +19,7 @@ namespace dotnetapp.Controllers
         {
             _paymentService = paymentService;
         }
-[Authorize(Roles="Admin,Customer")]
+     //   [Authorize(Roles="Admin,Customer")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllPayments()
@@ -27,7 +27,7 @@ namespace dotnetapp.Controllers
             var payments = await _paymentService.GetAllPayments();
             return Ok(payments);
         }
-[Authorize(Roles="Admin,Customer")]
+      //  [Authorize(Roles="Admin,Customer")]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPaymentById(int id)
@@ -39,7 +39,7 @@ namespace dotnetapp.Controllers
             }
             return Ok(payment);
         }
-[Authorize(Roles="Customer")]
+     //   [Authorize(Roles="Customer")]
 
         [HttpPost]
         public async Task<IActionResult> CreatePayment(Payment payment)
@@ -47,38 +47,5 @@ namespace dotnetapp.Controllers
             await _paymentService.CreatePayment(payment);
             return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
         }
-
-        // [HttpPut("{id}")]
-        // public async Task<IActionResult> UpdatePayment(int id, Payment payment)
-        // {
-        //     if (id != payment.PaymentID)
-        //     {
-        //         return BadRequest();
-        //     }
-
-        //     var existingPayment = await _paymentService.GetPaymentById(id);
-        //     if (existingPayment == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     try
-        //     {
-        //         await _paymentService.UpdatePayment(payment);
-        //     }
-        //     catch (Exception)
-        //     {
-        //         return StatusCode(500);
-        //     }
-
-        //     return NoContent();
-        // }
-
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> DeletePayment(int id)
-        // {
-        //     await _paymentService.DeletePayment(id);
-        //     return NoContent();
-        // }
     }
 }

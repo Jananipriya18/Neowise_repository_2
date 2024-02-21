@@ -21,6 +21,6 @@ public class Payment
 
     // Navigation property for the related course
     [ForeignKey(nameof(CourseID))]
-    public Course ?Course { get; set; }
+    public Course? Course { get; set; }
 }
 }

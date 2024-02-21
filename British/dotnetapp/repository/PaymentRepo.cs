@@ -24,20 +24,37 @@ namespace dotnetapp.Repository
             return await _context.Payments.FindAsync(id);
         }
 
-        public async Task CreatePayment(Payment payment)
-        { 
-            _context.Payments.Add(payment);
-            await _context.SaveChangesAsync();
+        // public async Task CreatePayment(Payment payment)
+        // { 
+        //     _context.Payments.Add(payment);
+        //     await _context.SaveChangesAsync();
             
-            // Load related entities if needed
-            await _context.Entry(payment)
-                .Reference(e => e.Course)
-                .LoadAsync();
+        //     // Load related entities if needed
+        //     await _context.Entry(payment)
+        //         .Reference(e => e.Course)
+        //         .LoadAsync();
 
-            await _context.Entry(payment)
-                .Reference(e => e.User)
-                .LoadAsync();
+        //     await _context.Entry(payment)
+        //         .Reference(e => e.User)
+        //         .LoadAsync();
+        // }
+        public async Task CreatePayment(Payment payment)
+        {
+            // Fetch the user and course details from the database
+            var user = await _context.Users.FindAsync(payment.UserId);
+            var course = await _context.Courses.FindAsync(payment.CourseID);
+
+            // Assign the fetched user and course to the payment object
+            payment.User = user;
+            payment.Course = course;
+
+            // Add the payment to the context
+            _context.Payments.Add(payment);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
         }
+
 
         public async Task UpdatePayment(Payment payment)
         {
