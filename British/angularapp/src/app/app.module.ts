@@ -16,6 +16,7 @@ import { CourseListComponent } from './components/course-list/course-list.compon
 import { AddCourseComponent } from './components/add-course/add-course.component';
 import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.component';
 import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.com
     AddCourseComponent,
     EnquiryFormComponent,
     EnquiryListComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
