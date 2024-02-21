@@ -1,4 +1,4 @@
-<!-- enquiry-list.component.html -->
+<!-- enquiry-list.component.html
 <div class="enquiry-list">
     <h2>Enquiry List</h2>
     <div *ngFor="let enquiry of enquiries" class="enquiry-item">
@@ -9,8 +9,23 @@
       <p>Enquiry Type: {{ enquiry.enquiryType }}</p>
       <p>Course Name: {{ enquiry.courseName }}</p>
       <p>Email ID: {{ enquiry.emailID }}</p>
-      <!-- Add other fields you want to display -->
       <button (click)="viewDetails(enquiry.enquiryID)">View Details</button>
     </div>
   </div>
-  
+   -->
+
+   <!-- enquiry-list.component.html -->
+<div *ngIf="enquiries.length > 0" class="enquiry-list">
+  <h2>List of Enquiries</h2>
+  <div *ngFor="let enquiry of enquiries" class="enquiry-item">
+    <h3>{{ enquiry.title }}</h3>
+    <p>{{ enquiry.description }}</p>
+    <p>Enquiry Date: {{ enquiry.enquiryDate | date: 'medium' }}</p>
+    <p>User ID: {{ enquiry.userId }}</p>
+    <p>Enquiry Type: {{ enquiry.enquiryType }}</p>
+    <p>Course Name: {{ enquiry.courseName }}</p>
+    <p>Email ID: {{ enquiry.emailID }}</p>
+    <!-- Add other fields you want to display -->
+    <!-- <button (click)="viewDetails(enquiry.enquiryID)">View Details</button> -->
+  </div>
+</div>
