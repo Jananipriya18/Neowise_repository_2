@@ -19,7 +19,7 @@ namespace dotnetapp.Controllers
         {
             _enquiryService = enquiryService;
         }
-[Authorize(Roles="Admin,Customer")]
+// [Authorize(Roles="Admin,Customer")]
 
         [HttpGet]
         public async Task<IActionResult> GetAllEnquiries()
@@ -27,7 +27,7 @@ namespace dotnetapp.Controllers
             var enquiries = await _enquiryService.GetAllEnquiries();
             return Ok(enquiries);
         }
-[Authorize(Roles="Admin,Customer")]
+// [Authorize(Roles="Admin,Customer")]
 
         [HttpGet("{EnquiryID}")]
         public async Task<IActionResult> GetEnquiryById(int EnquiryID)
@@ -40,7 +40,7 @@ namespace dotnetapp.Controllers
             return Ok(enquiry);
         }
 
-   [Authorize(Roles="Customer")]
+  // [Authorize(Roles="Customer")]
 [HttpPost]
 public async Task<IActionResult> CreateEnquiry(Enquiry enquiry)
 {
@@ -48,7 +48,7 @@ public async Task<IActionResult> CreateEnquiry(Enquiry enquiry)
     return CreatedAtAction(nameof(GetEnquiryById), new { EnquiryID = enquiry.EnquiryID }, enquiry);
 }
 
-[Authorize(Roles="Customer")]
+//[Authorize(Roles="Customer")]
 
         [HttpPut("{EnquiryID}")]
         public async Task<IActionResult> UpdateEnquiry(int EnquiryID, Enquiry enquiry)
@@ -76,7 +76,7 @@ public async Task<IActionResult> CreateEnquiry(Enquiry enquiry)
             return NoContent();
         }
 
-[Authorize(Roles="Customer")]
+// [Authorize(Roles="Customer")]
 
        [HttpDelete("{EnquiryID}")]
         public async Task<IActionResult> DeleteEnquiry(int EnquiryID)
