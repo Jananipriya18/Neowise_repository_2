@@ -11,6 +11,14 @@ import { EnquiryService } from 'src/app/services/enquiry.service';
 })
 export class EnquiryListComponent implements OnInit {
   enquiries: Enquiry[] = [];
+  newEnquiry: Enquiry = {
+    enquiryID: 0,
+    userID: 0,
+    courseID: 0,
+    title: '',
+    description: '',
+
+  }
 
   constructor(private enquiryService: EnquiryService) {}
 

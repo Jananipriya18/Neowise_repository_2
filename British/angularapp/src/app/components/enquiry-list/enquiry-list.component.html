@@ -21,9 +21,9 @@
     <h3>{{ enquiry.title }}</h3>
     <p>{{ enquiry.description }}</p>
     <p>Enquiry Date: {{ enquiry.enquiryDate | date: 'medium' }}</p>
-    <p>User ID: {{ enquiry.userId }}</p>
+    <p>User ID: {{ enquiry.user?.username }}</p>
     <p>Enquiry Type: {{ enquiry.enquiryType }}</p>
-    <p>Course Name: {{ enquiry.courseName }}</p>
+    <p>Course Name: {{ enquiry.course?.courseName }}</p>
     <p>Email ID: {{ enquiry.emailID }}</p>
     <!-- Add other fields you want to display -->
     <!-- <button (click)="viewDetails(enquiry.enquiryID)">View Details</button> -->
