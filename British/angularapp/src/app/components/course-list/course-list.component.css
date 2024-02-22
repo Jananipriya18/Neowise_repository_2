@@ -20,10 +20,6 @@ Add this styling to your global styles or specific component styles
   box-sizing: 50px; /* Include padding and borders in the total height */
 }
 
-/* .custom-card:hover {
-  transform: scale(1.05);
-} */
-
 .card-content {
   display: flex;
   flex-direction: column;
@@ -48,9 +44,6 @@ h3 {
   font-size: 14px;
 }
 
-/* course-list.component.css */
-
-/* Styles for the modal overlay */
 .modal-overlay {
   display: block;
   position: fixed;
@@ -171,20 +164,6 @@ button[type="button"]:hover {
   justify-content: space-around;
 }
 
-/* .delete-card {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  background-color: #fff;
-  padding: 20px;
-  width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center;
-} */
-
 .delete-card {
   position: absolute;
   top: 50%;
@@ -193,7 +172,7 @@ button[type="button"]:hover {
   z-index: 5; 
   background-color: #fff;
   padding: 20px;
-  width: 400px;
+  width: 100%;
   border-radius: 8px;
   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
   text-align: center;
@@ -201,7 +180,7 @@ button[type="button"]:hover {
 }
 
 .custom-card:hover .delete-card {
-  display: block; /* Show the delete card when hovering over the custom card */
+  display: block; 
 }
 
 .delete-card-content {
@@ -212,4 +191,5 @@ button[type="button"]:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
   text-align: center;
 }
+
 
