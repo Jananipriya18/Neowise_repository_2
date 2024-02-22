@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-
+using dotnetapp.Models;
 
 [TestFixture]
 public class SpringappApplicationTests
@@ -111,112 +111,112 @@ public class SpringappApplicationTests
         Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
     }
 
-//     [Test]
-// public async Task Backend_TestGetContainer()
-// {
-//     // Register a user with the "Admin" role
-//     string uniqueId = Guid.NewGuid().ToString();
-//     string uniqueUsername = $"abcd_{uniqueId}";
-//     string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+    [Test]
+public async Task Backend_TestGetContainer()
+{
+    // Register a user with the "Admin" role
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-//     string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
-//     HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
-//     // Login the registered user
-//     string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
-//     HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
-//     string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
-//     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
-//     string userAuthToken = loginResponseMap.token;
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
 
-//     // Use the obtained token in the request to post a new container
-//     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+    // Use the obtained token in the request to post a new container
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
-//     // Post a new container
-//    var newContainer = new Container
-//     {
-//         ContainerId = 0, // Set the desired ContainerId
-//         Type = "string",
-//         Status = "string",
-//         Capacity = 100,
-//         Location = "string",
-//         Weight = 50.5,
-//         Owner = "string",
-//         CreationDate = DateTime.UtcNow,
-//         LastInspectionDate = DateTime.UtcNow
-//     };
+    // Post a new container
+   var newContainer = new Container
+    {
+        ContainerId = 0, // Set the desired ContainerId
+        Type = "string",
+        Status = "string",
+        Capacity = 100,
+        Location = "string",
+        Weight = 50.5,
+        Owner = "string",
+        CreationDate = DateTime.UtcNow,
+        // LastInspectionDate = DateTime.UtcNow
+    };
 
-//     string postContainerBody = JsonConvert.SerializeObject(newContainer);
-//     HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
 
-//     // Retrieve the posted container
-//     HttpResponseMessage getContainerResponse = await _httpClient.GetAsync("/api/container");
-//     Assert.AreEqual(HttpStatusCode.OK, getContainerResponse.StatusCode);
+    // Retrieve the posted container
+    HttpResponseMessage getContainerResponse = await _httpClient.GetAsync("/api/container");
+    Assert.AreEqual(HttpStatusCode.OK, getContainerResponse.StatusCode);
 
-//     // Validate the response content
-//     string getContainerResponseBody = await getContainerResponse.Content.ReadAsStringAsync();
-//     // Console.WriteLine($"Response Body: {getContainerResponseBody}");
+    // Validate the response content
+    string getContainerResponseBody = await getContainerResponse.Content.ReadAsStringAsync();
+    // Console.WriteLine($"Response Body: {getContainerResponseBody}");
 
-//     var containers = JsonConvert.DeserializeObject<List<Container>>(getContainerResponseBody);
+    var containers = JsonConvert.DeserializeObject<List<Container>>(getContainerResponseBody);
 
-//     // Console log to inspect containers
-//     // foreach (var container in containers)
-//     // {
-//     //     Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
-//     // }
+    // Console log to inspect containers
+    // foreach (var container in containers)
+    // {
+    //     Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
+    // }
 
-//     // Assert that containers are not null and there is at least one container
-//     Assert.IsNotNull(containers);
-//     Assert.IsTrue(containers.Any()); // This ensures that there is at least one container
+    // Assert that containers are not null and there is at least one container
+    Assert.IsNotNull(containers);
+    Assert.IsTrue(containers.Any()); // This ensures that there is at least one container
 
 
-// }
+}
 
-// [Test]
-// public async Task Backend_TestPostContainer()
-// {
-//     // Register a user with the "Admin" role
-//     string uniqueId = Guid.NewGuid().ToString();
-//     string uniqueUsername = $"abcd_{uniqueId}";
-//     string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+[Test]
+public async Task Backend_TestPostContainer()
+{
+    // Register a user with the "Admin" role
+    string uniqueId = Guid.NewGuid().ToString();
+    string uniqueUsername = $"abcd_{uniqueId}";
+    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-//     string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
-//     HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
+    string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+    HttpResponseMessage registerResponse = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, registerResponse.StatusCode);
 
-//     // Login the registered user
-//     string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
-//     HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
-//     string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
-//     dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
-//     string userAuthToken = loginResponseMap.token;
+    // Login the registered user
+    string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}";
+    HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+    string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+    dynamic loginResponseMap = JsonConvert.DeserializeObject(loginResponseBody);
+    string userAuthToken = loginResponseMap.token;
 
-//     // Use the obtained token in the request to post a new container
-//     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
+    // Use the obtained token in the request to post a new container
+    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
-//     // Declare and initialize newContainer
-//     var newContainer = new Container
-//     {
-//         ContainerId = 0, // Set the desired ContainerId
-//         Type = "string",
-//         Status = "string",
-//         Capacity = 100,
-//         Location = "string",
-//         Weight = 50.5,
-//         Owner = "string",
-//         CreationDate = DateTime.UtcNow,
-//         LastInspectionDate = DateTime.UtcNow
-//     };
+    // Declare and initialize newContainer
+    var newContainer = new Container
+    {
+        ContainerId = 0, // Set the desired ContainerId
+        Type = "string",
+        Status = "string",
+        Capacity = 100,
+        Location = "string",
+        Weight = 50.5,
+        Owner = "string",
+        CreationDate = DateTime.UtcNow,
+        // LastInspectionDate = DateTime.UtcNow
+    };
 
-//     // POST operation
-//     string postContainerBody = JsonConvert.SerializeObject(newContainer);
-//     HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
-//     Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
-// }
+    // POST operation
+    string postContainerBody = JsonConvert.SerializeObject(newContainer);
+    HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+    Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+}
 
 // [Test]
 // public async Task Backend_TestPutContainer()
