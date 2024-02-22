@@ -1,4 +1,4 @@
-<!-- <nav>
+<nav>
   <h1>British English Certification [BEC]</h1>
   <ul class="nav-links">
     <li><a routerLink="/">Home</a></li>
@@ -11,39 +11,6 @@
         </button>
       </li>
     </ng-container>
-  </ul>
-</nav>
-
-<div *ngIf="showLogoutPopup" class="logout-popup">
-  <div class="logout-popup-content">
-    <p>Are you sure you want to logout?</p>
-    <button (click)="logout(); showLogoutPopup = false" id="logout-btn" class="button button-yes">
-      Yes, Logout
-    </button>
-    <button (click)="showLogoutPopup = false" class="button button-cancel">Cancel</button>
-  </div>
-</div> -->
-
-
-<!-- course-navbar.component.html -->
-
-<nav>
-  <h1>British English Certification [BEC]</h1>
-  <ul class="nav-links">
-    <li><a routerLink="/">Home</a></li>
-    <ng-container *ngIf="isLoggedIn; else registerPage">
-      <li><a routerLink="/">Home</a></li>
-      <li><app-admin-dashboard></app-admin-dashboard></li>
-      <li><app-customer-dashboard></app-customer-dashboard></li>
-      <li>
-        <button class="button button-logout" (click)="showLogoutPopup = true">
-          Logout
-        </button>
-      </li>
-    </ng-container>
-    <ng-template #registerPage>
-      <li><app-registration></app-registration></li>
-    </ng-template>
   </ul>
 </nav>
 
