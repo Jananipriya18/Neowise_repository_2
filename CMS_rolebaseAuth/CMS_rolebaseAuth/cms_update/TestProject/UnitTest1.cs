@@ -148,9 +148,15 @@ public async Task Backend_TestGetContainer()
         // LastInspectionDate = DateTime.UtcNow
     };
 
+    // string postContainerBody = JsonConvert.SerializeObject(newContainer);
+    // HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+    // Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
     string postContainerBody = JsonConvert.SerializeObject(newContainer);
     HttpResponseMessage postContainerResponse = await _httpClient.PostAsync("/api/container", new StringContent(postContainerBody, Encoding.UTF8, "application/json"));
+
+    // Update the assertion to expect Created if the underlying issue is fixed
     Assert.AreEqual(HttpStatusCode.Created, postContainerResponse.StatusCode);
+    // Assert.AreEqual(HttpStatusCode.OK, getContainerResponse.StatusCode);
 
     // Retrieve the posted container
     HttpResponseMessage getContainerResponse = await _httpClient.GetAsync("/api/container");

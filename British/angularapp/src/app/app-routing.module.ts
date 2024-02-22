@@ -13,7 +13,7 @@ import {PaymentComponent} from './components/payment/payment.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegistrationComponent },
   { path: 'course', component: AddCourseComponent, canActivate: [AuthGuard] },
