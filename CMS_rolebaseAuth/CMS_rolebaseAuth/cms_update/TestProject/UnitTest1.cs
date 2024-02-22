@@ -16,7 +16,7 @@ public class SpringappApplicationTests
     public void Setup()
     {
         _httpClient = new HttpClient();
-        _httpClient.BaseAddress = new Uri("https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io");
+        _httpClient.BaseAddress = new Uri("https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/");
     }
 
     [Test, Order(1)]
@@ -74,7 +74,7 @@ public class SpringappApplicationTests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"InventoryManager\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
@@ -93,7 +93,7 @@ public class SpringappApplicationTests
         string uniqueUsername = $"abcd_{uniqueId}";
         string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"InventoryManager\"}}";
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Operator\"}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         // Print registration response
@@ -421,7 +421,7 @@ public async Task Backend_TestPostAssignmentAsAdmin()
         Weight = 0,
         Owner = "string",
         CreationDate = "2024-02-18T03:08:57.598Z",
-        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+        // LastInspectionDate = "2024-02-18T03:08:57.598Z"
     };
 
     // Convert the newContainer object to JSON string
