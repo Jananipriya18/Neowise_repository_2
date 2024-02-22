@@ -134,8 +134,8 @@ public async Task Backend_TestGetContainer()
     // Use the obtained token in the request to post a new container
     _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", userAuthToken);
 
-    // Post a new container
-   var newContainer = new Container
+   // Post a new container
+    var newContainer = new Container
     {
         ContainerId = 0, // Set the desired ContainerId
         Type = "string",
@@ -144,7 +144,7 @@ public async Task Backend_TestGetContainer()
         Location = "string",
         Weight = 50.5,
         Owner = "string",
-        CreationDate = DateTime.UtcNow,
+        // CreationDate = DateTime.UtcNow,
         // LastInspectionDate = DateTime.UtcNow
     };
 
@@ -154,25 +154,17 @@ public async Task Backend_TestGetContainer()
 
     // Retrieve the posted container
     HttpResponseMessage getContainerResponse = await _httpClient.GetAsync("/api/container");
+    
+    // Correct the assertion to expect HttpStatusCode.OK
     Assert.AreEqual(HttpStatusCode.OK, getContainerResponse.StatusCode);
 
     // Validate the response content
     string getContainerResponseBody = await getContainerResponse.Content.ReadAsStringAsync();
-    // Console.WriteLine($"Response Body: {getContainerResponseBody}");
-
     var containers = JsonConvert.DeserializeObject<List<Container>>(getContainerResponseBody);
-
-    // Console log to inspect containers
-    // foreach (var container in containers)
-    // {
-    //     Console.WriteLine($"ContainerId: {container.ContainerId}, Type: {container.Type}, Status: {container.Status}");
-    // }
 
     // Assert that containers are not null and there is at least one container
     Assert.IsNotNull(containers);
-    Assert.IsTrue(containers.Any()); // This ensures that there is at least one container
-
-
+    Assert.IsTrue(containers.Any());
 }
 
 [Test]
