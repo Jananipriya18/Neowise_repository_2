@@ -564,7 +564,7 @@ public async Task Backend_TestGetAssignmentById()
         Weight = 0,
         Owner = "string",
         CreationDate = "2024-02-18T03:08:57.598Z",
-        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+        // LastInspectionDate = "2024-02-18T03:08:57.598Z"
     };
 
     // Convert the newContainer object to JSON string
@@ -682,7 +682,7 @@ public async Task Backend_TestPostAndPutAssignmentByAssignmentId()
         Weight = 0,
         Owner = "string",
         CreationDate = "2024-02-18T03:08:57.598Z",
-        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+        // LastInspectionDate = "2024-02-18T03:08:57.598Z"
     };
 
     // Convert the newContainer object to JSON string
@@ -800,7 +800,7 @@ public async Task Backend_TestPostAndDeleteAssignmentByAssignmentId()
         Weight = 0,
         Owner = "string",
         CreationDate = "2024-02-18T03:08:57.598Z",
-        LastInspectionDate = "2024-02-18T03:08:57.598Z"
+        // LastInspectionDate = "2024-02-18T03:08:57.598Z"
     };
 
     // Convert the newContainer object to JSON string
