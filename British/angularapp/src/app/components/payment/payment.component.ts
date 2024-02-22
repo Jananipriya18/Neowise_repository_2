@@ -66,6 +66,7 @@ export class PaymentComponent implements OnInit {
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {
         console.log('Payment successful:', createdPayment);
+        this.router.navigate(['/paymentlist']);
         // this.fetchAllPayments();
       },
       (error) => {
