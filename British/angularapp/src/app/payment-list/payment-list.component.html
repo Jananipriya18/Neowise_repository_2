@@ -3,17 +3,13 @@
     <div class="card-deck">
       <div *ngFor="let payment of payments" class="custom-card">
         <div class="card-content">
-          <h3>Payment ID: {{ payment.paymentID }}</h3>
+          <!-- <h3>Payment ID: {{ payment.paymentID }}</h3> -->
           <p><strong>Amount Paid:</strong> {{ payment.amountPaid | currency }}</p>
           <p><strong>Payment Date:</strong> {{ payment.paymentDate | date: 'medium' }}</p>
           <p><strong>Payment Method:</strong> {{ payment.paymentMethod }}</p>
           <p><strong>Transaction ID:</strong> {{ payment.transactionID }}</p>
-          <p><strong>User ID:</strong> {{ payment.user?.userId }}</p>
-          <p><strong>Course ID:</strong> {{ payment.course?.courseID }}</p>
-          
-          <!-- Add more details based on your User and Course models -->
-  
-          <!-- Additional actions/buttons can be added as needed -->
+          <p><strong>User Name:</strong> {{ payment.user?.username }}</p>
+          <p><strong>Course Name:</strong> {{ payment.course?.courseName }}</p>
         </div>
       </div>
     </div>
