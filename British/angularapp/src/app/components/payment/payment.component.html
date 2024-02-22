@@ -20,12 +20,11 @@
       <input type="text" id="transactionID" name="transactionID" [(ngModel)]="newPayment.transactionID" required />
     </div>
 
-    <!-- Assuming you have a dropdown to select the course -->
+    <!-- Dropdown to select the course -->
     <div>
       <label for="courseID">Select Course:</label>
       <select id="courseID" name="courseID" [(ngModel)]="newPayment.courseID">
-        <!-- Populate options dynamically based on available courses -->
-        <!-- <option *ngFor="let course of courses" [value]="course.courseID">{{ course.courseName }}</option> -->
+        <option *ngFor="let course of courses" [value]="course.courseID">{{ course.courseName }}</option>
       </select>
     </div>
 
@@ -43,11 +42,3 @@
   </div>
   
 </div>
-
-
-<!-- Inside payment.component.html -->
-<!-- <h2>Payment Details</h2>
-<p>Course ID: {{ courseId }}</p>
-<p>Course Name: {{ courseName }}</p>
-<p>User ID: {{ userId }}</p> -->
-<!-- ... Other payment-related content ... -->
