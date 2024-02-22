@@ -136,8 +136,6 @@ button[type="button"]:hover {
 }
 
 
-
-
 /* Add this to your component's CSS file or styles.scss */
 
 .card-container {
@@ -147,14 +145,15 @@ button[type="button"]:hover {
 }
 
 .custom-card {
-  width: 250px; /* Adjust the width as needed */
-  height: 300px; /* Adjust the height as needed */
+  width: 250px;
+  height: 300px;
   margin: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
+  position: relative;
 }
 
 .custom-card:hover {
@@ -168,6 +167,49 @@ button[type="button"]:hover {
 
 .card-actions {
   margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
 }
 
-/* Add any additional styling as needed */
+/* .delete-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #fff;
+  padding: 20px;
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+} */
+
+.delete-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5; 
+  background-color: #fff;
+  padding: 20px;
+  width: 400px;
+  border-radius: 8px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+  text-align: center;
+  display: none; /* Hide the delete card by default */
+}
+
+.custom-card:hover .delete-card {
+  display: block; /* Show the delete card when hovering over the custom card */
+}
+
+.delete-card-content {
+  background-color: #fff;
+  padding: auto;
+  width: 400%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  text-align: center;
+}
+
