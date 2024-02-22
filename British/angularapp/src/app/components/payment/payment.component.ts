@@ -35,21 +35,21 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fetchAllPayments();
+    // this.fetchAllPayments();
     this.fetchAllCourses();
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
   }
 
-  fetchAllPayments(): void {
-    this.paymentService.getAllPayments().subscribe(
-      (payments: Payment[]) => {
-        this.payments = payments;
-      },
-      (error) => {
-        console.error('Error fetching payments:', error);
-      }
-    );
-  }
+  // fetchAllPayments(): void {
+  //   this.paymentService.getAllPayments().subscribe(
+  //     (payments: Payment[]) => {
+  //       this.payments = payments;
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching payments:', error);
+  //     }
+  //   );
+  // }
 
   fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
@@ -66,7 +66,7 @@ export class PaymentComponent implements OnInit {
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {
         console.log('Payment successful:', createdPayment);
-        this.fetchAllPayments();
+        // this.fetchAllPayments();
       },
       (error) => {
         console.error('Error making payment:', error);
@@ -76,12 +76,24 @@ export class PaymentComponent implements OnInit {
 
   redirectToPayment(course: Course): void {
     if (this.authService.isCustomer()) {
+      const userId = this.authService.getCurrentUserId();
+      
+      console.log('Selected Course Information:', {
+        courseId: course.courseID,
+        courseName: course.courseName,
+      });
+  
+      console.log('User Information:', {
+        userId: userId,
+      });
+  
       this.router.navigate(['/payment', course.courseID], {
         queryParams: {
           courseName: course.courseName,
-          userId: this.authService.getCurrentUserId(),
+          userId: userId,
         },
       });
     }
   }
+  
 }

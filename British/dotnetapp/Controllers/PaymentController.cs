@@ -19,6 +19,7 @@ namespace dotnetapp.Controllers
         {
             _paymentService = paymentService;
         }
+        
        [Authorize(Roles="Admin,Customer")]
 
         [HttpGet]
@@ -27,6 +28,7 @@ namespace dotnetapp.Controllers
             var payments = await _paymentService.GetAllPayments();
             return Ok(payments);
         }
+
         [Authorize(Roles="Admin,Customer")]
 
         [HttpGet("{id}")]
@@ -39,6 +41,7 @@ namespace dotnetapp.Controllers
             }
             return Ok(payment);
         }
+
        [Authorize(Roles="Customer")]
 
         [HttpPost]
