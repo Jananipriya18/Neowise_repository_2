@@ -66,7 +66,7 @@
 
 
  <!-- Admin View -->
-<div *ngIf="isAdmin; else customerView" class="card-container">
+<div  class="card-container">
   <h2>List of Courses (Admin View)</h2>
   <div class="card-deck">
     <div *ngFor="let course of courses" class="custom-card">
@@ -79,6 +79,7 @@
         </div>
         <div class="card-actions">
           <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
+          <button type="button" *ngIf="!isAdmin" (click)="redirectToPayment(course)">Pay now</button>
           
           <!-- Card for delete functionality -->
           <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
@@ -86,7 +87,7 @@
               <div class="modal-content" style="width: 563%; margin-left: -139px;">
                 <p>Are you sure you want to delete this course?</p>
                 <button type="button" (click)="deleteCourse(course.courseID)">Confirm Delete</button>
-                <button type="button" (click)="cancelDelete(course)">Cancel</button>
+                <button  type="button" (click)="cancelDelete(course)">Cancel</button>
               </div>
             </div>
           </div>
