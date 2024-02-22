@@ -69,6 +69,9 @@ h3 {
   width: 100%;
   max-width: 400px;
   text-align: center;
+  padding: 10px;
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 label {
@@ -87,7 +90,7 @@ button {
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #d112dc;
+  background-color: #dbc2df;
 }
 
 button[type="submit"] {
