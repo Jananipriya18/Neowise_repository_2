@@ -10,7 +10,7 @@ import { apiUrl } from 'src/apiconfig';
 export class AuthService {
   private currentUserSubject: BehaviorSubject<string | null>;
   public currentUser: Observable<string | null>;
-  public apiUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"; 
+  public apiUrl ="https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"; 
   private userRoleSubject = new BehaviorSubject<string>('');
   private userIdSubject = new BehaviorSubject<string>('');
   userRole$: Observable<string> = this.userRoleSubject.asObservable();
@@ -48,7 +48,7 @@ export class AuthService {
           if (decodedToken) {
             localStorage.setItem('userId', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
             localStorage.setItem('userRole', decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
-            localStorage.setItem('currentUser', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']);
+            localStorage.setItem('userName', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
             console.log(localStorage.getItem('userRole'))
             // Update BehaviorSubjects
             this.userRoleSubject.next(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
@@ -74,6 +74,7 @@ export class AuthService {
     // Check if the user is authenticated by verifying the token
     const token = localStorage.getItem('token');
     console.log(token);
+
     return !!token; // Return true if the token exists
   }
 
@@ -96,7 +97,6 @@ export class AuthService {
     return false;
   }
 
-
   getCustomerName(): string {
     const token = localStorage.getItem('token');
     if (token) {
@@ -106,17 +106,11 @@ export class AuthService {
     return '';
   }
 
-  // private storeUserData(user: any): void {
-  //   localStorage.setItem('token', user.token);
-  //   localStorage.setItem('role', user.role);
-  //   localStorage.setItem('userId', user.userId);
-  // }
   private storeUserData(user: any): void {
     localStorage.setItem('token', user.token);
-    localStorage.setItem('role', user.role);  // Use the same key 'role'
+    localStorage.setItem('userRole', user.role);
     localStorage.setItem('userId', user.userId);
   }
-  
 
   private decodeToken(token: string): any {
     try {
@@ -127,10 +121,10 @@ export class AuthService {
       return null;
     }
   }
-// Add this method to your AuthService
-getCurrentUserId(): string {
-  return localStorage.getItem('userId') || '';
-}
+
+  getCurrentUserId(): string {
+    return localStorage.getItem('userId') || '';
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
