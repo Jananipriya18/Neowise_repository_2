@@ -190,10 +190,13 @@
 //   }
 // }
 
+
+
+// Import necessary modules
 import { Component, OnInit } from '@angular/core';
 import { PaymentService } from '../../services/payment.service';
 import { Payment } from '../../models/payment.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/course.model';
@@ -207,7 +210,7 @@ export class PaymentComponent implements OnInit {
   payments: Payment[] = [];
   newPayment: Payment = {
     paymentID: 0,
-    userId: 0, // Use number type for userId
+    userId: 0,
     courseID: 0,
     amountPaid: 0,
     paymentDate: new Date(),
@@ -215,19 +218,19 @@ export class PaymentComponent implements OnInit {
     transactionID: '',
   };
 
-  courses: Course[] = []; // Assuming you have a list of courses
+  courses: Course[] = [];
 
   constructor(
     private paymentService: PaymentService,
     private courseService: CourseService,
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.fetchAllPayments();
     this.fetchAllCourses();
-    // Convert the string to a number before assigning it to userId
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
   }
 
@@ -235,11 +238,9 @@ export class PaymentComponent implements OnInit {
     this.paymentService.getAllPayments().subscribe(
       (payments: Payment[]) => {
         this.payments = payments;
-        console.log('Payments:', this.payments);
       },
       (error) => {
         console.error('Error fetching payments:', error);
-        // Handle errors as needed
       }
     );
   }
@@ -259,13 +260,23 @@ export class PaymentComponent implements OnInit {
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {
         console.log('Payment successful:', createdPayment);
-        // Optionally, you can refresh the payments list after a successful payment
         this.fetchAllPayments();
       },
       (error) => {
         console.error('Error making payment:', error);
-        // Handle errors as needed
       }
     );
   }
+
+  redirectToPayment(course: Course): void {
+    if (this.authService.isCustomer()) {
+      this.router.navigate(['/payment', course.courseID], {
+        queryParams: {
+          courseName: course.courseName,
+          userId: this.authService.getCurrentUserId(),
+        },
+      });
+    }
+  }
 }
+

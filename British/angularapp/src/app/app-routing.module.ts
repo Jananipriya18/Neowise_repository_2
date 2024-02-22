@@ -19,7 +19,8 @@ const routes: Routes = [
   { path: 'courselist', component: CourseListComponent },
   { path: 'enquiry', component: EnquiryFormComponent, canActivate: [AuthGuard] },
   { path: 'enquirylist', component: EnquiryListComponent },
-  {path: 'payment', component: PaymentComponent  },
+  // {path: 'payment', component: PaymentComponent  },
+  { path: 'payment/:courseId', component: PaymentComponent },
   { path: 'error', component: ErrorComponent, data: { message: 'Oops! Something went wrong.' }},
   { path: '**', redirectTo: '/error', pathMatch: 'full' },
 ];
