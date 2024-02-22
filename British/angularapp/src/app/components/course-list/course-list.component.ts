@@ -17,6 +17,7 @@ export class CourseListComponent implements OnInit {
   courses: Course[] = [];
   selectedCourse: Course;
   deleteConfirmationState: { [key: number]: boolean } = {};
+  // isAdmin: boolean = true;
 
   constructor(
     private courseService: CourseService,
