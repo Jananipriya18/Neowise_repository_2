@@ -17,7 +17,7 @@ export class CourseListComponent implements OnInit {
   courses: Course[] = [];
   selectedCourse: Course;
   deleteConfirmationState: { [key: number]: boolean } = {};
-  // isAdmin: boolean = true;
+  isAdmin: boolean = false;
 
   constructor(
     private courseService: CourseService,
@@ -28,6 +28,10 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCourses();
+
+    this.authService.userRole$.subscribe(role => {
+      this.isAdmin = role === 'Admin';
+    });
     // Initialize the form controls
     this.editCourseForm = this.formBuilder.group({
       courseName: ['', Validators.required],

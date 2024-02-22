@@ -18,8 +18,8 @@
 <div *ngIf="enquiries.length > 0" class="enquiry-list">
   <h2>List of Enquiries</h2>
   <div *ngFor="let enquiry of enquiries" class="enquiry-item">
-    <h3>{{ enquiry.title }}</h3>
-    <p>{{ enquiry.description }}</p>
+    <h3>Title: {{ enquiry.title }}</h3>
+    <p>Enquiry Information: {{ enquiry.description }}</p>
     <p>Enquiry Date: {{ enquiry.enquiryDate | date: 'medium' }}</p>
     <p>User ID: {{ enquiry.user?.username }}</p>
     <p>Enquiry Type: {{ enquiry.enquiryType }}</p>

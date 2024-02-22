@@ -13,11 +13,12 @@ export class EnquiryListComponent implements OnInit {
   enquiries: Enquiry[] = [];
   newEnquiry: Enquiry = {
     enquiryID: 0,
-    userID: 0,
     courseID: 0,
     title: '',
     description: '',
-
+    enquiryDate: new Date(),
+    emailID: '',
+    enquiryType: ''
   }
 
   constructor(private enquiryService: EnquiryService) {}
