@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnetapp.Migrations
 {
-    public partial class migration : Migration
+    public partial class initilasetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,12 +49,12 @@ namespace dotnetapp.Migrations
                     EnquiryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EnquiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmailID = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EnquiryType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CourseID = table.Column<int>(type: "int", nullable: false)
+                    CourseID = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,6 +65,12 @@ namespace dotnetapp.Migrations
                         principalTable: "Courses",
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Enquiries_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,12 +79,12 @@ namespace dotnetapp.Migrations
                 {
                     PaymentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CourseID = table.Column<int>(type: "int", nullable: false),
                     AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TransactionID = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TransactionID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    CourseID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,6 +107,11 @@ namespace dotnetapp.Migrations
                 name: "IX_Enquiries_CourseID",
                 table: "Enquiries",
                 column: "CourseID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Enquiries_UserId",
+                table: "Enquiries",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_CourseID",
