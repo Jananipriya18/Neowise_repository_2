@@ -50,4 +50,43 @@ export class EnquiryListComponent implements OnInit {
       }
     );
   }  
+
+  updateEnquiry(enquiryID: number): void {
+    // Fetch the selected enquiry from the list
+    const selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
+
+    // Check if the selected enquiry exists
+    if (selectedEnquiry) {
+      // Implement the logic to navigate to the update form or perform inline update
+      console.log('Updating Enquiry with ID:', enquiryID);
+
+      // Example of calling the service method to update the enquiry
+      this.enquiryService.updateEnquiry(enquiryID, selectedEnquiry).subscribe(
+        (updatedEnquiry) => {
+          console.log('Enquiry updated successfully:', updatedEnquiry);
+          // Refresh the list after successful update
+          this.fetchAllEnquiries();
+        },
+        (error) => {
+          console.error('Error updating enquiry:', error);
+        }
+      );
+    } else {
+      console.error('Enquiry not found');
+    }
+  }
+
+  deleteEnquiry(enquiryID: number): void {
+    // Example of calling the service method to delete the enquiry
+    this.enquiryService.deleteEnquiry(enquiryID).subscribe(
+      () => {
+        console.log('Enquiry deleted successfully');
+        // Refresh the list after successful deletion
+        this.fetchAllEnquiries();
+      },
+      (error) => {
+        console.error('Error deleting enquiry:', error);
+      }
+    );
+  }
 }
