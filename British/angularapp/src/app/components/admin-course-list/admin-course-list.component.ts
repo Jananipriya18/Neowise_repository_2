@@ -59,30 +59,22 @@ export class AdminCourseListComponent implements OnInit {
       }
     );
   }
-
   updateCourse(courseID: number): void {
     if (this.authService.isAdmin()) {
       this.selectedCourse = this.courses.find(course => course.courseID === courseID);
   
       if (this.selectedCourse) {
         console.log('Selected Course:', this.selectedCourse);
-        // Check if form is initialized
-        console.log('Form initialized:', this.editCourseForm);
-  
         // Reset the form to clear any previous values
-        if (this.editCourseForm) {
-          this.editCourseForm.reset();
-          // Patch the form values with the selected course
-          this.editCourseForm.patchValue({
-            courseName: this.selectedCourse.courseName,
-            description: this.selectedCourse.description,
-            duration: this.selectedCourse.duration,
-            amount: this.selectedCourse.amount,
-          });
-          this.editCourseModalVisible = true;
-        } else {
-          console.error('Form not initialized');
-        }
+        this.editCourseForm.reset();
+        // Patch the form values with the selected course
+        this.editCourseForm.patchValue({
+          courseName: this.selectedCourse.courseName,
+          description: this.selectedCourse.description,
+          duration: this.selectedCourse.duration,
+          amount: this.selectedCourse.amount,
+        });
+        this.editCourseModalVisible = true;
       } else {
         console.error('Course not found');
       }
@@ -90,7 +82,6 @@ export class AdminCourseListComponent implements OnInit {
       console.error('Only admins can update courses');
     }
   }
-  
   
   
 
@@ -159,6 +150,5 @@ export class AdminCourseListComponent implements OnInit {
     this.editCourseForm.reset();
     this.editCourseModalVisible = false;
   }
-  
    
 }
