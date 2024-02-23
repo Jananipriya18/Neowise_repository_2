@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class AdminDashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
-  isAdmin: boolean = false;
+  isAdmin: boolean = true;
 
 
   constructor(private authService: AuthService) {

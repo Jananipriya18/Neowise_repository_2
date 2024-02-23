@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CustomerDashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
-  isStudent: boolean = false;
+  isStudent: boolean = true;
 
   constructor(private authService: AuthService) {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
