@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
   userRole: string = "";
   email: string = "";
   passwordMismatch: boolean = false; // New property to track password mismatch
-  error: string ="";
+  registrationError: string | null = null;
 
   constructor(private authService: AuthService, private router: Router,private fb: FormBuilder) {
 
@@ -29,6 +29,7 @@ export class RegistrationComponent implements OnInit {
      email: ['', [Validators.required, Validators.email]],
    });
  }
+ 
   register(): void {
     if (this.password !== this.confirmPassword) {
       this.passwordMismatch = true;
@@ -54,6 +55,8 @@ export class RegistrationComponent implements OnInit {
       }
     );
   }
+
+  
   isPasswordComplex(password: string): boolean {
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);

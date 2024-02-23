@@ -51,7 +51,7 @@
       </select>
   
       <div *ngIf="passwordMismatch" class="error-message">*Passwords do not match</div>
-  
+
       <button type="submit" [disabled]="registrationForm.invalid || password !== confirmPassword">Register</button>
     </form>
   </div>

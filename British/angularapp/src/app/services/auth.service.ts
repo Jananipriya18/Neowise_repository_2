@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { apiUrl } from 'src/apiconfig';
+import { Router } from '@angular/router'; 
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class AuthService {
   userId$: Observable<string> = this.userIdSubject.asObservable();
   private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticated());
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private router: Router;  // Add private router property
+  private registrationError: string | null = null; 
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<string | null>(
@@ -40,23 +43,23 @@ export class AuthService {
   register(username: string, password: string, userRole: string, email: string, mobileNumber: string): Observable<any> {
     const body = { username, password, userRole, email, mobileNumber };
     console.log(body);
-  
+
     return this.http.post<any>(`${this.apiUrl}/api/register`, body).pipe(
       tap(
         (user) => {
-          this.storeUserData(user);
-          // Handle successful registration here
+          // Handle successful registration
           console.log('User registered successfully:', user);
+          // Optionally, navigate to a success page or perform other actions
+          this.router.navigate(['/login']);  // Update the route as needed
         },
         (error) => {
           if (error.status === 409) {
-            console.log('User is already registered.');
-            // Emit an observable with an error message
-            return throwError('User is already registered.');
+            // Set the registrationError variable with the error message
+            this.registrationError = 'User is already registered.';
           } else {
             console.error('Registration error:', error);
-            // Emit an observable with a generic error message
-            return throwError('Registration failed. Please try again.');
+            // Handle other registration errors if needed
+            this.registrationError = 'Registration failed. Please try again later.';
           }
         }
       ),
