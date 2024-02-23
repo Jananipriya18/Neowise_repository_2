@@ -20,35 +20,30 @@ export class EnquiryListComponent implements OnInit {
   editEnquiryModalVisible = false;
   deleteConfirmationState: { [key: number]: boolean } = {};
 
- 
-
   constructor(
     private enquiryService: EnquiryService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchAllEnquiries();
 
-  this.authService.userRole$.subscribe(role => {
-    this.isStudent = role === 'Student';
+    this.authService.userRole$.subscribe((role) => {
+      this.isStudent = role === 'Student';
+    });
 
-  });
-
-  this.editEnquiryForm = this.formBuilder.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    duration: ['', Validators.required],
-    emailID: ['', Validators.required],
-    enquiryType: ['', Validators.required],
-    enquiryDate: ['', Validators.required],
-    courseName: ['', Validators.required],
-
-  });
-}
-
-
+    this.editEnquiryForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      courseName: ['', Validators.required],
+      emailID: ['', Validators.required],
+      enquiryType: ['', Validators.required],
+      enquiryDate: ['', Validators.required],
+    });
+    
+  }
 
   fetchAllEnquiries(): void {
     this.enquiryService.getAllEnquiries().subscribe(
@@ -58,7 +53,7 @@ export class EnquiryListComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching enquiries:', error);
-  
+
         // Log additional details if available
         if (error instanceof HttpErrorResponse) {
           console.error('Status:', error.status);
@@ -71,93 +66,84 @@ export class EnquiryListComponent implements OnInit {
         console.error('Message:', error.message);
       }
     );
-  }  
+  }
 
   updateEnquiry(enquiryID: number): void {
     // Fetch the selected enquiry from the list
-    if (this.authService.isAdmin()) {
-    this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
+    if (this.authService.isStudent()) {
+      this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
 
-    // Check if the selected enquiry exists
-    if (this.selectedEnquiry) {
-      // Implement the logic to navigate to the update form or perform inline update
-      console.log('Updating Enquiry with ID:', enquiryID);
+      // Check if the selected enquiry exists
+      if (this.selectedEnquiry) {
+        // Implement the logic to navigate to the update form or perform inline update
+        console.log('Updating Enquiry with ID:', enquiryID);
 
-      this.editEnquiryForm.reset();
-      // Example of calling the service method to update the enquiry
-      this.editEnquiryForm.patchValue({
-        title: this.selectedEnquiry.title,
-        description: this.selectedEnquiry.description,
-        courseName: this.selectedEnquiry.course.courseName,
-        emailID: this.selectedEnquiry.emailID,
-        enquiryType: this.selectedEnquiry.enquiryType,
-        enquiryDate: this.selectedEnquiry.enquiryDate,
-
-      });
-      this.editEnquiryModalVisible = true;
-    }
-    else {
-      console.error('Enquiry not found');
-    }
-  }
-  else
-  {
-    console.error('Only student can update enquiries');
-  }
-}
-
-saveChanges(): void {
-  if (this.authService.isStudent()) {
-   
-    const updatedEnquiry: Enquiry = {
-      ...this.selectedEnquiry,
-      ...this.editEnquiryForm.value,
-    };
-
-    // Update the course in the database
-    this.enquiryService.updateEnquiry(this.selectedEnquiry.enquiryID, updatedEnquiry).subscribe(
-      (updatedCourse: Enquiry) => {
-        console.log('Emquiry updated successfully:', updatedCourse);
-        // Fetch all courses after successful update
-        this.fetchAllEnquiries();
-        // Close the edit modal
-        this.closeEditModal();
-      },
-      (error) => {
-        console.error('Error updating enquiries:', error);
+        this.editEnquiryForm.reset();
+        // Example of calling the service method to update the enquiry
+        this.editEnquiryForm.patchValue({
+          title: this.selectedEnquiry.title,
+          description: this.selectedEnquiry.description,
+          courseName: this.selectedEnquiry.course.courseName,
+          emailID: this.selectedEnquiry.emailID,
+          enquiryType: this.selectedEnquiry.enquiryType,
+          enquiryDate: this.selectedEnquiry.enquiryDate,
+        });
+        this.editEnquiryModalVisible = true;
+      } else {
+        console.error('Enquiry not found');
       }
-    );
-  } else {
-    console.error('Only students can update enquiries');
-  }
-}
-
-showDeleteConfirmation(enquiry: Enquiry): void {
-  // Set deleteConfirmationState for the specific course to true
-  this.deleteConfirmationState[enquiry.enquiryID] = true;
-}
-
-  deleteEnquiry(enquiryID: number): void 
-  {
-    if (this.authService.isStudent())
-    {
-    // Example of calling the service method to delete the enquiry
-    this.enquiryService.deleteEnquiry(enquiryID).subscribe(
-      () => {
-        console.log('Enquiry deleted successfully');
-        // Refresh the list after successful deletion
-        this.fetchAllEnquiries();
-      },
-      (error) => {
-        console.error('Error deleting enquiry:', error);
-      }
-    );
+    } else {
+      console.error('Only students can update enquiries');
     }
-  else
-  {
-    console.error('Only students can delete enquiries');
   }
-  this.deleteConfirmationState[enquiryID] = false;
+
+  saveChanges(): void {
+    if (this.authService.isStudent()) {
+      const updatedEnquiry: Enquiry = {
+        ...this.selectedEnquiry,
+        ...this.editEnquiryForm.value,
+      };
+
+      // Update the course in the database
+      this.enquiryService.updateEnquiry(this.selectedEnquiry.enquiryID, updatedEnquiry).subscribe(
+        (updatedEnquiry: Enquiry) => {
+          console.log('Enquiry updated successfully:', updatedEnquiry);
+          // Fetch all enquiries after successful update
+          this.fetchAllEnquiries();
+          // Close the edit modal
+          this.closeEditModal();
+        },
+        (error) => {
+          console.error('Error updating enquiries:', error);
+        }
+      );
+    } else {
+      console.error('Only students can update enquiries');
+    }
+  }
+
+  showDeleteConfirmation(enquiry: Enquiry): void {
+    // Set deleteConfirmationState for the specific course to true
+    this.deleteConfirmationState[enquiry.enquiryID] = true;
+  }
+
+  deleteEnquiry(enquiryID: number): void {
+    if (this.authService.isStudent()) {
+      // Example of calling the service method to delete the enquiry
+      this.enquiryService.deleteEnquiry(enquiryID).subscribe(
+        () => {
+          console.log('Enquiry deleted successfully');
+          // Refresh the list after successful deletion
+          this.fetchAllEnquiries();
+        },
+        (error) => {
+          console.error('Error deleting enquiry:', error);
+        }
+      );
+    } else {
+      console.error('Only students can delete enquiries');
+    }
+    this.deleteConfirmationState[enquiryID] = false;
   }
 
   cancelDelete(enquiry: Enquiry): void {
@@ -171,4 +157,3 @@ showDeleteConfirmation(enquiry: Enquiry): void {
     this.editEnquiryModalVisible = false;
   }
 }
-  
