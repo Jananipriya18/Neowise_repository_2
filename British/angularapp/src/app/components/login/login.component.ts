@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.user).subscribe(
       (user) => {
-        console.log(user.error);
+        console.log(user);
         if (this.authService.isAdmin() || this.authService.isStudent()){
           this.router.navigate(['/home']);
         }
