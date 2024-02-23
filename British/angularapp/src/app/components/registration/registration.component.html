@@ -60,4 +60,10 @@
       <button type="submit" [disabled]="registrationForm.invalid || password !== confirmPassword">Register</button>
     </form>
   </div>
+  
+
+<div *ngIf="registrationSuccess" class="registration-success-popup">
+  <p>Registration successful! You will be redirected to the login page shortly.</p>
+</div>
+
 </div>
