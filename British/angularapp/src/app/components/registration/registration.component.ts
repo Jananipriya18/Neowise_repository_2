@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -31,7 +32,7 @@ export class RegistrationComponent implements OnInit {
     if (!this.isPasswordComplex(this.password)) {
       return; // Password complexity check failed
     }
-    const user : User = {
+    const user: User = {
       Username: this.username,
       Password: this.password,
       MobileNumber: this.mobileNumber,

@@ -55,8 +55,8 @@
 
 // createEnquiry(): void {
 //   console.log(this.newEnquiryForm.value);
-//   console.log(this.authService.isCustomer(),this.newEnquiryForm.valid)
-//   if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+//   console.log(this.authService.isStudent(),this.newEnquiryForm.valid)
+//   if (this.authService.isStudent() && this.newEnquiryForm.valid) {
 //     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
 
 //     this.enquiryService.createEnquiry(newEnquiry).subscribe(
@@ -147,7 +147,7 @@ export class EnquiryFormComponent implements OnInit {
   }
 
   // createEnquiry(): void {
-  //   if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+  //   if (this.authService.isStudent() && this.newEnquiryForm.valid) {
   //     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
 
   //     // Map the selected course name to course ID
@@ -174,7 +174,7 @@ export class EnquiryFormComponent implements OnInit {
   //   }
   // }
   createEnquiry(): void {
-    if (this.authService.isCustomer() && this.newEnquiryForm.valid) {
+    if (this.authService.isStudent() && this.newEnquiryForm.valid) {
       const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
   
       // Map the selected course name to course ID

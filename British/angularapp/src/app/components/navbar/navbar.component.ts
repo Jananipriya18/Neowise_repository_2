@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class NavbarComponent implements OnInit {
   showLogoutPopup = false;
   isLoggedIn: boolean = false;
+  private authSubscription: Subscription | undefined;
 
   constructor(private authService: AuthService, private router: Router) {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
@@ -19,7 +21,9 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize the properties on component initialization
-    this.isLoggedIn = this.authService.isAuthenticated$();
+    this.authSubscription = this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
+      this.isLoggedIn = authenticated;
+    });
   }
 
   logout(): void {

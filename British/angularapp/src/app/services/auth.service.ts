@@ -93,5 +93,8 @@ export class AuthService {
     }
 }
 
+getCurrentUserId(): string {
+  return localStorage.getItem('userId') || '';
+}
 
 }
