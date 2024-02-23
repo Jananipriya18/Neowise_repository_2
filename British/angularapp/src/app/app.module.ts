@@ -19,6 +19,7 @@ import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.com
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 import { CommonModule } from '@angular/common';
+import { AdminCourseListComponent } from './components/admin-course-list/admin-course-list.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CommonModule } from '@angular/common';
     EnquiryListComponent,
     PaymentComponent,
     PaymentListComponent,
+    AdminCourseListComponent,
   ],
   imports: [
     BrowserModule,
