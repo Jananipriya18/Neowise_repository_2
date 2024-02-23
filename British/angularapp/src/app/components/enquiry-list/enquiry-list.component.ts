@@ -1,7 +1,10 @@
 // enquiry-list.component.ts
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Enquiry } from 'src/app/models/enquiry.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { EnquiryService } from 'src/app/services/enquiry.service';
 
 @Component({
@@ -11,6 +14,10 @@ import { EnquiryService } from 'src/app/services/enquiry.service';
 })
 export class EnquiryListComponent implements OnInit {
   enquiries: Enquiry[] = [];
+  selectedEnquiry: Enquiry;
+  isStudent: boolean = false;
+  editEnquiryModalVisible: boolean = false;
+  deleteConfirmationState: { [key: number]: boolean } = {};
   newEnquiry: Enquiry = {
     enquiryID: 0,
     courseID: 0,
@@ -21,13 +28,21 @@ export class EnquiryListComponent implements OnInit {
     enquiryType: '',
     userId: 0
   }
-  editEnquiryModalVisible: boolean = false;
+ 
 
-  constructor(private enquiryService: EnquiryService) {}
+  constructor(
+    private enquiryService: EnquiryService,
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.fetchAllEnquiries();
-  }
+
+  this.authService.userRole$.subscribe(role => {
+    this.isStudent = role === 'Student';
+
+  });
 
   fetchAllEnquiries(): void {
     this.enquiryService.getAllEnquiries().subscribe(
@@ -128,10 +143,23 @@ showDeleteConfirmation(enquiry: Enquiry): void {
         console.error('Error deleting enquiry:', error);
       }
     );
+    }
   else
   {
     console.error('Only students can delete enquiries');
   }
-this.deleteConfirmationState[enquiryID] = false;
+  this.deleteConfirmationState[enquiryID] = false;
   }
+
+  cancelDelete(enquiry: Enquiry): void {
+    // Reset deleteConfirmationState for the specific course
+    this.deleteConfirmationState[enquiry.enquiryID] = false;
+  }
+
+  closeEditModal(): void {
+    // Reset form and hide the edit modal
+    this.editEnquiryForm.reset();
+    this.editEnquiryModalVisible = false;
+  }
+}
   
