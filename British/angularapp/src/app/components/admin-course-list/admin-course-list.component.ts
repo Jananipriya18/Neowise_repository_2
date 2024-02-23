@@ -1,4 +1,4 @@
-// course-list.component.ts
+// admin-course-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
