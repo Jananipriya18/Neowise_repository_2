@@ -21,6 +21,7 @@ export class EnquiryListComponent implements OnInit {
     enquiryType: '',
     userId: 0
   }
+  editEnquiryModalVisible: boolean = false;
 
   constructor(private enquiryService: EnquiryService) {}
 
@@ -89,4 +90,6 @@ export class EnquiryListComponent implements OnInit {
       }
     );
   }
+
+  
 }
