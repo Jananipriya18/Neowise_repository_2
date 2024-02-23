@@ -188,7 +188,7 @@ export class EnquiryFormComponent implements OnInit {
       const currentUserId = this.authService.getCurrentUserId();
   
       // Assign the user ID to the newEnquiry object
-      newEnquiry.userId = currentUserId;
+      newEnquiry.userId = +currentUserId;
   
       this.enquiryService.createEnquiry(newEnquiry).subscribe(
         (createdEnquiry: Enquiry) => {

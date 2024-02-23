@@ -62,11 +62,11 @@
   </div>
 </div>
 
+ -->
 
 
- 
  <!-- Admin View -->
-<div *ngIf="isAdmin; else customerView" class="card-container">
+ <div *ngIf="isAdmin; else customerView" class="card-container">
   <h2>List of Courses (Admin View)</h2>
   <div class="card-deck">
     <div *ngFor="let course of courses" class="custom-card">
@@ -142,4 +142,4 @@
       <button type="button" (click)="closeEditModal()">Cancel</button>
     </div>
   </div>
-</div> -->
+</div>

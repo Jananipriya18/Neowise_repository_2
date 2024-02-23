@@ -18,7 +18,8 @@ export class EnquiryListComponent implements OnInit {
     description: '',
     enquiryDate: new Date(),
     emailID: '',
-    enquiryType: ''
+    enquiryType: '',
+    userId: 0
   }
 
   constructor(private enquiryService: EnquiryService) {}
