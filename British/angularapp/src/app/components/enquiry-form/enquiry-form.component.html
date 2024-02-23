@@ -1,5 +1,4 @@
-<!-- enquiry-form.component.html -->
-<div class="enquiry-form-container">
+<!-- <div class="enquiry-form-container">
     <h2>Enquiry Management</h2>
   
     <div *ngIf="!isNewEnquiry" class="enquiry-list-container">
@@ -58,7 +57,6 @@
         <select id="enquiryType" formControlName="enquiryType">
           <option value="General">General</option>
           <option value="Technical">Technical</option>
-          <!-- Add more options as needed -->
         </select>
         <div *ngIf="newEnquiryForm.get('enquiryType').hasError('required') && newEnquiryForm.get('enquiryType').touched">
           Enquiry Type is required.
@@ -76,7 +74,6 @@
       </div>
   
       <div class="button-group">
-        <!-- <button type="submit" *ngIf="isNewEnquiry" (click)="createEnquiry()">Submit Enquiry</button> -->
         <button type="submit" *ngIf="isNewEnquiry">Submit Enquiry</button>
 
         <button type="button" *ngIf="!isNewEnquiry" (click)="updateEnquiry()">Update Enquiry</button>
@@ -95,4 +92,100 @@
       </ul>
     </div>
   </div>
-  
+   -->
+
+
+   <div class="enquiry-form-container">
+    <h2>Enquiry Management</h2>
+
+    <div *ngIf="!isNewEnquiry" class="enquiry-list-container">
+        <h3>List of Enquiries</h3>
+
+        <div *ngFor="let enquiry of enquiries" class="enquiry-card">
+            <h4>{{ enquiry.title }}</h4>
+            <p><strong>Description:</strong> {{ enquiry.description }}</p>
+            <p><strong>Enquiry Date:</strong> {{ enquiry.enquiryDate | date:'short' }}</p>
+            <p><strong>Email ID:</strong> {{ enquiry.emailID }}</p>
+            <div class="button-group">
+                <button type="button" (click)="viewEnquiryDetails(enquiry)">View Enquiry</button>
+                <button type="button" (click)="deleteEnquiry(enquiry.enquiryID)">Delete Enquiry</button>
+            </div>
+        </div>
+    </div>
+
+    <form [formGroup]="newEnquiryForm" *ngIf="isNewEnquiry" (ngSubmit)="createEnquiry()">
+      <div class="form-group">
+        <label for="title" class="mandatory">Title:</label>
+        <input type="text" id="title" formControlName="title">
+        <span class="asterisk">*</span>
+        <div *ngIf="newEnquiryForm.get('title').hasError('required') && newEnquiryForm.get('title').touched"
+            class="error-message">Title is required.
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="description" class="mandatory">Description:</label>
+        <textarea id="description" formControlName="description"></textarea>
+        <span class="asterisk">*</span>
+        <div *ngIf="newEnquiryForm.get('description').hasError('required') && newEnquiryForm.get('description').touched"
+            class="error-message">Description is required.
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="enquiryDate" class="mandatory">Enquiry Date:</label>
+        <input type="date" id="enquiryDate" formControlName="enquiryDate">
+        <span class="asterisk">*</span>
+        <div *ngIf="newEnquiryForm.get('enquiryDate').hasError('required') && newEnquiryForm.get('enquiryDate').touched"
+            class="error-message">Enquiry Date is required.
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="emailID" class="mandatory">Email ID:</label>
+        <input type="email" id="emailID" formControlName="emailID">
+        <span class="asterisk">*</span>
+        <div *ngIf="newEnquiryForm.get('emailID').hasError('required') && newEnquiryForm.get('emailID').touched"
+            class="error-message">Email ID is required.
+        </div>
+        <div *ngIf="newEnquiryForm.get('emailID').hasError('email') && newEnquiryForm.get('emailID').touched"
+            class="error-message">Please enter a valid email address.
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="enquiryType" class="mandatory">Enquiry Type:</label>
+        <select id="enquiryType" formControlName="enquiryType">
+            <option value="General">General</option>
+            <option value="Technical">Technical</option>
+            <!-- Add more options as needed -->
+        </select>
+        <span class="asterisk">*</span>
+        <div *ngIf="newEnquiryForm.get('enquiryType').hasError('required') && newEnquiryForm.get('enquiryType').touched"
+            class="error-message">Enquiry Type is required.
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="courseName" class="mandatory">Course Name:</label>
+        <select id="courseName" formControlName="courseName">
+            <option *ngFor="let course of courses" [value]="course.courseName">{{ course.courseName }}</option>
+        </select>
+        <span class="asterisk">*</span>
+        <div *ngIf="newEnquiryForm.get('courseName').hasError('required') && newEnquiryForm.get('courseName').touched"
+            class="error-message">Course Name is required.
+        </div>
+    </div>
+
+    <div *ngIf="!isNewEnquiry" class="additional-buttons">
+        <button type="button" (click)="deleteEnquiry()">Delete Enquiry</button>
+        <button type="button" (click)="viewEnquiryDetails()">View Enquiry</button>
+
+        <h3>Fetched Enquiries</h3>
+        <ul>
+            <li *ngFor="let enquiry of enquiries">
+                {{ enquiry.title }} - {{ enquiry.description }}
+            </li>
+        </ul>
+    </div>
+</div>

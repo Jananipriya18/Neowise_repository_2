@@ -78,4 +78,17 @@
   .button-group button {
     margin-right: 10px;
   }
+
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.mandatory::after {
+  content: ' *';
+  color: red;
+}
+
+
   
