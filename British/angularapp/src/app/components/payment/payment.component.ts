@@ -76,7 +76,7 @@ export class PaymentComponent implements OnInit {
   }
 
   redirectToPayment(course: Course): void {
-    if (this.authService.isCustomer()) {
+    if (this.authService.isStudent()) {
       const userId = this.authService.getCurrentUserId();
       
       console.log('Selected Course Information:', {
