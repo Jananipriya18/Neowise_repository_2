@@ -12,12 +12,12 @@
         </div>
         <div class="card-actions">
           <div class="card-actions">
-            <button *ngIf="authService.isCustomer()" type="button" (click)="redirectToPayment(course)">Pay now</button>
+            <button *ngIf="authService.isStudent()" type="button" (click)="redirectToPayment(course)">Pay now</button>
           </div>
           <!-- <button type="button" (click)="updateCourse(course.courseID)">Edit</button> -->
           
           <!-- <button type="button" (click)="showDeleteConfirmation(course)">Delete</button> -->
-          <button type="button" (click)="redirectToPayment(course)">Pay now</button>
+         
         </div>
       </div>
     </div>
