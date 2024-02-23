@@ -27,13 +27,14 @@ nav ul {
 }
 
 nav ul li {
-  margin-right: 40px;
+  flex-grow: 1; /* Equal spacing */
 }
 
 nav ul li a {
   color: white;
   text-decoration: none;
   padding: 10px;
+  white-space: nowrap; /* Prevent wrapping onto the next line */
 }
 
 nav ul li a:hover {
