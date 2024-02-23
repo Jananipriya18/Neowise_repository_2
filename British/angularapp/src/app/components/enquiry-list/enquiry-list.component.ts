@@ -34,6 +34,7 @@ export class EnquiryListComponent implements OnInit {
       this.isStudent = role === 'Student';
     });
 
+    // Initialize the form controls
     this.editEnquiryForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
@@ -42,7 +43,6 @@ export class EnquiryListComponent implements OnInit {
       enquiryType: ['', Validators.required],
       enquiryDate: ['', Validators.required],
     });
-    
   }
 
   fetchAllEnquiries(): void {
@@ -71,14 +71,18 @@ export class EnquiryListComponent implements OnInit {
   updateEnquiry(enquiryID: number): void {
     // Fetch the selected enquiry from the list
     if (this.authService.isStudent()) {
-      this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
+      this.selectedEnquiry = this.enquiries.find(
+        (enquiry) => enquiry.enquiryID === enquiryID
+      );
 
       // Check if the selected enquiry exists
       if (this.selectedEnquiry) {
         // Implement the logic to navigate to the update form or perform inline update
         console.log('Updating Enquiry with ID:', enquiryID);
 
+        // Reset the form to clear any previous values
         this.editEnquiryForm.reset();
+
         // Example of calling the service method to update the enquiry
         this.editEnquiryForm.patchValue({
           title: this.selectedEnquiry.title,
@@ -88,6 +92,7 @@ export class EnquiryListComponent implements OnInit {
           enquiryType: this.selectedEnquiry.enquiryType,
           enquiryDate: this.selectedEnquiry.enquiryDate,
         });
+
         this.editEnquiryModalVisible = true;
       } else {
         console.error('Enquiry not found');
@@ -104,26 +109,28 @@ export class EnquiryListComponent implements OnInit {
         ...this.editEnquiryForm.value,
       };
 
-      // Update the course in the database
-      this.enquiryService.updateEnquiry(this.selectedEnquiry.enquiryID, updatedEnquiry).subscribe(
-        (updatedEnquiry: Enquiry) => {
-          console.log('Enquiry updated successfully:', updatedEnquiry);
-          // Fetch all enquiries after successful update
-          this.fetchAllEnquiries();
-          // Close the edit modal
-          this.closeEditModal();
-        },
-        (error) => {
-          console.error('Error updating enquiries:', error);
-        }
-      );
+      // Update the enquiry in the database
+      this.enquiryService
+        .updateEnquiry(this.selectedEnquiry.enquiryID, updatedEnquiry)
+        .subscribe(
+          (updatedEnquiry: Enquiry) => {
+            console.log('Enquiry updated successfully:', updatedEnquiry);
+            // Fetch all enquiries after successful update
+            this.fetchAllEnquiries();
+            // Close the edit modal
+            this.closeEditModal();
+          },
+          (error) => {
+            console.error('Error updating enquiries:', error);
+          }
+        );
     } else {
       console.error('Only students can update enquiries');
     }
   }
-
+    
   showDeleteConfirmation(enquiry: Enquiry): void {
-    // Set deleteConfirmationState for the specific course to true
+    // Set deleteConfirmationState for the specific enquiry to true
     this.deleteConfirmationState[enquiry.enquiryID] = true;
   }
 
@@ -147,7 +154,7 @@ export class EnquiryListComponent implements OnInit {
   }
 
   cancelDelete(enquiry: Enquiry): void {
-    // Reset deleteConfirmationState for the specific course
+    // Reset deleteConfirmationState for the specific enquiry
     this.deleteConfirmationState[enquiry.enquiryID] = false;
   }
 
