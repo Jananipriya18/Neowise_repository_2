@@ -12,12 +12,11 @@
         </div>
         <div class="card-actions">
           <div class="card-actions">
-            <!-- <button *ngIf="authService.isCustomer()" type="button" (click)="redirectToPayment(course)">Pay now</button> -->
           </div>
           <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
           
 
-          <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
+          <!-- <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
             <div class="delete-card-content">
               <div class="modal-content" style="width: 563%; margin-left: -139px;">
                 <p>Are you sure you want to delete this course?</p>
@@ -26,10 +25,9 @@
               </div>
              
             </div>
-          </div>
+          </div> -->
           
           <button type="button" (click)="showDeleteConfirmation(course)">Delete</button>
-          <!-- <button type="button" (click)="redirectToPayment(course)">Pay now</button> -->
         </div>
       </div>
     </div>

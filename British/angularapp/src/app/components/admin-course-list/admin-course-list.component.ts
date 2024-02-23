@@ -16,7 +16,8 @@ export class AdminCourseListComponent implements OnInit {
   editCourseForm: FormGroup;
   courses: Course[] = [];
   selectedCourse: Course;
-  deleteConfirmationState: { [key: number]: boolean } = {};
+  // deleteConfirmationState: { [key: number]: boolean } = {};
+  deleteConfirmationState: { show: boolean, courseID: number } = { show: false, courseID: 0 };
   isAdmin: boolean = false;
   
 
