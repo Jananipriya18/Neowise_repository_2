@@ -25,15 +25,45 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  // register(username: string, password: string, userRole: string, email: string, mobileNumber: string): Observable<any> {
+  //   const body = { username, password, userRole, email, mobileNumber };
+  //   console.log(body);
+
+  //   return this.http.post<any>(`${this.apiUrl}/api/register`, body).pipe(
+      
+  //     tap((user) => this.storeUserData(user)),
+      
+  //     catchError(this.handleError<any>('register'))
+  //   );
+  // }
+
   register(username: string, password: string, userRole: string, email: string, mobileNumber: string): Observable<any> {
     const body = { username, password, userRole, email, mobileNumber };
     console.log(body);
-
+  
     return this.http.post<any>(`${this.apiUrl}/api/register`, body).pipe(
-      tap((user) => this.storeUserData(user)),
+      tap(
+        (user) => {
+          this.storeUserData(user);
+          // Handle successful registration here
+          console.log('User registered successfully:', user);
+        },
+        (error) => {
+          if (error.status === 409) {
+            console.log('User is already registered.');
+            // Emit an observable with an error message
+            return throwError('User is already registered.');
+          } else {
+            console.error('Registration error:', error);
+            // Emit an observable with a generic error message
+            return throwError('Registration failed. Please try again.');
+          }
+        }
+      ),
       catchError(this.handleError<any>('register'))
     );
   }
+  
 
   login(email: string, password: string): Observable<any> {
     const loginData = { email, password };

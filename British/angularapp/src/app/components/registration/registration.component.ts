@@ -18,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   userRole: string = "";
   email: string = "";
   passwordMismatch: boolean = false; // New property to track password mismatch
+  error: string ="";
 
   constructor(private authService: AuthService, private router: Router,private fb: FormBuilder) {
 
@@ -43,9 +44,8 @@ export class RegistrationComponent implements OnInit {
     this.authService.register(this.username, this.password, this.userRole, this.email,this.mobileNumber).subscribe(
       (user) => {
         console.log(user);
-
-          this.router.navigate(['/login']);
-  
+        
+          this.router.navigate(['/login']);  
       },
       (error) => {
         console.log(error);
