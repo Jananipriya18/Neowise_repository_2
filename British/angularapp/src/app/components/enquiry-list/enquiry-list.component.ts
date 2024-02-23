@@ -1,7 +1,7 @@
 // enquiry-list.component.ts
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Enquiry } from 'src/app/models/enquiry.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,18 +16,10 @@ export class EnquiryListComponent implements OnInit {
   enquiries: Enquiry[] = [];
   selectedEnquiry: Enquiry;
   isStudent: boolean = false;
+  editEnquiryForm: FormGroup;
   editEnquiryModalVisible: boolean = false;
   deleteConfirmationState: { [key: number]: boolean } = {};
-  newEnquiry: Enquiry = {
-    enquiryID: 0,
-    courseID: 0,
-    title: '',
-    description: '',
-    enquiryDate: new Date(),
-    emailID: '',
-    enquiryType: '',
-    userId: 0
-  }
+
  
 
   constructor(
@@ -43,6 +35,18 @@ export class EnquiryListComponent implements OnInit {
     this.isStudent = role === 'Student';
 
   });
+
+  this.editEnquiryForm = this.formBuilder.group({
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    duration: ['', Validators.required],
+    emailID: ['', Validators.required],
+    enquiryType: ['', Validators.required],
+    enquiryDate: ['', Validators.required],
+    courseName: ['', Validators.required],
+
+  });
+}
 
   fetchAllEnquiries(): void {
     this.enquiryService.getAllEnquiries().subscribe(
@@ -73,17 +77,20 @@ export class EnquiryListComponent implements OnInit {
     this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
 
     // Check if the selected enquiry exists
-    if (selectedEnquiry) {
+    if (this.selectedEnquiry) {
       // Implement the logic to navigate to the update form or perform inline update
       console.log('Updating Enquiry with ID:', enquiryID);
 
       this.editEnquiryForm.reset();
       // Example of calling the service method to update the enquiry
       this.editEnquiryForm.patchValue({
-        courseName: this.selectedEnquiry.courseName,
+        title: this.selectedEnquiry.title,
         description: this.selectedEnquiry.description,
-        duration: this.selectedEnquiry.duration,
-        amount: this.selectedEnquiry.amount,
+        courseName: this.selectedEnquiry.course.courseName,
+        emailID: this.selectedEnquiry.emailID,
+        enquiryType: this.selectedEnquiry.enquiryType,
+        enquiryDate: this.selectedEnquiry.enquiryDate,
+
       });
       this.editEnquiryModalVisible = true;
     }
