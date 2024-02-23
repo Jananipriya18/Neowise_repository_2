@@ -29,9 +29,15 @@ export class AuthService {
           if (res && res.token) {
           const decodedToken = this.decodeToken(res.token);
           localStorage.setItem('token', res.token);
-          localStorage.setItem('role', decodedToken.role);
-          localStorage.setItem('userId', decodedToken.nameid);
+
+          // localStorage.setItem('role', decodedToken.role);
+          localStorage.setItem('role', decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+          
+          // localStorage.setItem('userId', decodedToken.nameid);
+          localStorage.setItem('userId', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
+
           localStorage.setItem('name', decodedToken.name);
+          localStorage.setItem('name', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
           console.log(localStorage.getItem('userId'));
           console.log(localStorage.getItem('name'));
 
