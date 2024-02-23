@@ -17,7 +17,7 @@ export class EnquiryListComponent implements OnInit {
   selectedEnquiry: Enquiry;
   isStudent: boolean = false;
   editEnquiryForm: FormGroup;
-  editEnquiryModalVisible: boolean = false;
+  editEnquiryModalVisible = false;
   deleteConfirmationState: { [key: number]: boolean } = {};
 
  
@@ -47,6 +47,8 @@ export class EnquiryListComponent implements OnInit {
 
   });
 }
+
+
 
   fetchAllEnquiries(): void {
     this.enquiryService.getAllEnquiries().subscribe(
