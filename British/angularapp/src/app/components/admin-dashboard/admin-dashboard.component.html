@@ -1,8 +1,11 @@
-<nav *ngIf="isAdmin">
+<nav>
   <ul class="nav-links">
-    <li><a routerLink="/course">Add Course</a></li>
-    <li><a routerLink="/courselist">Go to Course List</a></li>
-    <li><a routerLink="/enquirylist">Enquiry List</a></li>
-    <li><a routerLink="/paymentlist">Payment List</a></li>
+    <ng-container *ngIf="isLoggedIn  && isAdmin">
+      <li><a routerLink="/course" *ngIf="isAdmin">Add Course</a></li>
+      <li><a routerLink="/courselist" *ngIf="isAdmin">Go to Course List</a></li>
+      <li><a routerLink="/enquirylist" *ngIf="isAdmin">Enquiry List</a></li>
+      <li><a routerLink="/paymentlist" *ngIf="isAdmin">Payment List</a></li>
+    </ng-container>
   </ul>
 </nav>
+
