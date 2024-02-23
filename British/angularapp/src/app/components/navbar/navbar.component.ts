@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize the properties on component initialization
-    this.isLoggedIn = this.authService.isAuthenticated();
+    this.isLoggedIn = this.authService.isAuthenticated$();
   }
 
   logout(): void {

@@ -15,7 +15,7 @@ export class AdminDashboardComponent implements OnInit {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isLoggedIn = authenticated;
       if (this.isLoggedIn) {
-        this.isadmin = this.authService.isadmin();
+        this.isadmin = this.authService.isAdmin();
         console.log(this.isadmin);
       } else {
         this.isadmin = false;
@@ -25,9 +25,9 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize the properties on component initialization
-    this.isLoggedIn = this.authService.isAuthenticated();
+    this.isLoggedIn = this.authService.isAuthenticated$();
     if (this.isLoggedIn) {
-      this.isadmin = this.authService.isadmin();
+      this.isadmin = this.authService.isAdmin();
     }
   }
 }

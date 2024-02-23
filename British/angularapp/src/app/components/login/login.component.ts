@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
+import { LoginModel } from 'src/app/models/loginModel';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoginModel } from 'src/models/loginModel.model';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   email: string="";
   password: string="";
   error: string = '';
-  user: user={
+  user: LoginModel={
     Email:'',
     Password:''
   };
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).subscribe(
       (user) => {
         console.log(user.error);
-        if (this.authService.isAdmin() || this.authService.isInventor()){
+        if (this.authService.isAdmin() || this.authService.isStudent()){
           this.router.navigate(['/home']);
         }
         else {

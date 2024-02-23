@@ -8,17 +8,17 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CustomerDashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
-  isstudent: boolean = false;
+  isStudent: boolean = false;
 
   constructor(private authService: AuthService) {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isLoggedIn = authenticated;
       if (this.isLoggedIn) {
-        this.isstudent = this.authService.isstudent();
-        console.log(this.isstudent);
+        this.isStudent = this.authService.isStudent();
+        console.log(this.isStudent);
 
       } else {
-        this.isstudent = false;
+        this.isStudent = false;
       }
     });
   }
@@ -27,9 +27,9 @@ export class CustomerDashboardComponent implements OnInit {
   
   ngOnInit(): void {
     // Initialize the properties on component initialization
-    this.isLoggedIn = this.authService.isAuthenticated();
+    this.isLoggedIn = this.authService.isAuthenticated$();
     if (this.isLoggedIn) {
-      this.isstudent = this.authService.istudent();
+      this.isStudent = this.authService.isStudent();
     }
   }
 }

@@ -3,16 +3,17 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
-import { LoginComponent } from '../components/login/login.component';
+import { LoginModel } from '../models/loginModel';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public baseUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io";
+  public baseUrl = "https://8080-fffafbaadffafadfcfdbeacfbfccbebec.premiumproject.examly.io";
   private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticUser());
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  userRole$: any;
 
 
   constructor(private http: HttpClient) { }
@@ -21,7 +22,7 @@ export class AuthService {
     return this.http.post(`${this.baseUrl}/api/register`, user);
   }
 
-  login(user:LoginComponent): Observable<any> {
+  login(user:LoginModel): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/login`, user)
       .pipe(
         tap(res =>  {
@@ -54,7 +55,7 @@ export class AuthService {
     return false;
   }
 
-  isInventor(): boolean {
+  isStudent(): boolean {
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
     if (token && role.toLowerCase() === 'student') {
