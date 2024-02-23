@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -75,5 +76,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
 
   }
+
 
 }
