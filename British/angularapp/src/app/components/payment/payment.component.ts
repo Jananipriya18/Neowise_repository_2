@@ -66,11 +66,13 @@ export class PaymentComponent implements OnInit {
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {
         console.log('Payment successful:', createdPayment);
-        this.router.navigate(['/paymentlist']);
+        window.alert('Payment successful!');
+        this.router.navigate(['/']);
         // this.fetchAllPayments();
       },
       (error) => {
         console.error('Error making payment:', error);
+        window.alert('Error making Payment');
       }
     );
   }

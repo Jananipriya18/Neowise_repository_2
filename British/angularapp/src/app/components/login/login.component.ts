@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       (user) => {
         console.log(user);
         if (this.authService.isAdmin() || this.authService.isStudent()){
+        window.alert('login successful!');
           this.router.navigate(['/']);
         }
         else {

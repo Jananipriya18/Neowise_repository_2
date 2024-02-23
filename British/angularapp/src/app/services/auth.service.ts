@@ -1,154 +1,100 @@
-// admin-course-list.component.ts
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Course } from 'src/app/models/course.model';
-import { CourseService } from 'src/app/services/course.service';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';  
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { User } from '../models/user.model';
+import { LoginModel } from '../models/loginModel';
 
-@Component({
-  selector: 'app-course-list',
-  templateUrl: './admin-course-list.component.html',
-  styleUrls: ['./admin-course-list.component.css'],
+@Injectable({
+  providedIn: 'root'
 })
-export class AdminCourseListComponent implements OnInit {
-  editCourseModalVisible = false;
-  editCourseForm: FormGroup;
-  courses: Course[] = [];
-  selectedCourse: Course;
-  deleteConfirmationState: { [key: number]: boolean } = {};
-  isAdmin: boolean = false;
-  
+export class AuthService {
+  public baseUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io";
+  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticUser());
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  private userRoleSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  userRole$ = this.userRoleSubject.asObservable();
 
-  constructor(
-    private courseService: CourseService,
-    private authService: AuthService,
-    private formBuilder: FormBuilder,
-    private router: Router
-  ) {}
+  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-    this.getAllCourses();
-
-    this.authService.userRole$.subscribe(role => {
-      this.isAdmin = role === 'Admin';
-
-    });
-    // Initialize the form controls
-    this.editCourseForm = this.formBuilder.group({
-      courseName: ['', Validators.required],
-      description: ['', Validators.required],
-      duration: ['', Validators.required],
-      amount: ['', Validators.required],
-    });
+  register(user: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/register`, user);
   }
 
-  getAllCourses(): void {
-    this.courseService.getAllCourses().subscribe((data) => {
-      this.courses = data;
-    });
-  }
-
-  private fetchAllCourses(): void {
-    this.courseService.getAllCourses().subscribe(
-      (courses: Course[]) => {
-        this.courses = courses;
-      },
-      (error) => {
-        console.error('Error fetching courses:', error);
-      }
-    );
-  }
-  updateCourse(courseID: number): void {
-    if (this.authService.isAdmin()) {
-      this.selectedCourse = this.courses.find(course => course.courseID === courseID);
-  
-      if (this.selectedCourse) {
-        console.log('Selected Course:', this.selectedCourse);
-        // Reset the form to clear any previous values
-        this.editCourseForm.reset();
-        // Patch the form values with the selected course
-        this.editCourseForm.patchValue({
-          courseName: this.selectedCourse.courseName,
-          description: this.selectedCourse.description,
-          duration: this.selectedCourse.duration,
-          amount: this.selectedCourse.amount,
-        });
-        this.editCourseModalVisible = true;
-      } else {
-        console.error('Course not found');
-      }
-    } else {
-      console.error('Only admins can update courses');
-    }
-  }
-  
-  
-
-  saveChanges(): void {
-    if (this.authService.isAdmin()) {
-      // Update the selected course with form values
-      const updatedCourse: Course = {
-        ...this.selectedCourse,
-        ...this.editCourseForm.value,
-      };
-
-      // Update the course in the database
-      this.courseService.updateCourse(this.selectedCourse.courseID, updatedCourse).subscribe(
-        (updatedCourse: Course) => {
-          console.log('Course updated successfully:', updatedCourse);
-          // Fetch all courses after successful update
-          this.fetchAllCourses();
-          // Close the edit modal
-          this.closeEditModal();
-        },
-        (error) => {
-          console.error('Error updating course:', error);
-        }
+  login(user: LoginModel): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/login`, user)
+      .pipe(
+        tap(res => {
+          if (res && res.token) {
+            const decodedToken = this.decodeToken(res.token);
+            localStorage.setItem('token', res.token);
+            localStorage.setItem('role', decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+            localStorage.setItem('userId', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
+            localStorage.setItem('name', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
+            
+            this.isAuthenticatedSubject.next(true);
+            this.userRoleSubject.next(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
+          }
+        })
       );
-    } else {
-      console.error('Only admins can update courses');
+  }
+
+ 
+
+  isLoggedIn(): boolean {
+    console.log(localStorage.getItem('token'));
+    return !!localStorage.getItem('token');
+  }
+
+  isAdmin(): boolean {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    if (token && role.toLowerCase() === 'admin') {
+      return true;
     }
+    return false;
+  }
+
+  isStudent(): boolean {
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
+    if (token && role.toLowerCase() === 'student') {
+      return true;
+    }
+    return false;
+  }
+
+  isAuthenticUser(): boolean {
+    const token = localStorage.getItem('token');
+    console.log(token);
+    return !!token;
   }
 
 
-  showDeleteConfirmation(course: Course): void {
-    // Set deleteConfirmationState for the specific course to true
-    this.deleteConfirmationState[course.courseID] = true;
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+    this.isAuthenticatedSubject.next(false);
   }
 
-  // Method to confirm delete operation
-  deleteCourse(courseID: number): void {
-    if (this.authService.isAdmin()) {
-      // Perform the delete operation here
-      this.courseService.deleteCourse(courseID).subscribe(
-        () => {
-          console.log('Course deleted successfully');
-          // Fetch all courses after successful deletion
-          this.fetchAllCourses();
-        },
-        (error) => {
-          console.error('Error deleting course:', error);
+  private decodeToken(token: string): any {
+    try {
+        if (!token) {
+            return null;
         }
-      );
-    } else {
-      console.error('Only admins can delete courses');
+        const decoded = JSON.parse(atob(token.split('.')[1]));
+        console.log(decoded);
+        return decoded;
+    } catch (e) {
+        console.log(e);
+        return null;
     }
+}
 
-    // Reset deleteConfirmationState for the specific course
-    this.deleteConfirmationState[courseID] = false;
-  }
+getCurrentUserId(): string {
+  return localStorage.getItem('userId') || '';
+}
 
-  // Method to cancel delete operation
-  cancelDelete(course: Course): void {
-    // Reset deleteConfirmationState for the specific course
-    this.deleteConfirmationState[course.courseID] = false;
-  }
-
-  closeEditModal(): void {
-    // Reset form and hide the edit modal
-    this.editCourseForm.reset();
-    this.editCourseModalVisible = false;
-  }
-   
 }

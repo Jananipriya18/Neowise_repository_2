@@ -46,6 +46,7 @@ export class RegistrationComponent implements OnInit {
 
         console.log(this.role)
         if (user.Status == "Success") {
+        window.alert('Register successful!');
           this.router.navigate(['/login']);
         }
         // else if ( user == true && this.role === 'ORGANIZER') {
@@ -55,6 +56,7 @@ export class RegistrationComponent implements OnInit {
       (error) => {
         console.log(error.error);
         if (error.error.Status === "Error") {
+        window.alert('Registration is not successful!');
           // Username already exists
           alert(error.error.Message);
         }
