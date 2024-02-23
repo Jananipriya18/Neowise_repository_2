@@ -22,15 +22,15 @@
         <p class="card-description">{{ enquiry.description }}</p>
         <div class="card-details">
           <p><strong>Enquiry Date:</strong> {{ enquiry.enquiryDate | date: 'medium' }}</p>
-          <p><strong>User ID:</strong> {{ enquiry.user?.username }}</p>
+          <p><strong>User Name:</strong> {{ enquiry.user?.username }}</p>
           <p><strong>Enquiry Type:</strong> {{ enquiry.enquiryType }}</p>
           <p><strong>Course Name:</strong> {{ enquiry.course?.courseName }}</p>
           <p><strong>Email ID:</strong> {{ enquiry.emailID }}</p>
         </div>
         <div class="card-actions">
-          <!-- <button type="button" (click)="viewDetails(enquiry.enquiryID)">View Details</button> -->
-
-          <!-- Update Button -->
+          <div class="card-actions">
+            <button *ngIf="authService.isCustomer()" type="button" (click)="redirectToPayment(course)">Pay now</button>
+          </div>
           <button type="button" (click)="updateEnquiry(enquiry.enquiryID)">Edit</button>
 
           <!-- Delete Button -->
