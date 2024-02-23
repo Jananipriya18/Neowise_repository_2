@@ -75,18 +75,3 @@ label{
   color: black !important;
 }
 
-.registration-success-popup {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  display: none;
-}
-
-.registration-success-popup p {
-  margin: 0;
-}

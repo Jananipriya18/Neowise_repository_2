@@ -19,7 +19,6 @@ export class RegistrationComponent implements OnInit {
   role: string = "";
   email: string = "";
   passwordMismatch: boolean = false; // New property to track password mismatch
-  registrationSuccess: boolean = false;
   constructor(private authService: AuthService, private router: Router) { }
 
   register(): void {
@@ -43,13 +42,15 @@ export class RegistrationComponent implements OnInit {
 
     this.authService.register(user).subscribe(
       (user) => {
+        console.log(user.Status);
+
+        console.log(this.role)
         if (user.Status == "Success") {
-          this.registrationSuccess = true;
-          setTimeout(() => {
-            this.registrationSuccess = false; // Hide the popup after a few seconds
-            this.router.navigate(['/login']);
-          }, 3000); // Redirect after 3 seconds (adjust as needed)
+          this.router.navigate(['/login']);
         }
+        // else if ( user == true && this.role === 'ORGANIZER') {
+        //   this.router.navigate(['/login']);
+        // }
       },
       (error) => {
         console.log(error.error);
