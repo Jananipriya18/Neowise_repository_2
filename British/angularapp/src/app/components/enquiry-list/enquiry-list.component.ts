@@ -34,6 +34,7 @@ export class EnquiryListComponent implements OnInit {
       this.isStudent = role === 'Student';
     });
 
+    
     // Initialize the form controls
     this.editEnquiryForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -69,20 +70,19 @@ export class EnquiryListComponent implements OnInit {
   }
 
   updateEnquiry(enquiryID: number): void {
-    // Fetch the selected enquiry from the list
     if (this.authService.isStudent()) {
-      this.selectedEnquiry = this.enquiries.find(
-        (enquiry) => enquiry.enquiryID === enquiryID
-      );
-
+      this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
+  
       // Check if the selected enquiry exists
       if (this.selectedEnquiry) {
-        // Implement the logic to navigate to the update form or perform inline update
+        // Initialize the form controls if not already initialized
+        if (!this.editEnquiryForm) {
+          this.initializeForm();
+        }
+  
         console.log('Updating Enquiry with ID:', enquiryID);
-
-        // Reset the form to clear any previous values
+  
         this.editEnquiryForm.reset();
-
         // Example of calling the service method to update the enquiry
         this.editEnquiryForm.patchValue({
           title: this.selectedEnquiry.title,
@@ -92,13 +92,12 @@ export class EnquiryListComponent implements OnInit {
           enquiryType: this.selectedEnquiry.enquiryType,
           enquiryDate: this.selectedEnquiry.enquiryDate,
         });
-
         this.editEnquiryModalVisible = true;
       } else {
         console.error('Enquiry not found');
       }
     } else {
-      console.error('Only students can update enquiries');
+      console.error('Only student can update enquiries');
     }
   }
 
@@ -128,7 +127,7 @@ export class EnquiryListComponent implements OnInit {
       console.error('Only students can update enquiries');
     }
   }
-    
+
   showDeleteConfirmation(enquiry: Enquiry): void {
     // Set deleteConfirmationState for the specific enquiry to true
     this.deleteConfirmationState[enquiry.enquiryID] = true;
