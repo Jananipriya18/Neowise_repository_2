@@ -18,6 +18,7 @@ import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.com
 import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PaymentListComponent } from './payment-list/payment-list.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

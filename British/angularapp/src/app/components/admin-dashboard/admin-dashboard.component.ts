@@ -49,12 +49,13 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Initialize the properties on component initialization
+    console.log('AdminDashboardComponent initialized'); 
     this.isLoggedIn = this.authService.isAuthenticated();
     if (this.isLoggedIn) {
       this.isAdmin = this.authService.isAdmin();
+      console.log('isAdmin:', this.isAdmin); 
     }
-
+  
     // Subscribe to isAuthenticated$ observable
     this.authSubscription = this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isLoggedIn = authenticated;
@@ -64,7 +65,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
         this.isAdmin = false;
       }
     });
-  }
+  }  
 
   ngOnDestroy(): void {
     // Unsubscribe to prevent memory leaks
