@@ -1,4 +1,4 @@
- <div *ngIf="courses.length > 0" class="card-container">
+<div *ngIf="courses.length > 0" class="card-container">
   <h2>List of Courses(Admin)</h2>
   <div class="card-deck">
     <div *ngFor="let course of courses" class="custom-card">
@@ -14,9 +14,7 @@
           <div class="card-actions">
           </div>
           <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
-          
-
-          <!-- <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
+          <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
             <div class="delete-card-content">
               <div class="modal-content" style="width: 563%; margin-left: -139px;">
                 <p>Are you sure you want to delete this course?</p>
@@ -25,16 +23,14 @@
               </div>
              
             </div>
-          </div> -->
-          
+          </div>          
           <button type="button" (click)="showDeleteConfirmation(course)">Delete</button>
-        </div>
+        </div>        
       </div>
     </div>
   </div>
   
 </div>
-
 
 <div class="modal-overlay" *ngIf="editCourseModalVisible">
   <div class="modal-container">
