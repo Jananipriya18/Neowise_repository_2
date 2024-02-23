@@ -54,27 +54,31 @@ export class EnquiryListComponent implements OnInit {
 
   updateEnquiry(enquiryID: number): void {
     // Fetch the selected enquiry from the list
-    const selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
+    if (this.authService.isAdmin()) {
+    this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
 
     // Check if the selected enquiry exists
     if (selectedEnquiry) {
       // Implement the logic to navigate to the update form or perform inline update
       console.log('Updating Enquiry with ID:', enquiryID);
 
+      this.editEnquiryForm.reset();
       // Example of calling the service method to update the enquiry
-      this.enquiryService.updateEnquiry(enquiryID, selectedEnquiry).subscribe(
-        (updatedEnquiry) => {
-          console.log('Enquiry updated successfully:', updatedEnquiry);
-          // Refresh the list after successful update
-          this.fetchAllEnquiries();
-        },
-        (error) => {
-          console.error('Error updating enquiry:', error);
-        }
-      );
-    } else {
+      this.editEnquiryForm.patchValue({
+        courseName: this.selectedEnquiry.courseName,
+        description: this.selectedEnquiry.description,
+        duration: this.selectedEnquiry.duration,
+        amount: this.selectedEnquiry.amount,
+      });
+      this.editEnquiryModalVisible = true;
+    }
+   } else {
       console.error('Enquiry not found');
     }
+  }
+  else
+  {
+    console.error('Only student can update enquiries');
   }
 
   deleteEnquiry(enquiryID: number): void {
