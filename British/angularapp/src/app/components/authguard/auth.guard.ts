@@ -1,61 +1,48 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router) { }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    
-    const url: string = state.url;
-    const user = localStorage.getItem('userRole');
+  constructor(private authService: AuthService, private router: Router) {}
 
-    if (user) {
-      console.log(user);
-      
-      if (this.isAdminRoute(url) && user != 'Admin') {
-        console.log("customer entering in admin route");
-        this.router.navigate(['/error']);
-        return false;
-      }
-
-      if (this.isCustomerRoute(url) && user != 'Customer') {
-        console.log("admin entering in customer route");
-        this.router.navigate(['/error']);
-        return false;
-      }
-  
-      if (this.isCommonRoute(url)) {
-        return true;
-      }
-
-      // Navigate to not found page if user tries to access a page where they do not have access
-      return true;
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    // Check if the user is logged in
+    if (!this.authService.isLoggedIn()) {
+      // If not logged in, redirect to the login page
+      this.router.navigate(['/login']);
+      return false;
     }
 
-    // Navigate to login page if user is not authenticated
-    this.router.navigate(['/login']);
-    return false;
+    // Check if the user has the 'isAdmin' or 'isOrganizer' role
+    if (route.url[0].path === 'applicationform' && !this.authService.isAdmin()) {
+      // If not an admin, redirect to a forbidden page or show an error
+      this.router.navigate(['/forbidden']);
+      return false;
+    }
+    console.log("path  "+route.url[0].path);
+
+    if (route.url[0].path === 'admin' && !this.authService.isAdmin()) {
+      // If not an admin, redirect to a forbidden page or show an error
+      this.router.navigate(['/forbidden']);
+      return false;
+    }
+
+
+    if (route.url[0].path === 'student' && !this.authService.isStudent()) {
+      // If not an organizer, redirect to a forbidden page or show an error
+      this.router.navigate(['/forbidden']);
+      return false;
+    }
+
+    // If the user is logged in and has the appropriate role, allow access
+    return true;
   }
 
-  private isAdminRoute(url: string): boolean {
-    const adminRoutes = ['/home', '/admincourselist'];
-    return adminRoutes.some(route => url.includes(route));
-  }
-
-  private isCustomerRoute(url: string): boolean {
-    const customerRoutes = ['customer/dashboard', 'customer/view/resort', 'customer/add/booking', 'customer/view/bookings', 'customer/add/review'];
-    return customerRoutes.some(route => url.includes(route));
-  }
-
-  private isCommonRoute(url: string): boolean {
-    const commonRoutes = ['', 'login','signup'];  
-    return commonRoutes.some(route => url.includes(route));
-  }
 }

@@ -10,7 +10,7 @@ import { LoginModel } from '../models/loginModel';
   providedIn: 'root'
 })
 export class AuthService {
-  public baseUrl = "https://8080-fffafbaadffafadfcfdbeacfbfccbebec.premiumproject.examly.io";
+  public baseUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io";
   private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticUser());
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   userRole$: any;
