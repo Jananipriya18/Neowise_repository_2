@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       (user) => {
         console.log(user);
         if (this.authService.isAdmin() || this.authService.isStudent()){
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         }
         else {
           console.log('Not Admin logged in');
