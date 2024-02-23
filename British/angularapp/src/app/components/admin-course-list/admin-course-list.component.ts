@@ -66,16 +66,23 @@ export class AdminCourseListComponent implements OnInit {
   
       if (this.selectedCourse) {
         console.log('Selected Course:', this.selectedCourse);
+        // Check if form is initialized
+        console.log('Form initialized:', this.editCourseForm);
+  
         // Reset the form to clear any previous values
-        this.editCourseForm.reset();
-        // Patch the form values with the selected course
-        this.editCourseForm.patchValue({
-          courseName: this.selectedCourse.courseName,
-          description: this.selectedCourse.description,
-          duration: this.selectedCourse.duration,
-          amount: this.selectedCourse.amount,
-        });
-        this.editCourseModalVisible = true;
+        if (this.editCourseForm) {
+          this.editCourseForm.reset();
+          // Patch the form values with the selected course
+          this.editCourseForm.patchValue({
+            courseName: this.selectedCourse.courseName,
+            description: this.selectedCourse.description,
+            duration: this.selectedCourse.duration,
+            amount: this.selectedCourse.amount,
+          });
+          this.editCourseModalVisible = true;
+        } else {
+          console.error('Form not initialized');
+        }
       } else {
         console.error('Course not found');
       }
@@ -83,6 +90,7 @@ export class AdminCourseListComponent implements OnInit {
       console.error('Only admins can update courses');
     }
   }
+  
   
   
 
