@@ -29,7 +29,7 @@ namespace dotnetapp.Controllers
             return Ok(payments);
         }
 
-        [Authorize(Roles="Admin,Customer")]
+        [Authorize]
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPaymentById(int id)
