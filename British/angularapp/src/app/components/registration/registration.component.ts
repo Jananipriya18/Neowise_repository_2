@@ -4,7 +4,6 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -19,6 +18,7 @@ export class RegistrationComponent implements OnInit {
   role: string = "";
   email: string = "";
   passwordMismatch: boolean = false; // New property to track password mismatch
+
   constructor(private authService: AuthService, private router: Router) { }
 
   register(): void {
@@ -75,6 +75,5 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
 
 }
