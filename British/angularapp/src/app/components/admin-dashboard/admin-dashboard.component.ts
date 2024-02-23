@@ -9,16 +9,16 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AdminDashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
-  isAdmin: boolean = false;
+  isadmin: boolean = false;
 
   constructor(private authService: AuthService) {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isLoggedIn = authenticated;
       if (this.isLoggedIn) {
-        this.isAdmin = this.authService.isAdmin();
-        console.log(this.isAdmin);
+        this.isadmin = this.authService.isadmin();
+        console.log(this.isadmin);
       } else {
-        this.isAdmin = false;
+        this.isadmin = false;
       }
     });
   }
@@ -27,7 +27,7 @@ export class AdminDashboardComponent implements OnInit {
     // Initialize the properties on component initialization
     this.isLoggedIn = this.authService.isAuthenticated();
     if (this.isLoggedIn) {
-      this.isAdmin = this.authService.isAdmin();
+      this.isadmin = this.authService.isadmin();
     }
   }
 }

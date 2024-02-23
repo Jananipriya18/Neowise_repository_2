@@ -1,168 +1,96 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { apiUrl } from 'src/apiconfig';
-import { Router } from '@angular/router'; 
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { User } from '../models/user.model';
+import { LoginComponent } from '../components/login/login.component';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<string | null>;
-  public currentUser: Observable<string | null>;
-  public apiUrl ="https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"; 
-  private userRoleSubject = new BehaviorSubject<string>('');
-  private userIdSubject = new BehaviorSubject<string>('');
-  userRole$: Observable<string> = this.userRoleSubject.asObservable();
-  userId$: Observable<string> = this.userIdSubject.asObservable();
-  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticated());
+  public baseUrl = "https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io";
+  private isAuthenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isAuthenticUser());
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
-  private router: Router;  // Add private router property
-  private registrationError: string | null = null; 
 
-  constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<string | null>(
-      localStorage.getItem('currentUser')
-    );
-    this.currentUser = this.currentUserSubject.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  register(user: User): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/register`, user);
   }
 
-  // register(username: string, password: string, userRole: string, email: string, mobileNumber: string): Observable<any> {
-  //   const body = { username, password, userRole, email, mobileNumber };
-  //   console.log(body);
-
-  //   return this.http.post<any>(`${this.apiUrl}/api/register`, body).pipe(
-      
-  //     tap((user) => this.storeUserData(user)),
-      
-  //     catchError(this.handleError<any>('register'))
-  //   );
-  // }
-
-  register(username: string, password: string, userRole: string, email: string, mobileNumber: string): Observable<any> {
-    const body = { username, password, userRole, email, mobileNumber };
-    console.log(body);
-
-    return this.http.post<any>(`${this.apiUrl}/api/register`, body).pipe(
-      tap(
-        (user) => {
-          // Handle successful registration
-          console.log('User registered successfully:', user);
-          // Optionally, navigate to a success page or perform other actions
-          this.router.navigate(['/login']);  // Update the route as needed
-        },
-        (error) => {
-          if (error.status === 409) {
-            // Set the registrationError variable with the error message
-            this.registrationError = 'User is already registered.';
-          } else {
-            console.error('Registration error:', error);
-            // Handle other registration errors if needed
-            this.registrationError = 'Registration failed. Please try again later.';
-          }
-        }
-      ),
-      catchError(this.handleError<any>('register'))
-    );
-  }
-  
-
-  login(email: string, password: string): Observable<any> {
-    const loginData = { email, password };
-    console.log(loginData);
-    return this.http.post<any>(`${this.apiUrl}/api/login`, loginData)
+  login(user:LoginComponent): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/login`, user)
       .pipe(
-        tap(response => {
-          console.log(response.token);
-          localStorage.setItem('token',response.token)
-          const decodedToken = this.decodeToken(response.token);
+        tap(res =>  {
+          if (res && res.token) {
+          const decodedToken = this.decodeToken(res.token);
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('role', decodedToken.role);
+          localStorage.setItem('userId', decodedToken.nameid);
+          localStorage.setItem('name', decodedToken.name);
+          console.log(localStorage.getItem('userId'));
+          console.log(localStorage.getItem('name'));
 
-          if (decodedToken) {
-            localStorage.setItem('userId', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
-            localStorage.setItem('userRole', decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
-            localStorage.setItem('userName', decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']);
-            console.log(localStorage.getItem('userRole'))
-            // Update BehaviorSubjects
-            this.userRoleSubject.next(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']);
-            this.userIdSubject.next(decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']);
-            this.isAuthenticatedSubject.next(true);
-          } else {
-            console.error('Unable to decode token or missing claims');
+          this.isAuthenticatedSubject.next(true);
           }
         })
       );
   }
 
-  logout(): void {
-    // Remove the token, role, and user ID from storage upon logout
-    localStorage.removeItem('token');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-  }
-
-  isAuthenticated(): boolean {
-    // Check if the user is authenticated by verifying the token
-    const token = localStorage.getItem('token');
-    console.log(token);
-
-    return !!token; // Return true if the token exists
+  isLoggedIn(): boolean {
+    console.log(localStorage.getItem('token'));
+    return !!localStorage.getItem('token');
   }
 
   isAdmin(): boolean {
     const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = this.decodeToken(token);
-      console.log("decodedToken", decodedToken);
-      return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Admin';
+    const role = localStorage.getItem('role');
+    if (token && role.toLowerCase() === 'admin') {
+      return true;
     }
     return false;
   }
 
-  isCustomer(): boolean {
+  isInventor(): boolean {
     const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = this.decodeToken(token);
-      return decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Customer';
+    const role = localStorage.getItem('role');
+    if (token && role.toLowerCase() === 'student') {
+      return true;
     }
     return false;
   }
 
-  getCustomerName(): string {
+  isAuthenticUser(): boolean {
     const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = this.decodeToken(token);
-      return decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
-    }
-    return '';
+    console.log(token);
+    return !!token;
   }
 
-  private storeUserData(user: any): void {
-    localStorage.setItem('token', user.token);
-    localStorage.setItem('userRole', user.role);
-    localStorage.setItem('userId', user.userId);
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('name');
+    this.isAuthenticatedSubject.next(false);
   }
 
   private decodeToken(token: string): any {
     try {
-      const decoded = JSON.parse(atob(token.split('.')[1]));
-      console.log(decoded);
-      return decoded;
-    } catch (error) {
-      return null;
+        if (!token) {
+            return null;
+        }
+        const decoded = JSON.parse(atob(token.split('.')[1]));
+        console.log(decoded);
+        return decoded;
+    } catch (e) {
+        console.log(e);
+        return null;
     }
-  }
+}
 
-  getCurrentUserId(): string {
-    return localStorage.getItem('userId') || '';
-  }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
-    };
-  }
 }

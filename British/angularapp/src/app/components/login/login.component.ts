@@ -1,37 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginModel } from 'src/models/loginModel.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
-  email: string = '';
-  password: string = '';
-  error: string = '';
+export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {}
+  email: string="";
+  password: string="";
+  error: string = '';
+  user: user={
+    Email:'',
+    Password:''
+  };
+  constructor(private authService: AuthService, private router: Router) { }
+
+  ngOnInit(): void {
+  }
 
   login(): void {
-    this.authService.login(this.email, this.password).subscribe(
-      (asd) => {
-        // Successful login
-        console.log(asd);
-        if (this.authService.isAdmin()) {
-          this.router.navigate(['/']); // Navigate to admin page
-        } else {
-          this.router.navigate(['/']); // Navigate to organizer page
+    this.user={
+      Email:this.email,
+      Password:this.password
+    }
+    this.authService.login(this.user).subscribe(
+      (user) => {
+        console.log(user.error);
+        if (this.authService.isAdmin() || this.authService.isInventor()){
+          this.router.navigate(['/home']);
+        }
+        else {
+          console.log('Not Admin logged in');
+          alert('You are not authorized to access this page');
         }
       },
       (error) => {
-        if (error.status === 500) {
-          this.error = 'Account not found. Please check your email and password.';
-        } else {
-          this.error = 'Invalid email or password';
+        console.log(error.error);
+        if (error.error.Message){
+        alert(error.error.Message);
         }
+
+        this.error = error.error;
       }
     );
   }
+
 }

@@ -8,17 +8,17 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CustomerDashboardComponent implements OnInit {
   isLoggedIn: boolean = false;
-  isCustomer: boolean = false;
+  isstudent: boolean = false;
 
   constructor(private authService: AuthService) {
     this.authService.isAuthenticated$.subscribe((authenticated: boolean) => {
       this.isLoggedIn = authenticated;
       if (this.isLoggedIn) {
-        this.isCustomer = this.authService.isCustomer();
-        console.log(this.isCustomer);
+        this.isstudent = this.authService.isstudent();
+        console.log(this.isstudent);
 
       } else {
-        this.isCustomer = false;
+        this.isstudent = false;
       }
     });
   }
@@ -29,7 +29,7 @@ export class CustomerDashboardComponent implements OnInit {
     // Initialize the properties on component initialization
     this.isLoggedIn = this.authService.isAuthenticated();
     if (this.isLoggedIn) {
-      this.isCustomer = this.authService.isCustomer();
+      this.isstudent = this.authService.istudent();
     }
   }
 }
