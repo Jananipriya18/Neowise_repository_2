@@ -115,12 +115,15 @@ export class EnquiryListComponent implements OnInit {
 
 
   saveChanges(): void {
+    console.log('Save changes method called');
     if (this.authService.isStudent()) {
       const updatedEnquiry: Enquiry = {
         ...this.selectedEnquiry,
         ...this.editEnquiryForm.value,
       };
-
+  
+      console.log('Updated enquiry:', updatedEnquiry);
+  
       // Update the enquiry in the database
       this.enquiryService
         .updateEnquiry(this.selectedEnquiry.enquiryID, updatedEnquiry)
@@ -140,7 +143,7 @@ export class EnquiryListComponent implements OnInit {
       console.error('Only students can update enquiries');
     }
   }
-
+  
   showDeleteConfirmation(enquiry: Enquiry): void {
     // Set deleteConfirmationState for the specific enquiry to true
     this.deleteConfirmationState[enquiry.enquiryID] = true;
