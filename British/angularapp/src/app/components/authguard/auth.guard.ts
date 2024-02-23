@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private isAdminRoute(url: string): boolean {
-    const adminRoutes = ['admin/home', 'admin/courselist', 'admin/enquirylist', 'admin/paymentlist', 'admin/view/reviews'];
+    const adminRoutes = ['/home', '/admincourselist'];
     return adminRoutes.some(route => url.includes(route));
   }
 

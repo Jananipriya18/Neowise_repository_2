@@ -101,8 +101,7 @@ viewCourseDetails(courseId: number): void {
     }
   }
 
-  // Add a method to navigate to the course list
-  navigateToCourseList(): void {
-    this.router.navigate(['/courselist']);
+  navigateToAdminCourseList(): void {
+    this.router.navigate(['/admincourselist']);
   }
 }

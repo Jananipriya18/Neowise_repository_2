@@ -1,6 +1,6 @@
  <div class="add-course-container">
   <h2>Add Course</h2>
-  <button id="list-courses" type="button" (click)="navigateToCourseList()">List of Available Courses</button>
+  <button id="list-courses" type="button" (click)="navigateToAdminCourseList()">List of Available Courses</button>
 
   <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
     <div class="form-group">

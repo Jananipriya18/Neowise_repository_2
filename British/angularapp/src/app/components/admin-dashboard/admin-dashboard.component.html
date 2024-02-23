@@ -2,7 +2,7 @@
   <ul class="nav-links">
     <ng-container *ngIf="isLoggedIn  && isAdmin">
       <li><a routerLink="/course" *ngIf="isAdmin">Add Course</a></li>
-      <li><a routerLink="/courselist" *ngIf="isAdmin">Go to Course List</a></li>
+      <li><a routerLink="/admincourselist" *ngIf="isAdmin">Go to Course List</a></li>
       <li><a routerLink="/enquirylist" *ngIf="isAdmin">Enquiry List</a></li>
       <li><a routerLink="/paymentlist" *ngIf="isAdmin">Payment List</a></li>
     </ng-container>

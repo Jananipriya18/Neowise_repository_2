@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './admin-course-list.component.html',
   styleUrls: ['./admin-course-list.component.css'],
 })
-export class CourseListComponent implements OnInit {
+export class AdminCourseListComponent implements OnInit {
   editCourseModalVisible = false;
   editCourseForm: FormGroup;
   courses: Course[] = [];

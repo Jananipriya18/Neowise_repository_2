@@ -11,6 +11,7 @@ import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.com
 import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
+import { AdminCourseListComponent } from './components/admin-course-list/admin-course-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'signup', component: RegistrationComponent },
   { path: 'course', component: AddCourseComponent, canActivate: [AuthGuard] },
   { path: 'courselist', component: CourseListComponent, canActivate: [AuthGuard] },
+  { path: 'admincourselist', component: AdminCourseListComponent, canActivate: [AuthGuard] },
   { path: 'enquiry', component: EnquiryFormComponent, canActivate: [AuthGuard] },
   { path: 'enquirylist', component: EnquiryListComponent, canActivate: [AuthGuard] },
   {path: 'payment', component: PaymentComponent, canActivate: [AuthGuard]  },
