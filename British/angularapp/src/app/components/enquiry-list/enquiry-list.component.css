@@ -1,57 +1,3 @@
-/* .enquiry-list {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px; 
-}
-
-.enquiry-item {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    transition: background-color 0.3s ease; 
-}
-
-.enquiry-item:hover {
-    background-color: #e9e9e9;
-}
-
-h2 {
-    color: #333;
-}
-
-h3 {
-    color: #007bff;
-    margin-bottom: 8px; 
-}
-
-p {
-    color: #555;
-    margin-bottom: 10px; 
-}
-
-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 3px; 
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-
-
- */
-
-
- /* Add global styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -160,4 +106,5 @@ body {
   .modal-content {
     margin-top: 10px;
   }
+  
   

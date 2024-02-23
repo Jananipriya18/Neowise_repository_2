@@ -7,18 +7,17 @@ nav {
   padding: 10px;
 }
 
-
-.nav-links{
-display:flex;
-justify-content: center;
-align-items: center;
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a:focus {
-outline: none;
-border:1px solid #f0f0f0; 
-border-radius: 5px;
-background-color: blue;
+  outline: none;
+  border: 1px solid #f0f0f0;
+  border-radius: 5px;
+  background-color: blue;
 }
 
 nav h1 {
@@ -34,21 +33,20 @@ nav ul {
 }
 
 nav ul li {
-  margin-right: 40px;
+  flex-grow: 1; /* Equal spacing */
 }
 
 nav ul li a {
   color: white;
   text-decoration: none;
   padding: 10px;
+  white-space: nowrap;
 }
 
 nav ul li a:hover {
   color: #ddd;
 }
-li.app-customer-dashboard {
-margin-right: 0px;
-}
+
 .logout-popup {
   position: fixed;
   z-index: 1000;
@@ -67,7 +65,7 @@ margin-right: 0px;
   border-radius: 5px;
   width: 300px;
   text-align: center;
-  padding:50px;
+  padding: 50px;
   border: 1px solid black;
   border-radius: 10px;
   font-size: 17px;
@@ -82,9 +80,9 @@ margin-right: 0px;
 }
 
 .button-logout {
-  background-color: transparent; 
+  background-color: transparent;
   color: white;
-  margin-left: 0px; 
+  margin-left: 0px;
 }
 
 .button-yes {
@@ -97,7 +95,6 @@ margin-right: 0px;
   color: black;
   border: 1px solid black;
 }
-
 
 body::before {
   content: "";
