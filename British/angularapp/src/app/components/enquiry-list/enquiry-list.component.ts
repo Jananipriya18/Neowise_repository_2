@@ -72,16 +72,16 @@ export class EnquiryListComponent implements OnInit {
   updateEnquiry(enquiryID: number): void {
     if (this.authService.isStudent()) {
       this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
-  
+
       // Check if the selected enquiry exists
       if (this.selectedEnquiry) {
         // Initialize the form controls if not already initialized
         if (!this.editEnquiryForm) {
           this.initializeForm();
         }
-  
+
         console.log('Updating Enquiry with ID:', enquiryID);
-  
+
         this.editEnquiryForm.reset();
         // Example of calling the service method to update the enquiry
         this.editEnquiryForm.patchValue({
@@ -100,6 +100,19 @@ export class EnquiryListComponent implements OnInit {
       console.error('Only student can update enquiries');
     }
   }
+
+  private initializeForm(): void {
+    // Initialize the form controls
+    this.editEnquiryForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      courseName: ['', Validators.required],
+      emailID: ['', Validators.required],
+      enquiryType: ['', Validators.required],
+      enquiryDate: ['', Validators.required],
+    });
+  }
+
 
   saveChanges(): void {
     if (this.authService.isStudent()) {
