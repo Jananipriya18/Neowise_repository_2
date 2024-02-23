@@ -88,5 +88,14 @@ h2 {
   padding:10px;
   background-color: rgb(24, 229, 215);
   
+}
 
+.add-course-container .form-group .asterisk {
+  color: red;
+}
+
+.add-course-container .form-group .error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }

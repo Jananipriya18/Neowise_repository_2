@@ -1,4 +1,4 @@
- <div class="add-course-container">
+ <!-- <div class="add-course-container">
   <h2>Add Course</h2>
   <button id="list-courses" type="button" (click)="navigateToAdminCourseList()">List of Available Courses</button>
 
@@ -29,6 +29,66 @@
 
     <div class="form-group">
       <label for="amount">Amount:</label>
+      <input type="number" id="amount" formControlName="amount">
+      <div *ngIf="newCourseForm.get('amount').hasError('required') && newCourseForm.get('amount').touched">
+        Amount is required.
+      </div>
+      <div *ngIf="newCourseForm.get('amount').hasError('min') && newCourseForm.get('amount').touched">
+        Amount must be greater than or equal to 0.
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" *ngIf="isNewCourse">Add Course</button>
+      <button type="button" *ngIf="!isNewCourse" (click)="updateCourse()">Update Course</button>
+    </div>
+  </form>
+
+  <div *ngIf="!isNewCourse" class="additional-buttons">
+    <button type="button" (click)="deleteCourse()">Delete Course</button>
+    <button type="button" (click)="viewCourseDetails()">View Course</button>
+
+    <h3>Fetched Courses</h3>
+    <ul>
+      <li *ngFor="let course of courses">
+        {{ course.courseName }} - {{ course.description }}
+      </li>
+    </ul>
+  </div>
+</div> -->
+
+
+<div class="add-course-container">
+  <h2>Add Course</h2>
+  <button id="list-courses" type="button" (click)="navigateToAdminCourseList()">List of Available Courses</button>
+
+  <form [formGroup]="newCourseForm" *ngIf="isNewCourse" (ngSubmit)="addCourse()">
+    <div class="form-group">
+      <label for="courseName">Course Name<span class="asterisk">*</span>:</label>
+      <input type="text" id="courseName" formControlName="courseName">
+      <div *ngIf="newCourseForm.get('courseName').hasError('required') && newCourseForm.get('courseName').touched">
+        Course Name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description<span class="asterisk">*</span>:</label>
+      <textarea id="description" formControlName="description"></textarea>
+      <div *ngIf="newCourseForm.get('description').hasError('required') && newCourseForm.get('description').touched">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="duration">Duration<span class="asterisk">*</span>:</label>
+      <input type="text" id="duration" formControlName="duration">
+      <div *ngIf="newCourseForm.get('duration').hasError('required') && newCourseForm.get('duration').touched">
+        Duration is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="amount">Amount<span class="asterisk">*</span>:</label>
       <input type="number" id="amount" formControlName="amount">
       <div *ngIf="newCourseForm.get('amount').hasError('required') && newCourseForm.get('amount').touched">
         Amount is required.
