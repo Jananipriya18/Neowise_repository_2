@@ -102,9 +102,9 @@
 
     <div *ngFor="let enquiry of enquiries" class="enquiry-card">
       <h4>{{ enquiry.title }}</h4>
-      <p><strong>Description:</strong> {{ enquiry.description }}</p>
-      <p><strong>Enquiry Date:</strong> {{ enquiry.enquiryDate | date:'short' }}</p>
-      <p><strong>Email ID:</strong> {{ enquiry.emailID }}</p>
+      <p><strong>Description:</strong> {{ enquiry.Description }}</p>
+      <p><strong>Enquiry Date:</strong> {{ enquiry.EnquiryDate | date:'short' }}</p>
+      <p><strong>Email ID:</strong> {{ enquiry.EmailID }}</p>
       <div class="button-group">
         <button type="button" (click)="viewEnquiryDetails(enquiry)">View Enquiry</button>
         <button type="button" (click)="deleteEnquiry(enquiry.enquiryID)">Delete Enquiry</button>
