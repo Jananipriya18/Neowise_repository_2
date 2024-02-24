@@ -16,6 +16,6 @@ namespace dotnetapp.Models
     public ICollection<Payment> Payments { get; set; }
     public long UserId { get; set; }
 
-    public User User { get; set; }
+    public User? User { get; set; }
 }
 }
