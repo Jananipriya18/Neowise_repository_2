@@ -22,6 +22,7 @@ export class EnquiryService {
 
   createEnquiry(enquiry: Enquiry): Observable<Enquiry> {
     const headers = this.createAuthorizationHeader();
+    console.log("Enquiry console", enquiry);
     return this.http.post<Enquiry>(`${this.apiUrl}/api/Enquiry`, enquiry, { headers });
   }
 

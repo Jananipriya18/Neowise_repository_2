@@ -14,12 +14,12 @@ public class Enquiry
     public string EmailID { get; set; }
     public string EnquiryType { get; set; }
     public int CourseID { get; set; }
-    // [JsonIgnore]
     [ForeignKey(nameof(CourseID))]
     public Course? Course { get; set; }
 
     public long  UserId { get; set; }
     [ForeignKey(nameof(UserId))]
+    [JsonIgnore]
     public User? User { get; set; }
 }
 }

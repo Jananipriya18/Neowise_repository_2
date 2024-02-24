@@ -102,6 +102,7 @@ export class EnquiryFormComponent implements OnInit {
   
       this.enquiryService.createEnquiry(newEnquiry).subscribe(
         (createdEnquiry: Enquiry) => {
+          console.log("ENquiry check", newEnquiry);
           console.log('Enquiry created successfully:', createdEnquiry);
           // Navigate to the enquiries page after successful creation
           this.router.navigate(['/enquirylist']);
