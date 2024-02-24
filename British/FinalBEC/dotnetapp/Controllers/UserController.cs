@@ -18,7 +18,7 @@ namespace dotnetapp.Controllers
         {
             _userService = userService;
         }
-[Authorize(Roles="Admin,Student")]
+        [Authorize(Roles="Admin")]
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUserById(long userId)
         {
@@ -68,7 +68,7 @@ namespace dotnetapp.Controllers
 
             return NoContent();
         }
-        [Authorize(Roles="Admin,Student")]
+        [Authorize(Roles="Admin")]
 
         [HttpDelete("student/{id}")]
         public async Task<IActionResult> DeleteUser(long studentId)
