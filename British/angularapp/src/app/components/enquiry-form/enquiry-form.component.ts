@@ -44,7 +44,8 @@ export class EnquiryFormComponent implements OnInit {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
         this.courses = courses;
-        console.log("This course", JSON.stringify(this.courses));
+        console.log("Couse", this.courses)
+        this.courseNameIdMapping = {};
         this.courses.forEach(course => {
           this.courseNameIdMapping[course.courseName] = course.courseID;
         });
@@ -54,7 +55,6 @@ export class EnquiryFormComponent implements OnInit {
       }
     );
   }
-
   // createEnquiry(): void {
   //   if (this.authService.isStudent() && this.newEnquiryForm.valid) {
   //     const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
@@ -85,24 +85,25 @@ export class EnquiryFormComponent implements OnInit {
   createEnquiry(): void {
     if (this.authService.isStudent() && this.newEnquiryForm.valid) {
       const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
+      console.log("New data", newEnquiry, JSON.stringify(newEnquiry));
   
       // Map the selected course name to course ID
       const selectedCourseName = this.newEnquiryForm.get('courseName').value;
       const selectedCourseID = this.courseNameIdMapping[selectedCourseName];
-      delete newEnquiry.courseName;
       
       // Assign the course ID to the newEnquiry object
       newEnquiry.courseID = selectedCourseID;
+      console.log("Cous id", newEnquiry.courseID);
   
       // Get the current user ID
       const currentUserId = this.authService.getCurrentUserId();
   
       // Assign the user ID to the newEnquiry object
       newEnquiry.userId = +currentUserId;
-      console.log("Data check", JSON.stringify(newEnquiry));
+  
       this.enquiryService.createEnquiry(newEnquiry).subscribe(
         (createdEnquiry: Enquiry) => {
-          console.log("ENquiry check", newEnquiry);
+          console.log("ENquiry check", newEnquiry)
           console.log('Enquiry created successfully:', createdEnquiry);
           // Navigate to the enquiries page after successful creation
           this.router.navigate(['/enquirylist']);
@@ -116,7 +117,7 @@ export class EnquiryFormComponent implements OnInit {
     } else {
       console.error('Only customers can create enquiries or form is not valid');
     }
-  }  
+  }
 
   navigateToCourseList(): void {
     this.router.navigate(['/enquirylist']);
