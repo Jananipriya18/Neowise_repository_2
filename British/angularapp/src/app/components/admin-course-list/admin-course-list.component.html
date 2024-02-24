@@ -10,7 +10,7 @@
           <p><strong>Amount:</strong> {{ course.Amount }}</p>
         </div>
         <div class="card-actions">
-          <button type="button" (click)="updateCourse(course.CourseID)">Edit</button>
+          <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
           <button type="button" (click)="showDeleteConfirmation(course)">Delete</button>
           <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
             <div class="delete-card-content">

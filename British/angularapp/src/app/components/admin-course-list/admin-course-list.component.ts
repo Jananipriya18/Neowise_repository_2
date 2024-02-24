@@ -92,11 +92,14 @@ export class AdminCourseListComponent implements OnInit {
     console.log('Courses:', this.courses);
   
     if (this.authService.isAdmin()) {
-      const selectedCourseID = typeof courseID === 'string' ? +courseID : courseID;
-      this.selectedCourse = this.courses.find(course => course.courseID == selectedCourseID);
+      this.selectedCourse = this.courses.find(course => course.courseID === courseID);
   
       if (this.selectedCourse) {
         console.log('Selected Course:', this.selectedCourse);
+  
+        // Additional log statements
+        console.log('Type of this.selectedCourse.courseID:', typeof this.selectedCourse.courseID);
+        console.log('CourseID in this.selectedCourse:', this.selectedCourse.courseID);
   
         // Reset the form to clear any previous values
         this.editCourseForm.reset();
@@ -116,6 +119,7 @@ export class AdminCourseListComponent implements OnInit {
       console.error('Only admins can update courses');
     }
   }
+   
   
   
   saveChanges(): void {
