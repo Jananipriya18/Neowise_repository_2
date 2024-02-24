@@ -42,8 +42,8 @@ export class EnquiryService {
     return this.http.put<Enquiry>(url, updatedEnquiry);
   }
 
-  deleteEnquiry(enquiryID: number): Observable<void> {
-    const url = `${this.apiUrl}/api/Enquiry/${enquiryID}`;
+  deleteEnquiry(EnquiryID: number): Observable<void> {
+    const url = `${this.apiUrl}/api/Enquiry/${EnquiryID}`;
     return this.http.delete<void>(url);
   }
 

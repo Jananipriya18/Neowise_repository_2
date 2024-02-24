@@ -48,9 +48,11 @@ export class EnquiryFormComponent implements OnInit {
       (courses: Course[]) => {
         this.courses = courses;
         console.log("Couse", this.courses)
-        this.courseNameIdMapping = {};
+        // this.courseNameIdMapping = {};
         this.courses.forEach(course => {
           this.courseNameIdMapping[course.CourseName] = course.CourseID;
+          console.log("hai");
+          
         });
       },
       (error) => {
@@ -86,6 +88,8 @@ export class EnquiryFormComponent implements OnInit {
   //   }
   // }
   createEnquiry(): void {
+    
+    
     if (this.authService.isStudent() && this.newEnquiryForm.valid) {
       const newEnquiry: Enquiry = this.newEnquiryForm.value as Enquiry;
       console.log("New data", newEnquiry, JSON.stringify(newEnquiry));

@@ -132,7 +132,7 @@ public async Task<IActionResult> UpdateEnquiry(int EnquiryID, Enquiry enquiry)
         public async Task<IActionResult> DeleteEnquiry(int EnquiryID)
         {
             await _enquiryService.DeleteEnquiry(EnquiryID);
-            return NoContent();
+            return Ok(new { Status = "Success", message = "Enquiry deleted successfully" });        
         }
 
 
