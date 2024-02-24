@@ -45,10 +45,6 @@ export class EnquiryFormComponent implements OnInit {
       (courses: Course[]) => {
         this.courses = courses;
         
-        // Populate the courseNameIdMapping
-        this.courses.forEach(course => {
-          this.courseNameIdMapping[course.courseName] = course.courseID;
-        });
       },
       (error) => {
         console.error('Error fetching courses:', error);
