@@ -12,9 +12,9 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   createStudent(student: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/student`, student);
+    return this.http.post(`${this.apiUrl}`, student);
   }
-
+  
   deleteStudent(studentId: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/api/student/${studentId}`);
   }

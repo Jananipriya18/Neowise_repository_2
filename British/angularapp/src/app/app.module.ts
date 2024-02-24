@@ -19,6 +19,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 import { CommonModule } from '@angular/common';
 import { AdminCourseListComponent } from './components/admin-course-list/admin-course-list.component';
+import { StudentComponent } from './components/student/student.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AdminCourseListComponent } from './components/admin-course-list/admin-c
     PaymentComponent,
     PaymentListComponent,
     AdminCourseListComponent,
+    StudentComponent,
   ],
   imports: [
     BrowserModule,

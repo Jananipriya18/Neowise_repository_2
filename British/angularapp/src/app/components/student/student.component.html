@@ -1,0 +1,25 @@
+<div class="student-container">
+    <h2>Student Management</h2>
+  
+    <div class="buttons">
+      <button (click)="toggleCreateForm()">Create Student</button>
+      <button (click)="deleteStudent()">Delete Student</button>
+      <button (click)="getStudent()">Get Student</button>
+  
+      <div *ngIf="showCreateForm" class="create-form">
+        <h3>Create Student</h3>
+        <form (submit)="createStudent()">
+          <label for="studentName">Student Name:</label>
+          <input type="text" id="studentName" required [(ngModel)]="newStudent.studentName">
+  
+          <label for="mobileNumber">Mobile Number:</label>
+          <input type="text" id="mobileNumber" required [(ngModel)]="newStudent.mobileNumber">
+  
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+  
+      <div *ngIf="message" class="message">{{ message }}</div>
+    </div>
+  </div>
+  
