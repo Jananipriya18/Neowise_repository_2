@@ -319,12 +319,12 @@ export class CourseListComponent implements OnInit {
     this.editCourseModalVisible = false;
   }
   
-  redirectToPayment(course: Course): void {
+  redirectToPayment(course: any): void {
     // Navigate to the payment page using Router
     this.router.navigate(['/payment'], {
       queryParams: {
-        courseId: course.courseID,
-        courseName: course.courseName,
+        courseId: course.CourseID,
+        courseName: course.CourseName,
       },
     });
   }

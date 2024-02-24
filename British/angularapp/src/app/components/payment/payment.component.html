@@ -28,9 +28,11 @@
     <!-- Dropdown to select the course -->
     <div>
       <label for="courseID">Select Course:</label>
-      <select id="courseID" name="courseID" [(ngModel)]="newPayment.courseID">
+      <input type="text" id="courseID" name="courseID" [(ngModel)]="courseName" required />
+
+      <!-- <select id="courseID" name="courseID" [(ngModel)]="newPayment.courseID">
         <option *ngFor="let course of courses" [value]="course.CourseID">{{ course.CourseName }}</option>
-      </select>
+      </select> -->
     </div>
 
     <button type="submit">Make Payment</button>

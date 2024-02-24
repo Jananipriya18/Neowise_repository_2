@@ -35,9 +35,15 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const courseId = params['courseId'];
+      const courseName = params['courseName'];
+      console.log(courseId);
+      
+    })
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
     this.fetchAllCourses();
-    this.makePayment();
+    // this.makePayment();
     console.log("New payment", this.newPayment);
   }
 
