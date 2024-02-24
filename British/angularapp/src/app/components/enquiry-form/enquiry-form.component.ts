@@ -99,7 +99,7 @@ export class EnquiryFormComponent implements OnInit {
   
       // Assign the user ID to the newEnquiry object
       newEnquiry.userId = +currentUserId;
-  
+      console.log("Data check", JSON.stringify(newEnquiry));
       this.enquiryService.createEnquiry(newEnquiry).subscribe(
         (createdEnquiry: Enquiry) => {
           console.log("ENquiry check", newEnquiry);
