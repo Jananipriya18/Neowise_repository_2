@@ -14,7 +14,7 @@ public class Enquiry
     public string EmailID { get; set; }
     public string EnquiryType { get; set; }
     public int CourseID { get; set; }
-    [JsonIgnore]
+    // [JsonIgnore]
     [ForeignKey(nameof(CourseID))]
     public Course? Course { get; set; }
 
