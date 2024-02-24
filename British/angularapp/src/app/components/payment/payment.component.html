@@ -7,7 +7,7 @@
   <form (ngSubmit)="makePayment()" #paymentForm="ngForm">
     <div>
       <label for="amountPaid">Amount to Pay:</label>
-      <input type="number" id="amountPaid" name="amountPaid" [(ngModel)]="newPayment.amountPaid" required />
+      <input type="number" id="amountPaid" name="amountPaid" [(ngModel)]="amount" required />
     </div>
 
     <div>
@@ -27,8 +27,8 @@
 
     <!-- Dropdown to select the course -->
     <div>
-      <label for="courseID">Select Course:</label>
-      <input type="text" id="courseID" name="courseID" [(ngModel)]="courseName" required />
+      <label for="courseName">Course Name:</label>
+  <input type="text" id="courseName" name="courseName" [(ngModel)]="courseName" readonly />
 
       <!-- <select id="courseID" name="courseID" [(ngModel)]="newPayment.courseID">
         <option *ngFor="let course of courses" [value]="course.CourseID">{{ course.CourseName }}</option>

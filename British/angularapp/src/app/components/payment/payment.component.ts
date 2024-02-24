@@ -13,6 +13,9 @@ import { Course } from '../../models/course.model';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
+  courseName: string=''
+  courseID: string=''
+  amount: number = 0
   payments: Payment[] = [];
   newPayment: Payment = {
     paymentID: 0,
@@ -36,10 +39,11 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      const courseId = params['courseId'];
-      const courseName = params['courseName'];
-      console.log(courseId);
-      console.log(courseName);
+      this.courseID = params['courseId'];
+      this.courseName = params['courseName'];
+      this.amount = params['amount'];
+      // console.log(courseId);
+      // console.log(courseName);
       
     })
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
@@ -72,6 +76,8 @@ export class PaymentComponent implements OnInit {
   }
 
   makePayment(): void {
+    console.log(this.newPayment);
+    
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {
         console.log('Payment successful:', createdPayment);

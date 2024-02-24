@@ -325,6 +325,7 @@ export class CourseListComponent implements OnInit {
       queryParams: {
         courseId: course.CourseID,
         courseName: course.CourseName,
+        amount: course.Amount
       },
     });
   }
