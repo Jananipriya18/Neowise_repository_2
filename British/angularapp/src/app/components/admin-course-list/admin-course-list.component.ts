@@ -60,6 +60,7 @@ export class AdminCourseListComponent implements OnInit {
       }
     );
   }
+  
   updateCourse(courseID: number): void {
     if (this.authService.isAdmin()) {
       this.selectedCourse = this.courses.find(course => course.courseID === courseID);
