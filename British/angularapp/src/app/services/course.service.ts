@@ -23,26 +23,26 @@ export class CourseService {
 
   getAllCourses(): Observable<Course[]> {
     const headers = this.createAuthorizationHeader();
-    return this.http.get<Course[]>(`${this.apiUrl}/api/course`, { headers });
+    return this.http.get<Course[]>(`${this.apiUrl}/api/Course`, { headers });
   }
 
   getCourseById(courseId: number): Observable<Course> {
     const headers = this.createAuthorizationHeader();
-    return this.http.get<Course>(`${this.apiUrl}/api/course/${courseId}`, { headers });
+    return this.http.get<Course>(`${this.apiUrl}/api/Course/${courseId}`, { headers });
   }
 
   createCourse(course: Course): Observable<Course> {
     const headers = this.createAuthorizationHeader();
-    return this.http.post<Course>(`${this.apiUrl}/api/course`, course, { headers });
+    return this.http.post<Course>(`${this.apiUrl}/api/Course`, course, { headers });
   }
 
   updateCourse(courseId: number, course: Course): Observable<Course> {
     const headers = this.createAuthorizationHeader();
-    return this.http.put<Course>(`${this.apiUrl}/api/course/${courseId}`, course, { headers });
+    return this.http.put<Course>(`${this.apiUrl}/api/Course/${courseId}`, course, { headers });
   }
 
   deleteCourse(courseId: number): Observable<void> {
     const headers = this.createAuthorizationHeader();
-    return this.http.delete<void>(`${this.apiUrl}/api/course/${courseId}`, { headers });
+    return this.http.delete<void>(`${this.apiUrl}/api/Course/${courseId}`, { headers });
   }
 }
