@@ -30,6 +30,7 @@ namespace dotnetapp.Models
 
         [JsonIgnore]
         public List<Enquiry>? Enquiries { get; set; }
+        [JsonIgnore]
         public ICollection<Student>? Students { get; set; }
     }
 }

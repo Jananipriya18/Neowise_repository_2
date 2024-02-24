@@ -210,11 +210,24 @@ export class CourseListComponent implements OnInit {
     });
   }
 
+  // getAllCourses(): void {
+  //   this.courseService.getAllCourses().subscribe((data) => {
+  //     this.courses = data;
+  //   });
+  // }
+
   getAllCourses(): void {
-    this.courseService.getAllCourses().subscribe((data) => {
-      this.courses = data;
-    });
+    this.courseService.getAllCourses().subscribe(
+      (data) => {
+        this.courses = data;
+        console.log('Courses:', this.courses);
+      },
+      (error) => {
+        console.error('Error fetching courses:', error);
+      }
+    );
   }
+  
 
   updateCourse(courseID: number): void {
     if (this.authService.isAdmin()) {

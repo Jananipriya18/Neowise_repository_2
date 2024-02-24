@@ -47,7 +47,7 @@ namespace dotnetapp.Controllers
             return CreatedAtAction(nameof(GetCourseById), new { CourseId = course.CourseID }, course);
         }
 
-[Authorize(Roles="Admin")]
+// [Authorize(Roles="Admin")]
 [HttpPut("{CourseID}")]
 public async Task<IActionResult> UpdateCourse(int CourseID, Course course)
 {
