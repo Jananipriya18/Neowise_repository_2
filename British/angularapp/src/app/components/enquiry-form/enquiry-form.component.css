@@ -79,16 +79,17 @@
     margin-right: 10px;
   }
 
+/* 
+  .mandatory {
+    position: relative;
+  }
 
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 4px;
-}
-.mandatory::after {
-  content: ' *';
-  color: red;
-}
+  .mandatory::after {
+    content: '*';
+    color: red;
+    position: absolute;
+    margin-left: 2px;
+  } */
 
 
   
