@@ -1,25 +1,28 @@
-<div class="student-container">
-    <h2>Student Management</h2>
+<div>
+    <!-- Button to toggle the form -->
+    <button (click)="toggleCreateForm()">Toggle Create Form</button>
   
-    <div class="buttons">
-      <button (click)="toggleCreateForm()">Create Student</button>
-      <button (click)="deleteStudent()">Delete Student</button>
-      <button (click)="getStudent()">Get Student</button>
+    <!-- Display a message if any -->
+    <div *ngIf="message">{{ message }}</div>
   
-      <div *ngIf="showCreateForm" class="create-form">
-        <h3>Create Student</h3>
-        <form (submit)="createStudent()">
-          <label for="studentName">Student Name:</label>
-          <input type="text" id="studentName" required [(ngModel)]="newStudent.studentName">
+    <!-- Form to create a new student -->
+    <form *ngIf="showCreateForm" (ngSubmit)="createStudent()">
+      <!-- Student Name Input -->
+      <label for="studentName">Student Name:</label>
+      <input type="text" id="studentName" name="studentName" [(ngModel)]="newStudent.studentName" required>
   
-          <label for="mobileNumber">Mobile Number:</label>
-          <input type="text" id="mobileNumber" required [(ngModel)]="newStudent.mobileNumber">
+      <!-- Mobile Number Input -->
+      <label for="mobileNumber">Mobile Number:</label>
+      <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="newStudent.mobileNumber" required>
   
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+      <!-- Submit Button -->
+      <button type="submit">Create Student</button>
+    </form>
   
-      <div *ngIf="message" class="message">{{ message }}</div>
-    </div>
+    <!-- Button to delete a student -->
+    <button (click)="deleteStudent()">Delete Student</button>
+  
+    <!-- Button to get student information -->
+    <button (click)="getStudent()">Get Student</button>
   </div>
   
