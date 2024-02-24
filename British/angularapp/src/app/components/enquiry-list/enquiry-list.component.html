@@ -18,13 +18,13 @@
   <div class="card-deck">
     <div *ngFor="let enquiry of enquiries" class="custom-card">
       <div class="card-content">
-        <h3>{{ enquiry.title }}</h3>
+        <h3>{{ enquiry.Title }}</h3>
         <p class="card-description">{{ enquiry.Description }}</p>
         <div class="card-details">
           <p><strong>Enquiry Date:</strong> {{ enquiry.EnquiryDate | date: 'medium' }}</p>
-          <p><strong>User Name:</strong> {{ enquiry.user?.Username }}</p>
+          <p><strong>User Name:</strong> {{ enquiry.User?.Username }}</p>
           <p><strong>Enquiry Type:</strong> {{ enquiry.EnquiryType }}</p>
-          <p><strong>Course Name:</strong> {{ enquiry.course?.CourseName }}</p>
+          <p><strong>Course Name:</strong> {{ enquiry.Course?.CourseName }}</p>
           <p><strong>Email ID:</strong> {{ enquiry.EmailID }}</p>
         </div>
         <div class="card-actions">

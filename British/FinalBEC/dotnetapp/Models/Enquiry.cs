@@ -19,7 +19,7 @@ public class Enquiry
 
     public long  UserId { get; set; }
     [ForeignKey(nameof(UserId))]
-    [JsonIgnore]
+    // [JsonIgnore]
     public User? User { get; set; }
 }
 }
