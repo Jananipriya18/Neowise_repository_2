@@ -44,7 +44,10 @@ export class EnquiryFormComponent implements OnInit {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
         this.courses = courses;
-        
+        console.log("This course", JSON.stringify(this.courses));
+        this.courses.forEach(course => {
+          this.courseNameIdMapping[course.courseName] = course.courseID;
+        });
       },
       (error) => {
         console.error('Error fetching courses:', error);
@@ -86,6 +89,7 @@ export class EnquiryFormComponent implements OnInit {
       // Map the selected course name to course ID
       const selectedCourseName = this.newEnquiryForm.get('courseName').value;
       const selectedCourseID = this.courseNameIdMapping[selectedCourseName];
+      delete newEnquiry.courseName;
       
       // Assign the course ID to the newEnquiry object
       newEnquiry.courseID = selectedCourseID;
@@ -112,7 +116,7 @@ export class EnquiryFormComponent implements OnInit {
     } else {
       console.error('Only customers can create enquiries or form is not valid');
     }
-  }
+  }  
 
   navigateToCourseList(): void {
     this.router.navigate(['/enquirylist']);
