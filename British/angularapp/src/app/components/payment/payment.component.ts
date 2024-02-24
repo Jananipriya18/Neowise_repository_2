@@ -39,6 +39,7 @@ export class PaymentComponent implements OnInit {
       const courseId = params['courseId'];
       const courseName = params['courseName'];
       console.log(courseId);
+      console.log(courseName);
       
     })
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
