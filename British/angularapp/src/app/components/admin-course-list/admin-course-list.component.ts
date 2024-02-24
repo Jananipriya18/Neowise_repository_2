@@ -88,10 +88,12 @@ export class AdminCourseListComponent implements OnInit {
   // }
   updateCourse(courseID: number): void {
     console.log('Selected Course ID:', courseID);
+    console.log('Type of courseID:', typeof courseID);
     console.log('Courses:', this.courses);
   
     if (this.authService.isAdmin()) {
-      this.selectedCourse = this.courses.find(course => course.courseID === courseID);
+      const selectedCourseID = typeof courseID === 'string' ? +courseID : courseID;
+      this.selectedCourse = this.courses.find(course => course.courseID == selectedCourseID);
   
       if (this.selectedCourse) {
         console.log('Selected Course:', this.selectedCourse);
