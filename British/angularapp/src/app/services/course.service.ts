@@ -28,7 +28,7 @@ export class CourseService {
 
   getCourseById(courseId: number): Observable<Course> {
     const headers = this.createAuthorizationHeader();
-    return this.http.get<Course>(`${this.apiUrl}/api/course/${courseId}`, { headers });
+    return this.http.get<Course>(`${this.apiUrl}/api/course/${id}`, { headers });
   }
 
   createCourse(course: Course): Observable<Course> {
@@ -38,11 +38,11 @@ export class CourseService {
 
   updateCourse(courseId: number, course: Course): Observable<Course> {
     const headers = this.createAuthorizationHeader();
-    return this.http.put<Course>(`${this.apiUrl}/api/course/${courseId}`, course, { headers });
+    return this.http.put<Course>(`${this.apiUrl}/api/course/${id}`, course, { headers });
   }
 
   deleteCourse(courseId: number): Observable<void> {
     const headers = this.createAuthorizationHeader();
-    return this.http.delete<void>(`${this.apiUrl}/api/course/${courseId}`, { headers });
+    return this.http.delete<void>(`${this.apiUrl}/api/course/${id}`, { headers });
   }
 }
