@@ -38,13 +38,15 @@ export class EnquiryService {
   }
 
   updateEnquiry(enquiryID: number, updatedEnquiry: Enquiry): Observable<Enquiry> {
+    const headers = this.createAuthorizationHeader();
     const url = `${this.apiUrl}/api/Enquiry/${enquiryID}`;
-    return this.http.put<Enquiry>(url, updatedEnquiry);
+    return this.http.put<Enquiry>(url, updatedEnquiry, {headers});
   }
 
   deleteEnquiry(EnquiryID: number): Observable<void> {
+    const headers = this.createAuthorizationHeader();
     const url = `${this.apiUrl}/api/Enquiry/${EnquiryID}`;
-    return this.http.delete<void>(url);
+    return this.http.delete<void>(url, {headers});
   }
 
 

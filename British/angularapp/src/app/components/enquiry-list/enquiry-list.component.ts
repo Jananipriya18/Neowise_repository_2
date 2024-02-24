@@ -13,7 +13,8 @@ import { EnquiryService } from 'src/app/services/enquiry.service';
   styleUrls: ['./enquiry-list.component.css'],
 })
 export class EnquiryListComponent implements OnInit {
-  enquiries: Enquiry[] = [];
+  // enquiries: Enquiry[] = [];
+  enquiries: any[] = [];
   selectedEnquiry: Enquiry;
   isStudent: boolean = false;
   editEnquiryForm: FormGroup;
@@ -83,7 +84,7 @@ export class EnquiryListComponent implements OnInit {
 
   updateEnquiry(enquiryID: number): void {
     if (this.authService.isStudent()) {
-      this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.enquiryID === enquiryID);
+      this.selectedEnquiry = this.enquiries.find((enquiry) => enquiry.EnquiryID === enquiryID);
 
       // Check if the selected enquiry exists
       if (this.selectedEnquiry) {
