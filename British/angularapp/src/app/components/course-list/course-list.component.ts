@@ -7,7 +7,7 @@
 // import { Router } from '@angular/router';  
 
 // @Component({
-//   selector: 'app-course-list',
+//   selector: 'app-course-list',f
 //   templateUrl: './course-list.component.html',
 //   styleUrls: ['./course-list.component.css'],
 // })

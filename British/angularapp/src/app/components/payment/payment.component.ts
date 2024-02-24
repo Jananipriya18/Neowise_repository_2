@@ -38,8 +38,8 @@ export class PaymentComponent implements OnInit {
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
     this.fetchAllCourses();
     this.makePayment();
+    console.log("New payment", this.newPayment);
   }
-  
 
   // fetchAllPayments(): void {
   //   this.paymentService.getAllPayments().subscribe(
@@ -55,6 +55,7 @@ export class PaymentComponent implements OnInit {
   fetchAllCourses(): void {
     this.courseService.getAllCourses().subscribe(
       (courses: Course[]) => {
+        console.log("Courses", courses, JSON.stringify(courses));
         this.courses = courses;
       },
       (error) => {
