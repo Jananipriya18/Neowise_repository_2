@@ -90,10 +90,11 @@ export class EnquiryFormComponent implements OnInit {
       // Map the selected course name to course ID
       const selectedCourseName = this.newEnquiryForm.get('courseName').value;
       const selectedCourseID = this.courseNameIdMapping[selectedCourseName];
-      
+      console.log("selectedCourseName",selectedCourseName);
       // Assign the course ID to the newEnquiry object
       newEnquiry.courseID = selectedCourseID;
       console.log("Cous id", newEnquiry.courseID);
+      console.log("selectedCourseID",selectedCourseID);
   
       // Get the current user ID
       const currentUserId = this.authService.getCurrentUserId();

@@ -126,7 +126,7 @@ public async Task<IActionResult> UpdateEnquiry(int EnquiryID, Enquiry enquiry)
     }
 }
 
-        [Authorize(Roles="Student,Admin")]
+        [Authorize(Roles="Student")]
 
        [HttpDelete("{EnquiryID}")]
         public async Task<IActionResult> DeleteEnquiry(int EnquiryID)
