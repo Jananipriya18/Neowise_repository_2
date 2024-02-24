@@ -76,10 +76,10 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Increase padding for a larger card */
+    border: 2px solid #ddd; /* Increase border width */
+    border-radius: 10px; /* Increase border-radius for rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase box-shadow for a more pronounced effect */
   }
   
   .modal-overlay {
@@ -105,6 +105,16 @@ body {
   
   .modal-content {
     margin-top: 10px;
+    width: 100%; /* Set the width of the modal content to 100% */
+    max-width: 400px; /* Set a maximum width to avoid overly wide content */
+    margin: auto;
   }
   
+  .delete-card-content p {
+    font-size: 18px; /* Adjust font size for better readability */
+  }
+  
+  .delete-card-content button {
+    margin-top: 20px; /* Add spacing between buttons and text */
+  }
   
