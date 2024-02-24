@@ -162,7 +162,7 @@
     <div class="form-group">
       <label for="courseName" class="mandatory">Course Name<span class="asterisk">*</span>:</label>
       <select id="courseName" formControlName="courseName">
-        <option *ngFor="let course of courses" [value]="course.CourseId">{{ course.CourseName }}</option>
+        <option *ngFor="let course of courses" [value]="course.courseId">{{ course.CourseName }}</option>
       </select>
       <div *ngIf="newEnquiryForm.get('courseName').hasError('required') && newEnquiryForm.get('courseName').touched" style="color: red;">
         Course Name is required.

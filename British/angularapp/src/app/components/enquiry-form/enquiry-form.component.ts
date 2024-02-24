@@ -16,8 +16,9 @@ import { CourseService } from 'src/app/services/course.service';
 export class EnquiryFormComponent implements OnInit {
   newEnquiryForm: FormGroup;
   isNewEnquiry: boolean = true;
-  courses: Course[] = [];
-  courseNameIdMapping: { [courseName: string]: number } = {}; // New mapping variable
+  // courses: Course[] = [];
+  courses: any[] = [];
+  courseNameIdMapping: { [CourseName: string]: number } = {}; // New mapping variable
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +39,8 @@ export class EnquiryFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllCourses(); // Fetch courses on component initialization
+    console.log(this.courseNameIdMapping);
+    
   }
 
   fetchAllCourses(): void {
@@ -47,7 +50,7 @@ export class EnquiryFormComponent implements OnInit {
         console.log("Couse", this.courses)
         this.courseNameIdMapping = {};
         this.courses.forEach(course => {
-          this.courseNameIdMapping[course.courseName] = course.courseID;
+          this.courseNameIdMapping[course.CourseName] = course.CourseID;
         });
       },
       (error) => {
