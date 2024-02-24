@@ -76,10 +76,10 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 40px; /* Increase padding for a larger card */
-    border: 2px solid #ddd; /* Increase border width */
-    border-radius: 10px; /* Increase border-radius for rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase box-shadow for a more pronounced effect */
+    padding: 40px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .modal-overlay {
@@ -111,10 +111,18 @@ body {
   }
   
   .delete-card-content p {
-    font-size: 18px; /* Adjust font size for better readability */
+    font-size: 18px;
+    margin-bottom: 20px; /* Add margin at the bottom of the paragraph */
   }
   
   .delete-card-content button {
-    margin-top: 20px; /* Add spacing between buttons and text */
+    display: block; /* Make buttons block-level to stack them vertically */
+    margin-top: 20px;
+  }
+
+  .delete-card-content .modal-content {
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
   }
   
