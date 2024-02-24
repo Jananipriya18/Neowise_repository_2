@@ -14,8 +14,10 @@ import { Router } from '@angular/router';
 export class AdminCourseListComponent implements OnInit {
   editCourseModalVisible = false;
   editCourseForm: FormGroup;
-  courses: Course[] = [];
-  selectedCourse: Course;
+  courses: any[] = [];
+  // courses: Course[] = [];
+  // selectedCourse: Course;
+  selectedCourse: any;
   // deleteConfirmationState: { [key: number]: boolean } = {};
   deleteConfirmationState: { show: boolean, courseID: number } = { show: false, courseID: 0 };
   isAdmin: boolean = false;
@@ -92,23 +94,23 @@ export class AdminCourseListComponent implements OnInit {
     console.log('Courses:', this.courses);
   
     if (this.authService.isAdmin()) {
-      this.selectedCourse = this.courses.find(course => course.courseID === courseID);
+      this.selectedCourse = this.courses.find(course => course.CourseID === courseID);
   
       if (this.selectedCourse) {
         console.log('Selected Course:', this.selectedCourse);
   
         // Additional log statements
-        console.log('Type of this.selectedCourse.courseID:', typeof this.selectedCourse.courseID);
-        console.log('CourseID in this.selectedCourse:', this.selectedCourse.courseID);
+        console.log('Type of this.selectedCourse.courseID:', typeof this.selectedCourse.CourseID);
+        console.log('CourseID in this.selectedCourse:', this.selectedCourse.CourseID);
   
         // Reset the form to clear any previous values
         this.editCourseForm.reset();
         // Patch the form values with the selected course
         this.editCourseForm.patchValue({
-          courseName: this.selectedCourse.courseName,
-          description: this.selectedCourse.description,
-          duration: this.selectedCourse.duration,
-          amount: this.selectedCourse.amount,
+          courseName: this.selectedCourse.CourseName,
+          description: this.selectedCourse.Description,
+          duration: this.selectedCourse.Duration,
+          amount: this.selectedCourse.Amount,
         });
   
         this.editCourseModalVisible = true;
@@ -129,7 +131,7 @@ export class AdminCourseListComponent implements OnInit {
         ...this.editCourseForm.value,
       };
   
-      this.courseService.updateCourse(this.selectedCourse.courseID, updatedCourse).subscribe(
+      this.courseService.updateCourse(this.selectedCourse.CourseID, updatedCourse).subscribe(
         (updatedCourse: Course) => {
           console.log('Course updated successfully:', updatedCourse);
           this.fetchAllCourses();
