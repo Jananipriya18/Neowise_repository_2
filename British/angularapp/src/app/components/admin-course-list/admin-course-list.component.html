@@ -3,33 +3,28 @@
   <div class="card-deck">
     <div *ngFor="let course of courses" class="custom-card">
       <div class="card-content">
-        <h3>{{ course.courseName }}</h3>
-        <p class="card-description">{{ course.description }}</p>
+        <h3>{{ course.CourseName }}</h3>
+        <p class="card-description">{{ course.Description }}</p>
         <div class="card-details">
-          <p><strong>Duration:</strong> {{ course.duration }}</p>
-          <p><strong>Amount:</strong> {{ course.amount }}</p>
-          
+          <p><strong>Duration:</strong> {{ course.Duration }}</p>
+          <p><strong>Amount:</strong> {{ course.Amount }}</p>
         </div>
         <div class="card-actions">
-          <div class="card-actions">
-          </div>
-          <button type="button" (click)="updateCourse(course.courseID)">Edit</button>
+          <button type="button" (click)="updateCourse(course.CourseID)">Edit</button>
+          <button type="button" (click)="showDeleteConfirmation(course)">Delete</button>
           <div class="delete-card" *ngIf="deleteConfirmationState[course.courseID]">
             <div class="delete-card-content">
               <div class="modal-content" style="width: 563%; margin-left: -139px;">
                 <p>Are you sure you want to delete this course?</p>
-                <button type="button" (click)="deleteCourse(course.courseID)">Confirm Delete</button>
+                <button type="button" (click)="deleteCourse(course.CourseID)">Confirm Delete</button>
                 <button type="button" (click)="cancelDelete(course)">Cancel</button>
               </div>
-             
             </div>
-          </div>          
-          <button type="button" (click)="showDeleteConfirmation(course)">Delete</button>
-        </div>        
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
 </div>
 
 <div class="modal-overlay" *ngIf="editCourseModalVisible">
@@ -55,4 +50,3 @@
     </div>
   </div>
 </div>
-

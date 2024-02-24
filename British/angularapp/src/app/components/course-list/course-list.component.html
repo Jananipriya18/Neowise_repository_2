@@ -1,24 +1,18 @@
 <div *ngIf="courses.length > 0" class="card-container">
   <h2>List of Courses(Customer)</h2>
-
-  <!-- Display the content of the 'courses' array for debugging -->
-  {{ courses | json }}
-
   <div class="card-deck">
     <div *ngFor="let course of courses" class="custom-card">
       <div class="card-content">
-        <h3>{{ course.courseName }}</h3>
-        <p class="card-description">{{ course.description }}</p>
+        <h3>{{ course.CourseName }}</h3>
+        <p class="card-description">{{ course.Description }}</p>
         <div class="card-details">
-          <p><strong>Duration:</strong> {{ course.duration }}</p>
-          <p><strong>Amount:</strong> {{ course.amount }}</p>
+          <p><strong>Duration:</strong> {{ course.Duration }}</p>
+          <p><strong>Amount:</strong> {{ course.Amount }}</p>
         </div>
         <div class="card-actions">
           <div class="card-actions">
             <button *ngIf="authService.isStudent()" type="button" (click)="redirectToPayment(course)">Pay now</button>
           </div>
-          <!-- <button type="button" (click)="updateCourse(course.courseID)">Edit</button> -->
-          <!-- <button type="button" (click)="showDeleteConfirmation(course)">Delete</button> -->
         </div>
       </div>
     </div>

@@ -61,6 +61,8 @@ export class AdminCourseListComponent implements OnInit {
     );
   }
   
+  
+
   // updateCourse(courseID: number): void {
   //   if (this.authService.isAdmin()) {
   //     this.selectedCourse = this.courses.find(course => course.courseID === courseID);
@@ -84,14 +86,16 @@ export class AdminCourseListComponent implements OnInit {
   //     console.error('Only admins can update courses');
   //   }
   // }
-
-
   updateCourse(courseID: number): void {
+    console.log('Selected Course ID:', courseID);
+    console.log('Courses:', this.courses);
+  
     if (this.authService.isAdmin()) {
       this.selectedCourse = this.courses.find(course => course.courseID === courseID);
   
       if (this.selectedCourse) {
         console.log('Selected Course:', this.selectedCourse);
+  
         // Reset the form to clear any previous values
         this.editCourseForm.reset();
         // Patch the form values with the selected course
@@ -101,6 +105,7 @@ export class AdminCourseListComponent implements OnInit {
           duration: this.selectedCourse.duration,
           amount: this.selectedCourse.amount,
         });
+  
         this.editCourseModalVisible = true;
       } else {
         console.error('Course not found');
@@ -111,23 +116,17 @@ export class AdminCourseListComponent implements OnInit {
   }
   
   
-  
-
   saveChanges(): void {
     if (this.authService.isAdmin()) {
-      // Update the selected course with form values
       const updatedCourse: Course = {
         ...this.selectedCourse,
         ...this.editCourseForm.value,
       };
-
-      // Update the course in the database
+  
       this.courseService.updateCourse(this.selectedCourse.courseID, updatedCourse).subscribe(
         (updatedCourse: Course) => {
           console.log('Course updated successfully:', updatedCourse);
-          // Fetch all courses after successful update
           this.fetchAllCourses();
-          // Close the edit modal
           this.closeEditModal();
         },
         (error) => {
@@ -138,6 +137,33 @@ export class AdminCourseListComponent implements OnInit {
       console.error('Only admins can update courses');
     }
   }
+  
+
+  // saveChanges(): void {
+  //   if (this.authService.isAdmin()) {
+  //     // Update the selected course with form values
+  //     const updatedCourse: Course = {
+  //       ...this.selectedCourse,
+  //       ...this.editCourseForm.value,
+  //     };
+
+  //     // Update the course in the database
+  //     this.courseService.updateCourse(this.selectedCourse.courseID, updatedCourse).subscribe(
+  //       (updatedCourse: Course) => {
+  //         console.log('Course updated successfully:', updatedCourse);
+  //         // Fetch all courses after successful update
+  //         this.fetchAllCourses();
+  //         // Close the edit modal
+  //         this.closeEditModal();
+  //       },
+  //       (error) => {
+  //         console.error('Error updating course:', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Only admins can update courses');
+  //   }
+  // }
 
 
   showDeleteConfirmation(course: Course): void {
