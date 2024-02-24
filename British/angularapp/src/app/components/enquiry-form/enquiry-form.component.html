@@ -98,6 +98,7 @@
 
   <div *ngIf="!isNewEnquiry" class="enquiry-list-container">
     <h3>List of Enquiries</h3>
+    {{ enquiries | json }}
 
     <div *ngFor="let enquiry of enquiries" class="enquiry-card">
       <h4>{{ enquiry.title }}</h4>
