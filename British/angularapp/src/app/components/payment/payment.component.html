@@ -29,7 +29,7 @@
     <div>
       <label for="courseID">Select Course:</label>
       <select id="courseID" name="courseID" [(ngModel)]="newPayment.courseID">
-        <option *ngFor="let course of courses" [value]="course.courseID">{{ course.courseName }}</option>
+        <option *ngFor="let course of courses" [value]="course.CourseID">{{ course.courseName }}</option>
       </select>
     </div>
 

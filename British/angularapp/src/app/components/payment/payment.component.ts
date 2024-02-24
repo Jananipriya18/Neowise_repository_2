@@ -35,10 +35,11 @@ export class PaymentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.fetchAllPayments();
-    this.fetchAllCourses();
     this.newPayment.userId = Number(this.authService.getCurrentUserId());
+    this.fetchAllCourses();
+    this.makePayment();
   }
+  
 
   // fetchAllPayments(): void {
   //   this.paymentService.getAllPayments().subscribe(
@@ -81,10 +82,11 @@ export class PaymentComponent implements OnInit {
     if (this.authService.isStudent()) {
       const userId = this.authService.getCurrentUserId();
       
-      console.log('Selected Course Information:', {
-        courseId: course.courseID,
-        courseName: course.courseName,
-      });
+      // console.log('Selected Course Information:', {
+      //   courseId: course.courseID,
+      //   courseName: course.courseName,
+      // });
+      console.log("Data check", JSON.stringify(course));
   
       console.log('User Information:', {
         userId: userId,
