@@ -16,7 +16,6 @@ export class PaymentComponent implements OnInit {
   courseName: string=''
   courseID: string=''
   amount: number = 0
-  userId : string =''
   payments: Payment[] = [];
   newPayment: Payment = {
     // paymentID: null, 
@@ -40,9 +39,7 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      // this.courseID = params['courseId'];
-      this.userId = params['userId'];
-
+      this.courseID = params['courseId'];
       this.courseName = params['courseName'];
       this.amount = params['amount'];
       // console.log(courseId);
@@ -73,9 +70,6 @@ export class PaymentComponent implements OnInit {
 
     // Continue with the payment creation
     this.newPayment.courseID = parseInt(this.courseID);
-    // this.newPayment.userId = this.userId;
-    this.newPayment.userId = parseInt(this.userId);
-
     this.newPayment.amountPaid = this.amount;
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {

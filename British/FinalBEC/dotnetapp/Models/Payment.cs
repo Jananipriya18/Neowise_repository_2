@@ -17,7 +17,7 @@ namespace dotnetapp.Models
         public string ModeOfPayment { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public long? UserId { get; set; }
+        public long UserId { get; set; }
         public User? User { get; set; }
 
         [ForeignKey(nameof(Course))]

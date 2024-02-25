@@ -106,24 +106,32 @@ namespace dotnetapp.Controllers
     //         await _userService.AddPaymentToStudent(payment);
     //         return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
     //     }
-    [HttpPost("student/payment")]
-public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
-{
-    try
+//     [HttpPost("student/payment")]
+// public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
+// {
+//     try
+//     {
+//         payment.UserId = userId;
+//         await _userService.AddPaymentToStudent(payment);
+//         return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
+//     }
+//     catch (Exception ex)
+//     {
+//         // Log the exception for debugging
+//         Console.WriteLine(ex);
+//         return StatusCode(500, "Internal server error");
+//     }
+// }
+
+ [Authorize(Roles="Student")]
+    [HttpPost]
+    public async Task<IActionResult> PostStudentPayment(Payment payment)
     {
-        payment.UserId = userId;
+        // await _enquiryService.CreateEnquiry(enquiry);
+        // return CreatedAtAction(nameof(GetEnquiryById), new { EnquiryID = enquiry.EnquiryID }, enquiry);
         await _userService.AddPaymentToStudent(payment);
-        return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
+        return CreatedAtAction(nameof(PostStudentPayment), new { PaymentID = payment.PaymentID }, payment);
     }
-    catch (Exception ex)
-    {
-        // Log the exception for debugging
-        Console.WriteLine(ex);
-        return StatusCode(500, "Internal server error");
-    }
-}
-
-
 
     //     [Authorize(Roles="Student")]
     // [HttpPost("student/payment")]
