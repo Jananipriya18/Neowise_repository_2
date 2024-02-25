@@ -54,14 +54,14 @@
         </div>
       </div>
 
-      <!-- UserRole Input -->
-      <div class="form-group">
-        <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
-        <input type="text" id="userRole" formControlName="UserRole" [disabled]="isUserRoleDisabled">
-        <div *ngIf="newStudentForm.get('UserRole').hasError('required') && newStudentForm.get('UserRole').touched" class="error-message">
-          User Role is required.
-        </div>
+     <!-- UserRole Input -->
+     <div class="form-group">
+      <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
+      <input type="text" id="userRole" formControlName="UserRole" [disabled]="isUserRoleReadonly">
+      <div *ngIf="newStudentForm.get('UserRole').hasError('required') && newStudentForm.get('UserRole').touched" class="error-message">
+        User Role is required.
       </div>
+    </div>
 
       <!-- Submit Button -->
       <button type="submit" [disabled]="newStudentForm.invalid">Create Student</button>
