@@ -30,9 +30,14 @@ export class StudentService {
     return this.http.delete(`${this.apiUrl}/api/student/${studentId}`, { headers });
   }
 
+  // getStudent(userId: number): Observable<any> {
+  //   const headers = this.createAuthorizationHeader();
+  //   return this.http.get(`${this.apiUrl}/api/student/user/${userId}`, { headers });
+  // }
+
   getStudent(userId: number): Observable<any> {
     const headers = this.createAuthorizationHeader();
-    return this.http.get(`${this.apiUrl}/api/student/user/${userId}`, { headers });
+    return this.http.get(`${this.apiUrl}/api/${userId}`, { headers });
   }
   
   getStudents(): Observable<any[]> {

@@ -86,4 +86,13 @@
     <input type="number" id="userId" name="userId" [(ngModel)]="userId" required>
     <button type="button" (click)="getStudentDetails()">Get Details</button>
   </form>
+
+  <div *ngIf="selectedStudent" class="student-details">
+    <h2>Student Details</h2>
+    <p><strong>User ID:</strong> {{ selectedStudent.UserId }}</p>
+    <p><strong>Email:</strong> {{ selectedStudent.Email }}</p>
+    <p><strong>Password:</strong> {{ selectedStudent.Password }}</p>
+    <p><strong>Username:</strong> {{ selectedStudent.Username }}</p>
+    <p><strong>Mobile Number:</strong> {{ selectedStudent.MobileNumber }}</p>
+  </div>
 </div>
