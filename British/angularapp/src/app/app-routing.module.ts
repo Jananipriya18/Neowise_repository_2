@@ -13,6 +13,7 @@ import {PaymentComponent} from './components/payment/payment.component';
 import { PaymentListComponent } from './payment-list/payment-list.component';
 import { AdminCourseListComponent } from './components/admin-course-list/admin-course-list.component';
 import { StudentComponent } from './components/student/student.component';
+import { AdminEnquiryListComponent } from './components/admin-enquiry-list/admin-enquiry-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'admincourselist', component: AdminCourseListComponent, canActivate: [AuthGuard] },
   { path: 'enquiry', component: EnquiryFormComponent, canActivate: [AuthGuard] },
   { path: 'enquirylist', component: EnquiryListComponent, canActivate: [AuthGuard] },
+  { path: 'adminenquirylist', component: AdminEnquiryListComponent, canActivate: [AuthGuard] },
   {path: 'payment', component: PaymentComponent, canActivate: [AuthGuard]  },
   {path: 'student', component: StudentComponent, canActivate: [AuthGuard]  },
   { path: 'paymentlist', component: PaymentListComponent, canActivate: [AuthGuard] },
