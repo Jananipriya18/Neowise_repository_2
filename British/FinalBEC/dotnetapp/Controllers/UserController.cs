@@ -123,12 +123,10 @@ namespace dotnetapp.Controllers
 //     }
 // }
 
- [Authorize(Roles="Student")]
-    [HttpPost]
+ //[Authorize(Roles="Student")]
+    [HttpPost("student/payment")]
     public async Task<IActionResult> PostStudentPayment(Payment payment)
     {
-        // await _enquiryService.CreateEnquiry(enquiry);
-        // return CreatedAtAction(nameof(GetEnquiryById), new { EnquiryID = enquiry.EnquiryID }, enquiry);
         await _userService.AddPaymentToStudent(payment);
         return CreatedAtAction(nameof(PostStudentPayment), new { PaymentID = payment.PaymentID }, payment);
     }
