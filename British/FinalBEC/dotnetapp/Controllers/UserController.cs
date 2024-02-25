@@ -86,13 +86,23 @@ namespace dotnetapp.Controllers
         }
         [Authorize(Roles="Student")]
 
+        // [HttpPost("student/payment")]
+        // public async Task<IActionResult> PostStudentPayment(long studentId, Payment payment)
+        // {
+        //     payment.StudentId = studentId;
+        //     await _userService.AddPaymentToStudent(payment);
+        //     return CreatedAtAction(nameof(PostStudentPayment), new { studentId }, payment);
+        // }
+
+        [Authorize(Roles="Student")]
+
         [HttpPost("student/payment")]
-        public async Task<IActionResult> PostStudentPayment(long studentId, Payment payment)
+        public async Task<IActionResult> CreatePayment(Payment payment)
         {
-            payment.StudentId = studentId;
-            await _userService.AddPaymentToStudent(payment);
-            return CreatedAtAction(nameof(PostStudentPayment), new { studentId }, payment);
+            await _paymentService.CreatePayment(payment);
+            return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
         }
+
         [Authorize(Roles="Admin,Student")]
 
         [HttpGet("student/user/{userId}")]
