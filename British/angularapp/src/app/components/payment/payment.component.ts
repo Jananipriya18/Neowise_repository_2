@@ -26,6 +26,7 @@ export class PaymentComponent implements OnInit {
   };
 
   courses: Course[] = [];
+  createdPayment: Payment | null = null;
 
   constructor(
     private paymentService: PaymentService,

@@ -130,15 +130,14 @@
     </div>
 
     <div class="form-group">
-      <label for="enquiryDate">EnquiryDate:<span class="asterisk">*</span>:</label>
-      <input type="datetime-local" id="enquiryDate" formControlName="enquiryDate" [min]="minEnquiryDate()" required>
+      <label for="enquiryDate"class="mandatory">Enquiry Date<span class="asterisk">*</span>:</label>
+      <input type="datetime-local" id="enquiryDate" formControlName="enquiryDate" [min]="minEnquiryDate()" [max]="maxEnquiryDate()" required>
+      <!-- <label for="enquiryDate" class="mandatory">Enquiry Date<span class="asterisk">*</span>:</label>
+      <input type="date" id="enquiryDate" formControlName="enquiryDate"> -->
       <div *ngIf="newEnquiryForm.get('enquiryDate').hasError('required') && newEnquiryForm.get('enquiryDate').touched" style="color: red;">
         Enquiry Date is required.
       </div>
     </div>
-      <!-- <label for="enquiryDate" class="mandatory">Enquiry Date<span class="asterisk">*</span>:</label>
-      <input type="date" id="enquiryDate" formControlName="enquiryDate"> -->
-      
 
     <div class="form-group">
       <label for="emailID" class="mandatory">Email ID<span class="asterisk">*</span>:</label>

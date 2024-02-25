@@ -16,9 +16,10 @@ namespace dotnetapp.Models
         public DateTime PaymentDate { get; set; }
         public string ModeOfPayment { get; set; }
         // public string TransactionID { get; set; }
+        [ForeignKey(nameof(UserId))]
         public long UserId { get; set; }
         public int CourseID { get; set; }
-        public long? StudentId { get; set; }
+        // public long? StudentId { get; set; }
         public User? Users { get; set; }
         public Course? Courses { get; set; }
         public Student? Students { get; set; }

@@ -11,10 +11,11 @@ namespace dotnetapp.Models
 
         // Define your DbSet properties for other entities...
         public DbSet<User> Users { get; set; }
-        public DbSet<Course> Courses { get; set; }
         public DbSet<Enquiry> Enquiries { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Course> Courses { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
