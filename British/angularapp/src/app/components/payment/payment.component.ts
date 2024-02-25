@@ -21,13 +21,13 @@ export class PaymentComponent implements OnInit {
     // paymentID: null, 
     userId: 0,
     courseID: 0,
-    amountPaid: null,
+    amountPaid: 0,
     paymentDate: new Date(),
     modeOfPayment: '',
   };
 
   courses: Course[] = [];
-  createdPayment: Payment | null = null;
+  // createdPayment: Payment | null = null;
 
   constructor(
     private paymentService: PaymentService,
