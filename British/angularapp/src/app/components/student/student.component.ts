@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentService } from '../../services/student.service';
 
 @Component({
@@ -8,50 +9,50 @@ import { StudentService } from '../../services/student.service';
 })
 export class StudentComponent {
   showCreateForm: boolean = false;
+  isUserRoleDisabled: boolean = false;
   message: string = '';
-  newStudent: any = {
-    studentName: '',
-    mobileNumber: '',
-    email:'',
-    password:'',
-    UserRole:'Student'
+  newStudentForm: FormGroup;
 
-  };
-
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService, private fb: FormBuilder) {
+    this.newStudentForm = this.fb.group({
+      studentName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      username: [''], // Add validations as needed
+      mobileNumber: ['', Validators.required],
+      password: ['', Validators.required],
+      UserRole: [{ value: 'Student', disabled: true }, Validators.required],
+    });
+  }
 
   toggleCreateForm() {
     this.showCreateForm = !this.showCreateForm;
   }
 
   createStudent() {
-    this.studentService.createStudent(this.newStudent).subscribe(
-      (createdStudent: any) => {
-        this.message = 'Student created successfully!';
-        this.showCreateForm = false;
-        // Reset form fields
-        this.newStudent = { studentName: '', mobileNumber: '' };
-
-        // Do something with the created student data
-        console.log('Created Student:', createdStudent);
-
-        // Example: Trigger a refresh of the student list
-        // this.fetchStudents();
-      },
-      (error) => {
-        console.error('Error creating student:', error);
-        this.message = 'Error creating student';
-      }
-    );
+    if (this.newStudentForm.valid) {
+      this.studentService.createStudent(this.newStudentForm.value).subscribe(
+        (createdStudent: any) => {
+          this.message = 'Student created successfully!';
+          this.showCreateForm = false;
+          this.newStudentForm.reset(); // Reset form
+          console.log('Created Student:', createdStudent);
+        },
+        (error) => {
+          console.error('Error creating student:', error);
+          this.message = 'Error creating student';
+        }
+      );
+    } else {
+      // Handle form validation errors
+      this.message = 'Please fill in all required fields correctly.';
+    }
   }
 
   deleteStudent() {
-    // You may want to implement some form of user interaction to select a student for deletion
     console.warn('Please select a student to delete');
   }
 
   getStudent() {
-    // You may want to implement some form of user interaction to select a student for retrieval
     console.warn('Please select a student to retrieve');
   }
 }

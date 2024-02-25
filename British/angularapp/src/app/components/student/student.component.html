@@ -1,45 +1,72 @@
-<div>
+<div class="student-container">
   <!-- Button to toggle the form -->
-  <button (click)="toggleCreateForm()">Toggle Create Form</button>
+  <button (click)="toggleCreateForm()">Create Form</button>
 
   <!-- Display a message if any -->
-  <div *ngIf="message">{{ message }}</div>
+  <div *ngIf="message" class="message">{{ message }}</div>
 
   <!-- Form to create a new student -->
-  <form *ngIf="showCreateForm" (ngSubmit)="createStudent()">
-    <!-- Student Name Input -->
-    <div class="form-group">
-      <label for="studentName" class="mandatory">Student Name<span class="asterisk">*</span>:</label>
-      <input type="text" id="studentName" name="studentName" [(ngModel)]="newStudent.studentName" required>
-    </div>
+  <div *ngIf="showCreateForm" class="form-container">
+    <form [formGroup]="newStudentForm" (ngSubmit)="createStudent()">
+      <!-- Student Name Input -->
+      <div class="form-group">
+        <label for="studentName" class="mandatory">Student Name<span class="asterisk">*</span>:</label>
+        <input type="text" id="studentName" formControlName="studentName">
+        <div *ngIf="newStudentForm.get('studentName').hasError('required') && newStudentForm.get('studentName').touched" class="error-message">
+          Student Name is required.
+        </div>
+      </div>
 
-    <!-- Email Input -->
-    <div class="form-group">
-      <label for="email" class="mandatory">Email<span class="asterisk">*</span>:</label>
-      <input type="email" id="email" name="email" [(ngModel)]="newStudent.email" required>
-    </div>
+      <!-- Email Input -->
+      <div class="form-group">
+        <label for="email" class="mandatory">Email<span class="asterisk">*</span>:</label>
+        <input type="email" id="email" formControlName="email">
+        <div *ngIf="newStudentForm.get('email').hasError('required') && newStudentForm.get('email').touched" class="error-message">
+          Email is required.
+        </div>
+        <div *ngIf="newStudentForm.get('email').hasError('email') && newStudentForm.get('email').touched" class="error-message">
+          Please enter a valid email address.
+        </div>
+      </div>
 
-    <!-- Mobile Number Input -->
-    <div class="form-group">
-      <label for="mobileNumber" class="mandatory">Mobile Number<span class="asterisk">*</span>:</label>
-      <input type="text" id="mobileNumber" name="mobileNumber" [(ngModel)]="newStudent.mobileNumber" required>
-    </div>
+      <!-- Username Input -->
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" formControlName="username">
+        <!-- Add validation as needed -->
+      </div>
 
-    <!-- Password Input -->
-    <div class="form-group">
-      <label for="password" class="mandatory">Password<span class="asterisk">*</span>:</label>
-      <input type="password" id="password" name="password" [(ngModel)]="newStudent.password" required>
-    </div>
+      <!-- Mobile Number Input -->
+      <div class="form-group">
+        <label for="mobileNumber" class="mandatory">Mobile Number<span class="asterisk">*</span>:</label>
+        <input type="text" id="mobileNumber" formControlName="mobileNumber">
+        <div *ngIf="newStudentForm.get('mobileNumber').hasError('required') && newStudentForm.get('mobileNumber').touched" class="error-message">
+          Mobile Number is required.
+        </div>
+      </div>
 
-    <!-- UserRole Input -->
-    <div class="form-group">
-      <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
-      <input type="text" id="userRole" name="userRole" [(ngModel)]="newStudent.UserRole" required>
-    </div>
+      <!-- Password Input -->
+      <div class="form-group">
+        <label for="password" class="mandatory">Password<span class="asterisk">*</span>:</label>
+        <input type="password" id="password" formControlName="password">
+        <div *ngIf="newStudentForm.get('password').hasError('required') && newStudentForm.get('password').touched" class="error-message">
+          Password is required.
+        </div>
+      </div>
 
-    <!-- Submit Button -->
-    <button type="submit">Create Student</button>
-  </form>
+      <!-- UserRole Input -->
+      <div class="form-group">
+        <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
+        <input type="text" id="userRole" formControlName="UserRole" [disabled]="isUserRoleDisabled">
+        <div *ngIf="newStudentForm.get('UserRole').hasError('required') && newStudentForm.get('UserRole').touched" class="error-message">
+          User Role is required.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="newStudentForm.invalid">Create Student</button>
+    </form>
+  </div>
 
   <!-- Button to delete a student -->
   <button (click)="deleteStudent()">Delete Student</button>
