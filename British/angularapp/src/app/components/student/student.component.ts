@@ -50,6 +50,7 @@ export class StudentComponent implements OnInit {
     if (this.newStudentForm.valid) {
       this.studentService.createStudent(this.newStudentForm.value).subscribe(
         (createdStudent: any) => {
+          window.alert('Student created successfully!');
           this.message = 'Student created successfully!';
           this.showCreateForm = false;
 
@@ -62,18 +63,33 @@ export class StudentComponent implements OnInit {
         },
         (error) => {
           console.error('Error creating student:', error);
-          if (error.status === 400 && error.error?.errors) {
-            // Handle validation errors and display appropriate messages
-            const validationErrors = error.error.errors;
-            this.handleValidationErrors(validationErrors);
-          } else {
-            this.message = 'Error creating student';
-          }
+          // if (error.status === 400 && error.error?.errors) {
+          //   // Handle validation errors and display appropriate messages
+          //   const validationErrors = error.error.errors;
+          //   this.handleValidationErrors(validationErrors);
+          // } else {
+          //   this.message = 'Error creating student';
+          // }
+
+          if (error.error.Status === "Error") {
+            window.alert('Student creation is not successful!');
+              // Username already exists
+              alert(error.error.Message);
+            }
         }
       );
     } else {
       this.message = 'Please fill in all required fields correctly.';
     }
+  }
+
+  isPasswordComplex(password: string): boolean {
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(password);
+
+    return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
   }
 
   private handleValidationErrors(errors: any) {
