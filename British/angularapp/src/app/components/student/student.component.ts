@@ -180,7 +180,40 @@ export class StudentComponent implements OnInit {
     );
   }
 
-  toggleCreateForm() {
+  // toggleCreateForm() {
+  //   this.showCreateForm = !this.showCreateForm;
+  // }
+
+  // createStudent() {
+  //   if (this.newStudentForm.valid) {
+  //     this.studentService.createStudent(this.newStudentForm.value).subscribe(
+  //       (createdStudent: any) => {
+  //         window.alert('Student created successfully!');
+  //         this.message = 'Student created successfully!';
+  //         this.showCreateForm = false;
+
+  //         // Reset form fields
+  //         this.newStudentForm.reset();
+  //         // Do something with the created student data
+  //         console.log('Created Student:', createdStudent);
+  //         // Example: Trigger a refresh of the student list
+  //         this.fetchStudents();  // Add this line to refresh the student list
+  //       },
+  //       (error) => {
+  //         console.error('Error creating student:', error);
+
+  //         if (error.error.Status === "Error") {
+  //           window.alert('Student creation is not successful!');
+  //           alert(error.error.Message);
+  //         }
+  //       }
+  //     );
+  //   } else {
+  //     this.message = 'Please fill in all required fields correctly.';
+  //   }
+  // }
+
+   toggleCreateForm() {
     this.showCreateForm = !this.showCreateForm;
   }
 

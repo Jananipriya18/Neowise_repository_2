@@ -83,6 +83,8 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 button:disabled {
@@ -134,7 +136,8 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 10px; /* Add margin to the right */
+  margin-right: 10px;
+  margin-left: 10px; /* Add margin to the right */
 }
 
 button:disabled {
