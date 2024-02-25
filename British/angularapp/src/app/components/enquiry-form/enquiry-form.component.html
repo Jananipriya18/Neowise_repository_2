@@ -99,7 +99,6 @@
   <div *ngIf="!isNewEnquiry" class="enquiry-list-container">
     <h3>List of Enquiries</h3>
     {{ enquiries | json }}
-
     <div *ngFor="let enquiry of enquiries" class="enquiry-card">
       <h4>{{ enquiry.title }}</h4>
       <p><strong>Description:</strong> {{ enquiry.Description }}</p>
@@ -131,7 +130,7 @@
 
     <div class="form-group">
       <label for="enquiryDate"class="mandatory">Enquiry Date<span class="asterisk">*</span>:</label>
-      <input type="datetime-local" id="enquiryDate" formControlName="enquiryDate" [min]="minEnquiryDate()" [max]="maxEnquiryDate()" required>
+      <input type="date" id="enquiryDate" formControlName="enquiryDate" [min]="minEnquiryDate()" [max]="maxEnquiryDate()" required>
       <!-- <label for="enquiryDate" class="mandatory">Enquiry Date<span class="asterisk">*</span>:</label>
       <input type="date" id="enquiryDate" formControlName="enquiryDate"> -->
       <div *ngIf="newEnquiryForm.get('enquiryDate').hasError('required') && newEnquiryForm.get('enquiryDate').touched" style="color: red;">

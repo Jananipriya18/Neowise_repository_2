@@ -143,27 +143,20 @@ export class EnquiryFormComponent implements OnInit {
   // }
   minEnquiryDate(): string {
     const now = new Date();
-    const formattedNow = this.formatDate(now);
-
-    // Format: "YYYY-MM-DDTHH:mm"
-    return formattedNow;
+    return this.formatDate(now);
   }
 
   maxEnquiryDate(): string {
     const now = new Date();
-    const formattedNow = this.formatDate(now);
-  
-    // Format: "YYYY-MM-DDTHH:mm"
-    return formattedNow;
+    now.setDate(now.getDate()); // Allow only up to the next day
+    return this.formatDate(now);
   }
 
   formatDate(date: Date): string {
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const month = (date.getMonth()).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     const year = date.getFullYear();
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  
+    return `${year}-${month}-${day}`;
   }
 }

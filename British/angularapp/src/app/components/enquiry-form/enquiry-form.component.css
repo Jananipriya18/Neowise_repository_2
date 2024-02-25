@@ -79,17 +79,20 @@
     margin-right: 10px;
   }
 
-/* 
-  .mandatory {
+
+  /* * .mandatory {
     position: relative;
   }
 
-  .mandatory::after {
+   .mandatory::after { 
     content: '*';
     color: red;
     position: absolute;
     margin-left: 2px;
-  } */
+  } */ 
 
+  .asterisk{
+    color:red;
+  }
 
   
