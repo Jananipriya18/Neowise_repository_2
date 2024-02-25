@@ -18,7 +18,6 @@ export class PaymentComponent implements OnInit {
   amount: number = 0
   payments: Payment[] = [];
   newPayment: Payment = {
-    paymentID: 0,
     userId: 0,
     courseID: 0,
     amountPaid: 0,
