@@ -15,7 +15,8 @@ import { EnquiryService } from 'src/app/services/enquiry.service';
 export class EnquiryListComponent implements OnInit {
   // enquiries: Enquiry[] = [];
   enquiries: any[] = [];
-  selectedEnquiry: Enquiry;
+  // selectedEnquiry: Enquiry;
+  selectedEnquiry: any;
   isStudent: boolean = false;
   editEnquiryForm: FormGroup;
   editEnquiryModalVisible = false;
@@ -95,16 +96,16 @@ export class EnquiryListComponent implements OnInit {
         }
 
         console.log('Updating Enquiry with ID:', enquiryID);
-
+        console.log("selectedEnquiry",this.selectedEnquiry.Course);
         this.editEnquiryForm.reset();
         // Example of calling the service method to update the enquiry
         this.editEnquiryForm.patchValue({
-          title: this.selectedEnquiry.title,
-          description: this.selectedEnquiry.description,
-          courseName: this.selectedEnquiry.course.courseName,
-          emailID: this.selectedEnquiry.emailID,
-          enquiryType: this.selectedEnquiry.enquiryType,
-          enquiryDate: this.selectedEnquiry.enquiryDate,
+          title: this.selectedEnquiry.Title,
+          description: this.selectedEnquiry.Description,
+          courseName: this.selectedEnquiry.Course.CourseName,
+          emailID: this.selectedEnquiry.EmailID,
+          enquiryType: this.selectedEnquiry.EnquiryType,
+          enquiryDate: this.selectedEnquiry.EnquiryDate,
         });
         this.editEnquiryModalVisible = true;
       } else {
