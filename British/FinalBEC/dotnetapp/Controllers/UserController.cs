@@ -93,43 +93,43 @@ namespace dotnetapp.Controllers
         //     await _userService.AddPaymentToStudent(payment);
         //     return CreatedAtAction(nameof(PostStudentPayment), new { studentId }, payment);
         // }
+    //     [Authorize(Roles="Student")]
+    // [HttpPost("student/payment")]
+    // public async Task<IActionResult> PostStudentPayment(string userId, Payment payment)
+    // {
+    //     try
+    //     {
+    //         // Find the student associated with the userId
+    //         var student = await _userService.GetStudentByUserId(userId);
+    //         if (student == null)
+    //         {
+    //             return BadRequest(new { Status = "Error", Message = "Student not found" });
+    //         }
+
+    //         // Assign the studentId to the payment
+    //         payment.StudentId = student.StudentId;
+
+    //         // Add the payment to the student
+    //         await _userService.AddPaymentToStudent(payment);
+
+    //         return CreatedAtAction(nameof(PostStudentPayment), new { studentId = student.StudentId }, payment);
+    //     }
+    //     catch (Exception ex)
+    //     {
+    //         _logger.LogError(ex.Message);
+    //         return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+    //     }
+    // }
+
+
         [Authorize(Roles="Student")]
-    [HttpPost("student/payment")]
-    public async Task<IActionResult> PostStudentPayment(string userId, Payment payment)
-    {
-        try
+
+        [HttpPost("student/payment")]
+        public async Task<IActionResult> CreatePayment(Payment payment)
         {
-            // Find the student associated with the userId
-            var student = await _userService.GetStudentByUserId(userId);
-            if (student == null)
-            {
-                return BadRequest(new { Status = "Error", Message = "Student not found" });
-            }
-
-            // Assign the studentId to the payment
-            payment.StudentId = student.StudentId;
-
-            // Add the payment to the student
-            await _userService.AddPaymentToStudent(payment);
-
-            return CreatedAtAction(nameof(PostStudentPayment), new { studentId = student.StudentId }, payment);
+            await _paymentService.CreatePayment(payment);
+            return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
         }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-        }
-    }
-
-
-        // [Authorize(Roles="Student")]
-
-        // [HttpPost("student/payment")]
-        // public async Task<IActionResult> CreatePayment(Payment payment)
-        // {
-        //     await _paymentService.CreatePayment(payment);
-        //     return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
-        // }
 
         [Authorize(Roles="Admin,Student")]
 
