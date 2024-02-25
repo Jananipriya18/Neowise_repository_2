@@ -40,7 +40,7 @@ public class Payment
     public int PaymentID { get; set; }
    
     public decimal AmountPaid { get; set; }
-    public DateTime PaymentDate { get; set; }
+    // public DateTime PaymentDate { get; set; }
     public string PaymentMethod { get; set; }
     // public string TransactionID { get; set; }
     public long UserId { get; set; }

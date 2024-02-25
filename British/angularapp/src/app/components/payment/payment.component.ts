@@ -22,7 +22,7 @@ export class PaymentComponent implements OnInit {
     userId: 0,
     courseID: 0,
     amountPaid: 0,
-    paymentDate: new Date(),
+    // paymentDate: new Date(),
     modeOfPayment: '',
   };
 

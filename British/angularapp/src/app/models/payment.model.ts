@@ -7,7 +7,7 @@ export interface Payment {
   paymentID?: number;
   enquiryID?: number;
   amountPaid: number;
-  paymentDate: Date;
+  // paymentDate: Date;
   modeOfPayment: string;
   userId: number;
   courseID: number;

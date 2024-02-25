@@ -22,7 +22,7 @@ export class PaymentService {
 
   getAllPayments(): Observable<Payment[]> {
     const headers = this.createAuthorizationHeader();
-    return this.http.get<Payment[]>(`${this.apiUrl}/api/admin/payment`, { headers });
+    return this.http.get<Payment[]>(`${this.apiUrl}/api/Payment`, { headers });
   }
 
   getPaymentById(id: number): Observable<Payment> {
@@ -39,7 +39,7 @@ export class PaymentService {
 createPayment(payment: Payment): Observable<Payment> {
   const headers = this.createAuthorizationHeader();
   console.log("payload test", payment);
-  return this.http.post<Payment>(`${this.apiUrl}/api/student`, payment, { headers })
+  return this.http.post<Payment>(`${this.apiUrl}/api/Payment`, payment, { headers })
     .pipe(
       tap((response: Payment) => {
         console.log('Backend Response:', response);
