@@ -12,8 +12,8 @@ using dotnetapp.Models;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240225053836_bec")]
-    partial class bec
+    [Migration("20240225064229_becertificate")]
+    partial class becertificate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,6 +195,9 @@ namespace dotnetapp.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EnquiryID")
                         .HasColumnType("int");
 
                     b.Property<string>("ModeOfPayment")

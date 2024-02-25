@@ -195,6 +195,9 @@ namespace dotnetapp.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EnquiryID")
+                        .HasColumnType("int");
+
                     b.Property<string>("ModeOfPayment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

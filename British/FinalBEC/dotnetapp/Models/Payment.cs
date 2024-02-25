@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +9,9 @@ namespace dotnetapp.Models
     {
         [Key]
         public int PaymentID { get; set; }
-       
+        [JsonIgnore]
+        [ForeignKey(nameof(EnquiryID))]
+        public int? EnquiryID { get; set; }
         public decimal AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
         public string ModeOfPayment { get; set; }
@@ -19,5 +22,6 @@ namespace dotnetapp.Models
         public User? Users { get; set; }
         public Course? Courses { get; set; }
         public Student? Students { get; set; }
+        
     }
 }
