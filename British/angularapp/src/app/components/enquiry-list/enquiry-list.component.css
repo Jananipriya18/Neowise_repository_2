@@ -65,15 +65,10 @@ body {
     border-radius: 4px;
     cursor: pointer;
   }
-  
-  .delete-card {
-    position: relative;
-  }
-  
+    
   .delete-card-content {
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
@@ -114,15 +109,21 @@ body {
   
   .delete-card-content p {
     font-size: 18px;
-    margin-bottom: 20px; /* Add margin at the bottom of the paragraph */
+    /* margin-bottom: 20px;  */
   }
   
   .delete-card-content p {
     font-size: 16px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
   }
   
   .delete-card-content button {
-    margin-top: 10px;
+    /* margin-top: 10px; */
+  }
+
+  .buttonCss{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   

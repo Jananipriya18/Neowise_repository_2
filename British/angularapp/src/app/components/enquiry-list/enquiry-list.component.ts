@@ -165,6 +165,7 @@ export class EnquiryListComponent implements OnInit {
 
   deleteEnquiry(enquiryID: number): void {
     if (this.authService.isStudent()) {
+      console.log("Error ID", JSON.stringify(enquiryID));
       // Example of calling the service method to delete the enquiry
       this.enquiryService.deleteEnquiry(enquiryID).subscribe(
         () => {
