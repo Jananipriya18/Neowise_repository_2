@@ -276,7 +276,7 @@ namespace dotnetapp.Migrations
                 {
                     PaymentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EnquiryID = table.Column<int>(type: "int", nullable: true),
+                    EnquiryID = table.Column<int>(type: "int", nullable: false),
                     AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: false),

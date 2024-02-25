@@ -99,13 +99,30 @@ namespace dotnetapp.Controllers
 
         //  [Authorize]
 
-       [HttpPost("student/payment")]
-        public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
-        {
-            payment.UserId = userId;
-            await _userService.AddPaymentToStudent(payment);
-            return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
-        }
+    //    [HttpPost("student/payment")]
+    //     public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
+    //     {
+    //         payment.UserId = userId;
+    //         await _userService.AddPaymentToStudent(payment);
+    //         return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
+    //     }
+    [HttpPost("student/payment")]
+public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
+{
+    try
+    {
+        payment.UserId = userId;
+        await _userService.AddPaymentToStudent(payment);
+        return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
+    }
+    catch (Exception ex)
+    {
+        // Log the exception for debugging
+        Console.WriteLine(ex);
+        return StatusCode(500, "Internal server error");
+    }
+}
+
 
 
     //     [Authorize(Roles="Student")]

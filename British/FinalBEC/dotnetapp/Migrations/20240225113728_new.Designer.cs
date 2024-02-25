@@ -12,7 +12,7 @@ using dotnetapp.Models;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240225112150_new")]
+    [Migration("20240225113728_new")]
     partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -197,7 +197,7 @@ namespace dotnetapp.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EnquiryID")
+                    b.Property<int>("EnquiryID")
                         .HasColumnType("int");
 
                     b.Property<string>("ModeOfPayment")
@@ -456,7 +456,7 @@ namespace dotnetapp.Migrations
 
             modelBuilder.Entity("dotnetapp.Models.Payment", b =>
                 {
-                    b.HasOne("dotnetapp.Models.Course", "Courses")
+                    b.HasOne("dotnetapp.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -466,15 +466,15 @@ namespace dotnetapp.Migrations
                         .WithMany("Payments")
                         .HasForeignKey("StudentId");
 
-                    b.HasOne("dotnetapp.Models.User", "Users")
+                    b.HasOne("dotnetapp.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Courses");
+                    b.Navigation("Course");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("dotnetapp.Models.Student", b =>
