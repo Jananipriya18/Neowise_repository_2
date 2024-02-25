@@ -57,7 +57,7 @@
      <!-- UserRole Input -->
      <div class="form-group">
       <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
-      <input type="text" id="userRole" formControlName="UserRole" [disabled]="isUserRoleReadonly">
+      <input type="text" id="userRole" formControlName="UserRole">
       <div *ngIf="newStudentForm.get('UserRole').hasError('required') && newStudentForm.get('UserRole').touched" class="error-message">
         User Role is required.
       </div>
@@ -74,3 +74,29 @@
   <!-- Button to get student information -->
   <button (click)="getStudent()">Get Student</button>
 </div>
+
+<!-- Display all students in a table -->
+<table *ngIf="students.length > 0" class="table">
+  <thead>
+    <tr>
+      <th>Student Name</th>
+      <th>Email</th>
+      <th>Username</th>
+      <th>Mobile Number</th>
+      <!-- Add other columns as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let student of students">
+      <td>{{ student.studentName }}</td>
+      <td>{{ student.email }}</td>
+      <td>{{ student.Username }}</td>
+      <td>{{ student.mobileNumber }}</td>
+      <!-- Add other columns as needed -->
+    </tr>
+  </tbody>
+</table>
+
+<!-- Display a message if no students are available -->
+<div *ngIf="students.length === 0">No students available.</div>
+

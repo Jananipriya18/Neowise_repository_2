@@ -9,9 +9,9 @@ import { StudentService } from '../../services/student.service';
 })
 export class StudentComponent {
   showCreateForm: boolean = false;
-  isUserRoleReadonly: boolean = false;
   message: string = '';
   newStudentForm: FormGroup;
+  students: any[] = [];
 
   constructor(private studentService: StudentService, private fb: FormBuilder) {
     this.newStudentForm = this.fb.group({
@@ -20,8 +20,23 @@ export class StudentComponent {
       username: [''], // Add validations as needed
       mobileNumber: ['', Validators.required],
       password: ['', Validators.required],
-      UserRole: [{ value: 'Student', disabled: true }, Validators.required],
+      UserRole: ['Student', Validators.required],
     });
+  }
+
+  ngOnInit() {
+    this.fetchStudents();
+  }
+
+  fetchStudents() {
+    this.studentService.getStudents().subscribe(
+      (students: any[]) => {
+        this.students = students;
+      },
+      (error) => {
+        console.error('Error fetching students:', error);
+      }
+    );
   }
 
   toggleCreateForm() {
@@ -29,11 +44,7 @@ export class StudentComponent {
   }
 
   createStudent() {
-    if (this.newStudentForm.valid) {
-      // Update UserRole programmatically before submission
-      this.newStudentForm.get('UserRole')?.setValue('Student');
-      
-      this.isUserRoleReadonly = true;
+    if (this.newStudentForm.valid) { 
       this.studentService.createStudent(this.newStudentForm.value).subscribe(
         (createdStudent: any) => {
           this.message = 'Student created successfully!';
@@ -74,7 +85,9 @@ export class StudentComponent {
     console.warn('Please select a student to delete');
   }
 
-  getStudent() {
+  getStudents(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/students`);
     console.warn('Please select a student to retrieve');
+
   }
 }
