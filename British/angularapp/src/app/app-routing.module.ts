@@ -10,7 +10,7 @@ import { AddCourseComponent } from './components/add-course/add-course.component
 import { EnquiryFormComponent } from './components/enquiry-form/enquiry-form.component';
 import { EnquiryListComponent } from './components/enquiry-list/enquiry-list.component';
 import {PaymentComponent} from './components/payment/payment.component';
-import { PaymentListComponent } from './payment-list/payment-list.component';
+import { PaymentListComponent } from './components/payment-list/payment-list.component';
 import { AdminCourseListComponent } from './components/admin-course-list/admin-course-list.component';
 import { StudentComponent } from './components/student/student.component';
 import { AdminEnquiryListComponent } from './components/admin-enquiry-list/admin-enquiry-list.component';

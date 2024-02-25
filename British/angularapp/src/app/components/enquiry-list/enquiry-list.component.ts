@@ -20,6 +20,7 @@ export class EnquiryListComponent implements OnInit {
   editEnquiryForm: FormGroup;
   editEnquiryModalVisible = false;
   deleteConfirmationState: { [key: number]: boolean } = {};
+  
 
   constructor(
     private enquiryService: EnquiryService,

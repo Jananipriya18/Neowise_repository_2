@@ -1,8 +1,8 @@
 // payment-list.component.ts
 
 import { Component, OnInit } from '@angular/core';
-import { PaymentService } from '../services/payment.service';
-import { Payment } from '../models/payment.model';
+import { PaymentService } from '../../services/payment.service';
+import { Payment } from '../../models/payment.model';
 
 @Component({
   selector: 'app-payment-list',

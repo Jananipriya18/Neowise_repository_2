@@ -7,7 +7,6 @@
           <p><strong>Amount Paid:</strong> {{ payment.amountPaid | currency }}</p>
           <p><strong>Payment Date:</strong> {{ payment.paymentDate | date: 'medium' }}</p>
           <p><strong>Payment Method:</strong> {{ payment.paymentMethod }}</p>
-          <p><strong>Transaction ID:</strong> {{ payment.transactionID }}</p>
           <p><strong>User Name:</strong> {{ payment.user?.username }}</p>
           <p><strong>Course Name:</strong> {{ payment.course?.courseName }}</p>
         </div>

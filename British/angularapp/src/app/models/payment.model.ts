@@ -8,7 +8,7 @@ export interface Payment {
     amountPaid: number;
     paymentDate: Date;
     paymentMethod: string;
-    transactionID: string;
+    // transactionID: string;
     user?: User;
     course?: Course;
   }

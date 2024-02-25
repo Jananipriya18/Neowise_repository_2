@@ -21,7 +21,7 @@ export class PaymentService {
 
   getAllPayments(): Observable<Payment[]> {
     const headers = this.createAuthorizationHeader();
-    return this.http.get<Payment[]>(`${this.apiUrl}/api/Payment`, { headers });
+    return this.http.get<Payment[]>(`${this.apiUrl}/api/admin/payment`, { headers });
   }
 
   getPaymentById(id: number): Observable<Payment> {
