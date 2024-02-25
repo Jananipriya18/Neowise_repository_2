@@ -13,6 +13,6 @@ export interface Payment {
   courseID: number;
   users?: User;
   courses?: Course;
-  students?: Student;
+  // students?: Student;
   }
 

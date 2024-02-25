@@ -39,7 +39,7 @@ export class PaymentService {
 createPayment(payment: Payment): Observable<Payment> {
   const headers = this.createAuthorizationHeader();
   console.log("payload test", payment);
-  return this.http.post<Payment>(`${this.apiUrl}/api/student/payment`, payment, { headers })
+  return this.http.post<Payment>(`${this.apiUrl}/api/student`, payment, { headers })
     .pipe(
       tap((response: Payment) => {
         console.log('Backend Response:', response);

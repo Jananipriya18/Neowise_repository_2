@@ -73,36 +73,7 @@ public async Task CreateStudent(Student student)
             }
         }
 
-        public async Task<List<Payment>> GetAllPayments()
-        {
-            return await _context.Payments.ToListAsync();
-        }
-
-        public async Task<Student> GetStudentByUserId(long userId)
-        {
-            return await _context.Students.FirstOrDefaultAsync(s => s.User.UserId == userId);
-        }
-
-        // public async Task AddPaymentToStudent(Payment payment)
-        // {
-        //     _context.Payments.Add(payment);
-        //     await _context.SaveChangesAsync();
-        // }
-        public async Task AddPaymentToStudent(Payment payment)
-        {
-            try
-            {
-                _context.Payments.Add(payment);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                // Log the exception for debugging
-                Console.WriteLine(ex);
-                throw; // Re-throw the exception to handle it in the controller
-            }
-        }
-
+   
         
     }
 }
