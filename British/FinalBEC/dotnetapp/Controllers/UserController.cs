@@ -95,7 +95,7 @@ namespace dotnetapp.Controllers
         //     await _userService.AddPaymentToStudent(payment);
         //     return CreatedAtAction(nameof(PostStudentPayment), new { studentId }, payment);
         // }
-      //   [Authorize(Roles="Student")]
+        [Authorize(Roles="Student")]
 
         [HttpPost("student/payment")]
         public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
