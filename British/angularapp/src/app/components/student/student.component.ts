@@ -11,7 +11,11 @@ export class StudentComponent {
   message: string = '';
   newStudent: any = {
     studentName: '',
-    mobileNumber: ''
+    mobileNumber: '',
+    email:'',
+    password:'',
+    UserRole:'Student'
+
   };
 
   constructor(private studentService: StudentService) {}
