@@ -28,7 +28,8 @@ export class EnquiryFormComponent implements OnInit {
     private router: Router
   ) {
     this.newEnquiryForm = this.formBuilder.group({
-      enquiryDate: ['', Validators.required],
+      // enquiryDate: ['', Validators.required],
+      enquiryDate: [null, Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       emailID: ['', [Validators.required, Validators.email]],
@@ -131,4 +132,13 @@ export class EnquiryFormComponent implements OnInit {
     this.router.navigate(['/enquirylist']);
   }
   
+  minEnquiryDate(): string {
+    const today = new Date();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    const year = today.getFullYear();
+
+    // Format: "YYYY-MM-DDTHH:mm"
+    return `${year}-${month}-${day}T${today.toTimeString().slice(0, 5)}`;
+  }
 }

@@ -13,6 +13,8 @@ namespace dotnetapp.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
+                private readonly PaymentService _paymentService;
+
 
         public UserController(UserService userService)
         {
@@ -122,14 +124,32 @@ namespace dotnetapp.Controllers
     // }
 
 
-        [Authorize(Roles="Student")]
+        // [Authorize(Roles="Student")]
 
-        [HttpPost("student/payment")]
-        public async Task<IActionResult> CreatePayment(Payment payment)
-        {
-            await _paymentService.CreatePayment(payment);
-            return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
-        }
+        // [HttpPost("student/payment")]
+        // public async Task<IActionResult> CreatePayment(Payment payment)
+        // {
+        //     await _paymentService.CreatePayment(payment);
+        //     return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
+        // }
+[Authorize(Roles="Student")]
+[HttpPost("student/payment")]
+public async Task<IActionResult> CreatePayment(Payment payment)
+{
+    try
+    {
+        // Create the payment
+        await _paymentService.CreatePayment(payment);
+
+        // Return the created payment with its ID in the response
+        return CreatedAtAction(nameof(CreatePayment), new { id = payment.PaymentID }, payment);
+    }
+    catch (Exception ex)
+    {
+        // Handle exceptions
+        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+    }
+}
 
         [Authorize(Roles="Admin,Student")]
 
