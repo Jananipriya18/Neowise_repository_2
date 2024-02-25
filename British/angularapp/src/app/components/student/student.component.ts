@@ -216,15 +216,22 @@ export class StudentComponent implements OnInit {
    toggleCreateForm() {
     this.showCreateForm = !this.showCreateForm;
   }
-
   createStudent() {
     if (this.newStudentForm.valid) {
+      const email = this.newStudentForm.get('email').value;
+  
+      // Check if the email is already registered
+      if (this.students.some(student => student.email === email)) {
+        window.alert('Email is already registered!');
+        return;
+      }
+  
       this.studentService.createStudent(this.newStudentForm.value).subscribe(
         (createdStudent: any) => {
           window.alert('Student created successfully!');
           this.message = 'Student created successfully!';
           this.showCreateForm = false;
-
+  
           // Reset form fields
           this.newStudentForm.reset();
           // Do something with the created student data
@@ -234,7 +241,7 @@ export class StudentComponent implements OnInit {
         },
         (error) => {
           console.error('Error creating student:', error);
-
+  
           if (error.error.Status === "Error") {
             window.alert('Student creation is not successful!');
             alert(error.error.Message);
@@ -245,6 +252,7 @@ export class StudentComponent implements OnInit {
       this.message = 'Please fill in all required fields correctly.';
     }
   }
+  
 
   isPasswordComplex(password: string): boolean {
     const hasUppercase = /[A-Z]/.test(password);
