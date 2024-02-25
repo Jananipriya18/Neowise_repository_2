@@ -39,6 +39,15 @@ namespace dotnetapp.Controllers
             return CreatedAtAction(nameof(GetUserById), new { userId = user.UserId }, user);
         }
 
+        // [Authorize(Roles="Admin,Student")]
+
+        // [HttpPost("student")]
+        // public async Task<IActionResult> CreateStudent(Student student)
+        // {
+        //     await _userService.CreateStudent(student);
+        //     return CreatedAtAction(nameof(GetUserById), new { userId = student.UserId }, student);
+        // }
+
         [Authorize(Roles="Student")]
 
         [HttpPut("student/{id}")]
