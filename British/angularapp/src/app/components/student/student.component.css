@@ -20,3 +20,25 @@
   margin-top: 10px;
   color: green;
 }
+
+.student-details {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.student-details h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.student-details p {
+  margin: 5px 0;
+}
+
+.student-details strong {
+  margin-right: 5px;
+}
+
