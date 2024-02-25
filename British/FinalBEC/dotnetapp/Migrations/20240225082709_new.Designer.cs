@@ -12,8 +12,8 @@ using dotnetapp.Models;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240225064229_becertificate")]
-    partial class becertificate
+    [Migration("20240225082709_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -207,7 +207,7 @@ namespace dotnetapp.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("StudentId")
+                    b.Property<long?>("StudentsStudentId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -217,7 +217,7 @@ namespace dotnetapp.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentsStudentId");
 
                     b.HasIndex("UserId");
 
@@ -464,7 +464,7 @@ namespace dotnetapp.Migrations
 
                     b.HasOne("dotnetapp.Models.Student", "Students")
                         .WithMany("Payments")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentsStudentId");
 
                     b.HasOne("dotnetapp.Models.User", "Users")
                         .WithMany()

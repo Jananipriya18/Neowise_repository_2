@@ -88,5 +88,6 @@ public async Task CreateStudent(Student student)
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
         }
+        
     }
 }

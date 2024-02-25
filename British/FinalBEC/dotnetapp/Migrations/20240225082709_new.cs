@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnetapp.Migrations
 {
-    public partial class becertificate : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -282,7 +282,7 @@ namespace dotnetapp.Migrations
                     ModeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     CourseID = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<long>(type: "bigint", nullable: true)
+                    StudentsStudentId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -294,8 +294,8 @@ namespace dotnetapp.Migrations
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Payments_Students_StudentId",
-                        column: x => x.StudentId,
+                        name: "FK_Payments_Students_StudentsStudentId",
+                        column: x => x.StudentsStudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId");
                     table.ForeignKey(
@@ -371,9 +371,9 @@ namespace dotnetapp.Migrations
                 column: "CourseID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_StudentId",
+                name: "IX_Payments_StudentsStudentId",
                 table: "Payments",
-                column: "StudentId");
+                column: "StudentsStudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_UserId",

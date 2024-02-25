@@ -95,6 +95,17 @@ namespace dotnetapp.Controllers
         //     await _userService.AddPaymentToStudent(payment);
         //     return CreatedAtAction(nameof(PostStudentPayment), new { studentId }, payment);
         // }
+      //   [Authorize(Roles="Student")]
+
+        [HttpPost("student/payment")]
+        public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
+        {
+            payment.UserId = userId;
+            await _userService.AddPaymentToStudent(payment);
+            return CreatedAtAction(nameof(PostStudentPayment), new { userId }, payment);
+        }
+
+
     //     [Authorize(Roles="Student")]
     // [HttpPost("student/payment")]
     // public async Task<IActionResult> PostStudentPayment(string userId, Payment payment)
@@ -123,33 +134,24 @@ namespace dotnetapp.Controllers
     //     }
     // }
 
+// [Authorize(Roles="Student")]
+// [HttpPost("student/payment")]
+// public async Task<IActionResult> CreatePayment(Payment payment)
+// {
+//     try
+//     {
+//         // Create the payment
+//         await _paymentService.CreatePayment(payment);
 
-        // [Authorize(Roles="Student")]
-
-        // [HttpPost("student/payment")]
-        // public async Task<IActionResult> CreatePayment(Payment payment)
-        // {
-        //     await _paymentService.CreatePayment(payment);
-        //     return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
-        // }
-[Authorize(Roles="Student")]
-[HttpPost("student/payment")]
-public async Task<IActionResult> CreatePayment(Payment payment)
-{
-    try
-    {
-        // Create the payment
-        await _paymentService.CreatePayment(payment);
-
-        // Return the created payment with its ID in the response
-        return CreatedAtAction(nameof(CreatePayment), new { id = payment.PaymentID }, payment);
-    }
-    catch (Exception ex)
-    {
-        // Handle exceptions
-        return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-    }
-}
+//         // Return the created payment with its ID in the response
+//         return CreatedAtAction(nameof(CreatePayment), new { id = payment.PaymentID }, payment);
+//     }
+//     catch (Exception ex)
+//     {
+//         // Handle exceptions
+//         return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+//     }
+// }
 
         [Authorize(Roles="Admin,Student")]
 

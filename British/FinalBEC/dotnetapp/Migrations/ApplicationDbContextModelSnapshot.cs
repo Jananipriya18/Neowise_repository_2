@@ -205,7 +205,7 @@ namespace dotnetapp.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("StudentId")
+                    b.Property<long?>("StudentsStudentId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -215,7 +215,7 @@ namespace dotnetapp.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.HasIndex("StudentId");
+                    b.HasIndex("StudentsStudentId");
 
                     b.HasIndex("UserId");
 
@@ -462,7 +462,7 @@ namespace dotnetapp.Migrations
 
                     b.HasOne("dotnetapp.Models.Student", "Students")
                         .WithMany("Payments")
-                        .HasForeignKey("StudentId");
+                        .HasForeignKey("StudentsStudentId");
 
                     b.HasOne("dotnetapp.Models.User", "Users")
                         .WithMany()
