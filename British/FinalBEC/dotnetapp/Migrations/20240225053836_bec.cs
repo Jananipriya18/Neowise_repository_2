@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnetapp.Migrations
 {
-    public partial class initial : Migration
+    public partial class bec : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -278,8 +278,7 @@ namespace dotnetapp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TransactionID = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ModeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     CourseID = table.Column<int>(type: "int", nullable: false),
                     StudentId = table.Column<long>(type: "bigint", nullable: true)

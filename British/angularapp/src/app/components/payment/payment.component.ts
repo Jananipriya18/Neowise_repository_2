@@ -23,7 +23,7 @@ export class PaymentComponent implements OnInit {
     courseID: 0,
     amountPaid: 0,
     paymentDate: new Date(),
-    paymentMethod: '',
+    modeOfPayment: '',
   };
 
   courses: Course[] = [];

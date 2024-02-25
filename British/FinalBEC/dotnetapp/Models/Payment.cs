@@ -11,7 +11,7 @@ namespace dotnetapp.Models
        
         public decimal AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
-        public string PaymentMethod { get; set; }
+        public string ModeOfPayment { get; set; }
         // public string TransactionID { get; set; }
         public long UserId { get; set; }
         public int CourseID { get; set; }
