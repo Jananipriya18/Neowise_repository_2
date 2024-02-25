@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+// student.component.ts
+
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { StudentService } from '../../services/student.service';
 
 @Component({
@@ -7,11 +10,11 @@ import { StudentService } from '../../services/student.service';
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css']
 })
-export class StudentComponent {
+export class StudentComponent implements OnInit {
   showCreateForm: boolean = false;
   message: string = '';
   newStudentForm: FormGroup;
-  students: any[] = [];
+  students: any[] = [];  // Add this line to declare the 'students' array
 
   constructor(private studentService: StudentService, private fb: FormBuilder) {
     this.newStudentForm = this.fb.group({
@@ -44,7 +47,7 @@ export class StudentComponent {
   }
 
   createStudent() {
-    if (this.newStudentForm.valid) { 
+    if (this.newStudentForm.valid) {
       this.studentService.createStudent(this.newStudentForm.value).subscribe(
         (createdStudent: any) => {
           this.message = 'Student created successfully!';
@@ -55,7 +58,7 @@ export class StudentComponent {
           // Do something with the created student data
           console.log('Created Student:', createdStudent);
           // Example: Trigger a refresh of the student list
-          // this.fetchStudents();
+          this.fetchStudents();  // Add this line to refresh the student list
         },
         (error) => {
           console.error('Error creating student:', error);
@@ -76,7 +79,7 @@ export class StudentComponent {
   private handleValidationErrors(errors: any) {
     // You can customize this method based on how you want to display validation errors to the user
     console.log('Validation Errors:', errors);
-  
+
     // For simplicity, let's assume there is a 'message' property in each error
     this.message = errors.message || 'Error creating student';
   }
@@ -85,9 +88,32 @@ export class StudentComponent {
     console.warn('Please select a student to delete');
   }
 
-  getStudents(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/api/students`);
-    console.warn('Please select a student to retrieve');
+  getStudent(studentId: number) {
+    this.studentService.getStudent(studentId).subscribe(
+      (student: any) => {
+        if (student) {
+          // Do something with the retrieved student data
+          console.log('Retrieved Student:', student);
+        } else {
+          console.warn('No student found with the given ID.');
+        }
+      },
+      (error) => {
+        console.error('Error fetching student:', error);
+      }
+    );
+  }
+  
 
+  // Add this method to retrieve all students
+  getStudents() {
+    this.studentService.getStudents().subscribe(
+      (students: any[]) => {
+        this.students = students;
+      },
+      (error) => {
+        console.error('Error fetching students:', error);
+      }
+    );
   }
 }

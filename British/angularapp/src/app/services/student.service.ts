@@ -34,4 +34,10 @@ export class StudentService {
     const headers = this.createAuthorizationHeader();
     return this.http.get(`${this.apiUrl}/api/student/user/${userId}`, { headers });
   }
+  
+  getStudents(): Observable<any[]> {
+    const headers = this.createAuthorizationHeader();
+    return this.http.get<any[]>(`${this.apiUrl}/api/students`, { headers });
+  }
+  
 }

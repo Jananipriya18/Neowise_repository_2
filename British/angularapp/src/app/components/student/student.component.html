@@ -83,16 +83,18 @@
       <th>Email</th>
       <th>Username</th>
       <th>Mobile Number</th>
-      <!-- Add other columns as needed -->
+      <th>Password</th>
+      <th>User Role</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let student of students">
       <td>{{ student.studentName }}</td>
       <td>{{ student.email }}</td>
-      <td>{{ student.Username }}</td>
+      <td>{{ student.username }}</td>
       <td>{{ student.mobileNumber }}</td>
-      <!-- Add other columns as needed -->
+      <td>{{ student.password }}</td>
+      <td>{{ student.UserRole }}</td>
     </tr>
   </tbody>
 </table>
