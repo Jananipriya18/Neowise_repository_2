@@ -4,11 +4,11 @@
       <div *ngFor="let payment of payments" class="custom-card">
         <div class="card-content">
           <!-- <h3>Payment ID: {{ payment.paymentID }}</h3> -->
-          <p><strong>Amount Paid:</strong> {{ payment.amountPaid | currency }}</p>
-          <p><strong>Payment Date:</strong> {{ payment.paymentDate | date: 'medium' }}</p>
+          <p><strong>Amount Paid:</strong> {{ payment.AmountPaid | currency }}</p>
+          <p><strong>Payment Date:</strong> {{ payment.PaymentDate | date: 'medium' }}</p>
           <p><strong>Payment Method:</strong> {{ payment.paymentMethod }}</p>
-          <p><strong>User Name:</strong> {{ payment.user?.username }}</p>
-          <p><strong>Course Name:</strong> {{ payment.course?.courseName }}</p>
+          <p><strong>User Name:</strong> {{ payment.User?.Username }}</p>
+          <p><strong>Course Name:</strong> {{ payment.Course?.CourseName }}</p>
         </div>
       </div>
     </div>
