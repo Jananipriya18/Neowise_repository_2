@@ -27,9 +27,9 @@
   </div>
 </div>
 
-<div class="modal-overlay" *ngIf="editCourseModalVisible">
-  <div class="modal-container">
-    <div class="modal-content">
+<div class="custom-modal-overlay" *ngIf="editCourseModalVisible">
+  <div class="custom-modal-container">
+    <div class="custom-modal-content">
       <h2>Edit Course</h2>
       <form [formGroup]="editCourseForm" (ngSubmit)="saveChanges()">
         <label for="courseName">Course Name:</label>
@@ -50,3 +50,4 @@
     </div>
   </div>
 </div>
+
