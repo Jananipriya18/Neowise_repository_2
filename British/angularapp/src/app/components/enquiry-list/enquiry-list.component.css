@@ -69,14 +69,13 @@ body {
   .delete-card-content {
     position: absolute;
     top: 50%;
+    width: 35%;
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 80%;
-    width: 100%;
   }
   
   .modal-overlay {
@@ -102,6 +101,7 @@ body {
   
   .modal-content {
     margin-top: 10px;
+    text-align: center;
     width: 100%; /* Set the width of the modal content to 100% */
     max-width: 400px; /* Set a maximum width to avoid overly wide content */
     margin: auto;
@@ -114,6 +114,7 @@ body {
   
   .delete-card-content p {
     font-size: 16px;
+    /* text-align: center; */
     /* margin-bottom: 10px; */
   }
   
@@ -121,9 +122,11 @@ body {
     /* margin-top: 10px; */
   }
 
-  .buttonCss{
+  .button-css{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
   }
-  
+
+  .button-css button{
+    width: 150px;
+  }
