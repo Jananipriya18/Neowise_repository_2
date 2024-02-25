@@ -14,7 +14,7 @@ namespace dotnetapp.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserService _userService;
-        // private readonly PaymentService _paymentService;
+        private readonly PaymentService _paymentService;
 
 
         public UserController(UserService userService)
@@ -89,16 +89,38 @@ namespace dotnetapp.Controllers
             return NoContent();
         }
 
-        // [Authorize(Roles="Student")]
+        [Authorize(Roles="Admin,Student")]
 
-        // [HttpPost]
-        // public async Task<IActionResult> CreatePayment(Payment payment)
-        // {
-        //     await _paymentService.CreatePayment(payment);
-        //     return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
-        // }
+        [HttpGet]
+        public async Task<IActionResult> GetAllPayments()
+        {
+            var payments = await _paymentService.GetAllPayments();
+            return Ok(payments);
+        }
 
+        [Authorize(Roles="Admin,Student")]
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPaymentById(int id)
+        {
+            var payment = await _paymentService.GetPaymentById(id);
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            return Ok(payment);
+        }
+
+       [Authorize(Roles="Student")]
+
+        [HttpPost]
+        public async Task<IActionResult> CreatePayment(Payment payment)
+        {
+            await _paymentService.CreatePayment(payment);
+            return CreatedAtAction(nameof(GetPaymentById), new { id = payment.PaymentID }, payment);
+        }
         
+       
         // [Authorize(Roles="Student")]
 
         // [HttpPost("student/payment")]
