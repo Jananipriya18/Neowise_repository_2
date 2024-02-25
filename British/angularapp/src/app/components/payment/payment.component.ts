@@ -18,10 +18,10 @@ export class PaymentComponent implements OnInit {
   amount: number = 0
   payments: Payment[] = [];
   newPayment: Payment = {
-    paymentID: 0,
+    // paymentID: null, 
     userId: 0,
     courseID: 0,
-    amountPaid: 0,
+    amountPaid: null,
     paymentDate: new Date(),
     modeOfPayment: '',
   };
@@ -65,7 +65,10 @@ export class PaymentComponent implements OnInit {
   }
 
   makePayment(): void {
-    console.log(this.newPayment);
+    // Generate a unique paymentID (you can use a library or your own logic)
+    this.newPayment.paymentID = this.generateUniquePaymentID();
+
+    // Continue with the payment creation
     this.newPayment.courseID = parseInt(this.courseID);
     this.newPayment.amountPaid = this.amount;
     this.paymentService.createPayment(this.newPayment).subscribe(
@@ -73,13 +76,18 @@ export class PaymentComponent implements OnInit {
         console.log('Payment successful:', createdPayment);
         window.alert('Payment successful!');
         this.router.navigate(['/']);
-        // this.fetchAllPayments();
       },
       (error) => {
         console.error('Error making payment:', error);
         window.alert('Error making Payment');
       }
     );
+  }
+
+  private generateUniquePaymentID(): number {
+    // Implement your logic to generate a unique ID (e.g., using a library or timestamp-based approach)
+    // For demonstration purposes, a simple timestamp-based ID is used here
+    return new Date().getTime();
   }
 
   redirectToPayment(course: Course): void {

@@ -4,7 +4,7 @@ import { Student } from "./student.model";
 import { User } from "./user.model";
 
 export interface Payment {
-  paymentID: number;
+  paymentID?: number;
   enquiryID?: number;
   amountPaid: number;
   paymentDate: Date;
@@ -16,4 +16,3 @@ export interface Payment {
   students?: Student;
   }
 
-  
