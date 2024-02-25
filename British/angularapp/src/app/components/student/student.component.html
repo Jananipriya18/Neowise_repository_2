@@ -72,33 +72,9 @@
   <button (click)="deleteStudent()">Delete Student</button>
 
   <!-- Button to get student information -->
-  <button (click)="getStudent(1)">Get Student</button>
+  <form #userIdForm="ngForm">
+    <label for="userId">Enter User ID:</label>
+    <input type="number" id="userId" name="userId" [(ngModel)]="userId" required>
+    <button type="button" (click)="getStudentDetails()">Get Details</button>
+  </form>
 </div>
-
-<!-- Display all students in a table -->
-<table *ngIf="students.length > 0" class="table">
-  <thead>
-    <tr>
-      <th>Student Name</th>
-      <th>Email</th>
-      <th>Username</th>
-      <th>Mobile Number</th>
-      <th>Password</th>
-      <th>User Role</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let student of students">
-      <td>{{ student.studentName }}</td>
-      <td>{{ student.email }}</td>
-      <td>{{ student.username }}</td>
-      <td>{{ student.mobileNumber }}</td>
-      <td>{{ student.password }}</td>
-      <td>{{ student.UserRole }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Display a message if no students are available -->
-<div *ngIf="students.length === 0">No students available.</div>
-

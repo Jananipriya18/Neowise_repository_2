@@ -104,8 +104,8 @@ export class StudentComponent implements OnInit {
     console.warn('Please select a student to delete');
   }
 
-  getStudent(studentId: number) {
-    this.studentService.getStudent(studentId).subscribe(
+  getStudent(userId: number) {
+    this.studentService.getStudent(userId).subscribe(
       (student: any) => {
         if (student) {
           // Do something with the retrieved student data

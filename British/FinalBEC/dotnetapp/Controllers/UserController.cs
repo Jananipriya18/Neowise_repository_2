@@ -68,6 +68,7 @@ namespace dotnetapp.Controllers
 
             return NoContent();
         }
+        
         [Authorize(Roles="Admin")]
 
         [HttpDelete("student/{id}")]
