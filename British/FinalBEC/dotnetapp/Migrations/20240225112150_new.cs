@@ -282,7 +282,7 @@ namespace dotnetapp.Migrations
                     ModeOfPayment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     CourseID = table.Column<int>(type: "int", nullable: false),
-                    StudentsStudentId = table.Column<long>(type: "bigint", nullable: true)
+                    StudentId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -294,8 +294,8 @@ namespace dotnetapp.Migrations
                         principalColumn: "CourseID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Payments_Students_StudentsStudentId",
-                        column: x => x.StudentsStudentId,
+                        name: "FK_Payments_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "StudentId");
                     table.ForeignKey(
@@ -371,9 +371,9 @@ namespace dotnetapp.Migrations
                 column: "CourseID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_StudentsStudentId",
+                name: "IX_Payments_StudentId",
                 table: "Payments",
-                column: "StudentsStudentId");
+                column: "StudentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_UserId",

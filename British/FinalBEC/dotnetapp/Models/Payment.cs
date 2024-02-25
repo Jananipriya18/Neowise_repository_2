@@ -23,7 +23,7 @@ namespace dotnetapp.Models
         // public long? StudentId { get; set; }
         public User? Users { get; set; }
         public Course? Courses { get; set; }
-        public Student? Students { get; set; }
+        // public Student? Students { get; set; }
         
     }
 }

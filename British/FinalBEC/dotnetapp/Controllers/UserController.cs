@@ -97,9 +97,9 @@ namespace dotnetapp.Controllers
         // }
 
 
-         [Authorize]
+        //  [Authorize]
 
-        [HttpPost("student/payment")]
+       [HttpPost("student/payment")]
         public async Task<IActionResult> PostStudentPayment(long userId, Payment payment)
         {
             payment.UserId = userId;

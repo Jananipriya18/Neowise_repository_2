@@ -12,7 +12,7 @@ using dotnetapp.Models;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240225082709_new")]
+    [Migration("20240225112150_new")]
     partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -207,7 +207,7 @@ namespace dotnetapp.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<long?>("StudentsStudentId")
+                    b.Property<long?>("StudentId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("UserId")
@@ -217,7 +217,7 @@ namespace dotnetapp.Migrations
 
                     b.HasIndex("CourseID");
 
-                    b.HasIndex("StudentsStudentId");
+                    b.HasIndex("StudentId");
 
                     b.HasIndex("UserId");
 
@@ -462,9 +462,9 @@ namespace dotnetapp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("dotnetapp.Models.Student", "Students")
+                    b.HasOne("dotnetapp.Models.Student", null)
                         .WithMany("Payments")
-                        .HasForeignKey("StudentsStudentId");
+                        .HasForeignKey("StudentId");
 
                     b.HasOne("dotnetapp.Models.User", "Users")
                         .WithMany()
@@ -473,8 +473,6 @@ namespace dotnetapp.Migrations
                         .IsRequired();
 
                     b.Navigation("Courses");
-
-                    b.Navigation("Students");
 
                     b.Navigation("Users");
                 });
