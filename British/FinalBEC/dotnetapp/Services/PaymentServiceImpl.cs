@@ -40,7 +40,7 @@ using dotnetapp.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace dotnetapp.Service
+namespace dotnetapp.Services
 {
     public class PaymentServiceImpl : PaymentService
     {
