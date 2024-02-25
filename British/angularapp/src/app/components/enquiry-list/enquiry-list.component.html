@@ -19,7 +19,7 @@
     <div *ngFor="let enquiry of enquiries" class="custom-card">
       <div class="card-content">
         <h3>{{ enquiry.Title }}</h3>
-        <p class="card-description"><strong>Enquiry Description:</strong>{{ enquiry.Description }}</p>
+        <p class="card-description"><strong><b>Enquiry Description:</b></strong>{{ enquiry.Description }}</p>
         <div class="card-details">
           <p><strong>Enquiry Date:</strong> {{ enquiry.EnquiryDate | date: 'medium' }}</p>
           <p><strong>User Name:</strong> {{ enquiry.User?.Username }}</p>
@@ -31,7 +31,7 @@
           <!-- <button type="button" (click)="viewDetails(enquiry.enquiryID)">View Details</button> -->
 
           <!-- Update Button -->
-          <button type="button" (click)="updateEnquiry(enquiry.EnquiryID)">Edit</button>
+          <!-- <button type="button" (click)="updateEnquiry(enquiry.EnquiryID)">Edit</button> -->
 
           <!-- Delete Button -->
           <div class="delete-card" *ngIf="deleteConfirmationState[enquiry.enquiryID]">

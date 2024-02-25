@@ -1,6 +1,6 @@
 <div class="student-container">
   <!-- Button to toggle the form -->
-  <button (click)="toggleCreateForm()">Create Form</button>
+  <!-- <button (click)="toggleCreateForm()">Create Form</button> -->
 
   <!-- Display a message if any -->
   <div *ngIf="message" class="message">{{ message }}</div>
@@ -73,12 +73,12 @@
     
 
       <!-- Submit Button -->
-      <button type="submit" [disabled]="newStudentForm.invalid">Create Student</button>
+      <!-- <button type="submit" [disabled]="newStudentForm.invalid">Create Student</button> -->
     </form>
   </div>
 
   <!-- Button to delete a student -->
-  <button (click)="deleteStudent()">Delete Student</button>
+  <!-- <button (click)="deleteStudent()">Delete Student</button> -->
 
   <!-- Button to get student information -->
   <form #userIdForm="ngForm">

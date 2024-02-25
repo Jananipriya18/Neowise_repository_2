@@ -5,7 +5,7 @@
       <div *ngFor="let enquiry of enquiries" class="custom-card">
         <div class="card-content">
           <h3>{{ enquiry.Title }}</h3>
-          <p class="card-description">{{ enquiry.Description }}</p>
+          <p class="card-description"><strong><b>Enquiry Description:</b></strong>{{ enquiry.Description }}</p>
           <div class="card-details">
             <p><strong>Enquiry Date:</strong> {{ enquiry.EnquiryDate | date: 'medium' }}</p>
             <p><strong>User Name:</strong> {{ enquiry.User?.Username }}</p>

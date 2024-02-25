@@ -99,3 +99,7 @@ enquiry-form-container .form-group .asterisk {
   font-size: 12px;
   margin-top: 4px;
 }
+
+.asterisk {
+  color: red;
+}
