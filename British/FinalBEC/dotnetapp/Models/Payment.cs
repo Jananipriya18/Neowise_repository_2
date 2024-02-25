@@ -8,6 +8,7 @@ namespace dotnetapp.Models
     public class Payment
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PaymentID { get; set; }
         [JsonIgnore]
         [ForeignKey(nameof(EnquiryID))]
