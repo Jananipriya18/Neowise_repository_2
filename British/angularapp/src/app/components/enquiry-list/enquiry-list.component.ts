@@ -141,7 +141,7 @@ export class EnquiryListComponent implements OnInit {
   
       // Update the enquiry in the database
       this.enquiryService
-        .updateEnquiry(this.selectedEnquiry.enquiryID, updatedEnquiry)
+        .updateEnquiry(this.selectedEnquiry.EnquiryID, updatedEnquiry)
         .subscribe(
           (updatedEnquiry: Enquiry) => {
             console.log('Enquiry updated successfully:', updatedEnquiry);

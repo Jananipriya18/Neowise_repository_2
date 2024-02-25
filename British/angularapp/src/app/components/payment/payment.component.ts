@@ -76,7 +76,8 @@ export class PaymentComponent implements OnInit {
 
   makePayment(): void {
     console.log(this.newPayment);
-    
+    this.newPayment.courseID = parseInt(this.courseID);
+    this.newPayment.amountPaid = this.amount;
     this.paymentService.createPayment(this.newPayment).subscribe(
       (createdPayment: Payment) => {
         console.log('Payment successful:', createdPayment);
