@@ -55,13 +55,22 @@
       </div>
 
      <!-- UserRole Input -->
-     <div class="form-group">
+     <!-- <div class="form-group">
       <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
       <input type="text" id="userRole" formControlName="UserRole">
       <div *ngIf="newStudentForm.get('UserRole').hasError('required') && newStudentForm.get('UserRole').touched" class="error-message">
         User Role is required.
       </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="userRole" class="mandatory">User Role<span class="asterisk">*</span>:</label>
+      <input type="text" id="userRole" formControlName="UserRole" readonly>
+      <div *ngIf="newStudentForm.get('UserRole').hasError('required') && newStudentForm.get('UserRole').touched" class="error-message">
+        User Role is required.
+      </div>
     </div>
+    
 
       <!-- Submit Button -->
       <button type="submit" [disabled]="newStudentForm.invalid">Create Student</button>
