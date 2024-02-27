@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError  } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { Course } from 'src/app/models/course.model';
-import { JwtService } from './jwt.service';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -11,37 +10,32 @@ import { catchError } from 'rxjs/operators';
 export class CourseService {
   public apiUrl = 'https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
 
-  constructor(private http: HttpClient, private jwtService: JwtService) {}
+  constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
-    // const token = this.jwtService.getToken();
-    const token = localStorage.getItem('token');
+    const authToken = localStorage.getItem('token');
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${authToken}`
     });
   }
 
   getAllCourses(): Observable<Course[]> {
     const role = localStorage.getItem('userRole');
-    console.log(role);
   
     let endpoint;
     if (role === 'ADMIN' || role === 'admin') {
       endpoint = `${this.apiUrl}/api/course`;
     } else if (role === 'STUDENT' || role === 'student') {
-      endpoint = `${this.apiUrl}/api/course`;
+      endpoint = `${this.apiUrl}/api/student/course`;
     } else {
       console.error('Access denied. Invalid role.');
-      return throwError('Access denied. Invalid role.'); // or return an empty observable: return of([]);
+      return of([]); // Return an empty observable using RxJS 'of'
     }
   
-    const authToken = localStorage.getItem('token');
-    const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
-    const options = { headers };
-    console.log(headers);
+    const headers = this.getHeaders();
   
-    return this.http.get<Course[]>(endpoint, options).pipe(
+    return this.http.get<Course[]>(endpoint, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
           console.error('Authentication error: Redirect to login page or handle accordingly.');
@@ -51,26 +45,17 @@ export class CourseService {
     );
   }
   
-  
-
   saveCourseByAdmin(course: Course): Observable<Course> {
-    // const role = this.jwtService.getUserRole();
     const role = localStorage.getItem('userRole');
-    // const role1 = localStorage.getItem('token');
-    console.log(role);
     
     if (role !== 'ADMIN' && role !== 'admin') {
       console.error('Access denied. Only admins can add courses.');
-      return;
+      return throwError('Access denied. Only admins can add courses.');
     }
     const endpoint = `${this.apiUrl}/api/course`;
-    const authToken = localStorage.getItem('token');
-    const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
-    const options = { headers };
-    console.log(headers);
+    const headers = this.getHeaders();
 
-
-    return this.http.post<Course>(endpoint, course, options).pipe(
+    return this.http.post<Course>(endpoint, course, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
           console.error('Authentication error: Redirect to login page or handle accordingly.');
@@ -78,27 +63,19 @@ export class CourseService {
         return throwError(error);
       })
     );
-
-    // return this.http.post(this.apiUrl, course, { headers: this.getHeaders() });
   }
 
   updateCourseByAdmin(course: Course): Observable<Course> {
-    // const role = this.jwtService.getUserRole();
     const role = localStorage.getItem('userRole');
-    // const role1 = localStorage.getItem('token');
-    console.log(role);
     
     if (role !== 'ADMIN' && role !== 'admin') {
-      console.error('Access denied. Only admins can add courses.');
-      return;
+      console.error('Access denied. Only admins can update courses.');
+      return throwError('Access denied. Only admins can update courses.');
     }
     const endpoint = `${this.apiUrl}/api/course/${course.courseID}`;
-    const authToken = localStorage.getItem('token');
-    const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
-    const options = { headers };
-    console.log(headers);
+    const headers = this.getHeaders();
 
-    return this.http.put<Course>(endpoint, course, options).pipe(
+    return this.http.put<Course>(endpoint, course, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
           console.error('Authentication error: Redirect to login page or handle accordingly.');
@@ -108,23 +85,17 @@ export class CourseService {
     );
   }
 
-  deleteCourseByAdmin(course: Course): Observable<Course> {
-    // const role = this.jwtService.getUserRole();
+  deleteCourseByAdmin(courseId: number): Observable<Course> {
     const role = localStorage.getItem('userRole');
-    // const role1 = localStorage.getItem('token');
-    console.log(role);
     
     if (role !== 'ADMIN' && role !== 'admin') {
-      console.error('Access denied. Only admins can add courses.');
-      return;
+      console.error('Access denied. Only admins can delete courses.');
+      return throwError('Access denied. Only admins can delete courses.');
     }
-    const endpoint = `${this.apiUrl}/api/course/${course.courseID}`;
-    const authToken = localStorage.getItem('token');
-    const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
-    const options = { headers };
-    console.log(headers);
+    const endpoint = `${this.apiUrl}/api/course/${courseId}`;
+    const headers = this.getHeaders();
 
-    return this.http.delete<Course>(endpoint, options).pipe(
+    return this.http.delete<Course>(endpoint, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
           console.error('Authentication error: Redirect to login page or handle accordingly.');
@@ -136,7 +107,6 @@ export class CourseService {
 
   getStudentCourses(): Observable<Course[]> {
     const role = localStorage.getItem('userRole');
-    console.log(role);
   
     let endpoint;
     if (role === 'ADMIN' || role === 'admin') {
@@ -148,12 +118,9 @@ export class CourseService {
       return of([]); // Return an empty observable using RxJS 'of'
     }
     
-    const authToken = localStorage.getItem('token');
-    const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
-    const options = { headers };
-    console.log(headers);
+    const headers = this.getHeaders();
   
-    return this.http.get<Course[]>(endpoint, options).pipe(
+    return this.http.get<Course[]>(endpoint, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
           console.error('Authentication error: Redirect to login page or handle accordingly.');
@@ -162,5 +129,4 @@ export class CourseService {
       })
     );
   }
-  
 }
