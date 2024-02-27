@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CourseService {
-  public apiUrl = 'http://localhost:8080';
+  public apiUrl = 'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
 
   constructor(private http: HttpClient) {}
 
@@ -24,7 +24,7 @@ export class CourseService {
     const role = localStorage.getItem('userRole');
   
     let endpoint;
-    if (role && (role.toUpperCase() === 'ADMIN' || role.toUpperCase() === 'INSTRUCTOR')) {
+    if (role && (role.toUpperCase() === 'ADMIN')) {
       endpoint = `${this.apiUrl}/api/Course`;
     } else if (role && role.toUpperCase() === 'STUDENT') {
       endpoint = `${this.apiUrl}/api/student/Course`;
