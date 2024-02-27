@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CourseService {
-  public apiUrl = 'http://localhost:8080';
+  public apiUrl = 'https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
 
   constructor(private http: HttpClient, private jwtService: JwtService) {}
 
@@ -137,7 +137,7 @@ export class CourseService {
   getStudentCourses(): Observable<Course[]> {
     const role = localStorage.getItem('userRole');
     console.log(role);
-
+  
     let endpoint;
     if (role === 'ADMIN' || role === 'admin') {
       endpoint = `${this.apiUrl}/api/course`;
@@ -145,14 +145,14 @@ export class CourseService {
       endpoint = `${this.apiUrl}/api/student/course`;
     } else {
       console.error('Access denied. Invalid role.');
-      return;
+      return of([]); // Return an empty observable using RxJS 'of'
     }
     
     const authToken = localStorage.getItem('token');
     const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
     const options = { headers };
     console.log(headers);
-
+  
     return this.http.get<Course[]>(endpoint, options).pipe(
       catchError((error) => {
         if (error.status === 401) {
@@ -161,6 +161,6 @@ export class CourseService {
         return throwError(error);
       })
     );
-
   }
+  
 }
