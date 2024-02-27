@@ -1,0 +1,47 @@
+<table>
+  <thead>
+    <tr>
+      <!-- <th>User ID</th> -->
+      <th>Course Name</th>
+      <th>Description</th>
+      <th>Email</th>
+      <th>Enquiry Type</th>
+      <th *ngIf="userRole === 'STUDENT'">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let enquiry of enquiries">
+      <!-- <td>{{ enquiry.userId }}</td> -->
+      <td>{{ enquiry.title }}</td>
+      <td>{{ enquiry.description }}</td>
+      <td>{{ enquiry.emailID }}</td>
+      <td>{{ enquiry.enquiryType }}</td>
+      <td>
+        <div class="dropdown">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton{{ enquiry.enquiryID }}"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            [ngStyle]="{
+              'background-color':
+              enquiry.status === 'CLOSED' ? 'blue' : enquiry.status === 'PROGRESS' ? 'orange' : 'green'
+            }"
+          >
+            {{ enquiry.status === "CLOSED" ? "Accepted" : enquiry.status === "PROGRESS" ? "In Progress" : "Pending" }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ enquiry.enquiryID }}">
+            <a class="dropdown-item" (click)="approveEnquiry(enquiry)">Accept</a>
+            <a class="dropdown-item" (click)="rejectEnquiry(enquiry)">Reject</a>
+            <a class="dropdown-item" (click)="markInProgress(enquiry)">Mark as In Progress</a>
+          </div>
+        </div>
+      </td>
+      <td>
+        <button *ngIf="userRole === 'STUDENT'" (click)="deleteEnquiry(enquiry)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
