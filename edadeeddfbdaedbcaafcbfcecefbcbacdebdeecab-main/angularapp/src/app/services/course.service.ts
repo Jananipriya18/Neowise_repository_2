@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CourseService {
-  public apiUrl = 'https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
+  public apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
@@ -24,10 +24,10 @@ export class CourseService {
     const role = localStorage.getItem('userRole');
   
     let endpoint;
-    if (role === 'ADMIN' || role === 'admin') {
-      endpoint = `${this.apiUrl}/api/course`;
-    } else if (role === 'STUDENT' || role === 'student') {
-      endpoint = `${this.apiUrl}/api/student/course`;
+    if (role && (role.toUpperCase() === 'ADMIN' || role.toUpperCase() === 'INSTRUCTOR')) {
+      endpoint = `${this.apiUrl}/api/Course`;
+    } else if (role && role.toUpperCase() === 'STUDENT') {
+      endpoint = `${this.apiUrl}/api/student/Course`;
     } else {
       console.error('Access denied. Invalid role.');
       return of([]); // Return an empty observable using RxJS 'of'
