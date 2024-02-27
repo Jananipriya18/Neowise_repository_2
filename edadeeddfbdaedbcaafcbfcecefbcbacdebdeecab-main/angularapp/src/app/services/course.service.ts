@@ -22,19 +22,19 @@ export class CourseService {
 
   getAllCourses(): Observable<Course[]> {
     const role = localStorage.getItem('userRole');
-  
+
     let endpoint;
-    if (role && (role.toUpperCase() === 'ADMIN')) {
-      endpoint = `${this.apiUrl}/api/Course`;
+    if (role && role.toUpperCase() === 'ADMIN') {
+      endpoint = `${this.apiUrl}/api/course`;
     } else if (role && role.toUpperCase() === 'STUDENT') {
-      endpoint = `${this.apiUrl}/api/student/Course`;
+      endpoint = `${this.apiUrl}/api/student/course`;
     } else {
       console.error('Access denied. Invalid role.');
       return of([]); // Return an empty observable using RxJS 'of'
     }
-  
+
     const headers = this.getHeaders();
-  
+
     return this.http.get<Course[]>(endpoint, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
@@ -44,13 +44,13 @@ export class CourseService {
       })
     );
   }
-  
+
   saveCourseByAdmin(course: Course): Observable<Course> {
     const role = localStorage.getItem('userRole');
-    
+
     if (role !== 'ADMIN' && role !== 'admin') {
       console.error('Access denied. Only admins can add courses.');
-      return throwError('Access denied. Only admins can add courses.');
+      return throwError({ message: 'Access denied. Only admins can add courses.' });
     }
     const endpoint = `${this.apiUrl}/api/course`;
     const headers = this.getHeaders();
@@ -65,17 +65,17 @@ export class CourseService {
     );
   }
 
-  updateCourseByAdmin(course: Course): Observable<Course> {
+  updateCourseByAdmin(courseId: number, updatedCourseData: Course): Observable<Course> {
     const role = localStorage.getItem('userRole');
-    
+
     if (role !== 'ADMIN' && role !== 'admin') {
       console.error('Access denied. Only admins can update courses.');
-      return throwError('Access denied. Only admins can update courses.');
+      return throwError({ message: 'Access denied. Only admins can update courses.' });
     }
-    const endpoint = `${this.apiUrl}/api/course/${course.courseID}`;
+    const endpoint = `${this.apiUrl}/api/course/${courseId}`;
     const headers = this.getHeaders();
 
-    return this.http.put<Course>(endpoint, course, { headers }).pipe(
+    return this.http.put<Course>(endpoint, updatedCourseData, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
           console.error('Authentication error: Redirect to login page or handle accordingly.');
@@ -87,10 +87,10 @@ export class CourseService {
 
   deleteCourseByAdmin(courseId: number): Observable<Course> {
     const role = localStorage.getItem('userRole');
-    
+
     if (role !== 'ADMIN' && role !== 'admin') {
       console.error('Access denied. Only admins can delete courses.');
-      return throwError('Access denied. Only admins can delete courses.');
+      return throwError({ message: 'Access denied. Only admins can delete courses.' });
     }
     const endpoint = `${this.apiUrl}/api/course/${courseId}`;
     const headers = this.getHeaders();
@@ -107,7 +107,7 @@ export class CourseService {
 
   getStudentCourses(): Observable<Course[]> {
     const role = localStorage.getItem('userRole');
-  
+
     let endpoint;
     if (role === 'ADMIN' || role === 'admin') {
       endpoint = `${this.apiUrl}/api/course`;
@@ -117,9 +117,9 @@ export class CourseService {
       console.error('Access denied. Invalid role.');
       return of([]); // Return an empty observable using RxJS 'of'
     }
-    
+
     const headers = this.getHeaders();
-  
+
     return this.http.get<Course[]>(endpoint, { headers }).pipe(
       catchError((error) => {
         if (error.status === 401) {
