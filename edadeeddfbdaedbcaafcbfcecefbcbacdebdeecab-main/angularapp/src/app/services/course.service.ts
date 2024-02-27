@@ -25,22 +25,22 @@ export class CourseService {
   getAllCourses(): Observable<Course[]> {
     const role = localStorage.getItem('userRole');
     console.log(role);
-
+  
     let endpoint;
     if (role === 'ADMIN' || role === 'admin') {
       endpoint = `${this.apiUrl}/api/course`;
     } else if (role === 'STUDENT' || role === 'student') {
-      endpoint = `${this.apiUrl}/student/getAllcourses`;
+      endpoint = `${this.apiUrl}/api/course`;
     } else {
       console.error('Access denied. Invalid role.');
-      return;
+      return throwError('Access denied. Invalid role.'); // or return an empty observable: return of([]);
     }
-    
+  
     const authToken = localStorage.getItem('token');
     const headers = authToken ? new HttpHeaders({ 'Authorization': `Bearer ${authToken}` }) : undefined;
     const options = { headers };
     console.log(headers);
-
+  
     return this.http.get<Course[]>(endpoint, options).pipe(
       catchError((error) => {
         if (error.status === 401) {
@@ -49,8 +49,8 @@ export class CourseService {
         return throwError(error);
       })
     );
-
   }
+  
   
 
   saveCourseByAdmin(course: Course): Observable<Course> {
