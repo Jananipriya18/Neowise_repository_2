@@ -62,8 +62,7 @@
 // }
 
 
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -72,37 +71,37 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
-  registrationForm: FormGroup;
+export class RegistrationComponent {
+  userName: string = "";
+  password: string = "";
+  confirmPassword: string = "";
+  mobileNumber: string = "";
+  role: string = "";
+  emailID: string;
   passwordMismatch: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
-
-  ngOnInit(): void {
-    this.createForm();
-  }
-
-  createForm(): void {
-    this.registrationForm = this.fb.group({
-      userName: ['', Validators.required],
-      password: ['', [Validators.required, this.passwordComplexityValidator]],
-      confirmPassword: ['', Validators.required],
-      mobileNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      role: ['', Validators.required],
-      emailID: ['', [Validators.required, Validators.email]],
-    });
-  }
+  constructor(private authService: AuthService, private router: Router) { }
 
   register(): void {
-    if (this.registrationForm.invalid) {
+    if (this.password !== this.confirmPassword) {
       this.passwordMismatch = true;
       return;
     }
 
     this.passwordMismatch = false;
 
-    this.authService.register(this.registrationForm.value).subscribe(
+    if (!this.isPasswordComplex(this.password)) {
+      return; // Password complexity check failed
+    }
+
+    if (!this.isEmailValid(this.emailID) || !this.isMobileNumberValid(this.mobileNumber)) {
+      return; // Email or Mobile number validation failed
+    }
+
+    this.authService.register(this.userName, this.password, this.role, this.emailID, this.mobileNumber).subscribe(
       (user) => {
+        console.log(user);
+
         if (user == true && (this.role === 'ADMIN' || this.role === 'STUDENT')) {
           alert('Registration Successful');
           this.router.navigate(['/login']);
@@ -116,13 +115,22 @@ export class RegistrationComponent implements OnInit {
     );
   }
 
-  passwordComplexityValidator(control): { [key: string]: boolean } | null {
-    const password = control.value;
+  isPasswordComplex(password: string): boolean {
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasDigit = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(password);
 
-    if (!/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || !/[!@#$%^&*()_+{}\[\]:;<>,.?~\-]/.test(password)) {
-      return { 'passwordComplexity': true };
-    }
+    return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
+  }
 
-    return null;
+  isEmailValid(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  isMobileNumberValid(mobileNumber: string): boolean {
+    const mobileNumberRegex = /^\d{10}$/;
+    return mobileNumberRegex.test(mobileNumber);
   }
 }
