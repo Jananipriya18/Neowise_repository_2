@@ -2,8 +2,7 @@
 namespace dotnetapp.Models
 {
     public class Member
-    {
-        public int MemberId {get; set;}
+    {        public int MemberId {get; set;}
         public string Firstname {get; set;}
         public string LastName {get; set;}
         public DateTime DateOfBirth {get; set;}
@@ -11,6 +10,5 @@ namespace dotnetapp.Models
         public string Email {get; set;}
         public DateTime RegistrationDate {get; set;}
         public decimal InitialPayment{get;set;}
-
     }
 }
