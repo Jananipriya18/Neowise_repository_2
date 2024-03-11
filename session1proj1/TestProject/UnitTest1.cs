@@ -85,11 +85,10 @@ namespace TestProject
             string typeName = "dotnetapp.Models.Comment"; 
             Assembly assembly = Assembly.Load(assemblyName); 
             Type CommentType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = CommentType.GetProperty("Email"); 
+            PropertyInfo propertyInfo = CommentType.GetProperty("CreatedAt"); 
             Assert.IsNotNull(propertyInfo, "Property CreatedAt does not exist in Comment class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(DateTime), expectedType, "Property CreatedAt in Comment class is not of type DateTime); 
-
+            Assert.AreEqual(typeof(DateTime), expectedType, "Property CreatedAt in Comment class is not of type DateTime"); 
         } 
     }
 }
