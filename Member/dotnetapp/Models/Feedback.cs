@@ -16,7 +16,7 @@ public class Feedback
 
     [Required(ErrorMessage = "Please provide feedback.")]
     [StringLength(500, ErrorMessage = "Feedback should not exceed 500 characters.")]
-    public string Feedback { get; set; }
+    public string Feedbacks { get; set; }
 
     [Range(1, 5, ErrorMessage = "Rating should be between 1 and 5.")]
     public int Rating { get; set; }
