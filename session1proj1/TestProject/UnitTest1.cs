@@ -13,108 +13,108 @@ namespace TestProject
     public class Tests 
     { 
         [Test] 
-        public void User_Models_ClassExists() 
+        public void Member_Models_ClassExists() 
 
         { 
             string assemblyName = "dotnetapp"; 
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            Assert.IsNotNull(UserType); 
+            Type MemberType = assembly.GetType(typeName); 
+            Assert.IsNotNull(MemberType); 
         } 
 
         [Test] 
-        public void User_UserID_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void Member_MemberId_PropertyExists_ReturnExpectedDataTypes_int() 
         { 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("UserID"); 
-            Assert.IsNotNull(propertyInfo, "Property UserID does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("MemberId"); 
+            Assert.IsNotNull(propertyInfo, "Property MemberId does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(int), expectedType, "Property UserID in User class is not of type int"); 
+            Assert.AreEqual(typeof(int), expectedType, "Property MemberId in Member class is not of type int"); 
         } 
 
         [Test] 
-        public void User_UserName_PropertyExists_ReturnExpectedDataTypes_string() 
+        public void Member_Firstname_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("UserName"); 
-            Assert.IsNotNull(propertyInfo, "Property UserName does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("Firstname"); 
+            Assert.IsNotNull(propertyInfo, "Property Firstname does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(string), expectedType, "Property UserName in User class is not of type string"); 
+            Assert.AreEqual(typeof(string), expectedType, "Property Firstname in Member class is not of type string"); 
         } 
 
         [Test] 
-        public void User_Email_PropertyExists_ReturnExpectedDataTypes_string() 
+        public void Member_LastName_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("Email"); 
-            Assert.IsNotNull(propertyInfo, "Property Email does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("LastName"); 
+            Assert.IsNotNull(propertyInfo, "Property LastName does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(string), expectedType, "Property Email in User class is not of type string"); 
+            Assert.AreEqual(typeof(string), expectedType, "Property LastName in Member class is not of type string"); 
         } 
 
         [Test] 
-        public void User_Password_PropertyExists_ReturnExpectedDataTypes_string() 
+        public void Member_Password_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("Password"); 
-            Assert.IsNotNull(propertyInfo, "Property Password does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("Password"); 
+            Assert.IsNotNull(propertyInfo, "Property Password does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(string), expectedType, "Property Password in User class is not of type string"); 
+            Assert.AreEqual(typeof(string), expectedType, "Property Password in Member class is not of type string"); 
         } 
 
         [Test] 
-        public void User_DateOfBirth_PropertyExists_ReturnExpectedDataTypes_DateTime() 
+        public void Member_DateOfBirth_PropertyExists_ReturnExpectedDataTypes_DateTime() 
         { 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("DateOfBirth"); 
-            Assert.IsNotNull(propertyInfo, "Property DateOfBirth does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("DateOfBirth"); 
+            Assert.IsNotNull(propertyInfo, "Property DateOfBirth does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(DateTime), expectedType, "Property DateOfBirth in User class is not of type DateTime"); 
+            Assert.AreEqual(typeof(DateTime), expectedType, "Property DateOfBirth in Member class is not of type DateTime"); 
         } 
 
         [Test] 
-        public void User_FirstName_PropertyExists_ReturnExpectedDataTypes_string() 
+        public void Member_Address_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("FirstName"); 
-            Assert.IsNotNull(propertyInfo, "Property FirstName does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("Address"); 
+            Assert.IsNotNull(propertyInfo, "Property Address does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(string), expectedType, "Property FirstName in User class is not of type string"); 
+            Assert.AreEqual(typeof(string), expectedType, "Property Address in Member class is not of type string"); 
 
         } 
 
         [Test] 
-        public void User_LastName_PropertyExists_ReturnExpectedDataTypes_string() 
+        public void Member_Email_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
 
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.User"; 
+            string typeName = "dotnetapp.Models.Member"; 
             Assembly assembly = Assembly.Load(assemblyName); 
-            Type UserType = assembly.GetType(typeName); 
-            PropertyInfo propertyInfo = UserType.GetProperty("LastName"); 
-            Assert.IsNotNull(propertyInfo, "Property LastName does not exist in User class"); 
+            Type MemberType = assembly.GetType(typeName); 
+            PropertyInfo propertyInfo = MemberType.GetProperty("Email"); 
+            Assert.IsNotNull(propertyInfo, "Property Email does not exist in Member class"); 
             Type expectedType = propertyInfo.PropertyType; 
-            Assert.AreEqual(typeof(string), expectedType, "Property LastName in User class is not of type string"); 
+            Assert.AreEqual(typeof(string), expectedType, "Property Email in Member class is not of type string"); 
 
         } 
     }

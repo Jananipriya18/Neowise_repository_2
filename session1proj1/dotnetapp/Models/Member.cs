@@ -10,6 +10,7 @@ namespace dotnetapp.Models
         public string Address{get; set;}
         public string Email {get; set;}
         public DateTime RegistrationDate {get; set;}
+        public decimal InitialPayment{get;set;}
 
     }
 }
