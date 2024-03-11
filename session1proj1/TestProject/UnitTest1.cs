@@ -37,7 +37,7 @@ namespace TestProject
         } 
 
         [Test] 
-        public void User_UserName_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void User_UserName_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.User"; 
@@ -50,7 +50,7 @@ namespace TestProject
         } 
 
         [Test] 
-        public void User_Email_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void User_Email_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.User"; 
@@ -63,7 +63,7 @@ namespace TestProject
         } 
 
         [Test] 
-        public void User_Password_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void User_Password_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.User"; 
@@ -76,7 +76,7 @@ namespace TestProject
         } 
 
         [Test] 
-        public void User_DateOfBirth_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void User_DateOfBirth_PropertyExists_ReturnExpectedDataTypes_DateTime() 
         { 
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.User"; 
@@ -89,7 +89,7 @@ namespace TestProject
         } 
 
         [Test] 
-        public void User_FirstName_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void User_FirstName_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
 
             string assemblyName = "dotnetapp";
@@ -104,7 +104,7 @@ namespace TestProject
         } 
 
         [Test] 
-        public void User_LastName_PropertyExists_ReturnExpectedDataTypes_int() 
+        public void User_LastName_PropertyExists_ReturnExpectedDataTypes_string() 
         { 
 
             string assemblyName = "dotnetapp";
