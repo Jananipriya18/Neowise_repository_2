@@ -1,0 +1,20 @@
+@* @model Comment
+
+<h2>Edit Comment</h2>
+
+<form asp-action="Edit" asp-route-id="@Model.CommentID">
+    <input type="hidden" asp-for="CommentID" />
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location"></label>
+        <input asp-for="Location" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Content"></label>
+        <input asp-for="Content" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form> *@
