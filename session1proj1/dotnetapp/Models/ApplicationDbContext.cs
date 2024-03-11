@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace dotnetapp.Models
 {
-    public partial class BookDbContext : DbContext
+    public partial class ApplicationDbContext : DbContext
     {
-        public BookDbContext()
+        public ApplicationDbContext()
         {
         }
 
-        public BookDbContext(DbContextOptions<BookDbContext> options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
