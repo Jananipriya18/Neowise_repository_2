@@ -2,8 +2,8 @@
 
 using System;
 using System.ComponentModel.DataAnnotations;
-
-public class FeedbackModel
+namespace dotnetapp.Models{
+public class Feedback
 {
     public int Id { get; set; }
 
@@ -24,4 +24,5 @@ public class FeedbackModel
     [Display(Name = "Date Submitted")]
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateTime DateSubmitted { get; set; } = DateTime.Now;
+}
 }
