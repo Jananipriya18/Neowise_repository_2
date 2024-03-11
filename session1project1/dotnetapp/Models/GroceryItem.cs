@@ -1,24 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿using System;
 namespace dotnetapp.Models
 {
-    public class GroceryItem
+    public class User
     {
-        public int ItemId { get; set; }
-
-        [Required]
-        public string ItemName { get; set; }
-
-        public string ItemDescription { get; set; }
-
-        [Required]
-        public decimal Price { get; set; }
-
-        [Required]
-        public int QuantityAvailable { get; set; }
-
-        [Required]
-        public string Category { get; set; }
+        public int UserID{get;set;}
+        public string UserName{get;set;}
+        public string Email{get;set;}
+        public string Password{get;set;}
+        public DateTime DateOfBirth{get;set;}
+        public string FirstName{get;set;}
+        public string LastName{get;set;}
     }
 }
-
