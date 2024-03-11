@@ -87,11 +87,13 @@ namespace dotnetapp.Controllers
         {
             var feedback = _context.Feedbacks.Find(id);
 
-            if (feedback != null)
+            if (feedback == null)
             {
-                _context.Feedbacks.Remove(feedback);
-                _context.SaveChanges();
+                return NotFound();
             }
+
+            _context.Feedbacks.Remove(feedback);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
