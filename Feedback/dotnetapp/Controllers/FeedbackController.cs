@@ -70,42 +70,58 @@ namespace dotnetapp.Controllers
             return View(feedback);
         }
 
+        // public IActionResult Delete(int id)
+        // {
+        //     Console.WriteLine("id"+id);
+        //     // var feedback = _context.Feedbacks.Find(id);
+        //     var feedback = _context.Feedbacks.FirstOrDefault(f => f.Id == id);
+
+        //     Console.WriteLine("fed"+feedback);
+
+
+        //     if (feedback == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return View(feedback);
+        // }
+
         public IActionResult Delete(int id)
-        {
-            Console.WriteLine("id"+id);
-            var feedback = _context.Feedbacks.Find(id);
-            Console.WriteLine("fed"+feedback);
+{
+    Console.WriteLine("id: " + id);
 
+    // Use FirstOrDefault to fetch the feedback by Id
+    var feedback = _context.Feedbacks.FirstOrDefault(f => f.Id == id);
 
-            if (feedback == null)
-            {
-                return NotFound();
-            }
+    Console.WriteLine("feedback: " + feedback);
 
-            return View(feedback);
-        }
+    if (feedback == null)
+    {
+        Console.WriteLine("Feedback not found.");
+        return NotFound();
+    }
+
+    return View(feedback);
+}
+
 
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
-        // {
-        //     var feedback = _context.Feedbacks.Find(id);
-
-        //     if (feedback != null)
-        //     {
-        //         _context.Feedbacks.Remove(feedback);
-        //         _context.SaveChanges();
-        //     }
-
-        //     return RedirectToAction("Index");
-        // }
         {
-            if (id <= 0)
-                return BadRequest("Not a valid Course id");
+            // var feedback = _context.Feedbacks.Find(id);
+            var feedback = _context.Feedbacks.FirstOrDefault(f => f.Id == id);
 
-            var feedback = await _context.Feedbacks.FindAsync(id);
-              _context.Feedbacks.Remove(feedback);
-                await _context.SaveChangesAsync();
-            return NoContent();
+            Console.WriteLine("dele"+feedback);
+
+
+            if (feedback != null)
+            {
+                _context.Feedbacks.Remove(feedback);
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
