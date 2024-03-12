@@ -33,105 +33,105 @@ namespace dotnetapp.Tests
         }
 
         
-//         [Test]
-// public void CreateAppointment_AddsAppointmentToDatabase()
-// {
-//     Type appointmentType = Assembly.GetAssembly(typeof(Appointment)).GetTypes()
-//         .FirstOrDefault(t => t.Name == "Appointment");
+[Test]
+public void CreateAppointment_AddsAppointmentToDatabase()
+{
+    Type appointmentType = Assembly.GetAssembly(typeof(Appointment)).GetTypes()
+        .FirstOrDefault(t => t.Name == "Appointment");
 
-//     if (appointmentType == null)
-//     {
-//         Assert.Fail("Appointment type not found.");
-//         return;
-//     }
+    if (appointmentType == null)
+    {
+        Assert.Fail("Appointment type not found.");
+        return;
+    }
 
-//     dynamic appointment = Activator.CreateInstance(appointmentType);
-//     appointment.AppointmentID = 1;
-//     appointment.PatientFirstName = "John";
-//     appointment.PatientLastName = "Doe";
-//     appointment.DoctorFirstName = "Dr. Smith";
-//     appointment.AppointmentDate = DateTime.Now;
+    dynamic appointment = Activator.CreateInstance(appointmentType);
+    appointment.AppointmentID = 0;
+    appointment.PatientFirstName = "SamplePatientFirstName";
+    appointment.PatientLastName = "SamplePatientLastName";
+    appointment.DoctorFirstName = "SampleDoctorFirstName";
+    appointment.DoctorLastName = "SampleDoctorLastName";
+    appointment.DoctorSpecialty = "SampleSpecialty";
+    appointment.PatientEmail = "sample@email.com";
+    appointment.PatientPhoneNumber = "1234567890";
+    appointment.AppointmentDate = DateTime.Now;
+    appointment.Reason = "SampleReason";
 
-//     var dbSetType = typeof(DbContext).GetMethods()
-//         .FirstOrDefault(m => m.Name == "Set" && m.ContainsGenericParameters)
-//         ?.MakeGenericMethod(appointmentType);
+    var dbSetType = typeof(DbContext).GetMethods()
+        .FirstOrDefault(m => m.Name == "Set" && m.ContainsGenericParameters)
+        ?.MakeGenericMethod(appointmentType);
 
-//     if (dbSetType == null)
-//     {
-//         Assert.Fail("Set method not found.");
-//         return;
-//     }
+    if (dbSetType == null)
+    {
+        Assert.Fail("Set method not found.");
+        return;
+    }
 
-//     var set = dbSetType.Invoke(_context, null);
+    var set = dbSetType.Invoke(_context, null);
 
-//     MethodInfo addMethod = set.GetType().GetMethod("Add");
+    MethodInfo addMethod = set.GetType().GetMethod("Add");
 
-//     if (addMethod == null)
-//     {
-//         Assert.Fail("Add method not found.");
-//         return;
-//     }
+    if (addMethod == null)
+    {
+        Assert.Fail("Add method not found.");
+        return;
+    }
 
-//     addMethod.Invoke(set, new object[] { appointment });
+    addMethod.Invoke(set, new object[] { appointment });
 
-//     _context.SaveChanges();
+    _context.SaveChanges();
 
-//     var addedAppointment = _context.Find(appointmentType, 1);
+    var addedAppointment = _context.Find(appointmentType, 1);
 
-//     // Ensure the addedAppointment is of the Appointment type before accessing its properties
-//     if (addedAppointment is Appointment retrievedAppointment)
-//     {
-//         Assert.IsNotNull(retrievedAppointment);
-//         Assert.AreEqual("John", retrievedAppointment.PatientFirstName);
-//     }
-//     else
-//     {
-//         Assert.Fail("Failed to retrieve the appointment or incorrect type.");
-//     }
-// }
+    // Ensure the addedAppointment is of the Appointment type before accessing its properties
+    if (addedAppointment is Appointment retrievedAppointment)
+    {
+        Assert.IsNotNull(retrievedAppointment);
+        Assert.AreEqual("SamplePatientFirstName", retrievedAppointment.PatientFirstName);
+    }
+    else
+    {
+        Assert.Fail("Failed to retrieve the appointment or incorrect type.");
+    }
+}
 
+[Test]
+public void ApplicationDbContextContainsDbSetAppointments_Property()
+{
+    // Get the assembly that contains your ApplicationDbContext
+    Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
 
-        
-        
+    // Get the ApplicationDbContext type
+    Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
 
-//         [Test]
-// public void ApplicationDbContextContainsDbSetBooks_Property()
-// {
-//     // Get the assembly that contains your ApplicationDbContext
-//     Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
+    if (contextType == null)
+    {
+        Assert.Fail("ApplicationDbContext type not found.");
+        return;
+    }
 
-//     // Get the ApplicationDbContext type
-//     Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
+    // Check if DbSet<Appointment> exists
+    Type appointmentType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Appointment");
 
-//     if (contextType == null)
-//     {
-//         Assert.Fail("ApplicationDbContext type not found.");
-//         return;
-//     }
+    if (appointmentType == null)
+    {
+        Assert.Fail("Appointment type not found.");
+        return;
+    }
 
-//     // Check if DbSet<Book> exists
-//     Type AppointmentType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Book");
+    // Get the property info using reflection
+    var propertyInfo = contextType.GetProperty("Appointments");
 
-//     if (AppointmentType == null)
-//     {
-//         Assert.Fail();
-//         // DbSet<Book> doesn't exist, so you can't check the property
-//         Assert.Inconclusive("Book type not found.");
-//         return;
-//     }
+    if (propertyInfo == null)
+    {
+        Assert.Fail("Appointments property not found.");
+    }
+    else
+    {
+        Assert.AreEqual(typeof(DbSet<>).MakeGenericType(appointmentType), propertyInfo.PropertyType);
+    }
+}
 
-//     // Get the property info using reflection
-//     var propertyInfo = contextType.GetProperty("Books");
-
-//     if (propertyInfo == null)
-//     {
-//         Assert.Fail("Books property not found.");
-//     }
-//     else
-//     {
-//         Assert.AreEqual(typeof(DbSet<>).MakeGenericType(AppointmentType), propertyInfo.PropertyType);
-//     }
-// }
   
         //Checking if AppointmentController exists
         [Test]
@@ -239,8 +239,29 @@ public void AppointmentController_CreateActionReturnsIndexView()
     }
 }
 
+        [Test]
+public void AppointmentController_EditMethodExists()
+{
+    string assemblyName = "dotnetapp"; // Replace with your assembly name
+    string controllerTypeName = "dotnetapp.Controllers.AppointmentController";
+    string methodName = "Edit";
+
+    Assembly assembly = Assembly.Load(assemblyName);
+    Type controllerType = assembly.GetType(controllerTypeName);
+
+    // Specify the parameter types for the Edit method
+    Type[] parameterTypes = new Type[] { typeof(int) }; // Adjust this based on your method signature
+
+    // Find the Edit method with the specified parameter types
+    MethodInfo editMethod = controllerType.GetMethod(methodName, parameterTypes);
+
+    // Assert that the method exists and has the correct return type
+    Assert.IsNotNull(editMethod, $"{methodName} method not found in {controllerTypeName}");
+    Assert.AreEqual(typeof(IActionResult), editMethod.ReturnType, $"{methodName} method has incorrect return type");
+}
+
 [Test]
-public void AppointmentController_EditActionExists()
+public void AppointmentController_EditActionRedirectsToIndex()
 {
     string assemblyName = "dotnetapp"; // Replace with your assembly name
     string typeName = "dotnetapp.Controllers.AppointmentController";
@@ -259,9 +280,44 @@ public void AppointmentController_EditActionExists()
 
             var controller = constructor.Invoke(new object[] { dbContext });
 
-            var editAction = controllerType.GetMethod("Edit", new[] { typeof(int) });
+            var editMethod = controllerType.GetMethod("Edit", new[] { typeof(Appointment) });
+            var indexMethod = controllerType.GetMethod("Index");
 
-            Assert.IsNotNull(editAction);
+            if (editMethod != null && indexMethod != null)
+            {
+                // Create a sample appointment to edit with all required properties initialized
+                var appointment = new Appointment
+                {
+                    DoctorFirstName = "SampleFirstName",
+                    DoctorLastName = "SampleLastName",
+                    DoctorSpecialty = "SampleSpecialty",
+                    PatientEmail = "sample@email.com",
+                    PatientFirstName = "PatientFirstName",
+                    PatientLastName = "PatientLastName",
+                    PatientPhoneNumber = "1234567890",
+                    Reason = "Sample Reason"
+                    // Initialize other properties as needed
+                };
+
+                // Save the sample appointment to the database
+                dbContext.Appointments.Add(appointment);
+                dbContext.SaveChanges();
+
+                // Invoke the Edit method with the sample appointment
+                IActionResult result = editMethod.Invoke(controller, new object[] { appointment }) as IActionResult;
+
+                // Ensure the result is a RedirectToActionResult
+                Assert.IsInstanceOf<RedirectToActionResult>(result);
+
+                // Cast the result to RedirectToActionResult and check if it redirects to the "Index" action
+                var redirectToActionResult = result as RedirectToActionResult;
+                Assert.IsNotNull(redirectToActionResult);
+                Assert.AreEqual("Index", redirectToActionResult.ActionName);
+            }
+            else
+            {
+                Assert.Ignore("Edit or Index method not found. Skipping this test.");
+            }
         }
         else
         {
@@ -273,11 +329,89 @@ public void AppointmentController_EditActionExists()
         Assert.Ignore("AppointmentController not found. Skipping this test.");
     }
 }
+[Test]
+public void AppointmentController_DeleteMethodExists()
+{
+    string assemblyName = "dotnetapp"; // Replace with your assembly name
+    string typeName = "dotnetapp.Controllers.AppointmentController";
 
+    Assembly assembly = Assembly.Load(assemblyName);
+    Type controllerType = assembly.GetType(typeName);
 
+    // Specify the parameter types for the delete method
+    Type[] parameterTypes = new Type[] { typeof(int) }; // Adjust this based on your method signature
 
+    // Find the Delete method with the specified parameter types
+    MethodInfo deleteMethod = controllerType.GetMethod("Delete", parameterTypes);
 
+    // Assert that the method exists and has the correct return type
+    Assert.IsNotNull(deleteMethod, "Delete method not found");
+    Assert.AreEqual(typeof(IActionResult), deleteMethod.ReturnType, "Delete method has incorrect return type");
+}
 
+[Test]
+public void AppointmentController_DeleteActionReturnsViewResult()
+{
+    string assemblyName = "dotnetapp"; // Replace with your assembly name
+    string typeName = "dotnetapp.Controllers.AppointmentController";
+
+    Assembly assembly = Assembly.Load(assemblyName);
+    Type controllerType = assembly.GetType(typeName);
+
+    if (controllerType != null)
+    {
+        var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
+
+        if (constructor != null)
+        {
+            var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
+            var dbContext = new ApplicationDbContext(dbContextOptions);
+
+            var controller = constructor.Invoke(new object[] { dbContext });
+
+            var deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
+
+            if (deleteMethod != null)
+            {
+                // Create a sample appointment to delete with all required properties initialized
+                var appointment = new Appointment
+                {
+                    DoctorFirstName = "SampleFirstName",
+                    DoctorLastName = "SampleLastName",
+                    DoctorSpecialty = "SampleSpecialty",
+                    PatientEmail = "sample@email.com",
+                    PatientFirstName = "PatientFirstName",
+                    PatientLastName = "PatientLastName",
+                    PatientPhoneNumber = "1234567890",
+                    Reason = "Sample Reason"
+                    // Initialize other properties as needed
+                };
+
+                // Save the sample appointment to the database
+                dbContext.Appointments.Add(appointment);
+                dbContext.SaveChanges();
+
+                // Invoke the Delete method with the sample appointment ID
+                IActionResult result = deleteMethod.Invoke(controller, new object[] { appointment.AppointmentID }) as IActionResult;
+
+                // Ensure the result is a ViewResult
+                Assert.IsInstanceOf<ViewResult>(result);
+            }
+            else
+            {
+                Assert.Ignore("Delete method not found. Skipping this test.");
+            }
+        }
+        else
+        {
+            Assert.Ignore("AppointmentController constructor not found. Skipping this test.");
+        }
+    }
+    else
+    {
+        Assert.Ignore("AppointmentController not found. Skipping this test.");
+    }
+}
 
  }
 }
