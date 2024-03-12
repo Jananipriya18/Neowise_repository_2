@@ -1,0 +1,63 @@
+@model dotnetapp.Models.Appointment
+
+<h2>Edit Appointment</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="AppointmentID" />
+
+    <div class="form-group">
+        <label asp-for="PatientFirstName">Patient First Name:</label>
+        <input asp-for="PatientFirstName" class="form-control" />
+        <span asp-validation-for="PatientFirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PatientLastName">Patient Last Name:</label>
+        <input asp-for="PatientLastName" class="form-control" />
+        <span asp-validation-for="PatientLastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PatientPhoneNumber">Patient Phone Number:</label>
+        <input asp-for="PatientPhoneNumber" class="form-control" />
+        <span asp-validation-for="PatientPhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PatientEmail">Patient Email:</label>
+        <input asp-for="PatientEmail" class="form-control" />
+        <span asp-validation-for="PatientEmail" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DoctorFirstName">Doctor First Name:</label>
+        <input asp-for="DoctorFirstName" class="form-control" />
+        <span asp-validation-for="DoctorFirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DoctorLastName">Doctor Last Name:</label>
+        <input asp-for="DoctorLastName" class="form-control" />
+        <span asp-validation-for="DoctorLastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DoctorSpecialty">Doctor Specialty:</label>
+        <input asp-for="DoctorSpecialty" class="form-control" />
+        <span asp-validation-for="DoctorSpecialty" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AppointmentDate">Appointment Date:</label>
+        <input asp-for="AppointmentDate" type="datetime-local" class="form-control" />
+        <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Reason">Reason:</label>
+        <textarea asp-for="Reason" class="form-control"></textarea>
+        <span asp-validation-for="Reason" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
