@@ -33,29 +33,25 @@ namespace dotnetapp.Tests
         }
 
         
-[Test]
-public void CreateAppointment_AddsAppointmentToDatabase()
+        [Test]
+public void CreateFeedback_AddsFeedbackToDatabase()
 {
-    Type feedbackType = Assembly.GetAssembly(typeof(Appointment)).GetTypes()
-        .FirstOrDefault(t => t.Name == "Appointment");
+    Type feedbackType = Assembly.GetAssembly(typeof(Feedback)).GetTypes()
+        .FirstOrDefault(t => t.Name == "Feedback");
 
     if (feedbackType == null)
     {
-        Assert.Fail("Appointment type not found.");
+        Assert.Fail("Feedback type not found.");
         return;
     }
 
-    dynamic appointment = Activator.CreateInstance(feedbackType);
-    appointment.AppointmentID = 0;
-    appointment.PatientFirstName = "SamplePatientFirstName";
-    appointment.PatientLastName = "SamplePatientLastName";
-    appointment.DoctorFirstName = "SampleDoctorFirstName";
-    appointment.DoctorLastName = "SampleDoctorLastName";
-    appointment.DoctorSpecialty = "SampleSpecialty";
-    appointment.PatientEmail = "sample@email.com";
-    appointment.PatientPhoneNumber = "1234567890";
-    appointment.AppointmentDate = DateTime.Now;
-    appointment.Reason = "SampleReason";
+    dynamic feedback = Activator.CreateInstance(feedbackType);
+    feedback.Id = 0;
+    feedback.StudentName = "SampleStudentName";
+    feedback.Course = "SampleCourse";
+    feedback.Feedbacks = "SampleFeedback";
+    feedback.Rating = 4;
+    feedback.DateSubmitted = DateTime.Now;
 
     var dbSetType = typeof(DbContext).GetMethods()
         .FirstOrDefault(m => m.Name == "Set" && m.ContainsGenericParameters)
@@ -77,60 +73,60 @@ public void CreateAppointment_AddsAppointmentToDatabase()
         return;
     }
 
-    addMethod.Invoke(set, new object[] { appointment });
+    addMethod.Invoke(set, new object[] { feedback });
 
     _context.SaveChanges();
 
-    var addedAppointment = _context.Find(feedbackType, 1);
+    var addedFeedback = _context.Find(feedbackType, 1);
 
-    // Ensure the addedAppointment is of the Appointment type before accessing its properties
-    if (addedAppointment is Appointment retrievedAppointment)
+    // Ensure the addedFeedback is of the Feedback type before accessing its properties
+    if (addedFeedback is Feedback retrievedFeedback)
     {
-        Assert.IsNotNull(retrievedAppointment);
-        Assert.AreEqual("SamplePatientFirstName", retrievedAppointment.PatientFirstName);
+        Assert.IsNotNull(retrievedFeedback);
+        Assert.AreEqual("SampleStudentName", retrievedFeedback.StudentName);
     }
     else
     {
-        Assert.Fail("Failed to retrieve the appointment or incorrect type.");
+        Assert.Fail("Failed to retrieve the Feedback or incorrect type.");
     }
 }
 
-// [Test]
-// public void ApplicationDbContextContainsDbSetAppointments_Property()
-// {
-//     // Get the assembly that contains your ApplicationDbContext
-//     Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
+[Test]
+public void ApplicationDbContextContainsDbSetFeedbacks_Property()
+{
+    // Get the assembly that contains your ApplicationDbContext
+    Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
 
-//     // Get the ApplicationDbContext type
-//     Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
+    // Get the ApplicationDbContext type
+    Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
 
-//     if (contextType == null)
-//     {
-//         Assert.Fail("ApplicationDbContext type not found.");
-//         return;
-//     }
+    if (contextType == null)
+    {
+        Assert.Fail("ApplicationDbContext type not found.");
+        return;
+    }
 
-//     // Check if DbSet<Appointment> exists
-//     Type feedbackType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Appointment");
+    // Check if DbSet<Feedback> exists
+    Type feedbackType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Feedback");
 
-//     if (feedbackType == null)
-//     {
-//         Assert.Fail("Appointment type not found.");
-//         return;
-//     }
+    if (feedbackType == null)
+    {
+        Assert.Fail("Feedback type not found.");
+        return;
+    }
 
-//     // Get the property info using reflection
-//     var propertyInfo = contextType.GetProperty("Appointments");
+    // Get the property info using reflection
+    var propertyInfo = contextType.GetProperty("Feedbacks");
 
-//     if (propertyInfo == null)
-//     {
-//         Assert.Fail("Appointments property not found.");
-//     }
-//     else
-//     {
-//         Assert.AreEqual(typeof(DbSet<>).MakeGenericType(feedbackType), propertyInfo.PropertyType);
-//     }
-// }
+    if (propertyInfo == null)
+    {
+        Assert.Fail("Feedbacks property not found.");
+    }
+    else
+    {
+        Assert.AreEqual(typeof(DbSet<>).MakeGenericType(feedbackType), propertyInfo.PropertyType);
+    }
+}
 
   
         //Checking if FeedbackController exists
@@ -180,65 +176,62 @@ public void CreateAppointment_AddsAppointmentToDatabase()
             Assert.IsNotNull(indexMethod);
         }
         
-//         [Test]
-// public void FeedbackController_CreateActionReturnsIndexView()
-// {
-//     string assemblyName = "dotnetapp"; // Replace with your assembly name
-//     string typeName = "dotnetapp.Controllers.FeedbackController";
+[Test]
+public void FeedbackController_CreateActionReturnsIndexView()
+{
+    string assemblyName = "dotnetapp"; // Replace with your assembly name
+    string typeName = "dotnetapp.Controllers.FeedbackController";
 
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     Type controllerType = assembly.GetType(typeName);
+    Assembly assembly = Assembly.Load(assemblyName);
+    Type controllerType = assembly.GetType(typeName);
 
-//     if (controllerType != null)
-//     {
-//         var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
+    if (controllerType != null)
+    {
+        var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
 
-//         if (constructor != null)
-//         {
-//             var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
-//             var dbContext = new ApplicationDbContext(dbContextOptions);
+        if (constructor != null)
+        {
+            var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
+            var dbContext = new ApplicationDbContext(dbContextOptions);
 
-//             var controller = constructor.Invoke(new object[] { dbContext });
+            var controller = constructor.Invoke(new object[] { dbContext });
 
-//             var createAction = controllerType.GetMethod("Create", new[] { typeof(Appointment) });
+            var createAction = controllerType.GetMethod("Create", new[] { typeof(Feedback) });
 
-//             if (createAction != null)
-//             {
-//                 // Provide required properties for the Appointment entity
-//                 var appointment = new Appointment
-//                 {
-//                     DoctorFirstName = "SampleDoctorFirstName",
-//                     DoctorLastName = "SampleDoctorLastName",
-//                     DoctorSpecialty = "SampleSpecialty",
-//                     PatientEmail = "sample@email.com",
-//                     PatientFirstName = "SamplePatientFirstName",
-//                     PatientLastName = "SamplePatientLastName",
-//                     PatientPhoneNumber = "1234567890",
-//                     Reason = "SampleReason"
-//                 };
+            if (createAction != null)
+            {
+                // Provide required properties for the Feedback entity
+                var feedback = new Feedback
+                {
+                    StudentName = "SampleStudentName",
+                    Course = "SampleCourse",
+                    Feedbacks = "SampleFeedback",
+                    Rating = 4
+                    // Add other properties as needed
+                };
 
-//                 IActionResult result = createAction.Invoke(controller, new object[] { appointment }) as IActionResult;
-//                 Assert.IsInstanceOf<RedirectToActionResult>(result);
-//                 var redirectToActionResult = result as RedirectToActionResult;
+                IActionResult result = createAction.Invoke(controller, new object[] { feedback }) as IActionResult;
+                Assert.IsInstanceOf<RedirectToActionResult>(result);
+                var redirectToActionResult = result as RedirectToActionResult;
 
-//                 Assert.IsNotNull(redirectToActionResult);
-//                 Assert.AreEqual("Index", redirectToActionResult.ActionName);
-//             }
-//             else
-//             {
-//                 Assert.Ignore("Create action not found. Skipping this test.");
-//             }
-//         }
-//         else
-//         {
-//             Assert.Ignore("FeedbackController constructor not found. Skipping this test.");
-//         }
-//     }
-//     else
-//     {
-//         Assert.Ignore("FeedbackController not found. Skipping this test.");
-//     }
-// }
+                Assert.IsNotNull(redirectToActionResult);
+                Assert.AreEqual("Index", redirectToActionResult.ActionName);
+            }
+            else
+            {
+                Assert.Ignore("Create action not found. Skipping this test.");
+            }
+        }
+        else
+        {
+            Assert.Ignore("FeedbackController constructor not found. Skipping this test.");
+        }
+    }
+    else
+    {
+        Assert.Ignore("FeedbackController not found. Skipping this test.");
+    }
+}
 
         [Test]
         public void FeedbackController_EditMethodExists()
@@ -281,13 +274,13 @@ public void CreateAppointment_AddsAppointmentToDatabase()
 
 //             var controller = constructor.Invoke(new object[] { dbContext });
 
-//             var editMethod = controllerType.GetMethod("Edit", new[] { typeof(Appointment) });
+//             var editMethod = controllerType.GetMethod("Edit", new[] { typeof(Feedback) });
 //             var indexMethod = controllerType.GetMethod("Index");
 
 //             if (editMethod != null && indexMethod != null)
 //             {
-//                 // Create a sample appointment to edit with all required properties initialized
-//                 var appointment = new Appointment
+//                 // Create a sample Feedback to edit with all required properties initialized
+//                 var Feedback = new Feedback
 //                 {
 //                     DoctorFirstName = "SampleFirstName",
 //                     DoctorLastName = "SampleLastName",
@@ -300,12 +293,12 @@ public void CreateAppointment_AddsAppointmentToDatabase()
 //                     // Initialize other properties as needed
 //                 };
 
-//                 // Save the sample appointment to the database
-//                 dbContext.Appointments.Add(appointment);
+//                 // Save the sample Feedback to the database
+//                 dbContext.Feedbacks.Add(Feedback);
 //                 dbContext.SaveChanges();
 
-//                 // Invoke the Edit method with the sample appointment
-//                 IActionResult result = editMethod.Invoke(controller, new object[] { appointment }) as IActionResult;
+//                 // Invoke the Edit method with the sample Feedback
+//                 IActionResult result = editMethod.Invoke(controller, new object[] { Feedback }) as IActionResult;
 
 //                 // Ensure the result is a RedirectToActionResult
 //                 Assert.IsInstanceOf<RedirectToActionResult>(result);
@@ -351,69 +344,69 @@ public void CreateAppointment_AddsAppointmentToDatabase()
             Assert.AreEqual(typeof(IActionResult), deleteMethod.ReturnType, "Delete method has incorrect return type");
         }
 
-// [Test]
-// public void FeedbackController_DeleteActionReturnsViewResult()
-// {
-//     string assemblyName = "dotnetapp"; // Replace with your assembly name
-//     string typeName = "dotnetapp.Controllers.FeedbackController";
+[Test]
+public void FeedbackController_DeleteActionReturnsViewResult()
+{
+    string assemblyName = "dotnetapp"; // Replace with your assembly name
+    string typeName = "dotnetapp.Controllers.FeedbackController";
 
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     Type controllerType = assembly.GetType(typeName);
+    Assembly assembly = Assembly.Load(assemblyName);
+    Type controllerType = assembly.GetType(typeName);
 
-//     if (controllerType != null)
-//     {
-//         var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
+    if (controllerType != null)
+    {
+        var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
 
-//         if (constructor != null)
-//         {
-//             var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
-//             var dbContext = new ApplicationDbContext(dbContextOptions);
+        if (constructor != null)
+        {
+            var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
+            var dbContext = new ApplicationDbContext(dbContextOptions);
 
-//             var controller = constructor.Invoke(new object[] { dbContext });
+            var controller = constructor.Invoke(new object[] { dbContext });
 
-//             var deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
+            var deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
 
-//             if (deleteMethod != null)
-//             {
-//                 // Create a sample appointment to delete with all required properties initialized
-//                 var appointment = new Appointment
-//                 {
-//                     DoctorFirstName = "SampleFirstName",
-//                     DoctorLastName = "SampleLastName",
-//                     DoctorSpecialty = "SampleSpecialty",
-//                     PatientEmail = "sample@email.com",
-//                     PatientFirstName = "PatientFirstName",
-//                     PatientLastName = "PatientLastName",
-//                     PatientPhoneNumber = "1234567890",
-//                     Reason = "Sample Reason"
-//                     // Initialize other properties as needed
-//                 };
+            if (deleteMethod != null)
+            {
+                // Create a sample Feedback to delete with all required properties initialized
+                var Feedback = new Feedback
+                {
+                    DoctorFirstName = "SampleFirstName",
+                    DoctorLastName = "SampleLastName",
+                    DoctorSpecialty = "SampleSpecialty",
+                    PatientEmail = "sample@email.com",
+                    PatientFirstName = "PatientFirstName",
+                    PatientLastName = "PatientLastName",
+                    PatientPhoneNumber = "1234567890",
+                    Reason = "Sample Reason"
+                    // Initialize other properties as needed
+                };
 
-//                 // Save the sample appointment to the database
-//                 dbContext.Appointments.Add(appointment);
-//                 dbContext.SaveChanges();
+                // Save the sample Feedback to the database
+                dbContext.Feedbacks.Add(Feedback);
+                dbContext.SaveChanges();
 
-//                 // Invoke the Delete method with the sample appointment ID
-//                 IActionResult result = deleteMethod.Invoke(controller, new object[] { appointment.AppointmentID }) as IActionResult;
+                // Invoke the Delete method with the sample Feedback ID
+                IActionResult result = deleteMethod.Invoke(controller, new object[] { feedback.FeedbackID }) as IActionResult;
 
-//                 // Ensure the result is a ViewResult
-//                 Assert.IsInstanceOf<ViewResult>(result);
-//             }
-//             else
-//             {
-//                 Assert.Ignore("Delete method not found. Skipping this test.");
-//             }
-//         }
-//         else
-//         {
-//             Assert.Ignore("FeedbackController constructor not found. Skipping this test.");
-//         }
-//     }
-//     else
-//     {
-//         Assert.Ignore("FeedbackController not found. Skipping this test.");
-//     }
-// }
+                // Ensure the result is a ViewResult
+                Assert.IsInstanceOf<ViewResult>(result);
+            }
+            else
+            {
+                Assert.Ignore("Delete method not found. Skipping this test.");
+            }
+        }
+        else
+        {
+            Assert.Ignore("FeedbackController constructor not found. Skipping this test.");
+        }
+    }
+    else
+    {
+        Assert.Ignore("FeedbackController not found. Skipping this test.");
+    }
+}
 
 
  }
