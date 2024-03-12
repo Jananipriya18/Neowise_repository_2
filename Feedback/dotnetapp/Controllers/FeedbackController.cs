@@ -72,7 +72,10 @@ namespace dotnetapp.Controllers
 
         public IActionResult Delete(int id)
         {
+            Console.WriteLine("id"+id);
             var feedback = _context.Feedbacks.Find(id);
+            Console.WriteLine("fed"+feedback);
+
 
             if (feedback == null)
             {
@@ -84,16 +87,25 @@ namespace dotnetapp.Controllers
 
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
+        // {
+        //     var feedback = _context.Feedbacks.Find(id);
+
+        //     if (feedback != null)
+        //     {
+        //         _context.Feedbacks.Remove(feedback);
+        //         _context.SaveChanges();
+        //     }
+
+        //     return RedirectToAction("Index");
+        // }
         {
-            var feedback = _context.Feedbacks.Find(id);
+            if (id <= 0)
+                return BadRequest("Not a valid Course id");
 
-            if (feedback != null)
-            {
-                _context.Feedbacks.Remove(feedback);
-                _context.SaveChanges();
-            }
-
-            return RedirectToAction("Index");
+            var feedback = await _context.Feedbacks.FindAsync(id);
+              _context.Feedbacks.Remove(feedback);
+                await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }
