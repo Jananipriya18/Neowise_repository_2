@@ -44,31 +44,6 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
-        public IActionResult Edit(int id)
-        {
-            var appointment = _context.Appointments.Find(id);
-
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-
-            return View(appointment);
-        }
-
-        [HttpPost]
-        public IActionResult Edit(Appointment appointment)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Appointments.Update(appointment);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index");
-            }
-
-            return View(appointment);
-        }
 
         [HttpPost, ActionName("DeleteConfirmed")]
         public IActionResult DeleteConfirmed(int id)
