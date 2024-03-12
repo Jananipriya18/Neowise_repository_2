@@ -70,50 +70,24 @@ namespace dotnetapp.Controllers
             return View(feedback);
         }
 
-        // public IActionResult Delete(int id)
-        // {
-        //     Console.WriteLine("id"+id);
-        //     // var feedback = _context.Feedbacks.Find(id);
-        //     var feedback = _context.Feedbacks.FirstOrDefault(f => f.Id == id);
-
-        //     Console.WriteLine("fed"+feedback);
-
-
-        //     if (feedback == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(feedback);
-        // }
-
         public IActionResult Delete(int id)
-{
-    Console.WriteLine("id: " + id);
+        {
+            Console.WriteLine("id"+id);
+            var feedback = _context.Feedbacks.Find(id);
+            
 
-    // Use FirstOrDefault to fetch the feedback by Id
-    var feedback = _context.Feedbacks.FirstOrDefault(f => f.Id == id);
+            if (feedback == null)
+            {
+                return NotFound();
+            }
 
-    Console.WriteLine("feedback: " + feedback);
-
-    if (feedback == null)
-    {
-        Console.WriteLine("Feedback not found.");
-        return NotFound();
-    }
-
-    return View(feedback);
-}
-
+            return View(feedback);
+        }
 
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            // var feedback = _context.Feedbacks.Find(id);
-            var feedback = _context.Feedbacks.FirstOrDefault(f => f.Id == id);
-
-            Console.WriteLine("dele"+feedback);
-
+            var feedback = _context.Feedbacks.Find(id);
 
             if (feedback != null)
             {
