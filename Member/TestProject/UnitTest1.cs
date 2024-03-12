@@ -33,67 +33,67 @@ namespace dotnetapp.Tests
         }
 
         
-// [Test]
-// public void CreateAppointment_AddsAppointmentToDatabase()
-// {
-//     Type feedbackType = Assembly.GetAssembly(typeof(Appointment)).GetTypes()
-//         .FirstOrDefault(t => t.Name == "Appointment");
+[Test]
+public void CreateAppointment_AddsAppointmentToDatabase()
+{
+    Type feedbackType = Assembly.GetAssembly(typeof(Appointment)).GetTypes()
+        .FirstOrDefault(t => t.Name == "Appointment");
 
-//     if (feedbackType == null)
-//     {
-//         Assert.Fail("Appointment type not found.");
-//         return;
-//     }
+    if (feedbackType == null)
+    {
+        Assert.Fail("Appointment type not found.");
+        return;
+    }
 
-//     dynamic appointment = Activator.CreateInstance(feedbackType);
-//     appointment.AppointmentID = 0;
-//     appointment.PatientFirstName = "SamplePatientFirstName";
-//     appointment.PatientLastName = "SamplePatientLastName";
-//     appointment.DoctorFirstName = "SampleDoctorFirstName";
-//     appointment.DoctorLastName = "SampleDoctorLastName";
-//     appointment.DoctorSpecialty = "SampleSpecialty";
-//     appointment.PatientEmail = "sample@email.com";
-//     appointment.PatientPhoneNumber = "1234567890";
-//     appointment.AppointmentDate = DateTime.Now;
-//     appointment.Reason = "SampleReason";
+    dynamic appointment = Activator.CreateInstance(feedbackType);
+    appointment.AppointmentID = 0;
+    appointment.PatientFirstName = "SamplePatientFirstName";
+    appointment.PatientLastName = "SamplePatientLastName";
+    appointment.DoctorFirstName = "SampleDoctorFirstName";
+    appointment.DoctorLastName = "SampleDoctorLastName";
+    appointment.DoctorSpecialty = "SampleSpecialty";
+    appointment.PatientEmail = "sample@email.com";
+    appointment.PatientPhoneNumber = "1234567890";
+    appointment.AppointmentDate = DateTime.Now;
+    appointment.Reason = "SampleReason";
 
-//     var dbSetType = typeof(DbContext).GetMethods()
-//         .FirstOrDefault(m => m.Name == "Set" && m.ContainsGenericParameters)
-//         ?.MakeGenericMethod(feedbackType);
+    var dbSetType = typeof(DbContext).GetMethods()
+        .FirstOrDefault(m => m.Name == "Set" && m.ContainsGenericParameters)
+        ?.MakeGenericMethod(feedbackType);
 
-//     if (dbSetType == null)
-//     {
-//         Assert.Fail("Set method not found.");
-//         return;
-//     }
+    if (dbSetType == null)
+    {
+        Assert.Fail("Set method not found.");
+        return;
+    }
 
-//     var set = dbSetType.Invoke(_context, null);
+    var set = dbSetType.Invoke(_context, null);
 
-//     MethodInfo addMethod = set.GetType().GetMethod("Add");
+    MethodInfo addMethod = set.GetType().GetMethod("Add");
 
-//     if (addMethod == null)
-//     {
-//         Assert.Fail("Add method not found.");
-//         return;
-//     }
+    if (addMethod == null)
+    {
+        Assert.Fail("Add method not found.");
+        return;
+    }
 
-//     addMethod.Invoke(set, new object[] { appointment });
+    addMethod.Invoke(set, new object[] { appointment });
 
-//     _context.SaveChanges();
+    _context.SaveChanges();
 
-//     var addedAppointment = _context.Find(feedbackType, 1);
+    var addedAppointment = _context.Find(feedbackType, 1);
 
-//     // Ensure the addedAppointment is of the Appointment type before accessing its properties
-//     if (addedAppointment is Appointment retrievedAppointment)
-//     {
-//         Assert.IsNotNull(retrievedAppointment);
-//         Assert.AreEqual("SamplePatientFirstName", retrievedAppointment.PatientFirstName);
-//     }
-//     else
-//     {
-//         Assert.Fail("Failed to retrieve the appointment or incorrect type.");
-//     }
-// }
+    // Ensure the addedAppointment is of the Appointment type before accessing its properties
+    if (addedAppointment is Appointment retrievedAppointment)
+    {
+        Assert.IsNotNull(retrievedAppointment);
+        Assert.AreEqual("SamplePatientFirstName", retrievedAppointment.PatientFirstName);
+    }
+    else
+    {
+        Assert.Fail("Failed to retrieve the appointment or incorrect type.");
+    }
+}
 
 // [Test]
 // public void ApplicationDbContextContainsDbSetAppointments_Property()
@@ -146,38 +146,39 @@ namespace dotnetapp.Tests
             Assert.IsNotNull(FeedbackControllerType, "FeedbackController does not exist in the assembly.");
         }
 
-//        [Test]
-//         public void FeedbackController_CreateMethodExists()
-//         {
-//             string assemblyName = "dotnetapp"; // Update with your correct assembly name
-//             string typeName = "dotnetapp.Controllers.FeedbackController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type controllerType = assembly.GetType(typeName);
+       [Test]
+        public void FeedbackController_CreateMethodExists()
+        {
+            string assemblyName = "dotnetapp"; // Update with your correct assembly name
+            string typeName = "dotnetapp.Controllers.FeedbackController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type controllerType = assembly.GetType(typeName);
 
-//             // Specify the parameter types for the create method
-//             Type[] parameterTypes = new Type[] { typeof(Appointment) }; // Adjust this based on your method signature
+            // Specify the parameter types for the create method
+            Type[] parameterTypes = new Type[] { }; // Update parameter types based on your method signature
 
-//             // Find the Create method with the specified parameter types
-//             MethodInfo createMethod = controllerType.GetMethod("Create", parameterTypes);
+            // Find the Create method with the specified parameter types
+            MethodInfo createMethod = controllerType.GetMethod("Create", parameterTypes);
 
-//             // Assert that the method exists and has the correct return type
-//             Assert.IsNotNull(createMethod, "Create method not found");
-//             Assert.AreEqual(typeof(IActionResult), createMethod.ReturnType, "Create method has incorrect return type");
-//         }
+            // Assert that the method exists and has the correct return type
+            Assert.IsNotNull(createMethod, "Create method not found");
+            Assert.AreEqual(typeof(IActionResult), createMethod.ReturnType, "Create method has incorrect return type");
+        }
 
 
-//         [Test]
-//         public void FeedbackController_IndexMethodExists()
-//         {
-//             string assemblyName = "dotnetapp"; // Replace with your assembly name
-//             string typeName = "dotnetapp.Controllers.FeedbackController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type controllerType = assembly.GetType(typeName);
 
-//             // Find the Index method without any parameters
-//             MethodInfo indexMethod = controllerType.GetMethod("Index");
-//             Assert.IsNotNull(indexMethod);
-//         }
+        [Test]
+        public void FeedbackController_IndexMethodExists()
+        {
+            string assemblyName = "dotnetapp"; // Replace with your assembly name
+            string typeName = "dotnetapp.Controllers.FeedbackController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type controllerType = assembly.GetType(typeName);
+
+            // Find the Index method without any parameters
+            MethodInfo indexMethod = controllerType.GetMethod("Index");
+            Assert.IsNotNull(indexMethod);
+        }
         
 //         [Test]
 // public void FeedbackController_CreateActionReturnsIndexView()
@@ -239,26 +240,26 @@ namespace dotnetapp.Tests
 //     }
 // }
 
-//         [Test]
-// public void FeedbackController_EditMethodExists()
-// {
-//     string assemblyName = "dotnetapp"; // Replace with your assembly name
-//     string controllerTypeName = "dotnetapp.Controllers.FeedbackController";
-//     string methodName = "Edit";
+        [Test]
+        public void FeedbackController_EditMethodExists()
+        {
+            string assemblyName = "dotnetapp"; // Replace with your assembly name
+            string controllerTypeName = "dotnetapp.Controllers.FeedbackController";
+            string methodName = "Edit";
 
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     Type controllerType = assembly.GetType(controllerTypeName);
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type controllerType = assembly.GetType(controllerTypeName);
 
-//     // Specify the parameter types for the Edit method
-//     Type[] parameterTypes = new Type[] { typeof(int) }; // Adjust this based on your method signature
+            // Specify the parameter types for the Edit method
+            Type[] parameterTypes = new Type[] { typeof(int) }; // Adjust this based on your method signature
 
-//     // Find the Edit method with the specified parameter types
-//     MethodInfo editMethod = controllerType.GetMethod(methodName, parameterTypes);
+            // Find the Edit method with the specified parameter types
+            MethodInfo editMethod = controllerType.GetMethod(methodName, parameterTypes);
 
-//     // Assert that the method exists and has the correct return type
-//     Assert.IsNotNull(editMethod, $"{methodName} method not found in {controllerTypeName}");
-//     Assert.AreEqual(typeof(IActionResult), editMethod.ReturnType, $"{methodName} method has incorrect return type");
-// }
+            // Assert that the method exists and has the correct return type
+            Assert.IsNotNull(editMethod, $"{methodName} method not found in {controllerTypeName}");
+            Assert.AreEqual(typeof(IActionResult), editMethod.ReturnType, $"{methodName} method has incorrect return type");
+        }
 
 // [Test]
 // public void FeedbackController_EditActionRedirectsToIndex()
@@ -329,25 +330,26 @@ namespace dotnetapp.Tests
 //         Assert.Ignore("FeedbackController not found. Skipping this test.");
 //     }
 // }
-// [Test]
-// public void FeedbackController_DeleteMethodExists()
-// {
-//     string assemblyName = "dotnetapp"; // Replace with your assembly name
-//     string typeName = "dotnetapp.Controllers.FeedbackController";
 
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     Type controllerType = assembly.GetType(typeName);
+        [Test]
+        public void FeedbackController_DeleteMethodExists()
+        {
+            string assemblyName = "dotnetapp"; // Replace with your assembly name
+            string typeName = "dotnetapp.Controllers.FeedbackController";
 
-//     // Specify the parameter types for the delete method
-//     Type[] parameterTypes = new Type[] { typeof(int) }; // Adjust this based on your method signature
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type controllerType = assembly.GetType(typeName);
 
-//     // Find the Delete method with the specified parameter types
-//     MethodInfo deleteMethod = controllerType.GetMethod("Delete", parameterTypes);
+            // Specify the parameter types for the delete method
+            Type[] parameterTypes = new Type[] { typeof(int) }; // Adjust this based on your method signature
 
-//     // Assert that the method exists and has the correct return type
-//     Assert.IsNotNull(deleteMethod, "Delete method not found");
-//     Assert.AreEqual(typeof(IActionResult), deleteMethod.ReturnType, "Delete method has incorrect return type");
-// }
+            // Find the Delete method with the specified parameter types
+            MethodInfo deleteMethod = controllerType.GetMethod("Delete", parameterTypes);
+
+            // Assert that the method exists and has the correct return type
+            Assert.IsNotNull(deleteMethod, "Delete method not found");
+            Assert.AreEqual(typeof(IActionResult), deleteMethod.ReturnType, "Delete method has incorrect return type");
+        }
 
 // [Test]
 // public void FeedbackController_DeleteActionReturnsViewResult()
