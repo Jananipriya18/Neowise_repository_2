@@ -254,75 +254,70 @@ public void FeedbackController_CreateActionReturnsIndexView()
             Assert.AreEqual(typeof(IActionResult), editMethod.ReturnType, $"{methodName} method has incorrect return type");
         }
 
-// [Test]
-// public void FeedbackController_EditActionRedirectsToIndex()
-// {
-//     string assemblyName = "dotnetapp"; // Replace with your assembly name
-//     string typeName = "dotnetapp.Controllers.FeedbackController";
+        [Test]
+public void FeedbackController_EditActionRedirectsToIndex()
+{
+    string assemblyName = "dotnetapp"; // Replace with your assembly name
+    string typeName = "dotnetapp.Controllers.FeedbackController";
 
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     Type controllerType = assembly.GetType(typeName);
+    Assembly assembly = Assembly.Load(assemblyName);
+    Type controllerType = assembly.GetType(typeName);
 
-//     if (controllerType != null)
-//     {
-//         var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
+    if (controllerType != null)
+    {
+        var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
 
-//         if (constructor != null)
-//         {
-//             var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
-//             var dbContext = new ApplicationDbContext(dbContextOptions);
+        if (constructor != null)
+        {
+            var dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>().UseInMemoryDatabase("TestDatabase").Options;
+            var dbContext = new ApplicationDbContext(dbContextOptions);
 
-//             var controller = constructor.Invoke(new object[] { dbContext });
+            var controller = constructor.Invoke(new object[] { dbContext });
 
-//             var editMethod = controllerType.GetMethod("Edit", new[] { typeof(Feedback) });
-//             var indexMethod = controllerType.GetMethod("Index");
+            var editMethod = controllerType.GetMethod("Edit", new[] { typeof(Feedback) });
 
-//             if (editMethod != null && indexMethod != null)
-//             {
-//                 // Create a sample Feedback to edit with all required properties initialized
-//                 var Feedback = new Feedback
-//                 {
-//                     DoctorFirstName = "SampleFirstName",
-//                     DoctorLastName = "SampleLastName",
-//                     DoctorSpecialty = "SampleSpecialty",
-//                     PatientEmail = "sample@email.com",
-//                     PatientFirstName = "PatientFirstName",
-//                     PatientLastName = "PatientLastName",
-//                     PatientPhoneNumber = "1234567890",
-//                     Reason = "Sample Reason"
-//                     // Initialize other properties as needed
-//                 };
+            if (editMethod != null)
+            {
+                // Create a sample Feedback to edit with all required properties initialized
+                var feedback = new Feedback
+                {
+                    StudentName = "SampleStudentName",
+                    Course = "SampleCourse",
+                    Feedbacks = "SampleFeedback",
+                    Rating = 4
+                    // Initialize other properties as needed
+                };
 
-//                 // Save the sample Feedback to the database
-//                 dbContext.Feedbacks.Add(Feedback);
-//                 dbContext.SaveChanges();
+                // Save the sample Feedback to the database
+                dbContext.Feedbacks.Add(feedback);
+                dbContext.SaveChanges();
 
-//                 // Invoke the Edit method with the sample Feedback
-//                 IActionResult result = editMethod.Invoke(controller, new object[] { Feedback }) as IActionResult;
+                // Invoke the Edit method with the sample Feedback
+                IActionResult result = editMethod.Invoke(controller, new object[] { feedback }) as IActionResult;
 
-//                 // Ensure the result is a RedirectToActionResult
-//                 Assert.IsInstanceOf<RedirectToActionResult>(result);
+                // Ensure the result is a RedirectToActionResult
+                Assert.IsInstanceOf<RedirectToActionResult>(result);
 
-//                 // Cast the result to RedirectToActionResult and check if it redirects to the "Index" action
-//                 var redirectToActionResult = result as RedirectToActionResult;
-//                 Assert.IsNotNull(redirectToActionResult);
-//                 Assert.AreEqual("Index", redirectToActionResult.ActionName);
-//             }
-//             else
-//             {
-//                 Assert.Ignore("Edit or Index method not found. Skipping this test.");
-//             }
-//         }
-//         else
-//         {
-//             Assert.Ignore("FeedbackController constructor not found. Skipping this test.");
-//         }
-//     }
-//     else
-//     {
-//         Assert.Ignore("FeedbackController not found. Skipping this test.");
-//     }
-// }
+                // Cast the result to RedirectToActionResult and check if it redirects to the "Index" action
+                var redirectToActionResult = result as RedirectToActionResult;
+                Assert.IsNotNull(redirectToActionResult);
+                Assert.AreEqual("Index", redirectToActionResult.ActionName);
+            }
+            else
+            {
+                Assert.Ignore("Edit method not found. Skipping this test.");
+            }
+        }
+        else
+        {
+            Assert.Ignore("FeedbackController constructor not found. Skipping this test.");
+        }
+    }
+    else
+    {
+        Assert.Ignore("FeedbackController not found. Skipping this test.");
+    }
+}
 
         [Test]
         public void FeedbackController_DeleteMethodExists()
@@ -344,7 +339,7 @@ public void FeedbackController_CreateActionReturnsIndexView()
             Assert.AreEqual(typeof(IActionResult), deleteMethod.ReturnType, "Delete method has incorrect return type");
         }
 
-[Test]
+        [Test]
 public void FeedbackController_DeleteActionReturnsViewResult()
 {
     string assemblyName = "dotnetapp"; // Replace with your assembly name
@@ -369,25 +364,21 @@ public void FeedbackController_DeleteActionReturnsViewResult()
             if (deleteMethod != null)
             {
                 // Create a sample Feedback to delete with all required properties initialized
-                var Feedback = new Feedback
+                var feedback = new Feedback
                 {
-                    DoctorFirstName = "SampleFirstName",
-                    DoctorLastName = "SampleLastName",
-                    DoctorSpecialty = "SampleSpecialty",
-                    PatientEmail = "sample@email.com",
-                    PatientFirstName = "PatientFirstName",
-                    PatientLastName = "PatientLastName",
-                    PatientPhoneNumber = "1234567890",
-                    Reason = "Sample Reason"
+                    StudentName = "SampleStudentName",
+                    Course = "SampleCourse",
+                    Feedbacks = "SampleFeedback",
+                    Rating = 4
                     // Initialize other properties as needed
                 };
 
                 // Save the sample Feedback to the database
-                dbContext.Feedbacks.Add(Feedback);
+                dbContext.Feedbacks.Add(feedback);
                 dbContext.SaveChanges();
 
                 // Invoke the Delete method with the sample Feedback ID
-                IActionResult result = deleteMethod.Invoke(controller, new object[] { feedback.FeedbackID }) as IActionResult;
+                IActionResult result = deleteMethod.Invoke(controller, new object[] { feedback.Id }) as IActionResult;
 
                 // Ensure the result is a ViewResult
                 Assert.IsInstanceOf<ViewResult>(result);
@@ -407,6 +398,7 @@ public void FeedbackController_DeleteActionReturnsViewResult()
         Assert.Ignore("FeedbackController not found. Skipping this test.");
     }
 }
+
 
 
  }
