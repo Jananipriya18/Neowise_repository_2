@@ -158,7 +158,7 @@ namespace dotnetapp.Controllers
             return View(feedback);
         }
 
-        [HttpPut]
+        [HttpPost]
         public IActionResult Edit(Feedback feedback)
         {
             if (ModelState.IsValid)
@@ -186,7 +186,7 @@ namespace dotnetapp.Controllers
             return View(feedback);
         }
 
-        [HttpDelete, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteConfirmed")]
         public IActionResult DeleteConfirmed(int id)
         {
             var feedback = _context.Feedbacks.Find(id);
