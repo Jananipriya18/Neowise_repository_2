@@ -91,10 +91,11 @@ namespace dotnetapp.Controllers
             {
                 return NotFound();
             }
-
+            
+            _context.Attach(appointment);
             _context.Appointments.Remove(appointment);
             _context.SaveChanges();
-            Console.lo
+
             return RedirectToAction("Index");
         }
     }
