@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace dotnetapp.Models
 {
     public class Appointment
     {
+        [Key]
         public int AppointmentID { get; set; }
 
         // Patient details

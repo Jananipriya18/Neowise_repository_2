@@ -70,18 +70,6 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
-        public IActionResult Delete(int id)
-        {
-            var appointment = _context.Appointments.Find(id);
-
-            if (appointment == null)
-            {
-                return NotFound();
-            }
-
-            return View(appointment);
-        }
-
         [HttpPost, ActionName("DeleteConfirmed")]
         public IActionResult DeleteConfirmed(int id)
         {
@@ -91,12 +79,21 @@ namespace dotnetapp.Controllers
             {
                 return NotFound();
             }
-            
-            _context.Attach(appointment);
-            _context.Appointments.Remove(appointment);
-            _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            try
+            {
+                _context.Attach(appointment);
+                _context.Appointments.Remove(appointment);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or inspect the error message
+                Console.WriteLine($"Exception: {ex.Message}");
+                return RedirectToAction("Index"); // Or handle the error appropriately
+            }
         }
     }
 }
