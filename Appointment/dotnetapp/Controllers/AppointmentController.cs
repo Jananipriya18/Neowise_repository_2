@@ -82,21 +82,21 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
-        // [HttpPost, ActionName("DeleteConfirmed")]
-        // public IActionResult DeleteConfirmed(int id)
-        // {
-        //     var appointment = _context.Appointments.Find(id);
+        [HttpPost, ActionName("DeleteConfirmed")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var appointment = _context.Appointments.Find(id);
 
-        //     if (appointment == null)
-        //     {
-        //         return NotFound();
-        //     }
+            if (appointment == null)
+            {
+                return NotFound();
+            }
 
-        //     _context.Appointments.Remove(appointment);
-        //     _context.SaveChanges();
+            _context.Appointments.Remove(appointment);
+            _context.SaveChanges();
 
-        //     return RedirectToAction("Index");
-        // }
+            return RedirectToAction("Index");
+        }
 
         // public IActionResult Delete(int id)
         // {
@@ -125,20 +125,20 @@ namespace dotnetapp.Controllers
 
         //     return RedirectToAction("Index");
         // }
-        [HttpPost, ActionName("DeleteConfirmed")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var appointment = _context.Appointments.Find(id);
+        // [HttpPost, ActionName("DeleteConfirmed")]
+        // public IActionResult DeleteConfirmed(int id)
+        // {
+        //     var appointment = _context.Appointments.Find(id);
 
-            if (appointment != null)
-            {
-                _context.Appointments.RemoveRange(appointment);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //     if (appointment != null)
+        //     {
+        //         _context.Appointments.RemoveRange(appointment);
+        //         _context.SaveChanges();
+        //         return RedirectToAction("Index");
+        //     }
 
-            return NotFound();
-        }
+        //     return NotFound();
+        // }
 
 
         
