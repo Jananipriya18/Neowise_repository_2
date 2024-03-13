@@ -70,9 +70,39 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
+        // public IActionResult Delete(int id)
+        // {
+        //     var appointment = _context.Appointments.Find(id);
+
+        //     if (appointment == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     return View(appointment);
+        // }
+
+        // [HttpPost, ActionName("DeleteConfirmed")]
+        // public IActionResult DeleteConfirmed(int id)
+        // {
+        //     var appointment = _context.Appointments.Find(id);
+
+        //     if (appointment == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     _context.Appointments.Remove(appointment);
+        //     _context.SaveChanges();
+
+        //     return RedirectToAction("Index");
+        // }
+
         public IActionResult Delete(int id)
         {
+            Console.WriteLine("id"+id);
             var appointment = _context.Appointments.Find(id);
+            
 
             if (appointment == null)
             {
@@ -87,17 +117,14 @@ namespace dotnetapp.Controllers
         {
             var appointment = _context.Appointments.Find(id);
 
-            if (appointment == null)
+            if (appointment != null)
             {
-                return NotFound();
+                _context.Appointments.Remove(appointment);
+                _context.SaveChanges();
             }
-
-            _context.Appointments.Remove(appointment);
-            _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
-
         
     }
 }
