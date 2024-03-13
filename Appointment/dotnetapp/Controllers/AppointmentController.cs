@@ -82,21 +82,43 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
+        // [HttpPost, ActionName("DeleteConfirmed")]
+        // public IActionResult DeleteConfirmed(int id)
+        // {
+        //     var appointment = _context.Appointments.Find(id);
+
+        //     if (appointment == null)
+        //     {
+        //         return NotFound();
+        //     }
+
+        //     _context.Appointments.Remove(appointment);
+        //     _context.SaveChanges();
+
+        //     return RedirectToAction("Index");
+        // }
         [HttpPost, ActionName("DeleteConfirmed")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var appointment = _context.Appointments.Find(id);
+public IActionResult DeleteConfirmed(int id)
+{
+    // Add a breakpoint here to inspect the value of 'id'
+        Console.WriteLine("the id is" ,id);
 
-            if (appointment == null)
-            {
-                return NotFound();
-            }
+    var appointment = _context.Appointments.Find(id);
+        Console.WriteLine("the id is" ,id);
 
-            _context.Appointments.Remove(appointment);
-            _context.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
+    if (appointment == null)
+    {
+        return NotFound();
+    }
+    Console.WriteLine("the id is" ,id);
+
+    _context.Appointments.Remove(appointment);
+    _context.SaveChanges();
+
+    return RedirectToAction("Index");
+}
+
 
         // public IActionResult Delete(int id)
         // {

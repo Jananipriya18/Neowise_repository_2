@@ -27,8 +27,15 @@
 
     app.UseAuthorization();
 
-    app.UseEndpoints(endpoints =>
+    // app.MapControllerRoute(
+    //     name: "default",
+    //     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
 {
+    endpoints.MapControllerRoute(
+        name: "deleteConfirmed",
+        pattern: "{controller=Appointment}/{action=DeleteConfirmed}/{id?}");
+
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
