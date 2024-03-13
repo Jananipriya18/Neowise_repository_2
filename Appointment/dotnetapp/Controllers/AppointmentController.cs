@@ -113,18 +113,19 @@ namespace dotnetapp.Controllers
         }
 
         [HttpPost, ActionName("DeleteConfirmed")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var appointment = _context.Appointments.Find(id);
+public IActionResult DeleteConfirmed(int id)
+{
+    var appointment = _context.Appointments.Find(id);
 
-            if (appointment != null)
-            {
-                _context.Appointments.Remove(appointment);
-                _context.SaveChanges();
-            }
+    if (appointment != null)
+    {
+        _context.Appointments.Remove(appointment);
+        _context.SaveChanges();
+    }
 
-            return RedirectToAction("Index");
-        }
+    return RedirectToAction("Index");
+}
+
         
     }
 }
