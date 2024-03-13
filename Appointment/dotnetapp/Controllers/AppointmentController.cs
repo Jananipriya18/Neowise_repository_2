@@ -98,20 +98,18 @@ namespace dotnetapp.Controllers
         //     return RedirectToAction("Index");
         // }
         [HttpPost, ActionName("DeleteConfirmed")]
-public IActionResult DeleteConfirmed(int id)
+public IActionResult DeleteConfirmed(int AppointmentID)
 {
     // Add a breakpoint here to inspect the value of 'id'
-        Console.WriteLine("the id is" ,id);
+        Console.WriteLine("the id is" ,AppointmentID);
 
-    var appointment = _context.Appointments.Find(id);
-        Console.WriteLine("the id is" ,id);
+    var appointment = _context.Appointments.Find(AppointmentID);
 
 
     if (appointment == null)
     {
         return NotFound();
     }
-    Console.WriteLine("the id is" ,id);
 
     _context.Appointments.Remove(appointment);
     _context.SaveChanges();
