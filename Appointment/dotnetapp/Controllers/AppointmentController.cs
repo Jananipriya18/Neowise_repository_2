@@ -70,17 +70,17 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
-        // public IActionResult Delete(int id)
-        // {
-        //     var appointment = _context.Appointments.Find(id);
+        public IActionResult Delete(int id)
+        {
+            var appointment = _context.Appointments.Find(id);
 
-        //     if (appointment == null)
-        //     {
-        //         return NotFound();
-        //     }
+            if (appointment == null)
+            {
+                return NotFound();
+            }
 
-        //     return View(appointment);
-        // }
+            return View(appointment);
+        }
 
         // [HttpPost, ActionName("DeleteConfirmed")]
         // public IActionResult DeleteConfirmed(int id)
@@ -98,19 +98,19 @@ namespace dotnetapp.Controllers
         //     return RedirectToAction("Index");
         // }
 
-        public IActionResult Delete(int id)
-        {
-            Console.WriteLine("id"+id);
-            var appointment = _context.Appointments.Find(id);
+        // public IActionResult Delete(int id)
+        // {
+        //     Console.WriteLine("id"+id);
+        //     var appointment = _context.Appointments.Find(id);
             
 
-            if (appointment == null)
-            {
-                return NotFound();
-            }
+        //     if (appointment == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            return View(appointment);
-        }
+        //     return View(appointment);
+        // }
 
         // [HttpPost, ActionName("DeleteConfirmed")]
         // public IActionResult DeleteConfirmed(int id)
