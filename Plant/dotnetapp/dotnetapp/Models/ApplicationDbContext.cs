@@ -10,4 +10,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     }
 
     public DbSet<User> Users { get; set; }
+    public DbSet<Plant> Plants { get; set; }
 }
