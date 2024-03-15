@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using dotnetapp.Models; // Assuming your Plant model is in this namespace
+using dotnetapp.Models; 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; // Import Entity Framework Core namespace
+using Microsoft.EntityFrameworkCore; 
 
 namespace dotnetapp.Controllers
 {
@@ -15,7 +15,7 @@ namespace dotnetapp.Controllers
     // [Authorize(Roles = "Admin")]
     public class PlantController : ControllerBase
     {
-        private readonly ApplicationDbContext _context; // Replace ApplicationDbContext with your actual DbContext
+        private readonly ApplicationDbContext _context; 
 
         public PlantController(ApplicationDbContext context)
         {
