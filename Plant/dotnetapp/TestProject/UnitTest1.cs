@@ -20,6 +20,18 @@ public class SpringappApplicationTests
         _httpClient.BaseAddress = new Uri("https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io"); 
     }
 
+    [Test]
+        public void AuthenticationControllerExists()
+        {
+            string assemblyName = "dotnetapp"; // Your project assembly name
+            string typeName = "dotnetapp.Controllers.AuthenticationController";
+
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type AuthenticationControllerType = assembly.GetType(typeName);
+
+            Assert.IsNotNull(AuthenticationControllerType, "AuthenticationController does not exist in the assembly.");
+        }
+
     [Test, Order(1)]
     public async Task Backend_TestRegisterUser()
     {
@@ -49,7 +61,7 @@ public class SpringappApplicationTests
         string uniquepassword = $"abcdA{uniqueId}@123";
         string uniquerole = "admin";
         string requestBody = $"{{\"Username\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\",\"Role\" : \"{uniquerole}\" }}";
-        HttpResponseMessage response = await _httpClient.PostAsync("/api/auth/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/Authentication/registeration", new StringContent(requestBody, Encoding.UTF8, "application/json"));
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
         string requestBody1 = $"{{\"Username\" : \"{uniqueusername}\",\"Password\" : \"{uniquepassword}\"}}";
