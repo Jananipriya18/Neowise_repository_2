@@ -7,7 +7,7 @@ namespace dotnetapp.Controllers
     //[EnableCors("MyPolicy")]
     [Route("api/fruits")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    // [Authorize(Roles = "Admin")]
     public class FruitController : ControllerBase
     {
         [HttpGet]
