@@ -9,22 +9,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace dotnetapp.Tests
 {
     [TestFixture]
-    public class AppointmentTests
+    public class FeedbackControllerTests
     {
-        private Type _appointmentControllerType;
+        private Type _feedbackControllerType;
 
         [SetUp]
         public void Setup()
         {
             Assembly assembly = Assembly.Load("dotnetapp");
-            _appointmentControllerType = assembly.GetType("dotnetapp.Controllers.AppointmentController");
+            _feedbackControllerType = assembly.GetType("dotnetapp.Controllers.FeedbackController");
         }
 
         [Test]
         public void Test_Index_Action()
         {
-            var indexMethod = _appointmentControllerType.GetMethod("Index");
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
+            var indexMethod = _feedbackControllerType.GetMethod("Index");
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
             var result = indexMethod.Invoke(controllerInstance, null) as IActionResult;
 
@@ -35,8 +35,8 @@ namespace dotnetapp.Tests
         [Test]
         public void Test_Create_Get_Action()
         {
-            var createGetMethod = _appointmentControllerType.GetMethod("Create", new Type[] { });
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
+            var createGetMethod = _feedbackControllerType.GetMethod("Create", new Type[] { });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
             var result = createGetMethod.Invoke(controllerInstance, null) as IActionResult;
 
@@ -47,11 +47,11 @@ namespace dotnetapp.Tests
         [Test]
         public void Test_Create_Post_Action()
         {
-            var createPostMethod = _appointmentControllerType.GetMethod("Create", new Type[] { typeof(Appointment) });
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
-            var appointment = new Appointment();
+            var createPostMethod = _feedbackControllerType.GetMethod("Create", new Type[] { typeof(Feedback) });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
+            var feedback = new Feedback();
 
-            var result = createPostMethod.Invoke(controllerInstance, new object[] { appointment }) as IActionResult;
+            var result = createPostMethod.Invoke(controllerInstance, new object[] { feedback }) as IActionResult;
 
             Assert.NotNull(result);
             Assert.IsInstanceOf<RedirectToActionResult>(result);
@@ -60,11 +60,14 @@ namespace dotnetapp.Tests
         [Test]
         public void Test_Edit_Get_Action()
         {
-            var editGetMethod = _appointmentControllerType.GetMethod("Edit", new Type[] { typeof(int) });
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
+            // Arrange
+            var editGetMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(int) });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
+            // Act
             var result = editGetMethod.Invoke(controllerInstance, new object[] { 1 }) as IActionResult;
 
+            // Assert
             Assert.NotNull(result);
             Assert.IsInstanceOf<ViewResult>(result);
         }
@@ -72,12 +75,15 @@ namespace dotnetapp.Tests
         [Test]
         public void Test_Edit_Post_Action()
         {
-            var editPostMethod = _appointmentControllerType.GetMethod("Edit", new Type[] { typeof(Appointment) });
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
-            var appointment = new Appointment { AppointmentID = 1 }; // Assuming an appointment with ID 1 exists
+            // Arrange
+            var editPostMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(Feedback) });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
+            var feedback = new Feedback { Id = 1 }; // Assuming a feedback with ID 1 exists
 
-            var result = editPostMethod.Invoke(controllerInstance, new object[] { appointment }) as IActionResult;
+            // Act
+            var result = editPostMethod.Invoke(controllerInstance, new object[] { feedback }) as IActionResult;
 
+            // Assert
             Assert.NotNull(result);
             Assert.IsInstanceOf<RedirectToActionResult>(result);
             Assert.AreEqual("Index", (result as RedirectToActionResult).ActionName); // Ensure it redirects to Index action
@@ -87,8 +93,8 @@ namespace dotnetapp.Tests
         [Test]
         public void Test_Delete_Get_Action()
         {
-            var deleteGetMethod = _appointmentControllerType.GetMethod("Delete", new Type[] { typeof(int) });
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
+            var deleteGetMethod = _feedbackControllerType.GetMethod("Delete", new Type[] { typeof(int) });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
             var result = deleteGetMethod.Invoke(controllerInstance, new object[] { 1 }) as IActionResult;
 
@@ -97,15 +103,16 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void  ()
+        public void Test_DeleteConfirmed_Post_Action()
         {
-            var deleteConfirmedPostMethod = _appointmentControllerType.GetMethod("DeleteConfirmed", new Type[] { typeof(int) });
-            var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
+            var deleteConfirmedPostMethod = _feedbackControllerType.GetMethod("DeleteConfirmed", new Type[] { typeof(int) });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
             var result = deleteConfirmedPostMethod.Invoke(controllerInstance, new object[] { 1 }) as IActionResult;
 
             Assert.NotNull(result);
             Assert.IsInstanceOf<RedirectToActionResult>(result);
+            Assert.AreEqual("Index", (result as RedirectToActionResult).ActionName); // Ensure it redirects to Index action
         }
     }
 }
