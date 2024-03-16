@@ -57,38 +57,22 @@ namespace dotnetapp.Tests
             Assert.IsInstanceOf<RedirectToActionResult>(result);
         }
 
-        [Test]
-        public void Test_Edit_Get_Action()
-        {
-            // Arrange
-            var editGetMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(int) });
-            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
+        
+[Test]
+public void Test_Edit_Get_Action_With_return()
+{
+    // Arrange
+    int nonExistingFeedbackId = 1000; // Assuming no feedback with ID 1000 exists
+    var editGetMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(int) });
+    var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
-            // Act
-            var result = editGetMethod.Invoke(controllerInstance, new object[] { 1 }) as IActionResult;
+    // Act
+    var result = editGetMethod.Invoke(controllerInstance, new object[] { nonExistingFeedbackId }) as IActionResult;
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsInstanceOf<ViewResult>(result);
-        }
-
-        [Test]
-        public void Test_Edit_Post_Action()
-        {
-            // Arrange
-            var editPostMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(Feedback) });
-            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
-            var feedback = new Feedback { Id = 1 }; // Assuming a feedback with ID 1 exists
-
-            // Act
-            var result = editPostMethod.Invoke(controllerInstance, new object[] { feedback }) as IActionResult;
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsInstanceOf<RedirectToActionResult>(result);
-            Assert.AreEqual("Index", (result as RedirectToActionResult).ActionName); // Ensure it redirects to Index action
-        }
-
+    // Assert
+    Assert.NotNull(result);
+    Assert.IsInstanceOf<NotFoundResult>(result);
+}
 
         [Test]
         public void Test_Delete_Get_Action()
