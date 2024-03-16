@@ -13,8 +13,7 @@ namespace TestProject
     public class Tests 
     { 
         [Test] 
-        public void User_Models_ClassExists() 
-
+        public void Member_Models_ClassExists() 
         { 
             string assemblyName = "dotnetapp"; 
             string typeName = "dotnetapp.Models.Member"; 
@@ -129,7 +128,7 @@ namespace TestProject
 
 
        [Test]
-        public void Member_UserID_PropertyHasKeyAttribute()
+        public void Member_MemberId_PropertyHasKeyAttribute()
         {
             PropertyInfo propertyInfo = typeof(dotnetapp.Models.Member).GetProperty("MemberId");
             Assert.IsNotNull(propertyInfo, "Property MemberId does not exist in Member class");
@@ -201,19 +200,3 @@ namespace TestProject
         }
     }
 }
-
-
- 
-
-       
-
-         
-
-      
-
- 
-
-        
- 
-
-        
