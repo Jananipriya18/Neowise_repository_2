@@ -7,9 +7,7 @@
 
     // Add services to the container.
     builder.Services.AddControllersWithViews();
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
-
+    
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.
@@ -27,19 +25,8 @@
 
     app.UseAuthorization();
 
-    // app.MapControllerRoute(
-    //     name: "default",
-    //     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "deleteConfirmed",
-        pattern: "{controller=Appointment}/{action=DeleteConfirmed}/{id?}");
-
-    endpoints.MapControllerRoute(
+    app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
-
+        pattern: "{controller=Feedback}/{action=Index}/{id?}");
 
     app.Run();
