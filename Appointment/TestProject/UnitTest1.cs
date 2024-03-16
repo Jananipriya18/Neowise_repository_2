@@ -74,13 +74,15 @@ namespace dotnetapp.Tests
         {
             var editPostMethod = _appointmentControllerType.GetMethod("Edit", new Type[] { typeof(Appointment) });
             var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
-            var appointment = new Appointment();
+            var appointment = new Appointment { AppointmentID = 1 }; // Assuming an appointment with ID 1 exists
 
             var result = editPostMethod.Invoke(controllerInstance, new object[] { appointment }) as IActionResult;
 
             Assert.NotNull(result);
             Assert.IsInstanceOf<RedirectToActionResult>(result);
+            Assert.AreEqual("Index", (result as RedirectToActionResult).ActionName); // Ensure it redirects to Index action
         }
+
 
         [Test]
         public void Test_Delete_Get_Action()
@@ -95,7 +97,7 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void Test_DeleteConfirmed_Post_Action()
+        public void  ()
         {
             var deleteConfirmedPostMethod = _appointmentControllerType.GetMethod("DeleteConfirmed", new Type[] { typeof(int) });
             var controllerInstance = Activator.CreateInstance(_appointmentControllerType);
