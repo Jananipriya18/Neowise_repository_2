@@ -1,5 +1,6 @@
 // AppointmentController.cs
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using dotnetapp.Models;
@@ -8,17 +9,42 @@ namespace dotnetapp.Controllers
 {
     public class AppointmentController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private static List<Appointment> _appointments;
 
-        public AppointmentController(ApplicationDbContext context)
+        public AppointmentController()
         {
-            _context = context;
+            _appointments = new List<Appointment>
+            {
+                new Appointment { 
+                    AppointmentID = 1, 
+                    PatientFirstName = "John", 
+                    PatientLastName = "Doe", 
+                    PatientPhoneNumber = "1234567890", 
+                    PatientEmail = "john.doe@example.com", 
+                    DoctorFirstName = "Dr. Jane", 
+                    DoctorLastName = "Smith", 
+                    DoctorSpecialty = "Cardiology", 
+                    AppointmentDate = DateTime.Now.AddDays(1), 
+                    Reason = "Regular checkup" 
+                },
+                new Appointment { 
+                    AppointmentID = 2, 
+                    PatientFirstName = "Alice", 
+                    PatientLastName = "Johnson", 
+                    PatientPhoneNumber = "9876543210", 
+                    PatientEmail = "alice.johnson@example.com", 
+                    DoctorFirstName = "Dr. Michael", 
+                    DoctorLastName = "Brown", 
+                    DoctorSpecialty = "Dermatology", 
+                    AppointmentDate = DateTime.Now.AddDays(2), 
+                    Reason = "Skin condition" 
+                }
+            };
         }
 
-        public IActionResult Index()
+public IActionResult Index()
         {
-            var appointmentList = _context.Appointments.ToList();
-            return View(appointmentList);
+            return View(_appointments);
         }
 
         [HttpGet]
@@ -32,21 +58,16 @@ namespace dotnetapp.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Save the appointment to the database
-                _context.Appointments.Add(appointment);
-                _context.SaveChanges();
-
-                // Redirect to the appointment list or another action
+                appointment.AppointmentID = _appointments.Count + 1; // Assign a simple incremental ID
+                _appointments.Add(appointment);
                 return RedirectToAction("Index");
             }
-
-            // If the model state is not valid, return to the create view with validation errors
             return View(appointment);
         }
 
         public IActionResult Edit(int id)
         {
-            var appointment = _context.Appointments.Find(id);
+            var appointment = _appointments.FirstOrDefault(a => a.AppointmentID == id);
 
             if (appointment == null)
             {
@@ -57,22 +78,27 @@ namespace dotnetapp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Appointment appointment)
+        public IActionResult Edit(Appointment updatedAppointment)
         {
-            if (ModelState.IsValid)
+            var existingAppointment = _appointments.FirstOrDefault(a => a.AppointmentID == updatedAppointment.AppointmentID);
+            if (existingAppointment == null)
             {
-                _context.Appointments.Update(appointment);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index");
+                return NotFound();
             }
 
-            return View(appointment);
+            if (ModelState.IsValid)
+            {
+                existingAppointment.Title = updatedAppointment.Title;
+                existingAppointment.Description = updatedAppointment.Description;
+                existingAppointment.AppointmentDate = updatedAppointment.AppointmentDate;
+                return RedirectToAction("Index");
+            }
+            return View(updatedAppointment);
         }
 
         public IActionResult Delete(int id)
         {
-            var appointment = _context.Appointments.Find(id);
+            var appointment = _appointments.FirstOrDefault(a => a.AppointmentID == id);
 
             if (appointment == null)
             {
@@ -82,85 +108,17 @@ namespace dotnetapp.Controllers
             return View(appointment);
         }
 
-        // [HttpPost, ActionName("DeleteConfirmed")]
-        // public IActionResult DeleteConfirmed(int id)
-        // {
-        //     var appointment = _context.Appointments.Find(id);
-
-        //     if (appointment == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     _context.Appointments.Remove(appointment);
-        //     _context.SaveChanges();
-
-        //     return RedirectToAction("Index");
-        // }
         [HttpPost, ActionName("DeleteConfirmed")]
-public IActionResult DeleteConfirmed(int AppointmentID)
-{
-    // Add a breakpoint here to inspect the value of 'id'
-        Console.WriteLine("the id is" ,AppointmentID);
+        public IActionResult DeleteConfirmed(int appointmentID)
+        {
+            var appointment = _appointments.FirstOrDefault(a => a.AppointmentID == appointmentID);
+            if (appointment == null)
+            {
+                return NotFound();
+            }
 
-    var appointment = _context.Appointments.Find(AppointmentID);
-
-
-    if (appointment == null)
-    {
-        return NotFound();
-    }
-
-    _context.Appointments.Remove(appointment);
-    _context.SaveChanges();
-
-    return RedirectToAction("Index");
-}
-
-
-        // public IActionResult Delete(int id)
-        // {
-        //     Console.WriteLine("id"+id);
-        //     var appointment = _context.Appointments.Find(id);
-            
-
-        //     if (appointment == null)
-        //     {
-        //         return NotFound();
-        //     }
-
-        //     return View(appointment);
-        // }
-
-        // [HttpPost, ActionName("DeleteConfirmed")]
-        // public IActionResult DeleteConfirmed(int id)
-        // {
-        //     var appointment = _context.Appointments.Find(id);
-
-        //     if (appointment != null)
-        //     {
-        //         _context.Appointments.Remove(appointment);
-        //         _context.SaveChanges();
-        //     }
-
-        //     return RedirectToAction("Index");
-        // }
-        // [HttpPost, ActionName("DeleteConfirmed")]
-        // public IActionResult DeleteConfirmed(int id)
-        // {
-        //     var appointment = _context.Appointments.Find(id);
-
-        //     if (appointment != null)
-        //     {
-        //         _context.Appointments.RemoveRange(appointment);
-        //         _context.SaveChanges();
-        //         return RedirectToAction("Index");
-        //     }
-
-        //     return NotFound();
-        // }
-
-
-        
+            _appointments.Remove(appointment);
+            return RedirectToAction("Index");
+        }
     }
 }
