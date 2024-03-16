@@ -42,7 +42,7 @@ namespace dotnetapp.Controllers
             };
         }
 
-public IActionResult Index()
+        public IActionResult Index()
         {
             return View(_appointments);
         }
@@ -88,9 +88,16 @@ public IActionResult Index()
 
             if (ModelState.IsValid)
             {
-                existingAppointment.Title = updatedAppointment.Title;
-                existingAppointment.Description = updatedAppointment.Description;
+                existingAppointment.PatientFirstName = updatedAppointment.PatientFirstName;
+                existingAppointment.PatientLastName = updatedAppointment.PatientLastName;
+                existingAppointment.PatientPhoneNumber = updatedAppointment.PatientPhoneNumber;
+                existingAppointment.PatientEmail = updatedAppointment.PatientEmail;
+                existingAppointment.DoctorFirstName = updatedAppointment.DoctorFirstName;
+                existingAppointment.DoctorLastName = updatedAppointment.DoctorLastName;
+                existingAppointment.DoctorSpecialty = updatedAppointment.DoctorSpecialty;
                 existingAppointment.AppointmentDate = updatedAppointment.AppointmentDate;
+                existingAppointment.Reason = updatedAppointment.Reason;
+                
                 return RedirectToAction("Index");
             }
             return View(updatedAppointment);
@@ -120,5 +127,6 @@ public IActionResult Index()
             _appointments.Remove(appointment);
             return RedirectToAction("Index");
         }
+
     }
 }
