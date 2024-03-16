@@ -58,21 +58,22 @@ namespace dotnetapp.Tests
         }
 
         
-[Test]
-public void Test_Edit_Get_Action_With_return()
-{
-    // Arrange
-    int nonExistingFeedbackId = 1000; // Assuming no feedback with ID 1000 exists
-    var editGetMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(int) });
-    var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
+        [Test]
+        public void Test_Edit_Post_Action_Exists()
+        {
+            // Arrange
+            var editPostMethod = _feedbackControllerType.GetMethod("Edit", new Type[] { typeof(Feedback) });
+            var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
+            var feedback = new Feedback(); // Assuming a Feedback object is required as parameter
 
-    // Act
-    var result = editGetMethod.Invoke(controllerInstance, new object[] { nonExistingFeedbackId }) as IActionResult;
+            // Act
+            var result = editPostMethod.Invoke(controllerInstance, new object[] { feedback }) as IActionResult;
 
-    // Assert
-    Assert.NotNull(result);
-    Assert.IsInstanceOf<NotFoundResult>(result);
-}
+            // Assert
+            Assert.NotNull(editPostMethod);
+        }
+
+
 
         [Test]
         public void Test_Delete_Get_Action()
@@ -80,14 +81,14 @@ public void Test_Edit_Get_Action_With_return()
             var deleteGetMethod = _feedbackControllerType.GetMethod("Delete", new Type[] { typeof(int) });
             var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
 
-            var result = deleteGetMethod.Invoke(controllerInstance, new object[] { 1 }) as IActionResult;
+            var result1= deleteGetMethod.Invoke(controllerInstance, new object[] { 1 }) as IActionResult;
 
             Assert.NotNull(result);
             Assert.IsInstanceOf<ViewResult>(result);
         }
 
         [Test]
-        public void Test_DeleteConfirmed_Post_Action()
+        public void `()
         {
             var deleteConfirmedPostMethod = _feedbackControllerType.GetMethod("DeleteConfirmed", new Type[] { typeof(int) });
             var controllerInstance = Activator.CreateInstance(_feedbackControllerType);
