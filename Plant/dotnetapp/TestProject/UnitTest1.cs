@@ -32,31 +32,46 @@ public class SpringappApplicationTests
             Assert.IsNotNull(AuthenticationControllerType, "AuthenticationController does not exist in the assembly.");
         }
 
-    [Test, Order(1)]
-    public async Task Backend_TestRegisterUser()
-    {
-        string uniqueId = Guid.NewGuid().ToString();
+        [Test, Order(1)]
+        public async Task Backend_TestRegisterAdmin()
+        {
+            string uniqueId = Guid.NewGuid().ToString();
 
-        // Generate a unique userName based on a timestamp
-        string uniqueUsername = $"abcd_{uniqueId}";
-        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+            // Generate a unique userName based on a timestamp
+            string uniqueUsername = $"abcd_{uniqueId}";
+            string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+
+            // Check if the user already exists with the generated username
+            HttpResponseMessage checkResponse = await _httpClient.GetAsync($"/api/authentication/user/{uniqueUsername}");
+
+            int counter = 1;
+
+            while (!checkResponse.IsSuccessStatusCode && checkResponse.StatusCode != HttpStatusCode.NotFound)
+            {
+                // If the user check failed, generate a new unique username
+                uniqueUsername = $"abcd_{uniqueId}_{counter}";
+                counter++;
+
+                // Check if the newly generated username exists
+                checkResponse = await _httpClient.GetAsync($"/api/authentication/user/{uniqueUsername}");
+            }
+
+            // Adjust the request body to include required fields for registration
+            string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+
+            // Adjust the endpoint to target the registration route
+            HttpResponseMessage response = await _httpClient.PostAsync("/api/authentication/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+
+            Console.WriteLine(response.StatusCode);
+            string responseString = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine(responseString);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
 
 
-        string requestBody = $"{{\"password\": \"abc@123A\",\"email\": \"{uniqueEmail}\"}}";
-        HttpResponseMessage response = await _httpClient.PostAsync("/user/login", new StringContent(requestBody, Encoding.UTF8, "application/json"));
-        Console.WriteLine(response.Content);
-        string responseString = await response.Content.ReadAsStringAsync();
-        if (response.StatusCode != HttpStatusCode.OK)
-    {
-        // Log response content for debugging
-        Console.WriteLine(await response.Content.ReadAsStringAsync());
-    }
 
-    Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        Console.WriteLine(response.StatusCode);
-        Console.WriteLine(responseString);
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-    }
+
 
     // [Test, Order(2)]
     // public async Task Backend_TestLoginAdmin()
