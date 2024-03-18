@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dotnetapp.Controllers
 {
-    //[EnableCors("MyPolicy")]
     [Route("api/plants")]
     [ApiController]
     // [Authorize(Roles = "Admin")]
