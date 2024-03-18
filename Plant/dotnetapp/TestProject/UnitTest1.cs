@@ -33,27 +33,30 @@ public class SpringappApplicationTests
         }
 
     [Test, Order(1)]
-public async Task Backend_TestRegisterUser()
-{
-    string uniqueId = Guid.NewGuid().ToString();
-    string uniqueEmail = $"abcd{uniqueId}@gmail.com";
+    public async Task Backend_TestRegisterUser()
+    {
+        string uniqueId = Guid.NewGuid().ToString();
 
-    // Adjust the request body to include required fields for registration
-    string requestBody = $"{{\"Email\": \"{uniqueEmail}\", \"Password\": \"abc@123A\", \"Username\": \"uniqueUsernameyyu\", \"Role\": \"User\", \"Name\": \"John Doe\"}}";
+        // Generate a unique userName based on a timestamp
+        string uniqueUsername = $"abcd_{uniqueId}";
+        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-    // Adjust the endpoint to target the registration route
-    HttpResponseMessage response = await _httpClient.PostAsync("/api/authentication/registeration", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
-    // Check if the response status code is OK (200)
-    if (response.StatusCode != HttpStatusCode.OK)
+        string requestBody = $"{{\"password\": \"abc@123A\",\"email\": \"{uniqueEmail}\"}}";
+        HttpResponseMessage response = await _httpClient.PostAsync("/user/login", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        Console.WriteLine(response.Content);
+        string responseString = await response.Content.ReadAsStringAsync();
+        if (response.StatusCode != HttpStatusCode.OK)
     {
         // Log response content for debugging
         Console.WriteLine(await response.Content.ReadAsStringAsync());
     }
 
     Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-}
-
+        Console.WriteLine(response.StatusCode);
+        Console.WriteLine(responseString);
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
 
     // [Test, Order(2)]
     // public async Task Backend_TestLoginAdmin()
