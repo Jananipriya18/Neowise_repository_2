@@ -1,9 +1,13 @@
-﻿namespace dotnetapp.Models
-{
-    public static class UserRoles
-    {
-        public const string Admin = "Admin";
+﻿using System.ComponentModel.DataAnnotations;
 
-        public const string User = "User";
+namespace dotnetapp.Models
+{
+    public class LoginModel
+    {
+        [Required(ErrorMessage = "Email is required")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required")]
+        public string Password { get; set; }
     }
 }

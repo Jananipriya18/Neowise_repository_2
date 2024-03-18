@@ -1,10 +1,11 @@
-﻿using dotnetapp.Models;
+﻿using dotnetapp.Data;
+using dotnetapp.Models;
 using dotnetapp.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetapp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
@@ -27,11 +28,11 @@ namespace dotnetapp.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest("Invalid payload");
+                    return BadRequest(new { Status = "Error", Message = "Invalid Payload" });
                 var (status, message) = await _authService.Login(model);
                 if (status == 0)
-                    return BadRequest(message);
-                return Ok(message);
+                    return BadRequest(new { Status = "Error", Message = message });
+                return Ok(new { Status = "Success", token = message });
             }
             catch (Exception ex)
             {
@@ -41,36 +42,37 @@ namespace dotnetapp.Controllers
         }
 
         [HttpPost]
-        [Route("registeration")]
-        public async Task<IActionResult> Register(RegistrationModel model)
+        [Route("register")]
+        public async Task<IActionResult> Register(User model)
         {
             try
             {
 
                 if (!ModelState.IsValid)
-                    return BadRequest("Invalid payload");
-                if (model.Role == "Admin" || model.Role == "User")
+                    return BadRequest(new { Status = "Error", Message = "Invalid Payload" });
+                if (model.UserRole == "Admin" || model.UserRole == "InventoryManager")
                 {
-                    var (status, message) = await _authService.Registeration(model, model.Role);
+                    var (status, message) = await _authService.Registeration(model, model.UserRole);
                     if (status == 0)
                     {
-                        return BadRequest(message);
+                        return BadRequest(new { Status = "Error", Message = message });
                     }
                     var user = new User
                     {
-                        UserName = model.Username,
+                        Username = model.Username,
                         Password = model.Password,
                         Email = model.Email,
-                        Role = model.Role,
+                        MobileNumber = model.MobileNumber,
+                        UserRole = model.UserRole,
                     };
                     _context.Users.Add(user);
                     await _context.SaveChangesAsync();
                     //return CreatedAtAction(nameof(Register), model);
-                    return Ok(message);
+                    return Ok(new { Status = "Success", Message = message });
                 }
                 else
                 {
-                    return BadRequest("Invalid Role");
+                    return BadRequest(new { Status = "Error", Message = "Invalid user role" });
                 }
 
             }
