@@ -112,7 +112,7 @@ public class ApplicationTests
     }
 
     [Test, Order(5)]
-    public async Task Backend_Test_Post_ProductByAdmin()
+    public async Task Backend_Test_Post_PlantsByAdmin()
     {
         string uniqueId = Guid.NewGuid().ToString();
 
