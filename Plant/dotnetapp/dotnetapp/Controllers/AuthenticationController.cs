@@ -1,5 +1,4 @@
-﻿using dotnetapp.Data;
-using dotnetapp.Models;
+﻿using dotnetapp.Models;
 using dotnetapp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,7 +49,7 @@ namespace dotnetapp.Controllers
 
                 if (!ModelState.IsValid)
                     return BadRequest(new { Status = "Error", Message = "Invalid Payload" });
-                if (model.UserRole == "Admin" || model.UserRole == "InventoryManager")
+                if (model.UserRole == "Admin" || model.UserRole == "FruitsManager")
                 {
                     var (status, message) = await _authService.Registeration(model, model.UserRole);
                     if (status == 0)

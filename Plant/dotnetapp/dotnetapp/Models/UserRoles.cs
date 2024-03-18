@@ -1,13 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace dotnetapp.Models
+﻿namespace dotnetapp.Models
 {
-    public class LoginModel
+    public static class UserRoles
     {
-        [Required(ErrorMessage = "Email is required")]
-        public string Email { get; set; }
+        public const string Admin = "Admin";
 
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; }
+        public const string User = "FruitsManager";
     }
 }
