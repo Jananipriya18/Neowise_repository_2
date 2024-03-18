@@ -11,7 +11,7 @@ namespace dotnetapp.Controllers
 {
     [Route("api/plants")]
     [ApiController]
-    // [Authorize(Roles = "Admin")]
+    [Authorize] 
     public class PlantController : ControllerBase
     {
         private readonly ApplicationDbContext _context; 
@@ -29,6 +29,7 @@ namespace dotnetapp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")] 
         public async Task<IActionResult> Post([FromBody] Plant plant)
         {
             if (plant == null)

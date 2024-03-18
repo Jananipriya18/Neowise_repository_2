@@ -112,33 +112,51 @@ public class ApplicationTests
     }
 
     [Test, Order(5)]
-public async Task Backend_Test_Post_ProductByAdmin()
-{
-    string uniqueId = Guid.NewGuid().ToString();
+    public async Task Backend_Test_Post_ProductByAdmin()
+    {
+        string uniqueId = Guid.NewGuid().ToString();
 
-    // Generate a unique plant name based on a timestamp
-    string uniquePlantName = $"Plant_{uniqueId}";
+        // Generate a unique userName based on a timestamp
+        string uniqueUsername = $"abcd_{uniqueId}";
+        string uniqueEmail = $"abcd{uniqueId}@gmail.com";
 
-    // Create a Plant object with required properties
-    Plant plant = new Plant();
-    plant.Name = uniquePlantName;
-    plant.Description = "Test";
-    plant.Price = 250;
+        string requestBody = $"{{\"Username\": \"{uniqueUsername}\", \"Password\": \"abc@123A\", \"Email\": \"{uniqueEmail}\", \"MobileNumber\": \"1234567890\", \"UserRole\": \"Admin\"}}";
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/register", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
-    // Serialize Plant object to JSON
-    string requestBody = JsonConvert.SerializeObject(plant);
+        // Print registration response
+        string registerResponseBody = await response.Content.ReadAsStringAsync();
+        Console.WriteLine("Registration Response: " + registerResponseBody);
 
-    // Send a POST request to create the plant
-    HttpResponseMessage response = await _httpClient.PostAsync("/api/plants", 
-        new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        // Login with the registered user
+        string loginRequestBody = $"{{\"Email\" : \"{uniqueEmail}\",\"Password\" : \"abc@123A\"}}"; // Updated variable names
+        HttpResponseMessage loginResponse = await _httpClient.PostAsync("/api/login", new StringContent(loginRequestBody, Encoding.UTF8, "application/json"));
 
-    // Check if the request was successful
-    Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+        // Print login response
+        string loginResponseBody = await loginResponse.Content.ReadAsStringAsync();
+        Console.WriteLine("Login Response: " + loginResponseBody);
 
-    // Print response body
-    string responseBody = await response.Content.ReadAsStringAsync();
-    Console.WriteLine("Response Body: " + responseBody);
-}
+        Assert.AreEqual(HttpStatusCode.OK, loginResponse.StatusCode);
+        string responseBody = await loginResponse.Content.ReadAsStringAsync();
 
+        dynamic responseMap = JsonConvert.DeserializeObject(responseBody);
+
+        string token = responseMap.token;
+
+        Assert.IsNotNull(token);
+
+        string uniquetitle = Guid.NewGuid().ToString();
+
+        // Use a dynamic and unique plant name for admin (appending timestamp)
+        string uniquePlantName = $"Plant_{uniquetitle}";
+        string uniqueScientificName = $"ScientificName_{uniquetitle}";
+        
+        string plantJson = $"{{\"Name\":\"{uniquePlantName}\",\"ScientificName\":\"{uniqueScientificName}\",\"Description\":\"test\",\"Price\":250}}";
+
+        _httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+        HttpResponseMessage plantresponse = await _httpClient.PostAsync("/api/plants",
+            new StringContent(plantJson, Encoding.UTF8, "application/json"));
+
+        Assert.AreEqual(HttpStatusCode.Created, plantresponse.StatusCode);
+    }
 
 }
