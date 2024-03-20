@@ -9,38 +9,42 @@ namespace dotnetapp.Controllers
 {
     public class AppointmentController : Controller
     {
-        private List<Appointment> _appointments;
+        // private List<Appointment> _appointments;
+        private static List<Appointment> _appointments = new List<Appointment>
+    {
+        // Static values
+    };
 
-        public AppointmentController()
-        {
-            _appointments = new List<Appointment>
-            {
-                new Appointment { 
-                    AppointmentID = 1, 
-                    PatientFirstName = "John", 
-                    PatientLastName = "Doe", 
-                    PatientPhoneNumber = "1234567890", 
-                    PatientEmail = "john.doe@example.com", 
-                    DoctorFirstName = "Dr. Jane", 
-                    DoctorLastName = "Smith", 
-                    DoctorSpecialty = "Cardiology", 
-                    AppointmentDate = DateTime.Now.AddDays(1), 
-                    Reason = "Regular checkup" 
-                },
-                new Appointment { 
-                    AppointmentID = 2, 
-                    PatientFirstName = "Alice", 
-                    PatientLastName = "Johnson", 
-                    PatientPhoneNumber = "9876543210", 
-                    PatientEmail = "alice.johnson@example.com", 
-                    DoctorFirstName = "Dr. Michael", 
-                    DoctorLastName = "Brown", 
-                    DoctorSpecialty = "Dermatology", 
-                    AppointmentDate = DateTime.Now.AddDays(2), 
-                    Reason = "Skin condition" 
-                }
-            };
-        }
+        // public AppointmentController()
+        // {
+        //     _appointments = new List<Appointment>
+        //     {
+        //         new Appointment { 
+        //             AppointmentID = 1, 
+        //             PatientFirstName = "John", 
+        //             PatientLastName = "Doe", 
+        //             PatientPhoneNumber = "1234567890", 
+        //             PatientEmail = "john.doe@example.com", 
+        //             DoctorFirstName = "Dr. Jane", 
+        //             DoctorLastName = "Smith", 
+        //             DoctorSpecialty = "Cardiology", 
+        //             AppointmentDate = DateTime.Now.AddDays(1), 
+        //             Reason = "Regular checkup" 
+        //         },
+        //         new Appointment { 
+        //             AppointmentID = 2, 
+        //             PatientFirstName = "Alice", 
+        //             PatientLastName = "Johnson", 
+        //             PatientPhoneNumber = "9876543210", 
+        //             PatientEmail = "alice.johnson@example.com", 
+        //             DoctorFirstName = "Dr. Michael", 
+        //             DoctorLastName = "Brown", 
+        //             DoctorSpecialty = "Dermatology", 
+        //             AppointmentDate = DateTime.Now.AddDays(2), 
+        //             Reason = "Skin condition" 
+        //         }
+        //     };
+        // }
 
         public IActionResult Index()
         {
