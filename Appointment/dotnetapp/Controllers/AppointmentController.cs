@@ -9,7 +9,7 @@ namespace dotnetapp.Controllers
 {
     public class AppointmentController : Controller
     {
-        private static List<Appointment> _appointments;
+        private List<Appointment> _appointments;
 
         public AppointmentController()
         {
@@ -39,9 +39,7 @@ namespace dotnetapp.Controllers
                     AppointmentDate = DateTime.Now.AddDays(2), 
                     Reason = "Skin condition" 
                 }
-                
             };
-            Console.WriteLine("jan");
         }
 
         public IActionResult Index()
@@ -53,21 +51,14 @@ namespace dotnetapp.Controllers
         public IActionResult Create()
         {
             return View();
-            // Console.WriteLine("sree");
         }
 
         [HttpPost]
         public IActionResult Create(Appointment appointment)
         {
-            Console.WriteLine(appointment);
-            if (ModelState.IsValid)
-            {
-                appointment.AppointmentID = _appointments.Count + 1; // Assign a simple incremental ID
-                _appointments.Add(appointment);
-                return RedirectToAction("Index");
-            }
-            Console.WriteLine("sree");
-            return View(appointment);
+            appointment.AppointmentID = _appointments.Count + 1; // Assign a simple incremental ID
+            _appointments.Add(appointment);
+            return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
