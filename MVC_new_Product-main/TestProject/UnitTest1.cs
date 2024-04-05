@@ -54,92 +54,79 @@ public class Tests
             Type expectedType = propertyInfo.PropertyType;
             Assert.AreEqual(typeof(string), expectedType, "Property Name in BeautySpa class is not of type string");
         }
-        
-//         [Test]
-//         public void BeautySpa_Description_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.BeautySpa";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = BeautySpaType.GetProperty("Description");
-//             Assert.IsNotNull(propertyInfo, "Property Name does not exist in BeautySpa class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property Description in BeautySpa class is not of type string");
-//         }
 
-//         [Test]
-//         public void BeautySpa_Category_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.BeautySpa";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = BeautySpaType.GetProperty("Category");
-//             Assert.IsNotNull(propertyInfo, "Property Name does not exist in BeautySpa class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property Category in BeautySpa class is not of type string");
-//         }
+        [Test]
+        public void BeautySpa_Description_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.BeautySpa";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = BeautySpaType.GetProperty("Description");
+            Assert.IsNotNull(propertyInfo, "Property Name does not exist in BeautySpa class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property Description in BeautySpa class is not of type string");
+        }
 
-//         [Test]
-//         public void BeautySpa_Price_PropertyExists_ReturnExpectedDataTypes_decimal()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.BeautySpa";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = BeautySpaType.GetProperty("Price");
-//             Assert.IsNotNull(propertyInfo, "Property Name does not exist in BeautySpa class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(decimal), expectedType, "Property Price in BeautySpa class is not of type decimal");
-//         }
+        [Test]
+        public void BeautySpa_Price_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.BeautySpa";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = BeautySpaType.GetProperty("Price");
+            Assert.IsNotNull(propertyInfo, "Property Name does not exist in BeautySpa class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(decimal), expectedType, "Property Price in BeautySpa class is not of type string");
+        }
 
-//         [Test]
-//         public void BeautySpa_StockQuantity_PropertyExists_ReturnExpectedDataTypes_int()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.BeautySpa";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = BeautySpaType.GetProperty("StockQuantity");
-//             Assert.IsNotNull(propertyInfo, "Property StockQuantity does not exist in BeautySpa class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(int), expectedType, "Property StockQuantity in BeautySpa class is not of type int");
-//         }
+        [Test]
+        public void BeautySpa_Price_PropertyExists_ReturnExpectedDataTypes_decimal()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.BeautySpa";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = BeautySpaType.GetProperty("DurationInMinutes");
+            Assert.IsNotNull(propertyInfo, "Property Name does not exist in BeautySpa class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(int), expectedType, "Property Price in BeautySpa class is not of type decimal");
+        }
 
-//         [Test]
-//         public void BeautySpa_ExpiryDate_PropertyExists_ReturnExpectedDataTypes_DateTime()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.BeautySpa";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = BeautySpaType.GetProperty("ExpiryDate");
-//             Assert.IsNotNull(propertyInfo, "Property ExpiryDate does not exist in BeautySpa class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(DateTime), expectedType, "Property ExpiryDate in BeautySpa class is not of type DateTime");
-//         }
+        [Test]
+        public void BeautySpa_Category_PropertyExists_ReturnExpectedDataTypes_int()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.BeautySpa";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = BeautySpaType.GetProperty("Category");
+            Assert.IsNotNull(propertyInfo, "Property Category does not exist in BeautySpa class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property Category in BeautySpa class is not of type int");
+        }
 
-//         [Test]
-//         public void BeautySpaController_Controllers_ClassExists()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.BeautySpaController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaControllerType = assembly.GetType(typeName);
-//             Assert.IsNotNull(BeautySpaControllerType);
-//         }
+        [Test]
+        public void BeautySpaController_Controllers_ClassExists()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.BeautySpaController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaControllerType = assembly.GetType(typeName);
+            Assert.IsNotNull(BeautySpaControllerType);
+         }
 
-//         [Test]
-//         public void BeautySpaController_View_MethodExists()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.BeautySpaController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaControllerType = assembly.GetType(typeName);
-//             MethodInfo methodInfo = BeautySpaControllerType.GetMethod("View");
-//             Assert.IsNotNull(methodInfo, "Method View does not exist in BeautySpaController class");
-//         }
+        [Test]
+        public void BeautySpaController_View_MethodExists()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.BeautySpaController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaControllerType = assembly.GetType(typeName);
+            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("View");
+            Assert.IsNotNull(methodInfo, "Method View does not exist in BeautySpaController class");
+        }
 
 //         [Test]
 //         public void BeautySpaController_ViewBeautySpas_MethodReturns_IActionResult()
