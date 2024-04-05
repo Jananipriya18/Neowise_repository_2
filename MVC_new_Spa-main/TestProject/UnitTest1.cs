@@ -138,12 +138,12 @@ public class Tests
             Type beautySpaControllerType = assembly.GetType(typeName);
 
             // Act
-            MethodInfo methodInfo = beautySpaControllerType.GetMethod("View");
+            MethodInfo methodInfo = beautySpaControllerType.GetMethod("View", Type.EmptyTypes);
 
             // Assert
+            Assert.IsNotNull(methodInfo, "Method View does not exist in BeautySpaController class");
             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method View in BeautySpaController class is not of type IActionResult");
         }
-
 
         [Test]
         public void BeautySpaController_Create_MethodExists()
