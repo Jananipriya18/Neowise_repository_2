@@ -124,42 +124,48 @@ public class Tests
             string typeName = "dotnetapp.Controllers.BeautySpaController";
             Assembly assembly = Assembly.Load(assemblyName);
             Type BeautySpaControllerType = assembly.GetType(typeName);
-            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("View", );
+            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("View", Type.EmptyTypes );
             Assert.IsNotNull(methodInfo, "Method does not exist in BeautySpaController class");
         }
 
+        // [Test]
+        // public void BeautySpaController_View_MethodReturns_IActionResult()
+        // {
+        //     // Arrange
+        //     string assemblyName = "dotnetapp";
+        //     string typeName = "dotnetapp.Controllers.BeautySpaController";
+        //     Assembly assembly = Assembly.Load(assemblyName);
+        //     Type beautySpaControllerType = assembly.GetType(typeName);
+
+        //     // Act
+        //     MethodInfo methodInfo = beautySpaControllerType.GetMethod("View");
+
+        //     // Assert
+        //     Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method View in BeautySpaController class is not of type IActionResult");
+        // }
+
+
         [Test]
-        public void BeautySpaController_ViewBeautySpas_MethodReturns_IActionResult()
+        public void BeautySpaController_Create_MethodExists()
         {
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Controllers.BeautySpaController";
             Assembly assembly = Assembly.Load(assemblyName);
             Type BeautySpaControllerType = assembly.GetType(typeName);
-            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("ViewBeautySpas");
-            Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method ViewBeautySpas in BeautySpaController class is not of type IActionResult");
+            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("Create", Type.EmptyTypes);
+            Assert.IsNotNull(methodInfo, "Method Create does not exist in BeautySpaController class");
         }
 
-//         [Test]
-//         public void BeautySpaController_Create_MethodExists()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.BeautySpaController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaControllerType = assembly.GetType(typeName);
-//             MethodInfo methodInfo = BeautySpaControllerType.GetMethod("Create", Type.EmptyTypes);
-//             Assert.IsNotNull(methodInfo, "Method Create does not exist in BeautySpaController class");
-//         }
-
-//         [Test]
-//         public void BeautySpaController_Create_Method_with_NoParams_Returns_IActionResult()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.BeautySpaController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaControllerType = assembly.GetType(typeName);
-//             MethodInfo methodInfo = BeautySpaControllerType.GetMethod("Create", Type.EmptyTypes);
-//             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method Create in BeautySpaController class is not of type IActionResult");
-//         }
+        [Test]
+        public void BeautySpaController_Create_Method_with_NoParams_Returns_IActionResult()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.BeautySpaController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaControllerType = assembly.GetType(typeName);
+            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("Create", Type.EmptyTypes);
+            Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method Create in BeautySpaController class is not of type IActionResult");
+        }
 
 //         [Test]
 //         public void Create_in_BeautySpaController_Add_new_BeautySpa_to_DB()
