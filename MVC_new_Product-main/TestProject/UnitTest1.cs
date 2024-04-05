@@ -167,66 +167,64 @@ public class Tests
             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method Create in BeautySpaController class is not of type IActionResult");
         }
 
-//         [Test]
-//         public void Create_in_BeautySpaController_Add_new_BeautySpa_to_DB()
-//         {
-//             string assemblyName = "dotnetapp";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelTypeName = "dotnetapp.Models.BeautySpa";
-//             string controllerTypeName = "dotnetapp.Controllers.BeautySpaController";
-//             Type controllerType = assembly.GetType(controllerTypeName);
-//             Type modelType = assembly.GetType(modelTypeName);
+        [Test]
+public void Create_in_BeautySpaController_Add_new_BeautySpa_to_DB()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string modelTypeName = "dotnetapp.Models.BeautySpa";
+    string controllerTypeName = "dotnetapp.Controllers.BeautySpaController";
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type modelType = assembly.GetType(modelTypeName);
 
-//             // Prepare data for creating a new BeautySpa
-//             var BeautySpaData = new Dictionary<string, object>
-//             {
-//                 { "Name", "Sample BeautySpa" },
-//                 { "Description", "Sample Description" },
-//                 { "Category", "Sample Category" },
-//                 { "Price", 10.99m },
-//                 { "StockQuantity", 100 },
-//                 { "ExpiryDate", DateTime.Now.AddDays(30) }
-//             };
+    // Prepare data for creating a new BeautySpa
+    var BeautySpaData = new Dictionary<string, object>
+    {
+        { "Name", "Sample BeautySpa" },
+        { "Description", "Sample Description" },
+        { "Category", "Sample Category" },
+        { "Price", 10.99m },
+        { "DurationInMinutes", 60 }
+    };
 
-//             var BeautySpa = new BeautySpa();
-//             foreach (var kvp in BeautySpaData)
-//             {
-//                 var propertyInfo = modelType.GetProperty(kvp.Key);
-//                 if (propertyInfo != null)
-//                 {
-//                     propertyInfo.SetValue(BeautySpa, kvp.Value);
-//                 }
-//             }
+    var BeautySpa = new dotnetapp.Models.BeautySpa(); // Adjust namespace as per your actual namespace
+    foreach (var kvp in BeautySpaData)
+    {
+        var propertyInfo = modelType.GetProperty(kvp.Key);
+        if (propertyInfo != null)
+        {
+            propertyInfo.SetValue(BeautySpa, kvp.Value);
+        }
+    }
 
-//             // Invoke the Create method in the BeautySpaController
-//             MethodInfo method = controllerType.GetMethod("Create", new[] { modelType });
-//             if (method != null)
-//             {
-//                 // Create DbContextOptions using DbContextOptionsBuilder
-//                 var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
-//                     .UseInMemoryDatabase(databaseName: "TestDatabase");
-//                 var options = optionsBuilder.Options;
+    // Invoke the Create method in the BeautySpaController
+    MethodInfo method = controllerType.GetMethod("Create", new[] { modelType });
+    if (method != null)
+    {
+        // Create DbContextOptions using DbContextOptionsBuilder
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase(databaseName: "TestDatabase");
+        var options = optionsBuilder.Options;
 
-//                 var dbContextInstance = new ApplicationDbContext(options);
-//                 var controller = Activator.CreateInstance(controllerType, dbContextInstance);
-//                 var result = method.Invoke(controller, new object[] { BeautySpa });
+        var dbContextInstance = new ApplicationDbContext(options);
+        var controller = Activator.CreateInstance(controllerType, dbContextInstance);
+        var result = method.Invoke(controller, new object[] { BeautySpa });
 
-//                 // Validate the result
-//                 var savedBeautySpa = dbContextInstance.BeautySpas.FirstOrDefault(p => p.Name == "Sample BeautySpa");
-//                 Assert.IsNotNull(savedBeautySpa);
-//                 Assert.AreEqual("Sample Description", savedBeautySpa.Description);
-//                 // Add more assertions as needed
+        // Validate the result
+        var savedBeautySpa = dbContextInstance.BeautySpas.FirstOrDefault(p => p.Name == "Sample BeautySpa");
+        Assert.IsNotNull(savedBeautySpa);
+        Assert.AreEqual("Sample Description", savedBeautySpa.Description);
+        // Add more assertions as needed
 
-//                 // Optionally, clean up by deleting the added BeautySpa from the database
-//                 dbContextInstance.BeautySpas.Remove(savedBeautySpa);
-//                 dbContextInstance.SaveChanges();
-//             }
-//             else
-//             {
-//                 Assert.Fail("Create method not found in BeautySpaController");
-//             }
-//         }
-
+        // Optionally, clean up by deleting the added BeautySpa from the database
+        dbContextInstance.BeautySpas.Remove(savedBeautySpa);
+        dbContextInstance.SaveChanges();
+    }
+    else
+    {
+        Assert.Fail("Create method not found in BeautySpaController");
+    }
+}
 
  }
 }
