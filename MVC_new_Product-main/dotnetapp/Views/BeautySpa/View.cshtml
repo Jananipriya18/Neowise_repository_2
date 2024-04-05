@@ -1,0 +1,36 @@
+@model List<dotnetapp.Models.Product>
+
+@{
+    ViewBag.Title = "Product Dashboard";
+}
+
+<h2>Product Dashboard</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>StockQuantity</th>
+            <th>ExpiryDate</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Category</td>
+                <td>@product.Price</td>
+                <td>@product.StockQuantity</td>
+                @* <td>@product.ExpiryDate</td>*@
+                 <td>@product.ExpiryDate.ToString("yyyy-MM-dd")</td>
+
+            </tr>
+        }
+    </tbody>
+</table>

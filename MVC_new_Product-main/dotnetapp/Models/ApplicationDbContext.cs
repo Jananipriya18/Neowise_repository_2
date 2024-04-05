@@ -8,7 +8,7 @@ namespace dotnetapp.Models
         {
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<BeautySpas> BeautySpa { get; set; }
 
     }
 }
