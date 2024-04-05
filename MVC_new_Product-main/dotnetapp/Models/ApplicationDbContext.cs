@@ -8,7 +8,6 @@ namespace dotnetapp.Models
         {
         }
 
-        public DbSet<BeautySpas> BeautySpa { get; set; }
-
+        public DbSet<BeautySpa> BeautySpas { get; set; } // Corrected the DbSet property name to match the model name
     }
 }

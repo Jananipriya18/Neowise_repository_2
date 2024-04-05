@@ -16,7 +16,7 @@ namespace dotnetapp.Controllers
 
         public IActionResult View()
         {
-            var beautySpas = _context.BeautySpa.ToList();
+            var beautySpas = _context.BeautySpas.ToList(); // Corrected the property name to match the DbSet property in ApplicationDbContext
             return View(beautySpas);
         }
 
