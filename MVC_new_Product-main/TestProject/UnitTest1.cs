@@ -124,20 +124,20 @@ public class Tests
             string typeName = "dotnetapp.Controllers.BeautySpaController";
             Assembly assembly = Assembly.Load(assemblyName);
             Type BeautySpaControllerType = assembly.GetType(typeName);
-            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("View");
-            Assert.IsNotNull(methodInfo, "Method View does not exist in BeautySpaController class");
+            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("View", );
+            Assert.IsNotNull(methodInfo, "Method does not exist in BeautySpaController class");
         }
 
-//         [Test]
-//         public void BeautySpaController_ViewBeautySpas_MethodReturns_IActionResult()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.BeautySpaController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type BeautySpaControllerType = assembly.GetType(typeName);
-//             MethodInfo methodInfo = BeautySpaControllerType.GetMethod("ViewBeautySpas");
-//             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method ViewBeautySpas in BeautySpaController class is not of type IActionResult");
-//         }
+        [Test]
+        public void BeautySpaController_ViewBeautySpas_MethodReturns_IActionResult()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.BeautySpaController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type BeautySpaControllerType = assembly.GetType(typeName);
+            MethodInfo methodInfo = BeautySpaControllerType.GetMethod("ViewBeautySpas");
+            Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method ViewBeautySpas in BeautySpaController class is not of type IActionResult");
+        }
 
 //         [Test]
 //         public void BeautySpaController_Create_MethodExists()
