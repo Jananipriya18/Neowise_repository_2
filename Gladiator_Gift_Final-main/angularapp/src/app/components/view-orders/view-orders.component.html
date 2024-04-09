@@ -1,0 +1,27 @@
+<app-dashboard></app-dashboard>
+<h2>Orders</h2>
+<table>
+    <thead>
+        <tr class="styled-table">
+            <!-- <th>Order ID</th> -->
+            <th>S.No</th>
+            <th>Customer Name</th>
+            <th>Gift Type</th>
+            <th>Address</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders;let i=index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ order.customer.customerName }}</td>
+            <td><div *ngFor="let gift of order.gifts[1]">
+                {{ gift.giftType }}
+            </div></td>
+            <td>{{ order.customer.address }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.orderPrice }}</td>
+        </tr>
+    </tbody>
+</table>
