@@ -1,71 +1,115 @@
-import { Recipe } from './property.model';
+import { Property } from './property.model'; // Import the Property model
 
-describe('Recipe', () => {
-  fit('RecipeModel_should_create_an_instance', () => {
-    // Create a factory function to create instances of Recipe
-    function createRecipe(recipeId: number, name: string, description: string, ingredients: string, instructions: string, author: string): Recipe {
+describe('Property', () => {
+  fit('PropertyModel_should_create_an_instance', () => {
+    // Create a factory function to create instances of Property
+    function createProperty(
+      propertyId: number,
+      name: string,
+      description: string,
+      address: string,
+      propertyType: string,
+      bedrooms: number,
+      bathrooms: number,
+      monthlyRent: number,
+      available: boolean,
+      createdAt: Date
+    ): Property {
       return {
-        recipeId,
+        propertyId,
         name,
         description,
-        ingredients,
-        instructions,
-        author
+        address,
+        propertyType,
+        bedrooms,
+        bathrooms,
+        monthlyRent,
+        available,
+        createdAt
       };
     }
 
-    // Use the factory function to create an instance of Recipe
-    const recipe: Recipe = createRecipe(
+    // Use the factory function to create an instance of Property
+    const property: Property = createProperty(
       1,
-      'Test Recipe',
+      'Test Property',
       'Test Description',
-      'Test Ingredients',
-      'Test Instructions',
-      'Test Author'
+      'Test Address',
+      'Test Type',
+      3,
+      2,
+      1500,
+      true,
+      new Date()
     );
 
     // Assert that the instance is created successfully
-    expect(recipe).toBeDefined();
-    // This line will cause a compilation error and should be removed
-    // expect(recipe instanceof Recipe).toBeTruthy();
+    expect(property).toBeDefined();
   });
 
-  fit('RecipeModel_should_update_property_values_using_setters', () => {
+  fit('PropertyModel_should_update_property_values_using_setters', () => {
     // Similar setup as above
-    function createRecipe(recipeId: number, name: string, description: string, ingredients: string, instructions: string, author: string): Recipe {
+    function createProperty(
+      propertyId: number,
+      name: string,
+      description: string,
+      address: string,
+      propertyType: string,
+      bedrooms: number,
+      bathrooms: number,
+      monthlyRent: number,
+      available: boolean,
+      createdAt: Date
+    ): Property {
       return {
-        recipeId,
+        propertyId,
         name,
         description,
-        ingredients,
-        instructions,
-        author
+        address,
+        propertyType,
+        bedrooms,
+        bathrooms,
+        monthlyRent,
+        available,
+        createdAt
       };
     }
 
-    const recipe: Recipe = createRecipe(
+    const property: Property = createProperty(
       1,
-      'Test Recipe',
+      'Test Property',
       'Test Description',
-      'Test Ingredients',
-      'Test Instructions',
-      'Test Author'
+      'Test Address',
+      'Test Type',
+      3,
+      2,
+      1500,
+      true,
+      new Date()
     );
 
     // Assert that the instance is created successfully
-    expect(recipe).toBeTruthy();
+    expect(property).toBeTruthy();
     // Assertions for property values and data types remain the same
-    expect(recipe.recipeId).toBeTruthy();
-    expect(recipe.name).toBeTruthy();
-    expect(recipe.description).toBeTruthy();
-    expect(recipe.ingredients).toBeTruthy();
-    expect(recipe.instructions).toBeTruthy();
-    expect(recipe.author).toBeTruthy();
-    expect(typeof recipe.recipeId).toEqual('number');
-    expect(typeof recipe.name).toEqual('string');
-    expect(typeof recipe.description).toEqual('string');
-    expect(typeof recipe.ingredients).toEqual('string');
-    expect(typeof recipe.instructions).toEqual('string');
-    expect(typeof recipe.author).toEqual('string');
+    expect(property.propertyId).toBeTruthy();
+    expect(property.name).toBeTruthy();
+    expect(property.description).toBeTruthy();
+    expect(property.address).toBeTruthy();
+    expect(property.propertyType).toBeTruthy();
+    expect(property.bedrooms).toBeTruthy();
+    expect(property.bathrooms).toBeTruthy();
+    expect(property.monthlyRent).toBeTruthy();
+    expect(property.available).toBeTruthy();
+    expect(property.createdAt).toBeTruthy();
+    expect(typeof property.propertyId).toEqual('number');
+    expect(typeof property.name).toEqual('string');
+    expect(typeof property.description).toEqual('string');
+    expect(typeof property.address).toEqual('string');
+    expect(typeof property.propertyType).toEqual('string');
+    expect(typeof property.bedrooms).toEqual('number');
+    expect(typeof property.bathrooms).toEqual('number');
+    expect(typeof property.monthlyRent).toEqual('number');
+    expect(typeof property.available).toEqual('boolean');
+    expect(property.createdAt instanceof Date).toBeTruthy();
   });
 });
