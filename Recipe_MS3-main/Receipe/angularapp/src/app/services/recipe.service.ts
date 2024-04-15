@@ -13,10 +13,10 @@ export class RecipeService {
   constructor(private http: HttpClient) { }
 
   addRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(`${this.apiUrl}api/Recipe`, recipe);
+    return this.http.post<Recipe>(`${this.apiUrl}api/Property`, recipe);
   }
 
   getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.apiUrl}api/Recipe`);
+    return this.http.get<Recipe[]>(`${this.apiUrl}api/Property`);
   }
 }
