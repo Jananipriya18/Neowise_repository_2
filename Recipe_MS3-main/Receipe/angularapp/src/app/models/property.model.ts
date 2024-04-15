@@ -1,10 +1,14 @@
-// src/app/models/recipe.model.ts
-export interface Recipe {
-    recipeId: number;
-    name: string;
-    description: string;
-    ingredients: string;
-    instructions: string;
-    author: string;
-  }
-  
+// src/app/models/property.model.ts
+
+export interface Property {
+  propertyId: number;
+  name: string;
+  description: string;
+  address: string;
+  propertyType: string;
+  bedrooms: number;
+  bathrooms: number;
+  monthlyRent: number;
+  available: boolean;
+  createdAt: Date;
+}
