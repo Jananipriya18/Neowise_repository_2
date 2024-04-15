@@ -1,0 +1,25 @@
+<!-- src/app/recipe-form/recipe-form.component.html -->
+<form (submit)="addRecipe()">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" [(ngModel)]="newRecipe.name" name="name" required>
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="newRecipe.description" name="description" required></textarea>
+    </div>
+    <div>
+      <label for="ingredients">Ingredients:</label>
+      <textarea id="ingredients" [(ngModel)]="newRecipe.ingredients" name="ingredients" required></textarea>
+    </div>
+    <div>
+      <label for="instructions">Instructions:</label>
+      <textarea id="instructions" [(ngModel)]="newRecipe.instructions" name="instructions" required></textarea>
+    </div>
+    <div>
+      <label for="author">Author:</label>
+      <input type="text" id="author" [(ngModel)]="newRecipe.author" name="author" required>
+    </div>
+    <button type="submit">Add Recipe</button>
+  </form>
+  

@@ -1,0 +1,138 @@
+/* .main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  
+  h2{
+    text-align: center;
+    margin-top: 10px;
+
+  }
+
+  .add-btn {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .reviews-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .reviews-table th,
+  .reviews-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .reviews-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .no-reviews-message {
+    text-align: center;
+    margin-top: 20px;
+  }
+   */
+
+   .main-container {
+
+    margin: 0 auto;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .reviews-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    
+  }
+  
+  .reviews-table thead {
+    background-color: #34495E;
+    color: #fff;
+  }
+  
+  .reviews-table th, .reviews-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .reviews-table th {
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid #34495E;
+  }
+  
+  .reviews-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .no-reviews-message {
+    text-align: center;
+    margin-top: 20px;
+    color: #555;
+  }
+  .reviews-table th, .reviews-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    /* text-align: left; */
+}
+
+  /* Additional styles for better responsiveness */
+  @media screen and (max-width: 600px) {
+    .reviews-table {
+      overflow-x: auto;
+      display: block;
+    }
+  
+    .reviews-table thead, .reviews-table tbody, .reviews-table th, .reviews-table td, .reviews-table tr {
+      display: block;
+    }
+  
+    .reviews-table thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  
+    .reviews-table tbody tr {
+      border: 1px solid #ddd;
+      margin: 0 0 8px;
+    }
+  
+    .reviews-table td {
+      border-bottom: 1px solid #ddd;
+      position: relative;
+      padding-left: 50%;
+    }
+  
+    .reviews-table td:before {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      /* width: 45%; */
+      padding-right: 10px;
+      white-space: nowrap;
+      content: attr(data-label);
+    }
+  }
+  

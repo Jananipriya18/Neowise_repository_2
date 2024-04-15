@@ -1,0 +1,32 @@
+<app-dashboard></app-dashboard>
+<div class="main-container">
+    <h2>View Reviews</h2>
+  
+    <table class="reviews-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Customer Name</th>
+          <th>Gift Type</th>
+          <th>Feedback comments</th>
+          <th>Rating</th>
+          <th>Date Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let review of reviews;let i=index">
+          <td>{{ i+1 }}</td>
+          <td>{{ review.user.username }}</td>
+          <td>{{ review.subject }}</td>
+          <td>{{ review.body }}</td>
+          <td>{{ review.rating }}</td>
+          <td>{{ review.dateCreated | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="reviews.length === 0" class="no-reviews-message">
+      No reviews available.
+    </div>
+  </div>
+  

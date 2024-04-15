@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Recipe List</h2>
+  
+    <div *ngIf="recipes.length === 0" class="no-recipes-message">
+        No recipes available.
+    </div>
+  
+    <table *ngIf="recipes.length > 0" class="recipe-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Ingredients</th>
+                <th>Instructions</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let recipe of recipes" class="recipe-item">
+                <td>{{ recipe.name }}</td>
+                <td>{{ recipe.description }}</td>
+                <td>{{ recipe.ingredients }}</td>
+                <td>{{ recipe.instructions }}</td>
+                <td>{{ recipe.author }}</td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,18 @@
+<app-dashboard></app-dashboard>
+
+<div class="gifts-container"  *ngIf="gifts.length; else noGifts" >
+    <div *ngFor="let gift of gifts" class="gift-card">
+      <h2>{{ gift.giftType }}</h2>
+      <img [src]="gift.giftImageUrl" alt="{{ gift.giftType }}">
+      <p>Details: {{ gift.giftDetails }}</p>
+      <p>Price: {{ gift.giftPrice }}</p>
+        <p>Quantity: {{ gift.quantity }}</p>
+      <!-- Edit and Delete Buttons -->
+      <button (click)="editGift(gift)">Edit</button>&nbsp;
+      <button (click)="deleteGift(gift)">Delete</button>
+    </div>
+  </div>
+
+  <ng-template #noGifts>
+    <div id="noGifts">No gifts available</div>
+  </ng-template>
