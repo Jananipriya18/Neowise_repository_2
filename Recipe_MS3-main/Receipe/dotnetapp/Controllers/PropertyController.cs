@@ -50,55 +50,55 @@ namespace dotnetapp.Controllers
             return CreatedAtAction("GetProperty", new { id = property.PropertyId }, property);
         }
 
-        // PUT: api/Property/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProperty(int id, Property property)
-        {
-            if (id != property.PropertyId)
-            {
-                return BadRequest();
-            }
+        // // PUT: api/Property/5
+        // [HttpPut("{id}")]
+        // public async Task<IActionResult> PutProperty(int id, Property property)
+        // {
+        //     if (id != property.PropertyId)
+        //     {
+        //         return BadRequest();
+        //     }
 
-            _context.Entry(property).State = EntityState.Modified;
+        //     _context.Entry(property).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PropertyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //     try
+        //     {
+        //         await _context.SaveChangesAsync();
+        //     }
+        //     catch (DbUpdateConcurrencyException)
+        //     {
+        //         if (!PropertyExists(id))
+        //         {
+        //             return NotFound();
+        //         }
+        //         else
+        //         {
+        //             throw;
+        //         }
+        //     }
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
-        // DELETE: api/Property/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProperty(int id)
-        {
-            var property = await _context.Properties.FindAsync(id);
-            if (property == null)
-            {
-                return NotFound();
-            }
+        // // DELETE: api/Property/5
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> DeleteProperty(int id)
+        // {
+        //     var property = await _context.Properties.FindAsync(id);
+        //     if (property == null)
+        //     {
+        //         return NotFound();
+        //     }
 
-            _context.Properties.Remove(property);
-            await _context.SaveChangesAsync();
+        //     _context.Properties.Remove(property);
+        //     await _context.SaveChangesAsync();
 
-            return NoContent();
-        }
+        //     return NoContent();
+        // }
 
-        private bool PropertyExists(int id)
-        {
-            return _context.Properties.Any(e => e.PropertyId == id);
-        }
+        // private bool PropertyExists(int id)
+        // {
+        //     return _context.Properties.Any(e => e.PropertyId == id);
+        // }
     }
 }
