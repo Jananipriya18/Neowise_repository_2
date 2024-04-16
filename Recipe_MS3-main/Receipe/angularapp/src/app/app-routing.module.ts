@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipeFormComponent } from './property-form/property-form.component';
-import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { PropertyFormComponent } from './property-form/property-form.component';
+import { PropertyListComponent } from './property-list/property-list.component';
 
 
 const routes: Routes = [
-  { path: 'addNewRecipe', component: RecipeFormComponent },
-  { path: 'viewRecipes', component: RecipeListComponent },
+  { path: 'addNewProperty', component: PropertyFormComponent },
+  { path: 'viewProperties', component: PropertyListComponent },
 
 ];
 
