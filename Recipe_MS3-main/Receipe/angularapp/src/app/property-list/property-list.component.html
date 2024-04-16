@@ -1,1 +1,15 @@
-<p>property-list works!</p>
+<div class="property-list">
+    <h2>Property List</h2>
+    <ul>
+      <li *ngFor="let property of properties">
+        <h3>{{ property.name }}</h3>
+        <p>Description: {{ property.description }}</p>
+        <p>Address: {{ property.address }}</p>
+        <p>Type: {{ property.propertyType }}</p>
+        <p>Bedrooms: {{ property.bedrooms }}</p>
+        <p>Bathrooms: {{ property.bathrooms }}</p>
+        <p>Rent: {{ property.monthlyRent }}</p>
+      </li>
+    </ul>
+  </div>
+  
