@@ -18,7 +18,6 @@ export class PropertyFormComponent {
     bedrooms: 2,
     bathrooms: 1,
     monthlyRent: 1500,
-    available: true,
     createdAt: new Date()
   };
 

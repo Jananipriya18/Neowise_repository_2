@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RecipeFormComponent } from './property-form/property-form.component';
 import { HeaderComponent } from './header/header.component';
 import { RecipeListComponent } from './recipe-list/recipe-list.component';
-import { PropertyFormComponentComponent } from './property-form/property-form-component.component';
+import { PropertyFormComponent } from './property-form/property-form-component.component';
 
 
 
@@ -19,7 +19,7 @@ import { PropertyFormComponentComponent } from './property-form/property-form-co
     RecipeFormComponent,
     HeaderComponent,
     RecipeListComponent,
-    PropertyFormComponentComponent
+    PropertyFormComponent
   ],
   imports: [
     BrowserModule,

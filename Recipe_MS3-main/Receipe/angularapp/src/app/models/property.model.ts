@@ -9,7 +9,6 @@ export interface Property {
     bedrooms: number;
     bathrooms: number;
     monthlyRent: number;
-    available: boolean;
     createdAt: Date;
   }
   
