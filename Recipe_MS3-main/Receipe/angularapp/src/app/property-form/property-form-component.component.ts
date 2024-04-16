@@ -11,8 +11,15 @@ import { Router } from '@angular/router';
 export class PropertyFormComponent {
   newProperty: Property = {
     propertyId: 0,
-    // Include other properties from the Property model as needed
-    // For example: name: '', address: '', etc.
+    name: '',
+    description: '',
+    address: '',
+    propertyType: '',
+    bedrooms: 2,
+    bathrooms: 1,
+    monthlyRent: 1500,
+    available: true,
+    createdAt: new Date()
   };
 
   constructor(private propertyService: PropertyService, private router: Router) { }
