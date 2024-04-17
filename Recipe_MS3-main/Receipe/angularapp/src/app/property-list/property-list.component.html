@@ -1,15 +1,27 @@
 <div class="property-list">
-    <h2>Property List</h2>
-    <ul>
-      <li *ngFor="let property of properties">
-        <h3>{{ property.name }}</h3>
-        <p>Description: {{ property.description }}</p>
-        <p>Address: {{ property.address }}</p>
-        <p>Type: {{ property.propertyType }}</p>
-        <p>Bedrooms: {{ property.bedrooms }}</p>
-        <p>Bathrooms: {{ property.bathrooms }}</p>
-        <p>Rent: {{ property.monthlyRent }}</p>
-      </li>
-    </ul>
-  </div>
-  
+  <h2>Property List</h2>
+  <table class="property-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Address</th>
+        <th>Property Type</th>
+        <th>Bedrooms</th>
+        <th>Bathrooms</th>
+        <th>Monthly Rent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let property of properties">
+        <td>{{ property.name }}</td>
+        <td>{{ property.description }}</td>
+        <td>{{ property.address }}</td>
+        <td>{{ property.propertyType }}</td>
+        <td>{{ property.bedrooms }}</td>
+        <td>{{ property.bathrooms }}</td>
+        <td>{{ property.monthlyRent }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

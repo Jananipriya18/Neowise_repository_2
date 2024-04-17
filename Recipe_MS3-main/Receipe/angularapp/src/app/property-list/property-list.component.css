@@ -1,0 +1,24 @@
+.property-table {
+    width: 100%; /* Set table width to fill its container */
+    border-collapse: collapse; /* Collapse borders for a cleaner look */
+  }
+  
+  .property-table th,
+  .property-table td {
+    padding: 8px; /* Add padding for cells */
+    border-bottom: 1px solid #ddd; /* Add bottom border for rows */
+    text-align: left; /* Align text to the left */
+  }
+  
+  .property-table th {
+    background-color: #f2f2f2; /* Set background color for header row */
+  }
+  
+  .property-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alternate row background color */
+  }
+  
+  .property-table tbody tr:hover {
+    background-color: #ddd; /* Change background color on hover */
+  }
+  
