@@ -26,18 +26,18 @@ describe('HeaderComponent', () => {
     fit('HeaderComponent_should_navigate_to_Add_New_Recipe', () => {
         spyOn(router, 'navigate');
         component.navigateToAddRecipe();
-        expect(router.navigate).toHaveBeenCalledWith(['/addNewRecipe']);
+        expect(router.navigate).toHaveBeenCalledWith(['/addProperty']);
     });
 
     fit('HeaderComponent_should_navigate_to_View_Recipe', () => {
         spyOn(router, 'navigate');
         component.navigateToViewRecipes();
-        expect(router.navigate).toHaveBeenCalledWith(['/viewRecipes']);
+        expect(router.navigate).toHaveBeenCalledWith(['/viewProperties']);
     });
 
     fit('HeaderComponent_should_have_a_link_with_text_View_Recipe', () => {
         const navItems: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll('a');
         const viewRecipeLink: HTMLElement = navItems[navItems.length - 1];
-        expect(viewRecipeLink.textContent).toContain('View Recipe');
+        expect(viewRecipeLink.textContent).toContain('View Property');
     });
 });

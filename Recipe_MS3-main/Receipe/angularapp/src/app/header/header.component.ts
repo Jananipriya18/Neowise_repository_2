@@ -11,10 +11,10 @@ export class HeaderComponent {
   constructor(private router: Router) {}
 
   navigateToAddRecipe() {
-    this.router.navigate(['/addNewRecipe']);
+    this.router.navigate(['/addNewProperty']);
   }
 
   navigateToViewRecipes() {
-    this.router.navigate(['/viewRecipes']);
+    this.router.navigate(['/viewProperties']);
   }
 }
