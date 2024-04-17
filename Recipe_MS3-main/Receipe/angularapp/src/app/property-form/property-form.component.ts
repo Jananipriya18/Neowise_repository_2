@@ -15,9 +15,9 @@ export class PropertyFormComponent {
     description: '',
     address: '',
     propertyType: '',
-    bedrooms: 2,
-    bathrooms: 1,
-    monthlyRent: 1500,
+    bedrooms: null,
+    bathrooms: null,
+    monthlyRent: null,
     createdAt: new Date()
   };
 
