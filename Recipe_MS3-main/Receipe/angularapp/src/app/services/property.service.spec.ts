@@ -1,19 +1,19 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { Recipe } from '../models/recipe.model';
-import { RecipeService } from './recipe.service';
+import { Property } from '../models/property.model';
+import { PropertyService } from './property.service';
 
-describe('RecipeService', () => {
-  let service: RecipeService;
+describe('PropertyService', () => {
+  let service: PropertyService;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [RecipeService],
+      providers: [PropertyService],
     });
-    service = TestBed.inject(RecipeService);
+    service = TestBed.inject(PropertyService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
@@ -21,55 +21,62 @@ describe('RecipeService', () => {
     httpTestingController.verify();
   });
 
-  fit('RecipeService_should_be_created', () => {
+  fit('PropertyService_should_be_created', () => {
     expect(service).toBeTruthy();
   });
 
-  fit('RecipeService_should_have_addRecipe_method', () => {
-    expect(service.addRecipe).toBeTruthy();
+  fit('PropertyService_should_have_addProperty_method', () => {
+    expect(service.addProperty).toBeTruthy();
   });
 
-  fit('RecipeService_should_have_getRecipes_method', () => {
-    expect(service.getRecipes).toBeTruthy();
+  fit('PropertyService_should_have_getProperties_method', () => {
+    expect(service.getProperties).toBeTruthy();
   });
 
-  fit('RecipeService_should_add_a_recipe_and_return_it', () => {
-    const mockRecipe: Recipe = {
-      recipeId: 1,
-      name: 'Test Recipe',
+  fit('PropertyService_should_add_a_property_and_return_it', () => {
+    const mockProperty: Property = {
+      propertyId: 1,
+      name: 'Test Property',
       description: 'Test Description',
-      ingredients: 'Test Ingredients',
-      instructions: 'Test Instructions',
-      author: 'Test Author'
+      address: 'Test Address', // Adjusted to match the new interface
+      propertyType: 'Test Property Type', // Adjusted to match the new interface
+      bedrooms: 3, // Adjusted to match the new interface
+      bathrooms: 2, // Adjusted to match the new interface
+      monthlyRent: 2000, // Adjusted to match the new interface
+      createdAt: new Date() // Adjusted to match the new interface
     };
 
-    service.addRecipe(mockRecipe).subscribe((recipe) => {
-      expect(recipe).toEqual(mockRecipe);
+    service.addProperty(mockProperty).subscribe((property) => {
+      expect(property).toEqual(mockProperty);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Property`);
     expect(req.request.method).toBe('POST');
-    req.flush(mockRecipe);
-  });
+    req.flush(mockProperty);
+});
 
-  fit('RecipeService_should_get_recipes', () => {
-    const mockRecipes: Recipe[] = [
+
+  fit('PropertyService_should_get_properties', () => {
+    const mockProperties: Property[] = [
       {
-        recipeId: 1,
-        name: 'Test Recipe 1',
+        propertyId: 1,
+        name: 'Test property 1',
         description: 'Test Description',
-        ingredients: 'Test Ingredients',
-        instructions: 'Test Instructions',
-        author: 'Test Author'
+        address: 'Test Address', // Adjusted to match the new interface
+        propertyType: 'Test Property Type', // Adjusted to match the new interface
+        bedrooms: 3, // Adjusted to match the new interface
+        bathrooms: 2, // Adjusted to match the new interface
+        monthlyRent: 2000, // Adjusted to match the new interface
+        createdAt: new Date() // Adjusted to match the new interface
       }
     ];
 
-    service.getRecipes().subscribe((recipes) => {
-      expect(recipes).toEqual(mockRecipes);
+    service.getProperties().subscribe((properties) => {
+      expect(properties).toEqual(mockProperties);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Property`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockRecipes);
+    req.flush(mockProperties);
   });
 });
