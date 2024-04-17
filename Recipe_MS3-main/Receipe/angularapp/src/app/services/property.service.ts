@@ -8,7 +8,7 @@ import { Property } from '../models/property.model';
   providedIn: 'root'
 })
 export class PropertyService {
-  private apiUrl = 'https://8080-bfdeeddcedfabcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/'; // Replace this with your API endpoint
+  private apiUrl = 'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/'; // Replace this with your API endpoint
 
   constructor(private http: HttpClient) { }
 
