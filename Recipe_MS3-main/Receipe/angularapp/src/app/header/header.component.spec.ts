@@ -23,19 +23,19 @@ describe('HeaderComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    fit('HeaderComponent_should_navigate_to_Add_New_Recipe', () => {
+    fit('HeaderComponent_should_navigate_to_Add_New_Property', () => {
         spyOn(router, 'navigate');
-        component.navigateToAddRecipe();
-        expect(router.navigate).toHaveBeenCalledWith(['/addProperty']);
+        component.navigateToAddProperty();
+        expect(router.navigate).toHaveBeenCalledWith(['/addNewProperty']);
     });
 
-    fit('HeaderComponent_should_navigate_to_View_Recipe', () => {
+    fit('HeaderComponent_should_navigate_to_View_Property', () => {
         spyOn(router, 'navigate');
-        component.navigateToViewRecipes();
+        component.navigateToViewProperties();
         expect(router.navigate).toHaveBeenCalledWith(['/viewProperties']);
     });
 
-    fit('HeaderComponent_should_have_a_link_with_text_View_Recipe', () => {
+    fit('HeaderComponent_should_have_a_link_with_text_View_property', () => {
         const navItems: NodeListOf<HTMLElement> = fixture.nativeElement.querySelectorAll('a');
         const viewRecipeLink: HTMLElement = navItems[navItems.length - 1];
         expect(viewRecipeLink.textContent).toContain('View Property');
