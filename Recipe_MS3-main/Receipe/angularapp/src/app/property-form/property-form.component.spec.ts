@@ -4,6 +4,7 @@ import { PropertyService } from '../services/property.service';
 import { PropertyFormComponent } from './property-form.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('PropertyFormComponent', () => {
   let component: PropertyFormComponent;
@@ -18,7 +19,6 @@ describe('PropertyFormComponent', () => {
         providers: [PropertyService, { provide: Router, useClass: class { navigate = jasmine.createSpy('navigate'); } }]
     }).compileComponents();
 }));
-
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PropertyFormComponent);
