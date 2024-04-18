@@ -9,10 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { PropertyFormComponent } from './property-form/property-form.component';
 import { PropertyListComponent } from './property-list/property-list.component';
-import { ContactformComponent } from './contactform/contactform.component';
-import { ContactFormComponent } from './contact-form/contact-form.component';
-
-
 
 
 @NgModule({
@@ -20,9 +16,7 @@ import { ContactFormComponent } from './contact-form/contact-form.component';
     AppComponent,
     HeaderComponent,
     PropertyFormComponent,
-    PropertyListComponent,
-    ContactformComponent,
-    ContactFormComponent
+    PropertyListComponent
   ],
   imports: [
     BrowserModule,
