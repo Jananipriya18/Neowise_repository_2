@@ -1,8 +1,8 @@
-@model Ride
+@model Passenger
 
-<h2>Ride Details</h2>
+<h2>Passenger Details</h2>
 
-<p>Ride ID: @Model.RideID</p>
+<p>Passenger ID: @Model.PassengerID</p>
 <p>Departure Location: @Model.DepartureLocation</p>
 <p>Destination: @Model.Destination</p>
 <p>Date and Time: @Model.DateOfDeparture</p>
@@ -11,4 +11,10 @@
 <p>Available Seats: @ViewBag.AvailableSeats</p>
 
 
-@Html.ActionLink("Back to Available Rides", "AvailableRides", "Ride")
+@Html.ActionLink("Back to Available Passengers", "AvailablePassengers", "Passenger")
+<td>@passenger.DepartureLocation</td>
+                    <td>@passenger.Destination</td>
+                    <td>@passenger.DepartureTime</td>
+                    <td>@passenger.MaximumCapacity</td>
+                    <td>@bookedPassengers</td>
+                    <td>@availableSeats</td>
