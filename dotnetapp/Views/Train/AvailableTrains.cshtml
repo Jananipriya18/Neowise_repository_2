@@ -33,7 +33,7 @@
 
                         @if (availableSeats > 0)
                         {
-                            <a id="join" href="@Url.Action("JoinRide", "Slot", new { trainId = train.TrainID })" class="btn btn-primary">Join Ride</a>
+                            <a id="book" href="@Url.Action("BookTicket", "Slot", new { trainId = train.TrainID })" class="btn btn-primary">Book Ticket</a>
                         }
                         else
                         {
