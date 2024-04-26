@@ -1,4 +1,4 @@
-@model Commuter
+@* @model Commuter
 @{
     var rideId = Context.Request.Query["rideId"];
 }
@@ -30,9 +30,8 @@
     </div>
 
 
-    @* <input type="hidden" name="rideId" value="@ViewBag.RideId" /> *@
 
     <button type="submit" class="btn btn-primary">Join Ride</button>
 
     @Html.ActionLink("Back to Available Rides", "AvailableRides", "Ride")
-}
+} *@

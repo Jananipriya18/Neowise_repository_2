@@ -1,4 +1,4 @@
-@model Ride
+@* @model Ride
 
 <h2>Ride Details</h2>
 
@@ -9,7 +9,6 @@
 <p>Maximum Capacity: @Model.MaximumCapacity</p>
 <p>Joined Commuters: @ViewBag.JoinedCommuters</p>
 <p>Available Seats: @ViewBag.AvailableSeats</p>
-@* <p>Commuter Id: @ViewBag.CommuterID</p> *@
 
 
-@Html.ActionLink("Back to Available Rides", "AvailableRides", "Ride")
+@Html.ActionLink("Back to Available Rides", "AvailableRides", "Ride") *@
