@@ -11,7 +11,7 @@
                 <th>Destination</th>
                 <th>Date Of Departure</th>
                 <th>Maximum Capacity</th>
-                <th>Joined Commuters</th>
+                <th>Booked Passengers</th>
                 <th>Available Seats</th>
                 <th></th>
             </tr>
@@ -19,27 +19,27 @@
         <tbody>
             @foreach (var train in Model)
             {
-                int joinedPassengers = train.Commuters.Count;
-                int availableSeats = train.MaximumCapacity - joinedPassengers;
+                int bookedPassengers = train.Passengers.Count;
+                int availableSeats = train.MaximumCapacity - bookedPassengers;
 
                 <tr>
                     <td>@train.DepartureLocation</td>
                     <td>@train.Destination</td>
                     <td>@train.DateOfDeparture</td>
                     <td>@train.MaximumCapacity</td>
-                    <td>@joinedPassengers</td>
+                    <td>@bookedPassengers</td>
                     <td>@availableSeats</td>
                     <td>
 
                         @if (availableSeats > 0)
                         {
-                            <a id="join" href="@Url.Action("JoinRide", "Slot", new { rideId = train.RideID })" class="btn btn-primary">Join Ride</a>
+                            <a id="join" href="@Url.Action("JoinRide", "Slot", new { trainId = train.TrainID })" class="btn btn-primary">Join Ride</a>
                         }
                         else
                         {
                             <span class="text-muted">No seats available</span>
                         }
-                        <a id="delete" asp-asp-controller="Ride" asp-action="DeleteConfirm" asp-route-id="@train.RideID" class="btn btn-danger">Delete</a>
+                        <a id="delete" asp-asp-controller="Ride" asp-action="DeleteConfirm" asp-route-id="@train.TrainID" class="btn btn-danger">Delete</a>
 
                     </td>
                 </tr>
