@@ -1,4 +1,4 @@
-@model List<Ride>
+@* @model List<Ride>
 
 <h2>Available Rides</h2>
 
@@ -7,7 +7,6 @@
     <table class="table">
         <thead>
             <tr>
-                @* <th>Ride ID</th> *@
                 <th>Departure Location</th>
                 <th>Destination</th>
                 <th>Date Of Departure</th>
@@ -24,7 +23,6 @@
                 int availableSeats = ride.MaximumCapacity - joinedCommuters;
 
                 <tr>
-                    @* <td>@ride.RideID</td> *@
                     <td>@ride.DepartureLocation</td>
                     <td>@ride.Destination</td>
                     <td>@ride.DateOfDeparture</td>
@@ -52,4 +50,4 @@
 else
 {
     <p>No rides available.</p>
-}
+} *@
