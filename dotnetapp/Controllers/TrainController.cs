@@ -21,23 +21,25 @@ namespace dotnetapp.Controllers
             var trains = _dbContext.Trains.Include(t => t.Passengers).ToList();
             return View(trains);
         }
-
+    
         public IActionResult Details(int id)
-        {
-            var train = _dbContext.Trains.Include(t => t.Passengers).FirstOrDefault(t => t.TrainID == id);
-            if (train == null)
-            {
-                return NotFound();
-            }
+{
+    var passenger = _dbContext.Passengers.Include(p => p.Train).FirstOrDefault(p => p.PassengerID == id);
+    if (passenger == null)
+    {
+        return NotFound();
+    }
 
-            int bookedSeats = train.Passengers.Count;
-            int availableSeats = train.MaximumCapacity - bookedSeats;
+    // Calculate booked seats and available seats based on the associated train
+    int bookedSeats = passenger.Train.Passengers.Count;
+    int availableSeats = passenger.Train.MaximumCapacity - bookedSeats;
 
-            ViewBag.BookedSeats = bookedSeats;
-            ViewBag.AvailableSeats = availableSeats;
+    ViewBag.BookedSeats = bookedSeats;
+    ViewBag.AvailableSeats = availableSeats;
 
-            return View(train);
-        }
+    return View(passenger);
+}
+
 
         public IActionResult DeleteConfirm(int id)
         {
