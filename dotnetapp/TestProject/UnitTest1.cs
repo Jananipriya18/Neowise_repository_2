@@ -66,7 +66,7 @@ namespace dotnetapp.Tests
         //     string assemblyName = "dotnetapp";
         //     Assembly assembly = Assembly.Load(assemblyName);
         //     string modelType = "dotnetapp.Models.Passenger";
-        //     string controllerTypeName = "dotnetapp.Models.PassengerController";
+        //     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
         //     Type controllerType = assembly.GetType(controllerTypeName);
         //     Type controllerType2 = assembly.GetType(modelType);
         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
@@ -165,7 +165,7 @@ public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to
         //     string assemblyName = "dotnetapp";
         //     Assembly assembly = Assembly.Load(assemblyName);
         //     string modelType = "dotnetapp.Models.Passenger";
-        //     string controllerTypeName = "dotnetapp.Models.PassengerController";
+        //     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
         //     Type controllerType = assembly.GetType(controllerTypeName);
         //     Type controllerType2 = assembly.GetType(modelType);
         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
@@ -176,7 +176,7 @@ public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to
         //                 { "Email", "johndoe@example.com" },
         //                 { "Phone", "1234567890" }
         //             };
-        //         var commuter = new Commuter();
+        //         var passenger = new Commuter();
         //         foreach (var kvp in teamData)
         //         {
         //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
@@ -251,7 +251,7 @@ public void BookSeat_TrainController_ValidPassenger_Adds_Passenger_To_Train_Succ
 }
 
         [Test]
-public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_required_ModelStateInvalid()
+public void BookSeat_TrainController_InvalidPassenger_Name_Email_Phone_are_required_ModelStateInvalid()
 {
     string assemblyName = "dotnetapp";
     Assembly assembly = Assembly.Load(assemblyName);
@@ -264,7 +264,7 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
     {
         // Arrange
         var trainController = Activator.CreateInstance(controllerType, dbContext); // Corrected variable name to trainController
-        var commuter = Activator.CreateInstance(modelType2); // Corrected variable name to commuter
+        var passenger = Activator.CreateInstance(modelType2); // Corrected variable name to passenger 
 
         // Add errors to ModelState
         var modelStateProperty = controllerType.GetProperty("ModelState");
@@ -275,7 +275,7 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 
         // Invoke BookSeat method using reflection
         MethodInfo bookSeatMethod = controllerType.GetMethod("BookSeat", new[] { typeof(int), modelType2 });
-        var result = bookSeatMethod.Invoke(trainController, new object[] { 1, commuter }) as ViewResult;
+        var result = bookSeatMethod.Invoke(trainController, new object[] { 1, passenger  }) as ViewResult;
 
         // Assert
         Assert.IsNotNull(result);
@@ -290,136 +290,150 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 
         // test to check that BookSeat method in TrainController with invalid ride id returns NotFoundResult
         [Test]
-        public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
+public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string modelType = "dotnetapp.Models.Passenger";
+    string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type controllerType2 = assembly.GetType(modelType);
+
+    if (controllerType == null || controllerType2 == null)
+    {
+        Assert.Fail("Controller types not found.");
+    }
+
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        var teamData = new Dictionary<string, object>
         {
-            string assemblyName = "dotnetapp";
-            Assembly assembly = Assembly.Load(assemblyName);
-            string modelType = "dotnetapp.Models.Passenger";
-            string controllerTypeName = "dotnetapp.Models.PassengerController";
-            Type controllerType = assembly.GetType(controllerTypeName);
-            Type controllerType2 = assembly.GetType(modelType);
-            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            { "Name", "John Doe" },
+            { "Email", "johndoe@example.com" },
+            { "Phone", "1234567890" }
+        };
+        var passenger = new Passenger();
+        foreach (var kvp in teamData)
+        {
+            var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+            if (propertyInfo != null)
             {
-                var teamData = new Dictionary<string, object>
-                    {
-                        { "Name", "John Doe" },
-                        { "Email", "johndoe@example.com" },
-                        { "Phone", "1234567890" }
-                    };
-                var commuter = new Passenger();
-                foreach (var kvp in teamData)
-                {
-                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-                    if (propertyInfo != null)
-                    {
-                        propertyInfo.SetValue(commuter, kvp.Value);
-                    }
-                }
-                MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
-
-                if (method != null)
-                {
-
-                    var controller = Activator.CreateInstance(controllerType, _context);
-                    var result = method.Invoke(controller, new object[] { 2 }) as NotFoundResult;
-                    Assert.IsNotNull(result);
-                }
-                else
-                {
-                    Assert.Fail();
-                }
+                propertyInfo.SetValue(passenger, kvp.Value);
             }
         }
 
-//         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
-//         [Test]
-//         public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
-//         {
-//             string assemblyName = "dotnetapp";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "dotnetapp.Models.Passenger";
-//             string exception = "dotnetapp.Exceptions.RideSharingException";
-//             string controllerTypeName = "dotnetapp.Models.PassengerController";
-//             Type controllerType = assembly.GetType(controllerTypeName);
-//             Type controllerType2 = assembly.GetType(modelType);
-//             Type exceptionType = assembly.GetType(exception);
+        var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
+        if (constructor == null)
+        {
+            Assert.Fail("Constructor not found.");
+        }
 
-//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//             {
-//                 var teamData = new Dictionary<string, object>
-//                     {
-//                         { "Name", "John Doe" },
-//                         { "Email", "johndoe@example.com" },
-//                         { "Phone", "1234567890" }
-//                     };
-//                 var teamData1 = new Dictionary<string, object>
-//                     {
-//                         { "Name", "John Doe1" },
-//                         { "Email", "johndoe1@example.com" },
-//                         { "Phone", "1234567891" }
-//                     };
-//                 var commuter = new Commuter();
-//                 var commuter1 = new Commuter();
-//                 foreach (var kvp in teamData1)
-//                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(commuter1, kvp.Value);
-//                     }
-//                 }
-//                 foreach (var kvp in teamData)
-//                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(commuter, kvp.Value);
-//                     }
-//                 }
-//                 MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+        var controller = Activator.CreateInstance(controllerType, dbContext);
+        if (controller == null)
+        {
+            Assert.Fail("Controller instance could not be created.");
+        }
+
+        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+        if (method == null)
+        {
+            Assert.Fail("Method not found.");
+        }
+
+        var result = method.Invoke(controller, new object[] { 2 }) as NotFoundResult;
+        Assert.IsNotNull(result);
+    }
+}
+
+        // // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
+        // [Test]
+        // public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+        // {
+        //     string assemblyName = "dotnetapp";
+        //     Assembly assembly = Assembly.Load(assemblyName);
+        //     string modelType = "dotnetapp.Models.Passenger";
+        //     string exception = "dotnetapp.Exceptions.TrainBookingException";
+        //     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+        //     Type controllerType = assembly.GetType(controllerTypeName);
+        //     Type controllerType2 = assembly.GetType(modelType);
+        //     Type exceptionType = assembly.GetType(exception);
+
+        //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+        //     {
+        //         var teamData = new Dictionary<string, object>
+        //             {
+        //                 { "Name", "John Doe" },
+        //                 { "Email", "johndoe@example.com" },
+        //                 { "Phone", "1234567890" }
+        //             };
+        //         var teamData1 = new Dictionary<string, object>
+        //             {
+        //                 { "Name", "John Doe1" },
+        //                 { "Email", "johndoe1@example.com" },
+        //                 { "Phone", "1234567891" }
+        //             };
+        //         var passenger = new Commuter();
+        //         var passenger1 = new Commuter();
+        //         foreach (var kvp in teamData1)
+        //         {
+        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             if (propertyInfo != null)
+        //             {
+        //                 propertyInfo.SetValue(commuter1, kvp.Value);
+        //             }
+        //         }
+        //         foreach (var kvp in teamData)
+        //         {
+        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             if (propertyInfo != null)
+        //             {
+        //                 propertyInfo.SetValue(commuter, kvp.Value);
+        //             }
+        //         }
+        //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
 
-//                 var ride = _context.Rides.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
-//                 ride.Commuters.Add(commuter1);
-//                 ride.Commuters.Add(commuter);
-//                 var propertyInfo1 = ride.GetType().GetProperty("MaximumCapacity");
-//                 if (propertyInfo1 != null)
-//                 {
-//                     propertyInfo1.SetValue(ride, 2);
-//                 }
+        //         var ride = _context.Rides.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
+        //         ride.Commuters.Add(commuter1);
+        //         ride.Commuters.Add(commuter);
+        //         var propertyInfo1 = ride.GetType().GetProperty("MaximumCapacity");
+        //         if (propertyInfo1 != null)
+        //         {
+        //             propertyInfo1.SetValue(ride, 2);
+        //         }
 
-//                 dbContext.SaveChanges();
+        //         dbContext.SaveChanges();
 
-//                 var teamData2 = new Dictionary<string, object>
-//                     {
-//                         { "Name", "John Doe2" },
-//                         { "Email", "johndoe2@example.com" },
-//                         { "Phone", "1234567892" }
-//                     };
-//                 var commuter2 = new Commuter();
-//                 foreach (var kvp in teamData2)
-//                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(commuter2, kvp.Value);
-//                     }
-//                 }
-//                 if (method != null)
-//                 {
-//                     var controller = Activator.CreateInstance(controllerType, _context);
-//                     var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
+        //         var teamData2 = new Dictionary<string, object>
+        //             {
+        //                 { "Name", "John Doe2" },
+        //                 { "Email", "johndoe2@example.com" },
+        //                 { "Phone", "1234567892" }
+        //             };
+        //         var commuter2 = new Commuter();
+        //         foreach (var kvp in teamData2)
+        //         {
+        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             if (propertyInfo != null)
+        //             {
+        //                 propertyInfo.SetValue(commuter2, kvp.Value);
+        //             }
+        //         }
+        //         if (method != null)
+        //         {
+        //             var controller = Activator.CreateInstance(controllerType, _context);
+        //             var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
 
-//                     var innerException = ex.InnerException;
+        //             var innerException = ex.InnerException;
 
-//                     Assert.IsNotNull(innerException);
-//                     var rideSharingExceptionType = exceptionType;
-//                     bool isRideSharingException = rideSharingExceptionType.IsInstanceOfType(innerException);
+        //             Assert.IsNotNull(innerException);
+        //             var rideSharingExceptionType = exceptionType;
+        //             bool isRideSharingException = rideSharingExceptionType.IsInstanceOfType(innerException);
 
-//                     Assert.IsTrue(isRideSharingException, $"Expected inner exception of type {rideSharingExceptionType.FullName}");
-//                 }
-//             }
-//         }
+        //             Assert.IsTrue(isRideSharingException, $"Expected inner exception of type {rideSharingExceptionType.FullName}");
+        //         }
+        //     }
+        // }
 
 //         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached with correct message "Maximum capacity reached"
 //         [Test]
@@ -428,8 +442,8 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             string modelType = "dotnetapp.Models.Passenger";
-//             string exception = "dotnetapp.Exceptions.RideSharingException";
-//             string controllerTypeName = "dotnetapp.Models.PassengerController";
+//             string exception = "dotnetapp.Exceptions.TrainBookingException";
+//             string controllerTypeName = "dotnetapp.Controllers.PassengerController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             Type exceptionType = assembly.GetType(exception);
@@ -448,7 +462,7 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //                         { "Email", "johndoe1@example.com" },
 //                         { "Phone", "1234567891" }
 //                     };
-//                 var commuter = new Commuter();
+//                 var passenger = new Commuter();
 //                 var commuter1 = new Commuter();
 //                 foreach (var kvp in teamData1)
 //                 {
@@ -582,33 +596,33 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //         }
 
 
-//         //     [Test]
-//         // public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
-//         // {
-//         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//         //     {
-//         //         // Arrange
-//         //         var TrainController = new TrainController(dbContext);
-//         //         var commuter = new Commuter
-//         //         {
-//         //             Name = "John Doe",
-//         //             Email = "johndoe@example.com",
-//         //             Phone = "1234567890"
-//         //         };
+       [Test]
+public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
+{
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        // Arrange
+        var passengerController = new PassengerController(dbContext);
+        var passenger = new Passenger
+        {
+            Name = "John Doe",
+            Email = "johndoe@example.com",
+            Phone = "1234567890"
+        };
 
-//         //         // Act
-//         //         var ride = dbContext.Rides.FirstOrDefault(r => r.RideID == 1);
-//         //         ride.Destination = ride.DepartureLocation; // Set the destination as the same as departure
-//         //         dbContext.SaveChanges();
+        // Act
+        var train = dbContext.Trains.FirstOrDefault(t => t.TrainID == 1);
+        train.Destination = train.DepartureLocation; // Set the destination as the same as departure
+        dbContext.SaveChanges();
 
-//         //         var result = TrainController.BookSeat(1, commuter) as ViewResult;
+        var result = passengerController.BookSeat(1, commuter) as ViewResult;
 
-//         //         // Assert
-//         //         Assert.IsNotNull(result);
-//         //         Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//         //         Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
-//         //     }
-//         // }
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsFalse(result.ViewData.ModelState.IsValid);
+        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
+    }
+}
 
 //         // [Test]
 //         // public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
@@ -617,7 +631,7 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //         //     {
 //         //         // Arrange
 //         //         var TrainController = new TrainController(dbContext);
-//         //         var commuter = new Commuter
+//         //         var passenger = new Commuter
 //         //         {
 //         //             Name = "John Doe",
 //         //             Email = "johndoe@example.com",
@@ -639,57 +653,37 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //         // }
 
 
-//         // Test to check whether Ride Models Class exists
-//         [Test]
-//         public void Ride_Models_ClassExists()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Ride";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideType = assembly.GetType(typeName);
-//             Assert.IsNotNull(RideType);
-//         }
-
-//         // Test to check whether Commuter Models Class exists
-//         [Test]
-//         public void Commuter_Models_ClassExists()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Passenger";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type CommuterType = assembly.GetType(typeName);
-//             Assert.IsNotNull(CommuterType);
-//         }
 
 
-//         // Test to check that ApplicationDbContext Contains DbSet for model Ride
-//         [Test]
-//         public void ApplicationDbContext_ContainsDbSet_Ride()
-//         {
-//             Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
-//             Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
-//             if (contextType == null)
-//             {
-//                 Assert.Fail("No DbContext found in the assembly");
-//                 return;
-//             }
-//             Type RideType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Ride");
-//             if (RideType == null)
-//             {
-//                 Assert.Fail("No DbSet found in the DbContext");
-//                 return;
-//             }
-//             var propertyInfo = contextType.GetProperty("Rides");
-//             if (propertyInfo == null)
-//             {
-//                 Assert.Fail("Rides property not found in the DbContext");
-//                 return;
-//             }
-//             else
-//             {
-//                 Assert.AreEqual(typeof(DbSet<>).MakeGenericType(RideType), propertyInfo.PropertyType);
-//             }
-//         }
+// Test to check that ApplicationDbContext Contains DbSet for model Train
+[Test]
+public void ApplicationDbContext_ContainsDbSet_Train()
+{
+    Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
+    Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
+    if (contextType == null)
+    {
+        Assert.Fail("No DbContext found in the assembly");
+        return;
+    }
+    Type trainType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Train");
+    if (trainType == null)
+    {
+        Assert.Fail("No Train model found in the assembly");
+        return;
+    }
+    var propertyInfo = contextType.GetProperty("Trains");
+    if (propertyInfo == null)
+    {
+        Assert.Fail("Trains property not found in the DbContext");
+        return;
+    }
+    else
+    {
+        Assert.AreEqual(typeof(DbSet<>).MakeGenericType(trainType), propertyInfo.PropertyType);
+    }
+}
+
 
 //         // Test to check that ApplicationDbContext Contains DbSet for model Commuter
 //         [Test]
@@ -869,7 +863,7 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //         //    {
 //         //        // Arrange
 //         //        var TrainController = new TrainController(dbContext);
-//         //        var commuter = new Commuter
+//         //        var passenger = new Commuter
 //         //        {
 //         //            Name = "John Doe",
 //         //            Email = "johndoe@example.com",
@@ -897,7 +891,7 @@ public void BookSeat_TrainController_InvalidCommuter_Name_Email_Phone_are_requir
 //         //    {
 //         //        // Arrange
 //         //        var TrainController = new TrainController(dbContext);
-//         //        var commuter = new Commuter
+//         //        var passenger = new Commuter
 //         //        {
 //         //            Name = "John Doe",
 //         //            Email = "johndoe@example.com",
