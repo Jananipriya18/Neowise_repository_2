@@ -37,7 +37,7 @@ namespace dotnetapp.Controllers
     ViewBag.BookedSeats = bookedSeats;
     ViewBag.AvailableSeats = availableSeats;
 
-    return View(passenger);
+    return View("details", passenger);
 }
 
 

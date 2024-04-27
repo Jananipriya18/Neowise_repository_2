@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RideShare.csproj" />
+    <!-- <ProjectReference Include="..\RideShare.csproj" /> -->
   </ItemGroup>
 
 </Project>
