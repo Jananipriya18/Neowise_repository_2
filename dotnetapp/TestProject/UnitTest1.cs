@@ -615,7 +615,7 @@ public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
         train.Destination = train.DepartureLocation; // Set the destination as the same as departure
         dbContext.SaveChanges();
 
-        var result = passengerController.BookSeat(1, commuter) as ViewResult;
+        var result = passengerController.BookSeat(1, passenger ) as ViewResult;
 
         // Assert
         Assert.IsNotNull(result);
