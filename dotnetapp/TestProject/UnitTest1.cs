@@ -40,7 +40,7 @@ namespace dotnetapp.Tests
                     var propertyInfo = typeof(Train).GetProperty(kvp.Key);
                     if (propertyInfo != null)
                     {
-                        propertyInfo.SetValue(Train, kvp.Value);
+                        propertyInfo.SetValue(train, kvp.Value);
                     }
                 }
 
@@ -78,13 +78,13 @@ namespace dotnetapp.Tests
                         { "Email", "johndoe@example.com" },
                         { "Phone", "1234567890" }
                     };
-                var commuter = new Commuter();
+                var passenger = new Passenger();
                 foreach (var kvp in teamData)
                 {
-                    var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
                     if (propertyInfo != null)
                     {
-                        propertyInfo.SetValue(commuter, kvp.Value);
+                        propertyInfo.SetValue(passenger, kvp.Value);
                     }
                 }
                 MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
@@ -92,10 +92,10 @@ namespace dotnetapp.Tests
                 if (method != null)
                 {
                     var controller = Activator.CreateInstance(controllerType, _context);
-                    var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
+                    var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
 
 
-                    //var result = slotController.JoinTrain(1, commuter) as RedirectToActionResult;
+                    //var result = slotController.JoinTrain(1, passenger) as RedirectToActionResult;
 
                     Assert.IsNotNull(result);
 
