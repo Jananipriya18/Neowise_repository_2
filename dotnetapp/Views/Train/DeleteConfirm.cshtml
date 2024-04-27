@@ -1,31 +1,26 @@
-﻿@model RideShare.Models.Ride
+﻿@model dotnetapp.Models.Train
 
-<h2>Delete Ride</h2>
+<h2>Delete Train</h2>
 
 <div>
-    <p>Are you sure you want to delete this ride?</p>
+    <p>Are you sure you want to delete this train?</p>
     <dl class="row">
-        <dt class="col-sm-2">Ride ID:</dt>
-        <dd class="col-sm-10">@Model.RideID</dd>
-        <dt class="col-sm-2">Departure Location</dt>
+        <dt class="col-sm-2">Train ID:</dt>
+        <dd class="col-sm-10">@Model.TrainID</dd>
+        <dt class="col-sm-2">Departure Location:</dt>
         <dd class="col-sm-10">@Model.DepartureLocation</dd>
-        <dt class="col-sm-2">Destination</dt>
+        <dt class="col-sm-2">Destination:</dt>
         <dd class="col-sm-10">@Model.Destination</dd>
-        <!-- Include other ride details as needed -->
+        <dt class="col-sm-2">Departure Time:</dt>
+        <dd class="col-sm-10">@Model.DepartureTime</dd>
+        <dt class="col-sm-2">Maximum Capacity:</dt>
+        <dd class="col-sm-10">@Model.MaximumCapacity</dd>
     </dl>
-    @using (Html.BeginForm("Delete", "Ride", new { id = @Model.RideID }, FormMethod.Post))
+    @using (Html.BeginForm("Delete", "Train", new { id = @Model.TrainID }, FormMethod.Post))
     {
-
-        @Html.HiddenFor(model => model.RideID)
+        @Html.HiddenFor(model => model.TrainID)
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a asp-action="AvailableRides" class="btn btn-secondary">Cancel</a>
-
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
-
-        <form asp-action="Delete" asp-route-id="@Model.RideID" method="post">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            <a asp-action="AvailableRides" class="btn btn-secondary">Cancel</a>
-        </form>
-     } 
-
+        <a asp-action="AvailableTrains" class="btn btn-secondary">Cancel</a>
+    }
 </div>
+
