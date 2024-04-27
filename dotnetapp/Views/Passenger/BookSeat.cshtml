@@ -1,11 +1,35 @@
 @model dotnetapp.Models.Passenger
+@{
+    var trainId = Context.Request.Query["trainId"];
+}
+<h2>Book Seat</h2>
 
-<h2>Passenger Details</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
 
-<p>Passenger ID: @Model.PassengerID</p>
-<p>Name: @Model.Name</p>
-<p>Email: @Model.Email</p>
-<p>Phone: @Model.Phone</p>
-<p>Train ID: @Model.TrainID</p> 
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
 
-@Html.ActionLink("Back to Available trains", "AvailableTrains", "Train")
+    <div class="form-group">
+        @Html.LabelFor(model => model.Phone)
+        @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("TrainID", "Train ID")
+        <input type="text" id="TrainID" name="TrainID" class="form-control" value="@trainId" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Book Seat</button>
+
+    @Html.ActionLink("Back to Available Trains", "AvailableTrains", "Train")
+}

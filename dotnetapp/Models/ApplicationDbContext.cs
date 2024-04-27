@@ -1,7 +1,6 @@
-// ApplicationDbContext.cs
+//ApplicationDbContext.cs
 using Microsoft.EntityFrameworkCore;
 using dotnetapp.Models;
-using System;
 
 namespace dotnetapp.Models
 {
@@ -21,18 +20,13 @@ namespace dotnetapp.Models
                 .WithOne(p => p.Train)
                 .HasForeignKey(p => p.TrainID);
 
-            // Custom departure dates
-            var departure_date1 = new DateTime(2024, 1, 15);
-            var departure_date2 = new DateTime(2023, 2, 20);
-            var departure_date3 = new DateTime(2024, 2, 20);
-            var departure_date4 = new DateTime(2024, 5, 20);
-
             // Seed data
             modelBuilder.Entity<Train>().HasData(
-                new Train { TrainID = 1, DepartureLocation = "Delhi", Destination = "Mumbai", DepartureTime = departure_date1, MaximumCapacity = 4 },
-                new Train { TrainID = 2, DepartureLocation = "Chennai", Destination = "Kolkata", DepartureTime = departure_date2, MaximumCapacity = 3 },
-                new Train { TrainID = 3, DepartureLocation = "Bangalore", Destination = "Hyderabad", DepartureTime = departure_date3, MaximumCapacity = 2 },
-                new Train { TrainID = 4, DepartureLocation = "Jaipur", Destination = "Ahmedabad", DepartureTime = departure_date4, MaximumCapacity = 4 }
+                new Train { TrainID = 1, DepartureLocation = "Location1", Destination = "Destination1", DepartureTime = DateTime.Now.AddHours(2), MaximumCapacity = 4 },
+                new Train { TrainID = 2, DepartureLocation = "Location2", Destination = "Destination2", DepartureTime = DateTime.Now.AddHours(3), MaximumCapacity = 3 },
+                new Train { TrainID = 3, DepartureLocation = "Location3", Destination = "Destination3", DepartureTime = DateTime.Now.AddHours(9), MaximumCapacity = 2 },
+                new Train { TrainID = 4, DepartureLocation = "Location4", Destination = "Destination4", DepartureTime = DateTime.Now.AddHours(5), MaximumCapacity = 4 },
+                new Train { TrainID = 5, DepartureLocation = "Location5", Destination = "Destination5", DepartureTime = DateTime.Now.AddHours(7), MaximumCapacity = 3 }
             );
         }
     }
