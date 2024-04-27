@@ -1,75 +1,75 @@
-// using System.Collections.Generic;
-// using System.Linq;
-// using RideShare.Models;
-// using Microsoft.AspNetCore.Mvc;
-// using Microsoft.EntityFrameworkCore;
-// using NUnit.Framework;
-// using System.Reflection;
-// using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections.Generic;
+using System.Linq;
+using dotnetapp.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
+using System.Reflection;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-// namespace RideShare.Tests
-// {
-//     [TestFixture]
-//     public class RideSharingTests
-//     {
-//         private DbContextOptions<RideSharingDbContext> _dbContextOptions;
-//         private RideSharingDbContext _context;
+namespace dotnetapp.Tests
+{
+    [TestFixture]
+    public class TrainTicketBookingTests
+    {
+        private DbContextOptions<ApplicationDbContext> _dbContextOptions;
+        private ApplicationDbContext _context;
 
-//         [SetUp]
-//         public void Setup()
-//         {
-//             _dbContextOptions = new DbContextOptionsBuilder<RideSharingDbContext>()
-//                 .UseInMemoryDatabase(databaseName: "TestDatabase")
-//                 .Options;
-//             _context = new RideSharingDbContext(_dbContextOptions);
+        [SetUp]
+        public void Setup()
+        {
+            _dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+            _context = new ApplicationDbContext(_dbContextOptions);
 
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
-//             {
-//                 var teamData = new Dictionary<string, object>
-//                     {
-//                         //{ "RideID", 1 },
-//                         { "DepartureLocation", "Location A" },
-//                         { "Destination", "Location B" },
-//                         { "DateOfDeparture", DateTime.Parse("2023-08-30") },
-//                         { "MaximumCapacity", 4 }
-//                     };
-//                 // Add test data to the in-memory database
-//                 var ride = new Ride();
-//                 foreach (var kvp in teamData)
-//                 {
-//                     var propertyInfo = typeof(Ride).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(ride, kvp.Value);
-//                     }
-//                 }
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            {
+                var teamData = new Dictionary<string, object>
+                    {
+                        //{ "TrainID", 1 },
+                        { "DepartureLocation", "Location A" },
+                        { "Destination", "Location B" },
+                        { "DateOfDeparture", DateTime.Parse("2023-08-30") },
+                        { "MaximumCapacity", 4 }
+                    };
+                // Add test data to the in-memory database
+                var train = new Train();
+                foreach (var kvp in teamData)
+                {
+                    var propertyInfo = typeof(Train).GetProperty(kvp.Key);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(Train, kvp.Value);
+                    }
+                }
 
-//                 dbContext.Rides.Add(ride);
-//                 dbContext.SaveChanges();
-//             }
-//         }
+                dbContext.Trains.Add(train);
+                dbContext.SaveChanges();
+            }
+        }
 
 //         [TearDown]
 //         public void TearDown()
 //         {
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 // Clear the in-memory database after each test
 //                 dbContext.Database.EnsureDeleted();
 //             }
 //         }
 
-//         // test to check that JoinRide method in SlotController with successfull join redirects to Details method in RideController
+//         // test to check that JoinTrain method in SlotController with successfull join redirects to Details method in TrainController
 //         [Test]
-//         public void JoinRide_SlotController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_RideController()
+//         public void JoinTrain_SlotController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "RideShare.Models.Commuter";
-//             string controllerTypeName = "RideShare.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Commuter";
+//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 // Arrange
 //                 var teamData = new Dictionary<string, object>
@@ -87,7 +87,7 @@
 //                         propertyInfo.SetValue(commuter, kvp.Value);
 //                     }
 //                 }
-//                 MethodInfo method = controllerType.GetMethod("JoinRide", new[] { typeof(int), controllerType2 });
+//                 MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
 
 //                 if (method != null)
 //                 {
@@ -95,12 +95,12 @@
 //                     var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
 
 
-//                     //var result = slotController.JoinRide(1, commuter) as RedirectToActionResult;
+//                     //var result = slotController.JoinTrain(1, commuter) as RedirectToActionResult;
 
 //                     Assert.IsNotNull(result);
 
 //                     Assert.AreEqual("Details", result.ActionName);
-//                     Assert.AreEqual("Ride", result.ControllerName);
+//                     Assert.AreEqual("Train", result.ControllerName);
 //                 }
 //                 else
 //                 {
@@ -109,17 +109,17 @@
 //             }
 //         }
 
-//         // test to check that JoinRide method in SlotController with successfull join adds commuter to the ride
+//         // test to check that JoinTrain method in SlotController with successfull join adds commuter to the ride
 //         [Test]
-//         public void JoinRide_SlotController_ValidCommuter_Adds_Commuter_To_Ride_Successfully()
+//         public void JoinTrain_SlotController_ValidCommuter_Adds_Commuter_To_Train_Successfully()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "RideShare.Models.Commuter";
-//             string controllerTypeName = "RideShare.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Commuter";
+//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 var teamData = new Dictionary<string, object>
 //                     {
@@ -136,15 +136,15 @@
 //                         propertyInfo.SetValue(commuter, kvp.Value);
 //                     }
 //                 }
-//                 MethodInfo method = controllerType.GetMethod("JoinRide", new[] { typeof(int), controllerType2 });
+//                 MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
 
 //                 if (method != null)
 //                 {
-//                     var ride1 = _context.Rides.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
+//                     var ride1 = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
 //                     Assert.AreEqual(0, ride1.Commuters.Count);
 //                     var controller = Activator.CreateInstance(controllerType, _context);
 //                     var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
-//                     var ride = _context.Rides.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
+//                     var ride = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
 //                     Assert.IsNotNull(ride);
 //                     Assert.AreEqual(1, ride.Commuters.Count);
 
@@ -160,16 +160,16 @@
 
 
 //         [Test]
-//         public void JoinRide_SlotController_InvalidCommuter_Name_Email_Phone_are_required_ModelStateInvalid()
+//         public void JoinTrain_SlotController_InvalidCommuter_Name_Email_Phone_are_required_ModelStateInvalid()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string controllerTypeName = "RideShare.Controllers.SlotController";
+//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
-//             string modelType = "RideShare.Models.Commuter";
+//             string modelType = "dotnetapp.Models.Commuter";
 //             Type modelType2 = assembly.GetType(modelType);
 
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 // Arrange
 //                 var slotController = Activator.CreateInstance(controllerType, dbContext);
@@ -183,8 +183,8 @@
 //                 modelState.AddModelError("Phone", "Phone is required");
 
 
-//                 // Invoke JoinRide method using reflection
-//                 MethodInfo joinRideMethod = controllerType.GetMethod("JoinRide", new[] { typeof(int), modelType2 });
+//                 // Invoke JoinTrain method using reflection
+//                 MethodInfo joinTrainMethod = controllerType.GetMethod("JoinRide", new[] { typeof(int), modelType2 });
 //                 var result = joinRideMethod.Invoke(slotController, new object[] { 1, commuter }) as ViewResult;
 
 //                 // Assert
@@ -202,13 +202,13 @@
 //         [Test]
 //         public void JoinRide_SlotController_RideNotFound_ReturnsNotFoundResult()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "RideShare.Models.Commuter";
-//             string controllerTypeName = "RideShare.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Commuter";
+//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 var teamData = new Dictionary<string, object>
 //                     {
@@ -245,16 +245,16 @@
 //         [Test]
 //         public void JoinRide_SlotController_MaximumCapacityReached_ThrowsException()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "RideShare.Models.Commuter";
-//             string exception = "RideShare.Exceptions.RideSharingException";
-//             string controllerTypeName = "RideShare.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Commuter";
+//             string exception = "dotnetapp.Exceptions.RideSharingException";
+//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             Type exceptionType = assembly.GetType(exception);
 
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 var teamData = new Dictionary<string, object>
 //                     {
@@ -335,16 +335,16 @@
 //         [Test]
 //         public void JoinRide_SlotController_MaximumCapacityReached_ThrowsException_with_Message()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "RideShare.Models.Commuter";
-//             string exception = "RideShare.Exceptions.RideSharingException";
-//             string controllerTypeName = "RideShare.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Passenger";
+//             string exception = "dotnetapp.Exceptions.RideSharingException";
+//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             Type exceptionType = assembly.GetType(exception);
 
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 var teamData = new Dictionary<string, object>
 //                     {
@@ -436,11 +436,11 @@
 //         [Test]
 //         public void RideController_Delete_Method_ValidId_DeletesRideSuccessfully_Redirects_AvailableRides()
 //         {
-//             string assemblyName = "RideShare";
+//             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string controllerTypeName = "RideShare.Controllers.RideController";
+//             string controllerTypeName = "dotnetapp.Controllers.RideController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
-//             using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 var teamData = new Dictionary<string, object>
 //                     {
@@ -495,7 +495,7 @@
 //         //     [Test]
 //         // public void JoinRide_DestinationSameAsDeparture_ReturnsViewWithValidationError()
 //         // {
-//         //     using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //     {
 //         //         // Arrange
 //         //         var slotController = new SlotController(dbContext);
@@ -523,7 +523,7 @@
 //         // [Test]
 //         // public void JoinRide_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
 //         // {
-//         //     using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //     {
 //         //         // Arrange
 //         //         var slotController = new SlotController(dbContext);
@@ -553,8 +553,8 @@
 //         [Test]
 //         public void Ride_Models_ClassExists()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Ride";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideType = assembly.GetType(typeName);
 //             Assert.IsNotNull(RideType);
@@ -564,19 +564,19 @@
 //         [Test]
 //         public void Commuter_Models_ClassExists()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Commuter";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Commuter";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             Assert.IsNotNull(CommuterType);
 //         }
 
 
-//         // Test to check that RideSharingDbContext Contains DbSet for model Ride
+//         // Test to check that ApplicationDbContext Contains DbSet for model Ride
 //         [Test]
-//         public void RideSharingDbContext_ContainsDbSet_Ride()
+//         public void ApplicationDbContext_ContainsDbSet_Ride()
 //         {
-//             Assembly assembly = Assembly.GetAssembly(typeof(RideSharingDbContext));
+//             Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
 //             Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
 //             if (contextType == null)
 //             {
@@ -601,11 +601,11 @@
 //             }
 //         }
 
-//         // Test to check that RideSharingDbContext Contains DbSet for model Commuter
+//         // Test to check that ApplicationDbContext Contains DbSet for model Commuter
 //         [Test]
-//         public void RideSharingDbContext_ContainsDbSet_Commuter()
+//         public void ApplicationDbContext_ContainsDbSet_Commuter()
 //         {
-//             Assembly assembly = Assembly.GetAssembly(typeof(RideSharingDbContext));
+//             Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
 //             Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
 //             if (contextType == null)
 //             {
@@ -634,8 +634,8 @@
 //         [Test]
 //         public void Commuter_CommuterID_PropertyExists_ReturnExpectedDataTypes_int()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Commuter";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Commuter";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("CommuterID");
@@ -648,8 +648,8 @@
 //         [Test]
 //         public void Commuter_Name_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Commuter";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Commuter";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("Name");
@@ -662,8 +662,8 @@
 //         [Test]
 //         public void Commuter_Email_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Commuter";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Commuter";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("Email");
@@ -676,8 +676,8 @@
 //         [Test]
 //         public void Commuter_Phone_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Commuter";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Commuter";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("Phone");
@@ -690,8 +690,8 @@
 //         [Test]
 //         public void Commuter_RideID_PropertyExists_ReturnExpectedDataTypes_int()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Commuter";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Commuter";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("RideID");
@@ -704,8 +704,8 @@
 //         [Test]
 //         public void Ride_RideID_PropertyExists_ReturnExpectedDataTypes_int()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Ride";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = RideType.GetProperty("RideID");
@@ -718,8 +718,8 @@
 //         [Test]
 //         public void Ride_DepartureLocation_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Ride";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = RideType.GetProperty("DepartureLocation");
@@ -732,8 +732,8 @@
 //         [Test]
 //         public void Ride_Destination_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Ride";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = RideType.GetProperty("Destination");
@@ -746,8 +746,8 @@
 //         [Test]
 //         public void Ride_DateOfDeparture_PropertyExists_ReturnExpectedDataTypes_DateTime()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Ride";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = RideType.GetProperty("DateOfDeparture");
@@ -760,8 +760,8 @@
 //         [Test]
 //         public void Ride_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Models.Ride";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = RideType.GetProperty("MaximumCapacity");
@@ -775,7 +775,7 @@
 //         //        [Test]
 //         //public void test_case12()
 //         //{
-//         //    using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//         //    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //    {
 //         //        // Arrange
 //         //        var slotController = new SlotController(dbContext);
@@ -803,7 +803,7 @@
 //         //[Test]
 //         //public void test_case13()
 //         //{
-//         //    using (var dbContext = new RideSharingDbContext(_dbContextOptions))
+//         //    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //    {
 //         //        // Arrange
 //         //        var slotController = new SlotController(dbContext);
@@ -832,8 +832,8 @@
 //         [Test]
 //         public void RideController_AvailableRides_Method_with_NoParams_Returns_IActionResult()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Controllers.RideController";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Controllers.RideController";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideControllerType = assembly.GetType(typeName);
 //             MethodInfo methodInfo = RideControllerType.GetMethod("AvailableRides", Type.EmptyTypes);
@@ -844,8 +844,8 @@
 //         [Test]
 //         public void RideController_Details_Method_Invokes_with_int_Param_Returns_IActionResult()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Controllers.RideController";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Controllers.RideController";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type RideControllerType = assembly.GetType(typeName);
 //             object instance = Activator.CreateInstance(RideControllerType, _context);
@@ -858,10 +858,10 @@
 //         [Test]
 //         public void RideController_Delete_Method_Invokes_with_RideID_Param_Returns_IActionResult()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Controllers.RideController";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Controllers.RideController";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string typeName1 = "RideShare.Models.Ride";
+//             string typeName1 = "dotnetapp.Models.Ride";
 //             Type RideType = assembly.GetType(typeName1);
 //             object instance1 = Activator.CreateInstance(RideType);
 //             Type RideControllerType = assembly.GetType(typeName);
@@ -875,10 +875,10 @@
 //         [Test]
 //         public void RideController_DeleteConfirm_Method_Invokes_with_RideID_Param_Returns_IActionResult()
 //         {
-//             string assemblyName = "RideShare";
-//             string typeName = "RideShare.Controllers.RideController";
+//             string assemblyName = "dotnetapp";
+//             string typeName = "dotnetapp.Controllers.RideController";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string typeName1 = "RideShare.Models.Ride";
+//             string typeName1 = "dotnetapp.Models.Ride";
 //             Type RideType = assembly.GetType(typeName1);
 //             object instance1 = Activator.CreateInstance(RideType);
 //             Type RideControllerType = assembly.GetType(typeName);
@@ -888,6 +888,6 @@
 //             Assert.IsNotNull(result, "Result should not be null");
 //             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method DeleteConfirm in RideController class is not of type IActionResult");
 //         }
-//     }
+     }
 
-// }
+}

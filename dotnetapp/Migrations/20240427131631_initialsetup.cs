@@ -52,11 +52,11 @@ namespace dotnetapp.Migrations
                 columns: new[] { "TrainID", "DepartureLocation", "DepartureTime", "Destination", "MaximumCapacity" },
                 values: new object[,]
                 {
-                    { 1, "Location1", new DateTime(2024, 4, 27, 15, 8, 50, 991, DateTimeKind.Local).AddTicks(9390), "Destination1", 4 },
-                    { 2, "Location2", new DateTime(2024, 4, 27, 16, 8, 50, 991, DateTimeKind.Local).AddTicks(9421), "Destination2", 3 },
-                    { 3, "Location3", new DateTime(2024, 4, 27, 22, 8, 50, 991, DateTimeKind.Local).AddTicks(9423), "Destination3", 2 },
-                    { 4, "Location4", new DateTime(2024, 4, 27, 18, 8, 50, 991, DateTimeKind.Local).AddTicks(9425), "Destination4", 4 },
-                    { 5, "Location5", new DateTime(2024, 4, 27, 20, 8, 50, 991, DateTimeKind.Local).AddTicks(9427), "Destination5", 3 }
+                    { 1, "Delhi", new DateTime(2024, 4, 27, 15, 16, 31, 349, DateTimeKind.Local).AddTicks(6829), "Mumbai", 4 },
+                    { 2, "Chennai", new DateTime(2024, 4, 27, 16, 16, 31, 349, DateTimeKind.Local).AddTicks(6854), "Kolkata", 3 },
+                    { 3, "Bangalore", new DateTime(2024, 4, 27, 22, 16, 31, 349, DateTimeKind.Local).AddTicks(6856), "Hyderabad", 2 },
+                    { 4, "Jaipur", new DateTime(2024, 4, 27, 18, 16, 31, 349, DateTimeKind.Local).AddTicks(6857), "Ahmedabad", 4 },
+                    { 5, "Lucknow", new DateTime(2024, 4, 27, 20, 16, 31, 349, DateTimeKind.Local).AddTicks(6858), "Bhopal", 3 }
                 });
 
             migrationBuilder.CreateIndex(

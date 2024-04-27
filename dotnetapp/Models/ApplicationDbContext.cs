@@ -22,11 +22,11 @@ namespace dotnetapp.Models
 
             // Seed data
             modelBuilder.Entity<Train>().HasData(
-                new Train { TrainID = 1, DepartureLocation = "Location1", Destination = "Destination1", DepartureTime = DateTime.Now.AddHours(2), MaximumCapacity = 4 },
-                new Train { TrainID = 2, DepartureLocation = "Location2", Destination = "Destination2", DepartureTime = DateTime.Now.AddHours(3), MaximumCapacity = 3 },
-                new Train { TrainID = 3, DepartureLocation = "Location3", Destination = "Destination3", DepartureTime = DateTime.Now.AddHours(9), MaximumCapacity = 2 },
-                new Train { TrainID = 4, DepartureLocation = "Location4", Destination = "Destination4", DepartureTime = DateTime.Now.AddHours(5), MaximumCapacity = 4 },
-                new Train { TrainID = 5, DepartureLocation = "Location5", Destination = "Destination5", DepartureTime = DateTime.Now.AddHours(7), MaximumCapacity = 3 }
+                new Train { TrainID = 1, DepartureLocation = "Delhi", Destination = "Mumbai", DepartureTime = DateTime.Now.AddHours(2), MaximumCapacity = 4 },
+                new Train { TrainID = 2, DepartureLocation = "Chennai", Destination = "Kolkata", DepartureTime = DateTime.Now.AddHours(3), MaximumCapacity = 3 },
+                new Train { TrainID = 3, DepartureLocation = "Bangalore", Destination = "Hyderabad", DepartureTime = DateTime.Now.AddHours(9), MaximumCapacity = 2 },
+                new Train { TrainID = 4, DepartureLocation = "Jaipur", Destination = "Ahmedabad", DepartureTime = DateTime.Now.AddHours(5), MaximumCapacity = 4 },
+                new Train { TrainID = 5, DepartureLocation = "Lucknow", Destination = "Bhopal", DepartureTime = DateTime.Now.AddHours(7), MaximumCapacity = 3 }
             );
         }
     }
