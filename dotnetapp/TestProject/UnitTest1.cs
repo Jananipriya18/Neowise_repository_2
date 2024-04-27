@@ -49,65 +49,65 @@ namespace dotnetapp.Tests
             }
         }
 
-//         [TearDown]
-//         public void TearDown()
-//         {
-//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//             {
-//                 // Clear the in-memory database after each test
-//                 dbContext.Database.EnsureDeleted();
-//             }
-//         }
+        [TearDown]
+        public void TearDown()
+        {
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Clear the in-memory database after each test
+                dbContext.Database.EnsureDeleted();
+            }
+        }
 
-//         // test to check that JoinTrain method in SlotController with successfull join redirects to Details method in TrainController
-//         [Test]
-//         public void JoinTrain_SlotController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
-//         {
-//             string assemblyName = "dotnetapp";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "dotnetapp.Models.Commuter";
-//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
-//             Type controllerType = assembly.GetType(controllerTypeName);
-//             Type controllerType2 = assembly.GetType(modelType);
-//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//             {
-//                 // Arrange
-//                 var teamData = new Dictionary<string, object>
-//                     {
-//                         { "Name", "John Doe" },
-//                         { "Email", "johndoe@example.com" },
-//                         { "Phone", "1234567890" }
-//                     };
-//                 var commuter = new Commuter();
-//                 foreach (var kvp in teamData)
-//                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(commuter, kvp.Value);
-//                     }
-//                 }
-//                 MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
+        // test to check that JoinTrain method in SlotController with successfull join redirects to Details method in TrainController
+        [Test]
+        public void JoinTrain_SlotController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
+        {
+            string assemblyName = "dotnetapp";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string modelType = "dotnetapp.Models.Passenger";
+            string controllerTypeName = "dotnetapp.Models.PassengerController";
+            Type controllerType = assembly.GetType(controllerTypeName);
+            Type controllerType2 = assembly.GetType(modelType);
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var teamData = new Dictionary<string, object>
+                    {
+                        { "Name", "John Doe" },
+                        { "Email", "johndoe@example.com" },
+                        { "Phone", "1234567890" }
+                    };
+                var commuter = new Commuter();
+                foreach (var kvp in teamData)
+                {
+                    var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(commuter, kvp.Value);
+                    }
+                }
+                MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
 
-//                 if (method != null)
-//                 {
-//                     var controller = Activator.CreateInstance(controllerType, _context);
-//                     var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
+                if (method != null)
+                {
+                    var controller = Activator.CreateInstance(controllerType, _context);
+                    var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
 
 
-//                     //var result = slotController.JoinTrain(1, commuter) as RedirectToActionResult;
+                    //var result = slotController.JoinTrain(1, commuter) as RedirectToActionResult;
 
-//                     Assert.IsNotNull(result);
+                    Assert.IsNotNull(result);
 
-//                     Assert.AreEqual("Details", result.ActionName);
-//                     Assert.AreEqual("Train", result.ControllerName);
-//                 }
-//                 else
-//                 {
-//                     Assert.Fail();
-//                 }
-//             }
-//         }
+                    Assert.AreEqual("Details", result.ActionName);
+                    Assert.AreEqual("Train", result.ControllerName);
+                }
+                else
+                {
+                    Assert.Fail();
+                }
+            }
+        }
 
 //         // test to check that JoinTrain method in SlotController with successfull join adds commuter to the ride
 //         [Test]
@@ -115,8 +115,8 @@ namespace dotnetapp.Tests
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "dotnetapp.Models.Commuter";
-//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Passenger";
+//             string controllerTypeName = "dotnetapp.Models.PassengerController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
@@ -164,9 +164,9 @@ namespace dotnetapp.Tests
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
+//             string controllerTypeName = "dotnetapp.Models.PassengerController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
-//             string modelType = "dotnetapp.Models.Commuter";
+//             string modelType = "dotnetapp.Models.Passenger";
 //             Type modelType2 = assembly.GetType(modelType);
 
 //             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
@@ -204,8 +204,8 @@ namespace dotnetapp.Tests
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "dotnetapp.Models.Commuter";
-//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
+//             string modelType = "dotnetapp.Models.Passenger";
+//             string controllerTypeName = "dotnetapp.Models.PassengerController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
@@ -247,9 +247,9 @@ namespace dotnetapp.Tests
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "dotnetapp.Models.Commuter";
+//             string modelType = "dotnetapp.Models.Passenger";
 //             string exception = "dotnetapp.Exceptions.RideSharingException";
-//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
+//             string controllerTypeName = "dotnetapp.Models.PassengerController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             Type exceptionType = assembly.GetType(exception);
@@ -339,7 +339,7 @@ namespace dotnetapp.Tests
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             string modelType = "dotnetapp.Models.Passenger";
 //             string exception = "dotnetapp.Exceptions.RideSharingException";
-//             string controllerTypeName = "dotnetapp.Controllers.SlotController";
+//             string controllerTypeName = "dotnetapp.Models.PassengerController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             Type controllerType2 = assembly.GetType(modelType);
 //             Type exceptionType = assembly.GetType(exception);
@@ -565,7 +565,7 @@ namespace dotnetapp.Tests
 //         public void Commuter_Models_ClassExists()
 //         {
 //             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Commuter";
+//             string typeName = "dotnetapp.Models.Passenger";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             Assert.IsNotNull(CommuterType);
@@ -635,7 +635,7 @@ namespace dotnetapp.Tests
 //         public void Commuter_CommuterID_PropertyExists_ReturnExpectedDataTypes_int()
 //         {
 //             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Commuter";
+//             string typeName = "dotnetapp.Models.Passenger";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("CommuterID");
@@ -649,7 +649,7 @@ namespace dotnetapp.Tests
 //         public void Commuter_Name_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
 //             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Commuter";
+//             string typeName = "dotnetapp.Models.Passenger";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("Name");
@@ -663,7 +663,7 @@ namespace dotnetapp.Tests
 //         public void Commuter_Email_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
 //             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Commuter";
+//             string typeName = "dotnetapp.Models.Passenger";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("Email");
@@ -677,7 +677,7 @@ namespace dotnetapp.Tests
 //         public void Commuter_Phone_PropertyExists_ReturnExpectedDataTypes_string()
 //         {
 //             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Commuter";
+//             string typeName = "dotnetapp.Models.Passenger";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("Phone");
@@ -691,7 +691,7 @@ namespace dotnetapp.Tests
 //         public void Commuter_RideID_PropertyExists_ReturnExpectedDataTypes_int()
 //         {
 //             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Commuter";
+//             string typeName = "dotnetapp.Models.Passenger";
 //             Assembly assembly = Assembly.Load(assemblyName);
 //             Type CommuterType = assembly.GetType(typeName);
 //             PropertyInfo propertyInfo = CommuterType.GetProperty("RideID");

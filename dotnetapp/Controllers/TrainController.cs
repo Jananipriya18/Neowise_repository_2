@@ -23,22 +23,22 @@ namespace dotnetapp.Controllers
         }
     
         public IActionResult Details(int id)
-{
-    var passenger = _dbContext.Passengers.Include(p => p.Train).FirstOrDefault(p => p.PassengerID == id);
-    if (passenger == null)
-    {
-        return NotFound();
-    }
+        {
+            var passenger = _dbContext.Passengers.Include(p => p.Train).FirstOrDefault(p => p.PassengerID == id);
+            if (passenger == null)
+            {
+                return NotFound();
+            }
 
-    // Calculate booked seats and available seats based on the associated train
-    int bookedSeats = passenger.Train.Passengers.Count;
-    int availableSeats = passenger.Train.MaximumCapacity - bookedSeats;
+            // Calculate booked seats and available seats based on the associated train
+            int bookedSeats = passenger.Train.Passengers.Count;
+            int availableSeats = passenger.Train.MaximumCapacity - bookedSeats;
 
-    ViewBag.BookedSeats = bookedSeats;
-    ViewBag.AvailableSeats = availableSeats;
+            ViewBag.BookedSeats = bookedSeats;
+            ViewBag.AvailableSeats = availableSeats;
 
-    return View("details", passenger);
-}
+            return View("details", passenger);
+        }
 
 
         public IActionResult DeleteConfirm(int id)
