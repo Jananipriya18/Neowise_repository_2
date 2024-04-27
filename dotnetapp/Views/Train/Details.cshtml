@@ -3,18 +3,12 @@
 <h2>Passenger Details</h2>
 
 <p>Passenger ID: @Model.PassengerID</p>
-<p>Departure Location: @Model.DepartureLocation</p>
-<p>Destination: @Model.Destination</p>
-<p>Date and Time: @Model.DateOfDeparture</p>
-<p>Maximum Capacity: @Model.MaximumCapacity</p>
-<p>Joined Commuters: @ViewBag.JoinedCommuters</p>
-<p>Available Seats: @ViewBag.AvailableSeats</p>
+@* <p>Departure Location: @Model.DepartureLocation</p> *@
+@* <p>Destination: @Model.destination</p>
+<p>Date and Time: @Model.departureTime</p>
+<p>Maximum Capacity: @Model.maximumCapacity</p> *@
+@* <p>Joined Commuters: @ViewBag.bookedPassengers</p> *@
+<p>Available Seats: @ViewBag.availableSeats</p>
 
 
-@Html.ActionLink("Back to Available Passengers", "AvailablePassengers", "Passenger")
-<td>@passenger.DepartureLocation</td>
-                    <td>@passenger.Destination</td>
-                    <td>@passenger.DepartureTime</td>
-                    <td>@passenger.MaximumCapacity</td>
-                    <td>@bookedPassengers</td>
-                    <td>@availableSeats</td>
+@* @Html.ActionLink("Back to Available Passengers", "AvailablePassengers", "Passenger") *@
