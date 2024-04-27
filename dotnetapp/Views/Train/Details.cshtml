@@ -1,14 +1,12 @@
-@model Passenger
+@model dotnetapp.Models.Passenger
 
 <h2>Passenger Details</h2>
 
-@* <p>Passenger ID: @Model.PassengerID</p> *@
-@* <p>Departure Location: @Model.DepartureLocation</p> *@
-@* <p>Destination: @Model.destination</p>
-<p>Date and Time: @Model.departureTime</p>
-<p>Maximum Capacity: @Model.maximumCapacity</p> *@
-@* <p>Joined Commuters: @ViewBag.bookedPassengers</p> *@
-@* <p>Available Seats: @ViewBag.availableSeats</p> *@
+<p>Passenger ID: @Model.PassengerID</p>
+<p>Name: @Model.Name</p>
+<p>Email: @Model.Email</p>
+<p>Phone: @Model.Phone</p>
+<p>Train ID: @Model.TrainID</p> <!-- If you want to display the associated train ID -->
+<!-- Add any other details you want to display about the passenger -->
 
-
-@* @Html.ActionLink("Back to Available Passengers", "AvailablePassengers", "Passenger") *@
+@Html.ActionLink("Back to Available Passengers", "AvailablePassengers", "Passenger")
