@@ -59,108 +59,203 @@ namespace dotnetapp.Tests
             }
         }
 
-        // test to check that JoinTrain method in SlotController with successfull join redirects to Details method in TrainController
+        // test to check that BookSeat method in TrainController with successfull join redirects to Details method in TrainController
+        // [Test]
+        // public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
+        // {
+        //     string assemblyName = "dotnetapp";
+        //     Assembly assembly = Assembly.Load(assemblyName);
+        //     string modelType = "dotnetapp.Models.Passenger";
+        //     string controllerTypeName = "dotnetapp.Models.PassengerController";
+        //     Type controllerType = assembly.GetType(controllerTypeName);
+        //     Type controllerType2 = assembly.GetType(modelType);
+        //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+        //     {
+        //         // Arrange
+        //         var teamData = new Dictionary<string, object>
+        //             {
+        //                 { "Name", "John Doe" },
+        //                 { "Email", "johndoe@example.com" },
+        //                 { "Phone", "1234567890" }
+        //             };
+        //         var passenger = new Passenger();
+        //         foreach (var kvp in teamData)
+        //         {
+        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+        //             if (propertyInfo != null)
+        //             {
+        //                 propertyInfo.SetValue(passenger, kvp.Value);
+        //             }
+        //         }
+        //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
+
+        //         if (method != null)
+        //         {
+        //             var controller = Activator.CreateInstance(controllerType, _context);
+        //             var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
+
+
+        //             //var result = TrainController.BookSeat(1, passenger) as RedirectToActionResult;
+
+        //             Assert.IsNotNull(result);
+
+        //             Assert.AreEqual("Details", result.ActionName);
+        //             Assert.AreEqual("Train", result.ControllerName);
+        //         }
+        //         else
+        //         {
+        //             Assert.Fail();
+        //         }
+        //     }
+        // }
         [Test]
-        public void JoinTrain_SlotController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
-        {
-            string assemblyName = "dotnetapp";
-            Assembly assembly = Assembly.Load(assemblyName);
-            string modelType = "dotnetapp.Models.Passenger";
-            string controllerTypeName = "dotnetapp.Models.PassengerController";
-            Type controllerType = assembly.GetType(controllerTypeName);
-            Type controllerType2 = assembly.GetType(modelType);
-            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string modelType = "dotnetapp.Models.Passenger";
+    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type controllerType2 = assembly.GetType(modelType);
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        // Arrange
+        var teamData = new Dictionary<string, object>
             {
-                // Arrange
-                var teamData = new Dictionary<string, object>
-                    {
-                        { "Name", "John Doe" },
-                        { "Email", "johndoe@example.com" },
-                        { "Phone", "1234567890" }
-                    };
-                var passenger = new Passenger();
-                foreach (var kvp in teamData)
-                {
-                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-                    if (propertyInfo != null)
-                    {
-                        propertyInfo.SetValue(passenger, kvp.Value);
-                    }
-                }
-                MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
-
-                if (method != null)
-                {
-                    var controller = Activator.CreateInstance(controllerType, _context);
-                    var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
-
-
-                    //var result = slotController.JoinTrain(1, passenger) as RedirectToActionResult;
-
-                    Assert.IsNotNull(result);
-
-                    Assert.AreEqual("Details", result.ActionName);
-                    Assert.AreEqual("Train", result.ControllerName);
-                }
-                else
-                {
-                    Assert.Fail();
-                }
+                { "Name", "John Doe" },
+                { "Email", "johndoe@example.com" },
+                { "Phone", "1234567890" }
+            };
+        var passenger = new Passenger();
+        foreach (var kvp in teamData)
+        {
+            var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+            if (propertyInfo != null)
+            {
+                propertyInfo.SetValue(passenger, kvp.Value);
             }
         }
+        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
 
-//         // test to check that JoinTrain method in SlotController with successfull join adds commuter to the ride
+        if (method != null)
+        {
+            var controller = Activator.CreateInstance(controllerType, _context);
+            var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
+
+
+            //var result = TrainController.BookSeat(1, passenger) as RedirectToActionResult;
+
+            Assert.IsNotNull(result);
+
+            Assert.AreEqual("Details", result.ActionName);
+            Assert.AreEqual("Train", result.ControllerName);
+        }
+        else
+        {
+            Assert.Fail();
+        }
+    }
+}
+
+
+        // // test to check that BookSeat method in TrainController with successfull join adds commuter to the ride
+        // [Test]
+        // public void BookSeat_TrainController_ValidCommuter_Adds_Commuter_To_Train_Successfully()
+        // {
+        //     string assemblyName = "dotnetapp";
+        //     Assembly assembly = Assembly.Load(assemblyName);
+        //     string modelType = "dotnetapp.Models.Passenger";
+        //     string controllerTypeName = "dotnetapp.Models.PassengerController";
+        //     Type controllerType = assembly.GetType(controllerTypeName);
+        //     Type controllerType2 = assembly.GetType(modelType);
+        //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+        //     {
+        //         var teamData = new Dictionary<string, object>
+        //             {
+        //                 { "Name", "John Doe" },
+        //                 { "Email", "johndoe@example.com" },
+        //                 { "Phone", "1234567890" }
+        //             };
+        //         var commuter = new Commuter();
+        //         foreach (var kvp in teamData)
+        //         {
+        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             if (propertyInfo != null)
+        //             {
+        //                 propertyInfo.SetValue(commuter, kvp.Value);
+        //             }
+        //         }
+        //         MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
+
+        //         if (method != null)
+        //         {
+        //             var ride1 = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
+        //             Assert.AreEqual(0, ride1.Commuters.Count);
+        //             var controller = Activator.CreateInstance(controllerType, _context);
+        //             var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
+        //             var ride = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
+        //             Assert.IsNotNull(ride);
+        //             Assert.AreEqual(1, ride.Commuters.Count);
+
+        //         }
+        //         else
+        //         {
+        //             Assert.Fail();
+        //         }
+        //     }
+        // }
+
+        [Test]
+public void BookSeat_TrainController_ValidCommuter_Adds_Commuter_To_Train_Successfully()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string modelType = "dotnetapp.Models.Commuter"; // Corrected model type to Commuter
+    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name to PassengerController
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type controllerType2 = assembly.GetType(modelType);
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        var teamData = new Dictionary<string, object>
+        {
+            { "Name", "John Doe" },
+            { "Email", "johndoe@example.com" },
+            { "Phone", "1234567890" }
+        };
+        var commuter = new Passenger(); // Changed from Passenger to Passenger
+        foreach (var kvp in teamData)
+        {
+            var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+            if (propertyInfo != null)
+            {
+                propertyInfo.SetValue(commuter, kvp.Value);
+            }
+        }
+        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 }); // Changed JoinTrain to BookSeat
+
+        if (method != null)
+        {
+            var ride1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
+            Assert.AreEqual(0, ride1.Passengers.Count);
+            var controller = Activator.CreateInstance(controllerType, _context);
+            var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
+            var ride = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
+            Assert.IsNotNull(ride);
+            Assert.AreEqual(1, ride.Commuters.Count);
+        }
+        else
+        {
+            Assert.Fail();
+        }
+    }
+}
+
+
+
+
+
 //         [Test]
-//         public void JoinTrain_SlotController_ValidCommuter_Adds_Commuter_To_Train_Successfully()
-//         {
-//             string assemblyName = "dotnetapp";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string modelType = "dotnetapp.Models.Passenger";
-//             string controllerTypeName = "dotnetapp.Models.PassengerController";
-//             Type controllerType = assembly.GetType(controllerTypeName);
-//             Type controllerType2 = assembly.GetType(modelType);
-//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//             {
-//                 var teamData = new Dictionary<string, object>
-//                     {
-//                         { "Name", "John Doe" },
-//                         { "Email", "johndoe@example.com" },
-//                         { "Phone", "1234567890" }
-//                     };
-//                 var commuter = new Commuter();
-//                 foreach (var kvp in teamData)
-//                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(commuter, kvp.Value);
-//                     }
-//                 }
-//                 MethodInfo method = controllerType.GetMethod("JoinTrain", new[] { typeof(int), controllerType2 });
-
-//                 if (method != null)
-//                 {
-//                     var ride1 = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
-//                     Assert.AreEqual(0, ride1.Commuters.Count);
-//                     var controller = Activator.CreateInstance(controllerType, _context);
-//                     var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
-//                     var ride = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
-//                     Assert.IsNotNull(ride);
-//                     Assert.AreEqual(1, ride.Commuters.Count);
-
-//                 }
-//                 else
-//                 {
-//                     Assert.Fail();
-//                 }
-//             }
-//         }
-
-
-
-
-//         [Test]
-//         public void JoinTrain_SlotController_InvalidCommuter_Name_Email_Phone_are_required_ModelStateInvalid()
+//         public void JoinTrain_TrainController_InvalidCommuter_Name_Email_Phone_are_required_ModelStateInvalid()
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
@@ -172,12 +267,12 @@ namespace dotnetapp.Tests
 //             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
 //                 // Arrange
-//                 var slotController = Activator.CreateInstance(controllerType, dbContext);
+//                 var TrainController = Activator.CreateInstance(controllerType, dbContext);
 //                 var commuter = Activator.CreateInstance(modelType2); // Invalid commuter with missing required fields
 
 //                 // Add errors to ModelState
 //                 var modelStateProperty = controllerType.GetProperty("ModelState");
-//                 var modelState = modelStateProperty.GetValue(slotController) as ModelStateDictionary;
+//                 var modelState = modelStateProperty.GetValue(TrainController) as ModelStateDictionary;
 //                 modelState.AddModelError("Name", "Name is required");
 //                 modelState.AddModelError("Email", "Email is required");
 //                 modelState.AddModelError("Phone", "Phone is required");
@@ -185,7 +280,7 @@ namespace dotnetapp.Tests
 
 //                 // Invoke JoinTrain method using reflection
 //                 MethodInfo joinTrainMethod = controllerType.GetMethod("JoinRide", new[] { typeof(int), modelType2 });
-//                 var result = joinRideMethod.Invoke(slotController, new object[] { 1, commuter }) as ViewResult;
+//                 var result = joinRideMethod.Invoke(TrainController, new object[] { 1, commuter }) as ViewResult;
 
 //                 // Assert
 //                 Assert.IsNotNull(result);
@@ -198,9 +293,9 @@ namespace dotnetapp.Tests
 //         }
 
 
-//         // test to check that JoinRide method in SlotController with invalid ride id returns NotFoundResult
+//         // test to check that JoinRide method in TrainController with invalid ride id returns NotFoundResult
 //         [Test]
-//         public void JoinRide_SlotController_RideNotFound_ReturnsNotFoundResult()
+//         public void JoinRide_TrainController_RideNotFound_ReturnsNotFoundResult()
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
@@ -241,9 +336,9 @@ namespace dotnetapp.Tests
 //             }
 //         }
 
-//         // test to check that JoinRide method in SlotController throws exception when maximum capacity is reached
+//         // test to check that JoinRide method in TrainController throws exception when maximum capacity is reached
 //         [Test]
-//         public void JoinRide_SlotController_MaximumCapacityReached_ThrowsException()
+//         public void JoinRide_TrainController_MaximumCapacityReached_ThrowsException()
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
@@ -331,9 +426,9 @@ namespace dotnetapp.Tests
 //             }
 //         }
 
-//         // test to check that JoinRide method in SlotController throws exception when maximum capacity is reached with correct message "Maximum capacity reached"
+//         // test to check that JoinRide method in TrainController throws exception when maximum capacity is reached with correct message "Maximum capacity reached"
 //         [Test]
-//         public void JoinRide_SlotController_MaximumCapacityReached_ThrowsException_with_Message()
+//         public void JoinRide_TrainController_MaximumCapacityReached_ThrowsException_with_Message()
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
@@ -498,7 +593,7 @@ namespace dotnetapp.Tests
 //         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //     {
 //         //         // Arrange
-//         //         var slotController = new SlotController(dbContext);
+//         //         var TrainController = new TrainController(dbContext);
 //         //         var commuter = new Commuter
 //         //         {
 //         //             Name = "John Doe",
@@ -511,7 +606,7 @@ namespace dotnetapp.Tests
 //         //         ride.Destination = ride.DepartureLocation; // Set the destination as the same as departure
 //         //         dbContext.SaveChanges();
 
-//         //         var result = slotController.JoinRide(1, commuter) as ViewResult;
+//         //         var result = TrainController.JoinRide(1, commuter) as ViewResult;
 
 //         //         // Assert
 //         //         Assert.IsNotNull(result);
@@ -526,7 +621,7 @@ namespace dotnetapp.Tests
 //         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //     {
 //         //         // Arrange
-//         //         var slotController = new SlotController(dbContext);
+//         //         var TrainController = new TrainController(dbContext);
 //         //         var commuter = new Commuter
 //         //         {
 //         //             Name = "John Doe",
@@ -539,7 +634,7 @@ namespace dotnetapp.Tests
 //         //         ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
 //         //         dbContext.SaveChanges();
 
-//         //         var result = slotController.JoinRide(1, commuter) as ViewResult;
+//         //         var result = TrainController.JoinRide(1, commuter) as ViewResult;
 
 //         //         // Assert
 //         //         Assert.IsNotNull(result);
@@ -778,7 +873,7 @@ namespace dotnetapp.Tests
 //         //    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //    {
 //         //        // Arrange
-//         //        var slotController = new SlotController(dbContext);
+//         //        var TrainController = new TrainController(dbContext);
 //         //        var commuter = new Commuter
 //         //        {
 //         //            Name = "John Doe",
@@ -791,7 +886,7 @@ namespace dotnetapp.Tests
 //         //        ride.Destination = ride.DepartureLocation; // Set the destination as the same as departure
 //         //        dbContext.SaveChanges();
 
-//         //        var result = slotController.JoinRide(1, commuter) as ViewResult;
+//         //        var result = TrainController.JoinRide(1, commuter) as ViewResult;
 
 //         //        // Assert
 //         //        Assert.IsNotNull(result);
@@ -806,7 +901,7 @@ namespace dotnetapp.Tests
 //         //    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //         //    {
 //         //        // Arrange
-//         //        var slotController = new SlotController(dbContext);
+//         //        var TrainController = new TrainController(dbContext);
 //         //        var commuter = new Commuter
 //         //        {
 //         //            Name = "John Doe",
@@ -819,7 +914,7 @@ namespace dotnetapp.Tests
 //         //        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
 //         //        dbContext.SaveChanges();
 
-//         //        var result = slotController.JoinRide(1, commuter) as ViewResult;
+//         //        var result = TrainController.JoinRide(1, commuter) as ViewResult;
 
 //         //        // Assert
 //         //        Assert.IsNotNull(result);
