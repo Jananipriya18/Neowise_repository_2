@@ -61,7 +61,7 @@ namespace dotnetapp.Tests
 
         // test to check that BookSeat method in TrainController with successfull join redirects to Details method in TrainController
         // [Test]
-        // public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
+        // public void BookSeat_TrainController_ValidPassenger_JoinsSuccessfully_Redirect_to_Details_TrainController()
         // {
         //     string assemblyName = "dotnetapp";
         //     Assembly assembly = Assembly.Load(assemblyName);
@@ -109,7 +109,7 @@ namespace dotnetapp.Tests
         //     }
         // }
         [Test]
-public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to_Details_TrainController()
+public void BookSeat_TrainController_ValidPassenger_JoinsSuccessfully_Redirect_to_Details_TrainController()
 {
     string assemblyName = "dotnetapp";
     Assembly assembly = Assembly.Load(assemblyName);
@@ -158,9 +158,9 @@ public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to
 }
 
 
-        // // test to check that BookSeat method in TrainController with successfull join adds commuter to the ride
+        // // test to check that BookSeat method in TrainController with successfull join adds passenger to the ride
         // [Test]
-        // public void BookSeat_TrainController_ValidCommuter_Adds_Commuter_To_Train_Successfully()
+        // public void BookSeat_TrainController_ValidPassenger_Adds_Passenger_To_Train_Successfully()
         // {
         //     string assemblyName = "dotnetapp";
         //     Assembly assembly = Assembly.Load(assemblyName);
@@ -176,26 +176,26 @@ public void BookSeat_TrainController_ValidCommuter_JoinsSuccessfully_Redirect_to
         //                 { "Email", "johndoe@example.com" },
         //                 { "Phone", "1234567890" }
         //             };
-        //         var passenger = new Commuter();
+        //         var passenger = new Passenger();
         //         foreach (var kvp in teamData)
         //         {
-        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
         //             if (propertyInfo != null)
         //             {
-        //                 propertyInfo.SetValue(commuter, kvp.Value);
+        //                 propertyInfo.SetValue(passenger, kvp.Value);
         //             }
         //         }
         //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
 
         //         if (method != null)
         //         {
-        //             var ride1 = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
-        //             Assert.AreEqual(0, ride1.Commuters.Count);
+        //             var ride1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
+        //             Assert.AreEqual(0, ride1.Passengers.Count);
         //             var controller = Activator.CreateInstance(controllerType, _context);
-        //             var result = method.Invoke(controller, new object[] { 1, commuter }) as RedirectToActionResult;
-        //             var ride = _context.Trains.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
+        //             var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
+        //             var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
         //             Assert.IsNotNull(ride);
-        //             Assert.AreEqual(1, ride.Commuters.Count);
+        //             Assert.AreEqual(1, ride.Passengers.Count);
 
         //         }
         //         else
@@ -372,30 +372,30 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         //                 { "Email", "johndoe1@example.com" },
         //                 { "Phone", "1234567891" }
         //             };
-        //         var passenger = new Commuter();
-        //         var passenger1 = new Commuter();
+        //         var passenger = new Passenger();
+        //         var passenger1 = new Passenger();
         //         foreach (var kvp in teamData1)
         //         {
-        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
         //             if (propertyInfo != null)
         //             {
-        //                 propertyInfo.SetValue(commuter1, kvp.Value);
+        //                 propertyInfo.SetValue(Passenger1, kvp.Value);
         //             }
         //         }
         //         foreach (var kvp in teamData)
         //         {
-        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
         //             if (propertyInfo != null)
         //             {
-        //                 propertyInfo.SetValue(commuter, kvp.Value);
+        //                 propertyInfo.SetValue(passenger, kvp.Value);
         //             }
         //         }
         //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
 
-        //         var ride = _context.Rides.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
-        //         ride.Commuters.Add(commuter1);
-        //         ride.Commuters.Add(commuter);
+        //         var ride = _context.Rides.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
+        //         ride.Passengers.Add(passenger1);
+        //         ride.Passengers.Add(passenger);
         //         var propertyInfo1 = ride.GetType().GetProperty("MaximumCapacity");
         //         if (propertyInfo1 != null)
         //         {
@@ -410,13 +410,13 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         //                 { "Email", "johndoe2@example.com" },
         //                 { "Phone", "1234567892" }
         //             };
-        //         var commuter2 = new Commuter();
+        //         var passenger2 = new Passenger();
         //         foreach (var kvp in teamData2)
         //         {
-        //             var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
         //             if (propertyInfo != null)
         //             {
-        //                 propertyInfo.SetValue(commuter2, kvp.Value);
+        //                 propertyInfo.SetValue(passenger2, kvp.Value);
         //             }
         //         }
         //         if (method != null)
@@ -462,30 +462,30 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //                         { "Email", "johndoe1@example.com" },
 //                         { "Phone", "1234567891" }
 //                     };
-//                 var passenger = new Commuter();
-//                 var commuter1 = new Commuter();
+//                 var passenger = new Passenger();
+//                 var passenger1 = new Passenger();
 //                 foreach (var kvp in teamData1)
 //                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+//                     var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
 //                     if (propertyInfo != null)
 //                     {
-//                         propertyInfo.SetValue(commuter1, kvp.Value);
+//                         propertyInfo.SetValue(passenger1, kvp.Value);
 //                     }
 //                 }
 //                 foreach (var kvp in teamData)
 //                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+//                     var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
 //                     if (propertyInfo != null)
 //                     {
-//                         propertyInfo.SetValue(commuter, kvp.Value);
+//                         propertyInfo.SetValue(passenger, kvp.Value);
 //                     }
 //                 }
 //                 MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
 
-//                 var ride = _context.Rides.Include(r => r.Commuters).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
-//                 ride.Commuters.Add(commuter1);
-//                 ride.Commuters.Add(commuter);
+//                 var ride = _context.Rides.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
+//                 ride.Passengers.Add(passenger1);
+//                 ride.Passengers.Add(passenger);
 //                 var propertyInfo1 = ride.GetType().GetProperty("MaximumCapacity");
 //                 if (propertyInfo1 != null)
 //                 {
@@ -500,19 +500,19 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //                         { "Email", "johndoe2@example.com" },
 //                         { "Phone", "1234567892" }
 //                     };
-//                 var commuter2 = new Commuter();
+//                 var passenger2 = new Passenger();
 //                 foreach (var kvp in teamData2)
 //                 {
-//                     var propertyInfo = typeof(Commuter).GetProperty(kvp.Key);
+//                     var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
 //                     if (propertyInfo != null)
 //                     {
-//                         propertyInfo.SetValue(commuter2, kvp.Value);
+//                         propertyInfo.SetValue(passenger2, kvp.Value);
 //                     }
 //                 }
 //                 if (method != null)
 //                 {
 //                     var controller = Activator.CreateInstance(controllerType, _context);
-//                     //var ex =Assert.Throws<RideSharingException>(() => method.Invoke(controller, new object[] { 1, commuter }));
+//                     //var ex =Assert.Throws<RideSharingException>(() => method.Invoke(controller, new object[] { 1, passenger }));
 //                     //Console.WriteLine(ex.Message);
 //                     var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
 
@@ -631,7 +631,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //         //     {
 //         //         // Arrange
 //         //         var TrainController = new TrainController(dbContext);
-//         //         var passenger = new Commuter
+//         //         var passenger = new Passenger
 //         //         {
 //         //             Name = "John Doe",
 //         //             Email = "johndoe@example.com",
@@ -643,7 +643,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //         //         ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
 //         //         dbContext.SaveChanges();
 
-//         //         var result = TrainController.BookSeat(1, commuter) as ViewResult;
+//         //         var result = TrainController.BookSeat(1, passenger) as ViewResult;
 
 //         //         // Assert
 //         //         Assert.IsNotNull(result);
@@ -685,9 +685,9 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 }
 
 
-//         // Test to check that ApplicationDbContext Contains DbSet for model Commuter
+//         // Test to check that ApplicationDbContext Contains DbSet for model Passenger
 //         [Test]
-//         public void ApplicationDbContext_ContainsDbSet_Commuter()
+//         public void ApplicationDbContext_ContainsDbSet_Passenger()
 //         {
 //             Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
 //             Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
@@ -696,114 +696,114 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //                 Assert.Fail("No DbContext found in the assembly");
 //                 return;
 //             }
-//             Type CommuterType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Commuter");
-//             if (CommuterType == null)
+//             Type PassengerType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Passenger");
+//             if (PassengerType == null)
 //             {
 //                 Assert.Fail("No DbSet found in the DbContext");
 //                 return;
 //             }
-//             var propertyInfo = contextType.GetProperty("Commuters");
+//             var propertyInfo = contextType.GetProperty("Passengers");
 //             if (propertyInfo == null)
 //             {
-//                 Assert.Fail("Commuters property not found in the DbContext");
+//                 Assert.Fail("Passengers property not found in the DbContext");
 //                 return;
 //             }
 //             else
 //             {
-//                 Assert.AreEqual(typeof(DbSet<>).MakeGenericType(CommuterType), propertyInfo.PropertyType);
+//                 Assert.AreEqual(typeof(DbSet<>).MakeGenericType(PassengerType), propertyInfo.PropertyType);
 //             }
 //         }
 
-//         // Test to Check Commuter Models Property CommuterID Exists with correcct datatype int    
-//         [Test]
-//         public void Commuter_CommuterID_PropertyExists_ReturnExpectedDataTypes_int()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Passenger";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type CommuterType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = CommuterType.GetProperty("CommuterID");
-//             Assert.IsNotNull(propertyInfo, "Property CommuterID does not exist in Commuter class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(int), expectedType, "Property CommuterID in Commuter class is not of type int");
-//         }
-
-//         // Test to Check Commuter Models Property Name Exists with correcct datatype string    
-//         [Test]
-//         public void Commuter_Name_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Passenger";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type CommuterType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = CommuterType.GetProperty("Name");
-//             Assert.IsNotNull(propertyInfo, "Property Name does not exist in Commuter class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property Name in Commuter class is not of type string");
-//         }
-
-//         // Test to Check Commuter Models Property Email Exists with correcct datatype string    
-//         [Test]
-//         public void Commuter_Email_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Passenger";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type CommuterType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = CommuterType.GetProperty("Email");
-//             Assert.IsNotNull(propertyInfo, "Property Email does not exist in Commuter class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property Email in Commuter class is not of type string");
-//         }
-
-//         // Test to Check Commuter Models Property Phone Exists with correcct datatype string    
-//         [Test]
-//         public void Commuter_Phone_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Passenger";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type CommuterType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = CommuterType.GetProperty("Phone");
-//             Assert.IsNotNull(propertyInfo, "Property Phone does not exist in Commuter class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property Phone in Commuter class is not of type string");
-//         }
-
-//         // Test to Check Commuter Models Property RideID Exists with correcct datatype int    
-//         [Test]
-//         public void Commuter_RideID_PropertyExists_ReturnExpectedDataTypes_int()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Passenger";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type CommuterType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = CommuterType.GetProperty("RideID");
-//             Assert.IsNotNull(propertyInfo, "Property RideID does not exist in Commuter class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(int), expectedType, "Property RideID in Commuter class is not of type int");
-//         }
-
-//         // Test to Check Ride Models Property RideID Exists with correcct datatype int    
-//         [Test]
-//         public void Ride_RideID_PropertyExists_ReturnExpectedDataTypes_int()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Ride";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type TrainType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = TrainType.GetProperty("RideID");
-//             Assert.IsNotNull(propertyInfo, "Property RideID does not exist in Ride class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(int), expectedType, "Property RideID in Ride class is not of type int");
-//         }
-
-        // Test to Check Ride Models Property DepartureLocation Exists with correcct datatype string    
+        // Test to Check Passenger Models Property PassengerID Exists with correcct datatype int    
         [Test]
-        public void Ride_DepartureLocation_PropertyExists_ReturnExpectedDataTypes_string()
+        public void Passenger_PassengerID_PropertyExists_ReturnExpectedDataTypes_int()
         {
             string assemblyName = "dotnetapp";
-            string typeName = "dotnetapp.Models.Ride";
+            string typeName = "dotnetapp.Models.Passenger";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type PassengerType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = PassengerType.GetProperty("PassengerID");
+            Assert.IsNotNull(propertyInfo, "Property PassengerID does not exist in Passenger class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(int), expectedType, "Property PassengerID in Passenger class is not of type int");
+        }
+
+        // Test to Check Passenger Models Property Name Exists with correcct datatype string    
+        [Test]
+        public void Passenger_Name_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Passenger";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type PassengerType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = PassengerType.GetProperty("Name");
+            Assert.IsNotNull(propertyInfo, "Property Name does not exist in Passenger class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property Name in Passenger class is not of type string");
+        }
+
+        // Test to Check Passenger Models Property Email Exists with correcct datatype string    
+        [Test]
+        public void Passenger_Email_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Passenger";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type PassengerType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = PassengerType.GetProperty("Email");
+            Assert.IsNotNull(propertyInfo, "Property Email does not exist in Passenger class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property Email in Passenger class is not of type string");
+        }
+
+        // Test to Check Passenger Models Property Phone Exists with correcct datatype string    
+        [Test]
+        public void Passenger_Phone_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Passenger";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type PassengerType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = PassengerType.GetProperty("Phone");
+            Assert.IsNotNull(propertyInfo, "Property Phone does not exist in Passenger class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property Phone in Passenger class is not of type string");
+        }
+
+        // Test to Check Passenger Models PropertyPassengerID Exists with correcct datatype int    
+        [Test]
+        public void Passenger_RideID_PropertyExists_ReturnExpectedDataTypes_int()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Passenger";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type PassengerType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = PassengerType.GetProperty("PassengerID");
+            Assert.IsNotNull(propertyInfo, "PropertyPassengerID does not exist in Passenger class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(int), expectedType, "PropertyPassengerID in Passenger class is not of type int");
+        }
+
+        // Test to Check Train Models Property TrainID Exists with correcct datatype int    
+        [Test]
+        public void Train_TrainID_PropertyExists_ReturnExpectedDataTypes_int()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Train";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = TrainType.GetProperty("TrainID");
+            Assert.IsNotNull(propertyInfo, "Property TrainID does not exist in Train class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(int), expectedType, "Property TrainID in Train class is not of type int");
+        }
+
+        // Test to Check Train Models Property DepartureLocation Exists with correcct datatype string    
+        [Test]
+        public void Train_DepartureLocation_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Train";
             Assembly assembly = Assembly.Load(assemblyName);
             Type TrainType = assembly.GetType(typeName);
             PropertyInfo propertyInfo = TrainType.GetProperty("DepartureLocation");
@@ -863,7 +863,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //         //    {
 //         //        // Arrange
 //         //        var TrainController = new TrainController(dbContext);
-//         //        var passenger = new Commuter
+//         //        var passenger = new Passenger
 //         //        {
 //         //            Name = "John Doe",
 //         //            Email = "johndoe@example.com",
@@ -875,7 +875,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //         //        ride.Destination = ride.DepartureLocation; // Set the destination as the same as departure
 //         //        dbContext.SaveChanges();
 
-//         //        var result = TrainController.BookSeat(1, commuter) as ViewResult;
+//         //        var result = TrainController.BookSeat(1, passenger) as ViewResult;
 
 //         //        // Assert
 //         //        Assert.IsNotNull(result);
@@ -891,7 +891,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //         //    {
 //         //        // Arrange
 //         //        var TrainController = new TrainController(dbContext);
-//         //        var passenger = new Commuter
+//         //        var passenger = new Passenger
 //         //        {
 //         //            Name = "John Doe",
 //         //            Email = "johndoe@example.com",
@@ -903,7 +903,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //         //        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
 //         //        dbContext.SaveChanges();
 
-//         //        var result = TrainController.BookSeat(1, commuter) as ViewResult;
+//         //        var result = TrainController.BookSeat(1, passenger) as ViewResult;
 
 //         //        // Assert
 //         //        Assert.IsNotNull(result);
