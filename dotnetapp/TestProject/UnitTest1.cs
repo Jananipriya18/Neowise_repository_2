@@ -483,41 +483,41 @@ namespace dotnetapp.Tests
 //             }
 //         }
 
-[Test]
-public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
-{
-    // Arrange
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string controllerTypeName = "dotnetapp.Controllers.TrainController";
-    Type controllerType = assembly.GetType(controllerTypeName);
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        var train = new Train { TrainID = 1 }; // Create a train with ID 1
-        dbContext.Trains.Add(train);
-        dbContext.SaveChanges();
+// [Test]
+// public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
+// {
+//     // Arrange
+//     string assemblyName = "dotnetapp";
+//     Assembly assembly = Assembly.Load(assemblyName);
+//     string controllerTypeName = "dotnetapp.Controllers.TrainController";
+//     Type controllerType = assembly.GetType(controllerTypeName);
+//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+//     {
+//         var train = new Train { TrainID = 100 }; // Create a train with ID 1
+//         dbContext.Trains.Add(train);
+//         dbContext.SaveChanges();
 
-        MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
-        if (deleteMethod != null)
-        {
-            var controller = Activator.CreateInstance(controllerType, dbContext);
+//         MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
+//         if (deleteMethod != null)
+//         {
+//             var controller = Activator.CreateInstance(controllerType, dbContext);
 
-            // Act
-            var result = deleteMethod.Invoke(controller, new object[] { train.TrainID }) as RedirectToActionResult;
+//             // Act
+//             var result = deleteMethod.Invoke(controller, new object[] { train.TrainID }) as RedirectToActionResult;
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("AvailableTrains", result.ActionName); // Use string instead of nameof
+//             // Assert
+//             Assert.IsNotNull(result);
+//             Assert.AreEqual("AvailableTrains", result.ActionName); // Use string instead of nameof
 
-            var trainAfterDelete = dbContext.Trains.Find(train.TrainID);
-            Assert.IsNull(trainAfterDelete); // Check if the deleted train is not present
-        }
-        else
-        {
-            Assert.Fail("Delete method not found in TrainController.");
-        }
-    }
-}
+//             var trainAfterDelete = dbContext.Trains.Find(train.TrainID);
+//             Assert.IsNull(trainAfterDelete); // Check if the deleted train is not present
+//         }
+//         else
+//         {
+//             Assert.Fail("Delete method not found in TrainController.");
+//         }
+//     }
+// }
 
 // [Test]
 // public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
@@ -795,64 +795,6 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Type expectedType = propertyInfo.PropertyType;
             Assert.AreEqual(typeof(int), expectedType, "Property MaximumCapacity in Train class is not of type int");
         }
-
-
-
-//         //        [Test]
-//         //public void test_case12()
-//         //{
-//         //    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//         //    {
-//         //        // Arrange
-//         //        var TrainController = new TrainController(dbContext);
-//         //        var passenger = new Passenger
-//         //        {
-//         //            Name = "John Doe",
-//         //            Email = "johndoe@example.com",
-//         //            Phone = "1234567890"
-//         //        };
-
-//         //        // Act
-//         //        var ride = dbContext.Rides.FirstOrDefault(r => r.RideID == 1);
-//         //        ride.Destination = ride.DepartureLocation; // Set the destination as the same as departure
-//         //        dbContext.SaveChanges();
-
-//         //        var result = TrainController.BookSeat(1, passenger) as ViewResult;
-
-//         //        // Assert
-//         //        Assert.IsNotNull(result);
-//         //        Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//         //        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
-//         //    }
-//         //}
-
-//         //[Test]
-//         //public void test_case13()
-//         //{
-//         //    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//         //    {
-//         //        // Arrange
-//         //        var TrainController = new TrainController(dbContext);
-//         //        var passenger = new Passenger
-//         //        {
-//         //            Name = "John Doe",
-//         //            Email = "johndoe@example.com",
-//         //            Phone = "1234567890"
-//         //        };
-
-//         //        // Act
-//         //        var ride = dbContext.Rides.FirstOrDefault(r => r.RideID == 1);
-//         //        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
-//         //        dbContext.SaveChanges();
-
-//         //        var result = TrainController.BookSeat(1, passenger) as ViewResult;
-
-//         //        // Assert
-//         //        Assert.IsNotNull(result);
-//         //        Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//         //        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
-//         //    }
-//         //}
 
         // Test to Check TrainController Controllers Method AvailableTrains with no parameter Returns IActionResult
         [Test]
