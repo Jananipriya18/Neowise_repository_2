@@ -60,291 +60,194 @@ namespace dotnetapp.Tests
             }
         }
 
-        // test to check that BookSeat method in TrainController with successfull join redirects to Details method in TrainController
-        // [Test]
-        // public void BookSeat_TrainController_ValidPassenger_JoinsSuccessfully_Redirect_to_Details_TrainController()
-        // {
-        //     string assemblyName = "dotnetapp";
-        //     Assembly assembly = Assembly.Load(assemblyName);
-        //     string modelType = "dotnetapp.Models.Passenger";
-        //     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
-        //     Type controllerType = assembly.GetType(controllerTypeName);
-        //     Type controllerType2 = assembly.GetType(modelType);
-        //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-        //     {
-        //         // Arrange
-        //         var teamData = new Dictionary<string, object>
-        //             {
-        //                 { "Name", "John Doe" },
-        //                 { "Email", "johndoe@example.com" },
-        //                 { "Phone", "1234567890" }
-        //             };
-        //         var passenger = new Passenger();
-        //         foreach (var kvp in teamData)
-        //         {
-        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-        //             if (propertyInfo != null)
-        //             {
-        //                 propertyInfo.SetValue(passenger, kvp.Value);
-        //             }
-        //         }
-        //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
-
-        //         if (method != null)
-        //         {
-        //             var controller = Activator.CreateInstance(controllerType, _context);
-        //             var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
-
-
-        //             //var result = TrainController.BookSeat(1, passenger) as RedirectToActionResult;
-
-        //             Assert.IsNotNull(result);
-
-        //             Assert.AreEqual("Details", result.ActionName);
-        //             Assert.AreEqual("Train", result.ControllerName);
-        //         }
-        //         else
-        //         {
-        //             Assert.Fail();
-        //         }
-        //     }
-        // }
         [Test]
-public void BookSeat_TrainController_ValidPassenger_JoinsSuccessfully_Redirect_to_Details_TrainController()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string modelType = "dotnetapp.Models.Passenger";
-    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name
-    Type controllerType = assembly.GetType(controllerTypeName);
-    Type controllerType2 = assembly.GetType(modelType);
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        // Arrange
-        var teamData = new Dictionary<string, object>
-            {
-                { "Name", "John Doe" },
-                { "Email", "johndoe@example.com" },
-                { "Phone", "1234567890" }
-            };
-        var passenger = new Passenger();
-        foreach (var kvp in teamData)
+        public void BookSeat_TrainController_ValidPassenger_JoinsSuccessfully_Redirect_to_Details_TrainController()
         {
-            var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-            if (propertyInfo != null)
+            string assemblyName = "dotnetapp";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string modelType = "dotnetapp.Models.Passenger";
+            string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name
+            Type controllerType = assembly.GetType(controllerTypeName);
+            Type controllerType2 = assembly.GetType(modelType);
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
             {
-                propertyInfo.SetValue(passenger, kvp.Value);
+                // Arrange
+                var teamData = new Dictionary<string, object>
+                    {
+                        { "Name", "John Doe" },
+                        { "Email", "johndoe@example.com" },
+                        { "Phone", "1234567890" }
+                    };
+                var passenger = new Passenger();
+                foreach (var kvp in teamData)
+                {
+                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(passenger, kvp.Value);
+                    }
+                }
+                MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
+
+                if (method != null)
+                {
+                    var controller = Activator.CreateInstance(controllerType, _context);
+                    var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
+
+
+                    //var result = TrainController.BookSeat(1, passenger) as RedirectToActionResult;
+
+                    Assert.IsNotNull(result);
+
+                    Assert.AreEqual("Details", result.ActionName);
+                    Assert.AreEqual("Train", result.ControllerName);
+                }
+                else
+                {
+                    Assert.Fail();
+                }
             }
         }
-        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
-
-        if (method != null)
-        {
-            var controller = Activator.CreateInstance(controllerType, _context);
-            var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
-
-
-            //var result = TrainController.BookSeat(1, passenger) as RedirectToActionResult;
-
-            Assert.IsNotNull(result);
-
-            Assert.AreEqual("Details", result.ActionName);
-            Assert.AreEqual("Train", result.ControllerName);
-        }
-        else
-        {
-            Assert.Fail();
-        }
-    }
-}
-
-
-        // // test to check that BookSeat method in TrainController with successfull join adds passenger to the ride
-        // [Test]
-        // public void BookSeat_TrainController_ValidPassenger_Adds_Passenger_To_Train_Successfully()
-        // {
-        //     string assemblyName = "dotnetapp";
-        //     Assembly assembly = Assembly.Load(assemblyName);
-        //     string modelType = "dotnetapp.Models.Passenger";
-        //     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
-        //     Type controllerType = assembly.GetType(controllerTypeName);
-        //     Type controllerType2 = assembly.GetType(modelType);
-        //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-        //     {
-        //         var teamData = new Dictionary<string, object>
-        //             {
-        //                 { "Name", "John Doe" },
-        //                 { "Email", "johndoe@example.com" },
-        //                 { "Phone", "1234567890" }
-        //             };
-        //         var passenger = new Passenger();
-        //         foreach (var kvp in teamData)
-        //         {
-        //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-        //             if (propertyInfo != null)
-        //             {
-        //                 propertyInfo.SetValue(passenger, kvp.Value);
-        //             }
-        //         }
-        //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 });
-
-        //         if (method != null)
-        //         {
-        //             var ride1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
-        //             Assert.AreEqual(0, ride1.Passengers.Count);
-        //             var controller = Activator.CreateInstance(controllerType, _context);
-        //             var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
-        //             var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
-        //             Assert.IsNotNull(ride);
-        //             Assert.AreEqual(1, ride.Passengers.Count);
-
-        //         }
-        //         else
-        //         {
-        //             Assert.Fail();
-        //         }
-        //     }
-        // }
 
         [Test]
-public void BookSeat_TrainController_ValidPassenger_Adds_Passenger_To_Train_Successfully()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string modelType = "dotnetapp.Models.Passenger"; // Corrected model type to Passenger
-    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name to PassengerController
-    Type controllerType = assembly.GetType(controllerTypeName);
-    Type controllerType2 = assembly.GetType(modelType);
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        var teamData = new Dictionary<string, object>
+        public void BookSeat_TrainController_ValidPassenger_Adds_Passenger_To_Train_Successfully()
         {
-            { "Name", "John Doe" },
-            { "Email", "johndoe@example.com" },
-            { "Phone", "1234567890" }
-        };
-        var passenger = new Passenger(); 
-        foreach (var kvp in teamData)
-        {
-            var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-            if (propertyInfo != null)
+            string assemblyName = "dotnetapp";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string modelType = "dotnetapp.Models.Passenger"; // Corrected model type to Passenger
+            string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name to PassengerController
+            Type controllerType = assembly.GetType(controllerTypeName);
+            Type controllerType2 = assembly.GetType(modelType);
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
             {
-                propertyInfo.SetValue(passenger, kvp.Value);
+                var teamData = new Dictionary<string, object>
+                {
+                    { "Name", "John Doe" },
+                    { "Email", "johndoe@example.com" },
+                    { "Phone", "1234567890" }
+                };
+                var passenger = new Passenger(); 
+                foreach (var kvp in teamData)
+                {
+                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(passenger, kvp.Value);
+                    }
+                }
+                MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 }); // Changed BookSeat to BookSeat
+
+                if (method != null)
+                {
+                    var ride1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
+                    Assert.AreEqual(0, ride1.Passengers.Count);
+                    var controller = Activator.CreateInstance(controllerType, _context);
+                    var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
+                    var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
+                    Assert.IsNotNull(ride);
+                    Assert.AreEqual(1, ride.Passengers.Count);
+                }
+                else
+                {
+                    Assert.Fail();
+                }
             }
         }
-        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int), controllerType2 }); // Changed BookSeat to BookSeat
-
-        if (method != null)
-        {
-            var ride1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
-            Assert.AreEqual(0, ride1.Passengers.Count);
-            var controller = Activator.CreateInstance(controllerType, _context);
-            var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
-            var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
-            Assert.IsNotNull(ride);
-            Assert.AreEqual(1, ride.Passengers.Count);
-        }
-        else
-        {
-            Assert.Fail();
-        }
-    }
-}
 
         [Test]
-public void BookSeat_TrainController_InvalidPassenger_Name_Email_Phone_are_required_ModelStateInvalid()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name to PassengerController
-    Type controllerType = assembly.GetType(controllerTypeName);
-    string modelType = "dotnetapp.Models.Passenger";
-    Type modelType2 = assembly.GetType(modelType);
+        public void BookSeat_TrainController_InvalidPassenger_Name_Email_Phone_are_required_ModelStateInvalid()
+        {
+            string assemblyName = "dotnetapp";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name to PassengerController
+            Type controllerType = assembly.GetType(controllerTypeName);
+            string modelType = "dotnetapp.Models.Passenger";
+            Type modelType2 = assembly.GetType(modelType);
 
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        // Arrange
-        var trainController = Activator.CreateInstance(controllerType, dbContext); // Corrected variable name to trainController
-        var passenger = Activator.CreateInstance(modelType2); // Corrected variable name to passenger 
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var trainController = Activator.CreateInstance(controllerType, dbContext); // Corrected variable name to trainController
+                var passenger = Activator.CreateInstance(modelType2); // Corrected variable name to passenger 
 
-        // Add errors to ModelState
-        var modelStateProperty = controllerType.GetProperty("ModelState");
-        var modelState = modelStateProperty.GetValue(trainController) as ModelStateDictionary;
-        modelState.AddModelError("Name", "Name is required");
-        modelState.AddModelError("Email", "Email is required");
-        modelState.AddModelError("Phone", "Phone is required");
+                // Add errors to ModelState
+                var modelStateProperty = controllerType.GetProperty("ModelState");
+                var modelState = modelStateProperty.GetValue(trainController) as ModelStateDictionary;
+                modelState.AddModelError("Name", "Name is required");
+                modelState.AddModelError("Email", "Email is required");
+                modelState.AddModelError("Phone", "Phone is required");
 
-        // Invoke BookSeat method using reflection
-        MethodInfo bookSeatMethod = controllerType.GetMethod("BookSeat", new[] { typeof(int), modelType2 });
-        var result = bookSeatMethod.Invoke(trainController, new object[] { 1, passenger  }) as ViewResult;
+                // Invoke BookSeat method using reflection
+                MethodInfo bookSeatMethod = controllerType.GetMethod("BookSeat", new[] { typeof(int), modelType2 });
+                var result = bookSeatMethod.Invoke(trainController, new object[] { 1, passenger  }) as ViewResult;
 
-        // Assert
-        Assert.IsNotNull(result);
-        Assert.IsFalse(result.ViewData.ModelState.IsValid);
-        Assert.AreEqual(3, result.ViewData.ModelState.ErrorCount);
-        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Name"));
-        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Email"));
-        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Phone"));
-    }
-}
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.IsFalse(result.ViewData.ModelState.IsValid);
+                Assert.AreEqual(3, result.ViewData.ModelState.ErrorCount);
+                Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Name"));
+                Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Email"));
+                Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Phone"));
+            }
+        }
 
 
         // test to check that BookSeat method in TrainController with invalid ride id returns NotFoundResult
         [Test]
-public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string modelType = "dotnetapp.Models.Passenger";
-    string controllerTypeName = "dotnetapp.Controllers.PassengerController";
-    Type controllerType = assembly.GetType(controllerTypeName);
-    Type controllerType2 = assembly.GetType(modelType);
-
-    if (controllerType == null || controllerType2 == null)
-    {
-        Assert.Fail("Controller types not found.");
-    }
-
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        var teamData = new Dictionary<string, object>
+        public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         {
-            { "Name", "John Doe" },
-            { "Email", "johndoe@example.com" },
-            { "Phone", "1234567890" }
-        };
-        var passenger = new Passenger();
-        foreach (var kvp in teamData)
-        {
-            var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-            if (propertyInfo != null)
+            string assemblyName = "dotnetapp";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string modelType = "dotnetapp.Models.Passenger";
+            string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+            Type controllerType = assembly.GetType(controllerTypeName);
+            Type controllerType2 = assembly.GetType(modelType);
+
+            if (controllerType == null || controllerType2 == null)
             {
-                propertyInfo.SetValue(passenger, kvp.Value);
+                Assert.Fail("Controller types not found.");
+            }
+
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            {
+                var teamData = new Dictionary<string, object>
+                {
+                    { "Name", "John Doe" },
+                    { "Email", "johndoe@example.com" },
+                    { "Phone", "1234567890" }
+                };
+                var passenger = new Passenger();
+                foreach (var kvp in teamData)
+                {
+                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(passenger, kvp.Value);
+                    }
+                }
+
+                var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
+                if (constructor == null)
+                {
+                    Assert.Fail("Constructor not found.");
+                }
+
+                var controller = Activator.CreateInstance(controllerType, dbContext);
+                if (controller == null)
+                {
+                    Assert.Fail("Controller instance could not be created.");
+                }
+
+                MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+                if (method == null)
+                {
+                    Assert.Fail("Method not found.");
+                }
+
+                var result = method.Invoke(controller, new object[] { 2 }) as NotFoundResult;
+                Assert.IsNotNull(result);
             }
         }
-
-        var constructor = controllerType.GetConstructor(new[] { typeof(ApplicationDbContext) });
-        if (constructor == null)
-        {
-            Assert.Fail("Constructor not found.");
-        }
-
-        var controller = Activator.CreateInstance(controllerType, dbContext);
-        if (controller == null)
-        {
-            Assert.Fail("Controller instance could not be created.");
-        }
-
-        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
-        if (method == null)
-        {
-            Assert.Fail("Method not found.");
-        }
-
-        var result = method.Invoke(controller, new object[] { 2 }) as NotFoundResult;
-        Assert.IsNotNull(result);
-    }
-}
 
         // // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
         // [Test]
@@ -610,63 +513,63 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //             }
 //         }
 
-//         [Test]
-//         public void TrainController_Delete_Method_ValidId_DeletesRideSuccessfully_Redirects_AvailableTrains()
-//         {
-//             string assemblyName = "dotnetapp";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string controllerTypeName = "dotnetapp.Controllers.TrainController";
-//             Type controllerType = assembly.GetType(controllerTypeName);
-//             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//             {
-//                 var teamData = new Dictionary<string, object>
-//                     {
-//                         //{ "RideID", 1 },
-//                         { "DepartureLocation", "Location B" },
-//                         { "Destination", "Location D" },
-//                         { "DepartureTime", DateTime.Parse("2023-08-22") },
-//                         { "MaximumCapacity", 4 }
-//                     };
-//                 var ride = new Ride();
-//                 foreach (var kvp in teamData)
-//                 {
-//                     var propertyInfo = typeof(Ride).GetProperty(kvp.Key);
-//                     if (propertyInfo != null)
-//                     {
-//                         propertyInfo.SetValue(ride, kvp.Value);
-//                     }
-//                 }
+        [Test]
+        public void TrainController_Delete_Method_ValidId_DeletesRideSuccessfully_Redirects_AvailableTrains()
+        {
+            string assemblyName = "dotnetapp";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string controllerTypeName = "dotnetapp.Controllers.TrainController";
+            Type controllerType = assembly.GetType(controllerTypeName);
+            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+            {
+                var teamData = new Dictionary<string, object>
+                    {
+                        //{ "RideID", 1 },
+                        { "DepartureLocation", "Location B" },
+                        { "Destination", "Location D" },
+                        { "DepartureTime", DateTime.Parse("2023-08-22") },
+                        { "MaximumCapacity", 4 }
+                    };
+                var ride = new Ride();
+                foreach (var kvp in teamData)
+                {
+                    var propertyInfo = typeof(Ride).GetProperty(kvp.Key);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(ride, kvp.Value);
+                    }
+                }
 
-//                 dbContext.Rides.Add(ride);
-//                 dbContext.SaveChanges();
+                dbContext.Rides.Add(ride);
+                dbContext.SaveChanges();
 
-//                 // Arrange
-//                 MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
-//                 if (deleteMethod != null)
-//                 {
-//                     var controller = Activator.CreateInstance(controllerType, dbContext);
-//                     var ridesBeforeDelete = dbContext.Rides.ToList();
-//                     Console.WriteLine("count" + ridesBeforeDelete.Count);
-//                     var rideIdToDelete = ridesBeforeDelete.FirstOrDefault()?.RideID ?? -1; 
+                // Arrange
+                MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
+                if (deleteMethod != null)
+                {
+                    var controller = Activator.CreateInstance(controllerType, dbContext);
+                    var ridesBeforeDelete = dbContext.Rides.ToList();
+                    Console.WriteLine("count" + ridesBeforeDelete.Count);
+                    var rideIdToDelete = ridesBeforeDelete.FirstOrDefault()?.RideID ?? -1; 
 
-//                     // Act
-//                     var result = deleteMethod.Invoke(controller, new object[] { rideIdToDelete }) as RedirectToActionResult;
+                    // Act
+                    var result = deleteMethod.Invoke(controller, new object[] { rideIdToDelete }) as RedirectToActionResult;
 
-//                     // Assert
-//                     Assert.IsNotNull(result);
-//                     Assert.AreEqual("AvailableTrains", result.ActionName); 
-//                     var ridesAfterDelete = dbContext.Rides.ToList();
-//                     Console.WriteLine("count" + ridesAfterDelete.Count);
+                    // Assert
+                    Assert.IsNotNull(result);
+                    Assert.AreEqual("AvailableTrains", result.ActionName); 
+                    var ridesAfterDelete = dbContext.Rides.ToList();
+                    Console.WriteLine("count" + ridesAfterDelete.Count);
 
-//                     Assert.AreEqual(ridesBeforeDelete.Count - 1, ridesAfterDelete.Count); // Check if the number of rides decreased by 1
-//                     Assert.IsNull(ridesAfterDelete.FirstOrDefault(r => r.RideID == rideIdToDelete)); // Check if the deleted ride is not present
-//                 }
-//                 else
-//                 {
-//                     Assert.Fail("Delete method not found in TrainController.");
-//                 }
-//             }
-//         }
+                    Assert.AreEqual(ridesBeforeDelete.Count - 1, ridesAfterDelete.Count); // Check if the number of rides decreased by 1
+                    Assert.IsNull(ridesAfterDelete.FirstOrDefault(r => r.RideID == rideIdToDelete)); // Check if the deleted ride is not present
+                }
+                else
+                {
+                    Assert.Fail("Delete method not found in TrainController.");
+                }
+            }
+        }
 
 
 //        [Test]
