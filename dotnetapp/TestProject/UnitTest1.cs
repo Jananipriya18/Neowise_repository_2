@@ -339,36 +339,6 @@ namespace dotnetapp.Tests
         //     }
         // }
 
-//         [Test]
-// public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
-// {
-//     string assemblyName = "dotnetapp";
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     string controllerTypeName = "dotnetapp.Controllers.TrainController";
-//     Type controllerType = assembly.GetType(controllerTypeName);
-//     Type exceptionType = typeof(TrainBookingException); // Use the TrainBookingException type directly
-
-//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//     {
-//         // Create a train with maximum capacity reached
-//         var train = new Train { TrainID = 1, MaximumCapacity = 2 };
-//         train.Passengers.Add(new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" });
-//         train.Passengers.Add(new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" });
-//         dbContext.Trains.Add(train);
-//         dbContext.SaveChanges();
-
-//         // Invoke the BookSeat method
-//         var controller = Activator.CreateInstance(controllerType, dbContext);
-//         var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
-//         var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
-
-//         // Assert that the inner exception is of type TrainBookingException
-//         var innerException = ex.InnerException;
-//         Assert.IsNotNull(innerException);
-//         Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
-//     }
-// }
-
 // [Test]
 // public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 // {
@@ -549,34 +519,53 @@ public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redir
     }
 }
 
-
-
-
-//        [Test]
+// [Test]
 // public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
 // {
 //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //     {
 //         // Arrange
-//         var passengerController = new PassengerController(dbContext);
-//         var passenger = new Passenger
-//         {
-//             Name = "John Doe",
-//             Email = "johndoe@example.com",
-//             Phone = "1234567890"
-//         };
-
-//         // Act
+//         string assemblyName = "dotnetapp";
+//         Assembly assembly = Assembly.Load(assemblyName);
+//         string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+//         Type controllerType = assembly.GetType(controllerTypeName);
+        
 //         var train = dbContext.Trains.FirstOrDefault(t => t.TrainID == 1);
 //         train.Destination = train.DepartureLocation; // Set the destination as the same as departure
 //         dbContext.SaveChanges();
 
-//         var result = passengerController.BookSeat(1, passenger ) as ViewResult;
+//         MethodInfo bookSeatMethod = controllerType.GetMethod("BookSeat", new[] { typeof(int), typeof(Passenger) });
+//         if (bookSeatMethod != null)
+//         {
+//             var passenger = new Passenger
+//             {
+//                 Name = "John Doe",
+//                 Email = "johndoe@example.com",
+//                 Phone = "1234567890"
+//             };
 
-//         // Assert
-//         Assert.IsNotNull(result);
-//         Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//         Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
+//             var passengerController = Activator.CreateInstance(controllerType, dbContext);
+
+//             try
+//             {
+//                 // Act
+//                 var result = bookSeatMethod.Invoke(passengerController, new object[] { 1, passenger }) as ViewResult;
+
+//                 // Assert
+//                 Assert.IsNotNull(result);
+//                 Assert.IsFalse(result.ViewData.ModelState.IsValid);
+//                 Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
+//             }
+//             catch (Exception ex)
+//             {
+//                 Console.WriteLine($"Exception during method invocation: {ex}");
+//                 throw;
+//             }
+//         }
+//         else
+//         {
+//             Assert.Fail("BookSeat method not found in PassengerController.");
+//         }
 //     }
 // }
 
