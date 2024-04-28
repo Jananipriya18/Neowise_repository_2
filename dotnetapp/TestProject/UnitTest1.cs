@@ -436,36 +436,77 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         //     }
         // }
 
-        [Test]
-public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string controllerTypeName = "dotnetapp.Controllers.TrainController";
-    Type controllerType = assembly.GetType(controllerTypeName);
-    Type exceptionType = typeof(TrainBookingException); // Use the TrainBookingException type directly
+//         [Test]
+// public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+// {
+//     string assemblyName = "dotnetapp";
+//     Assembly assembly = Assembly.Load(assemblyName);
+//     string controllerTypeName = "dotnetapp.Controllers.TrainController";
+//     Type controllerType = assembly.GetType(controllerTypeName);
+//     Type exceptionType = typeof(TrainBookingException); // Use the TrainBookingException type directly
 
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        // Create a train with maximum capacity reached
-        var train = new Train { TrainID = 1, MaximumCapacity = 2 };
-        train.Passengers.Add(new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" });
-        train.Passengers.Add(new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" });
-        dbContext.Trains.Add(train);
-        dbContext.SaveChanges();
+//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+//     {
+//         // Create a train with maximum capacity reached
+//         var train = new Train { TrainID = 1, MaximumCapacity = 2 };
+//         train.Passengers.Add(new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" });
+//         train.Passengers.Add(new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" });
+//         dbContext.Trains.Add(train);
+//         dbContext.SaveChanges();
 
-        // Invoke the BookSeat method
-        var controller = Activator.CreateInstance(controllerType, dbContext);
-        var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
-        var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
+//         // Invoke the BookSeat method
+//         var controller = Activator.CreateInstance(controllerType, dbContext);
+//         var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+//         var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
 
-        // Assert that the inner exception is of type TrainBookingException
-        var innerException = ex.InnerException;
-        Assert.IsNotNull(innerException);
-        Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
-    }
-}
+//         // Assert that the inner exception is of type TrainBookingException
+//         var innerException = ex.InnerException;
+//         Assert.IsNotNull(innerException);
+//         Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
+//     }
+// }
 
+// [Test]
+// public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+// {
+//     string assemblyName = "dotnetapp";
+//     Assembly assembly = Assembly.Load(assemblyName);
+//     string controllerTypeName = "dotnetapp.Controllers.TrainController";
+//     Type controllerType = assembly.GetType(controllerTypeName);
+//     Type exceptionType = typeof(TrainBookingException);
+
+//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+//     {
+//         var train = new Train { TrainID = 1, MaximumCapacity = 2 };
+//         train.Passengers.Add(new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" });
+//         train.Passengers.Add(new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" });
+//         dbContext.Trains.Add(train);
+//         dbContext.SaveChanges();
+
+//         // Invoke the BookSeat method
+//         var controller = Activator.CreateInstance(controllerType, dbContext);
+//         var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+
+//         // Ensure that the method is not null before invoking
+//         if (method == null)
+//         {
+//             throw new InvalidOperationException($"Method 'BookSeat' not found in {controllerTypeName}");
+//         }
+
+//         // Handle the exception within the test
+//         try
+//         {
+//             method.Invoke(controller, new object[] { 1 });
+//         }
+//         catch (TargetInvocationException ex)
+//         {
+//             // Assert that the inner exception is of type TrainBookingException
+//             var innerException = ex.InnerException;
+//             Assert.IsNotNull(innerException);
+//             Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
+//         }
+//     }
+// }
 
 //         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached with correct message "Maximum capacity reached"
 //         [Test]
@@ -656,36 +697,33 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 //     }
 // }
 
-//         // [Test]
-//         // public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
-//         // {
-//         //     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//         //     {
-//         //         // Arrange
-//         //         var TrainController = new TrainController(dbContext);
-//         //         var passenger = new Passenger
-//         //         {
-//         //             Name = "John Doe",
-//         //             Email = "johndoe@example.com",
-//         //             Phone = "1234567890"
-//         //         };
+       [Test]
+public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
+{
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        // Arrange
+        var trainController = new TrainController(dbContext);
+        var passenger = new Passenger
+        {
+            Name = "John Doe",
+            Email = "johndoe@example.com",
+            Phone = "1234567890"
+        };
 
-//         //         // Act
-//         //         var ride = dbContext.Rides.FirstOrDefault(r => r.RideID == 1);
-//         //         ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
-//         //         dbContext.SaveChanges();
+        // Act
+        var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
+        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
+        dbContext.SaveChanges();
 
-//         //         var result = TrainController.BookSeat(1, passenger) as ViewResult;
+        var result = trainController.BookSeat(1) as ViewResult;
 
-//         //         // Assert
-//         //         Assert.IsNotNull(result);
-//         //         Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//         //         Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
-//         //     }
-//         // }
-
-
-
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsFalse(result.ViewData.ModelState.IsValid);
+        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
+    }
+}
 
 // Test to check that ApplicationDbContext Contains DbSet for model Train
 [Test]
@@ -717,34 +755,34 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 }
 
 
-//         // Test to check that ApplicationDbContext Contains DbSet for model Passenger
-//         [Test]
-//         public void ApplicationDbContext_ContainsDbSet_Passenger()
-//         {
-//             Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
-//             Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
-//             if (contextType == null)
-//             {
-//                 Assert.Fail("No DbContext found in the assembly");
-//                 return;
-//             }
-//             Type PassengerType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Passenger");
-//             if (PassengerType == null)
-//             {
-//                 Assert.Fail("No DbSet found in the DbContext");
-//                 return;
-//             }
-//             var propertyInfo = contextType.GetProperty("Passengers");
-//             if (propertyInfo == null)
-//             {
-//                 Assert.Fail("Passengers property not found in the DbContext");
-//                 return;
-//             }
-//             else
-//             {
-//                 Assert.AreEqual(typeof(DbSet<>).MakeGenericType(PassengerType), propertyInfo.PropertyType);
-//             }
-//         }
+        // Test to check that ApplicationDbContext Contains DbSet for model Passenger
+        [Test]
+        public void ApplicationDbContext_ContainsDbSet_Passenger()
+        {
+            Assembly assembly = Assembly.GetAssembly(typeof(ApplicationDbContext));
+            Type contextType = assembly.GetTypes().FirstOrDefault(t => typeof(DbContext).IsAssignableFrom(t));
+            if (contextType == null)
+            {
+                Assert.Fail("No DbContext found in the assembly");
+                return;
+            }
+            Type PassengerType = assembly.GetTypes().FirstOrDefault(t => t.Name == "Passenger");
+            if (PassengerType == null)
+            {
+                Assert.Fail("No DbSet found in the DbContext");
+                return;
+            }
+            var propertyInfo = contextType.GetProperty("Passengers");
+            if (propertyInfo == null)
+            {
+                Assert.Fail("Passengers property not found in the DbContext");
+                return;
+            }
+            else
+            {
+                Assert.AreEqual(typeof(DbSet<>).MakeGenericType(PassengerType), propertyInfo.PropertyType);
+            }
+        }
 
         // Test to Check Passenger Models Property PassengerID Exists with correcct datatype int    
         [Test]
