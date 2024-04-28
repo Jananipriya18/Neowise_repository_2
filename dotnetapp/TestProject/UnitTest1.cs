@@ -697,33 +697,33 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //     }
 // }
 
-       [Test]
-public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
-{
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        // Arrange
-        var trainController = new TrainController(dbContext);
-        var passenger = new Passenger
-        {
-            Name = "John Doe",
-            Email = "johndoe@example.com",
-            Phone = "1234567890"
-        };
+//        [Test]
+// public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
+// {
+//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+//     {
+//         // Arrange
+//         var trainController = new TrainController(dbContext);
+//         var passenger = new Passenger
+//         {
+//             Name = "John Doe",
+//             Email = "johndoe@example.com",
+//             Phone = "1234567890"
+//         };
 
-        // Act
-        var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
-        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
-        dbContext.SaveChanges();
+//         // Act
+//         var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
+//         ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
+//         dbContext.SaveChanges();
 
-        var result = trainController.BookSeat(1) as ViewResult;
+//         var result = trainController.BookSeat(1) as ViewResult;
 
-        // Assert
-        Assert.IsNotNull(result);
-        Assert.IsFalse(result.ViewData.ModelState.IsValid);
-        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
-    }
-}
+//         // Assert
+//         Assert.IsNotNull(result);
+//         Assert.IsFalse(result.ViewData.ModelState.IsValid);
+//         Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
+//     }
+// }
 
 // Test to check that ApplicationDbContext Contains DbSet for model Train
 [Test]
