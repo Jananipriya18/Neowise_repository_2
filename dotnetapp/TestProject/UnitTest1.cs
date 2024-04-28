@@ -513,63 +513,43 @@ namespace dotnetapp.Tests
 //             }
 //         }
 
-        [Test]
-        public void TrainController_Delete_Method_ValidId_DeletesRideSuccessfully_Redirects_AvailableTrains()
+[Test]
+public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
+{
+    // Arrange
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string controllerTypeName = "dotnetapp.Controllers.TrainController";
+    Type controllerType = assembly.GetType(controllerTypeName);
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        var train = new Train { TrainID = 1 }; // Create a train with ID 1
+        dbContext.Trains.Add(train);
+        dbContext.SaveChanges();
+
+        MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
+        if (deleteMethod != null)
         {
-            string assemblyName = "dotnetapp";
-            Assembly assembly = Assembly.Load(assemblyName);
-            string controllerTypeName = "dotnetapp.Controllers.TrainController";
-            Type controllerType = assembly.GetType(controllerTypeName);
-            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-            {
-                var teamData = new Dictionary<string, object>
-                    {
-                        //{ "RideID", 1 },
-                        { "DepartureLocation", "Location B" },
-                        { "Destination", "Location D" },
-                        { "DepartureTime", DateTime.Parse("2023-08-22") },
-                        { "MaximumCapacity", 4 }
-                    };
-                var ride = new Ride();
-                foreach (var kvp in teamData)
-                {
-                    var propertyInfo = typeof(Ride).GetProperty(kvp.Key);
-                    if (propertyInfo != null)
-                    {
-                        propertyInfo.SetValue(ride, kvp.Value);
-                    }
-                }
+            var controller = Activator.CreateInstance(controllerType, dbContext);
 
-                dbContext.Rides.Add(ride);
-                dbContext.SaveChanges();
+            // Act
+            var result = deleteMethod.Invoke(controller, new object[] { train.TrainID }) as RedirectToActionResult;
 
-                // Arrange
-                MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
-                if (deleteMethod != null)
-                {
-                    var controller = Activator.CreateInstance(controllerType, dbContext);
-                    var ridesBeforeDelete = dbContext.Rides.ToList();
-                    Console.WriteLine("count" + ridesBeforeDelete.Count);
-                    var rideIdToDelete = ridesBeforeDelete.FirstOrDefault()?.RideID ?? -1; 
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("AvailableTrains", result.ActionName); // Use string instead of nameof
 
-                    // Act
-                    var result = deleteMethod.Invoke(controller, new object[] { rideIdToDelete }) as RedirectToActionResult;
-
-                    // Assert
-                    Assert.IsNotNull(result);
-                    Assert.AreEqual("AvailableTrains", result.ActionName); 
-                    var ridesAfterDelete = dbContext.Rides.ToList();
-                    Console.WriteLine("count" + ridesAfterDelete.Count);
-
-                    Assert.AreEqual(ridesBeforeDelete.Count - 1, ridesAfterDelete.Count); // Check if the number of rides decreased by 1
-                    Assert.IsNull(ridesAfterDelete.FirstOrDefault(r => r.RideID == rideIdToDelete)); // Check if the deleted ride is not present
-                }
-                else
-                {
-                    Assert.Fail("Delete method not found in TrainController.");
-                }
-            }
+            var trainAfterDelete = dbContext.Trains.Find(train.TrainID);
+            Assert.IsNull(trainAfterDelete); // Check if the deleted train is not present
         }
+        else
+        {
+            Assert.Fail("Delete method not found in TrainController.");
+        }
+    }
+}
+
+
 
 
 //        [Test]
