@@ -30,7 +30,7 @@ namespace dotnetapp.Tests
                         //{ "TrainID", 1 },
                         { "DepartureLocation", "Location A" },
                         { "Destination", "Location B" },
-                        { "DateOfDeparture", DateTime.Parse("2023-08-30") },
+                        { "DepartureTime", DateTime.Parse("2023-08-30") },
                         { "MaximumCapacity", 4 }
                     };
                 // Add test data to the in-memory database
@@ -538,11 +538,11 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //         }
 
 //         [Test]
-//         public void RideController_Delete_Method_ValidId_DeletesRideSuccessfully_Redirects_AvailableRides()
+//         public void TrainController_Delete_Method_ValidId_DeletesRideSuccessfully_Redirects_AvailableTrains()
 //         {
 //             string assemblyName = "dotnetapp";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             string controllerTypeName = "dotnetapp.Controllers.RideController";
+//             string controllerTypeName = "dotnetapp.Controllers.TrainController";
 //             Type controllerType = assembly.GetType(controllerTypeName);
 //             using (var dbContext = new ApplicationDbContext(_dbContextOptions))
 //             {
@@ -551,7 +551,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //                         //{ "RideID", 1 },
 //                         { "DepartureLocation", "Location B" },
 //                         { "Destination", "Location D" },
-//                         { "DateOfDeparture", DateTime.Parse("2023-08-22") },
+//                         { "DepartureTime", DateTime.Parse("2023-08-22") },
 //                         { "MaximumCapacity", 4 }
 //                     };
 //                 var ride = new Ride();
@@ -581,7 +581,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 
 //                     // Assert
 //                     Assert.IsNotNull(result);
-//                     Assert.AreEqual("AvailableRides", result.ActionName); 
+//                     Assert.AreEqual("AvailableTrains", result.ActionName); 
 //                     var ridesAfterDelete = dbContext.Rides.ToList();
 //                     Console.WriteLine("count" + ridesAfterDelete.Count);
 
@@ -590,7 +590,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
 //                 }
 //                 else
 //                 {
-//                     Assert.Fail("Delete method not found in RideController.");
+//                     Assert.Fail("Delete method not found in TrainController.");
 //                 }
 //             }
 //         }
@@ -791,68 +791,68 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //             string assemblyName = "dotnetapp";
 //             string typeName = "dotnetapp.Models.Ride";
 //             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = RideType.GetProperty("RideID");
+//             Type TrainType = assembly.GetType(typeName);
+//             PropertyInfo propertyInfo = TrainType.GetProperty("RideID");
 //             Assert.IsNotNull(propertyInfo, "Property RideID does not exist in Ride class");
 //             Type expectedType = propertyInfo.PropertyType;
 //             Assert.AreEqual(typeof(int), expectedType, "Property RideID in Ride class is not of type int");
 //         }
 
-//         // Test to Check Ride Models Property DepartureLocation Exists with correcct datatype string    
-//         [Test]
-//         public void Ride_DepartureLocation_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Ride";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = RideType.GetProperty("DepartureLocation");
-//             Assert.IsNotNull(propertyInfo, "Property DepartureLocation does not exist in Ride class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property DepartureLocation in Ride class is not of type string");
-//         }
+        // Test to Check Ride Models Property DepartureLocation Exists with correcct datatype string    
+        [Test]
+        public void Ride_DepartureLocation_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Ride";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = TrainType.GetProperty("DepartureLocation");
+            Assert.IsNotNull(propertyInfo, "Property DepartureLocation does not exist in Ride class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property DepartureLocation in Ride class is not of type string");
+        }
 
-//         // Test to Check Ride Models Property Destination Exists with correcct datatype string    
-//         [Test]
-//         public void Ride_Destination_PropertyExists_ReturnExpectedDataTypes_string()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Ride";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = RideType.GetProperty("Destination");
-//             Assert.IsNotNull(propertyInfo, "Property Destination does not exist in Ride class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(string), expectedType, "Property Destination in Ride class is not of type string");
-//         }
+        // Test to Check Train Models Property Destination Exists with correcct datatype string    
+        [Test]
+        public void Train_Destination_PropertyExists_ReturnExpectedDataTypes_string()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Train";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = TrainType.GetProperty("Destination");
+            Assert.IsNotNull(propertyInfo, "Property Destination does not exist in Ride class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(string), expectedType, "Property Destination in Ride class is not of type string");
+        }
 
-//         // Test to Check Ride Models Property DateOfDeparture Exists with correcct datatype DateTime    
-//         [Test]
-//         public void Ride_DateOfDeparture_PropertyExists_ReturnExpectedDataTypes_DateTime()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Ride";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = RideType.GetProperty("DateOfDeparture");
-//             Assert.IsNotNull(propertyInfo, "Property DateOfDeparture does not exist in Ride class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(DateTime), expectedType, "Property DateOfDeparture in Ride class is not of type DateTime");
-//         }
+        // Test to Check Train Models Property DepartureTime Exists with correcct datatype DateTime    
+        [Test]
+        public void Train_DepartureTime_PropertyExists_ReturnExpectedDataTypes_DateTime()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Train";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = TrainType.GetProperty("DepartureTime");
+            Assert.IsNotNull(propertyInfo, "Property DepartureTime does not exist in Traine class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(DateTime), expectedType, "Property DepartureTime in Train class is not of type DateTime");
+        }
 
-//         // Test to Check Ride Models Property MaximumCapacity Exists with correcct datatype int    
-//         [Test]
-//         public void Ride_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Models.Ride";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideType = assembly.GetType(typeName);
-//             PropertyInfo propertyInfo = RideType.GetProperty("MaximumCapacity");
-//             Assert.IsNotNull(propertyInfo, "Property MaximumCapacity does not exist in Ride class");
-//             Type expectedType = propertyInfo.PropertyType;
-//             Assert.AreEqual(typeof(int), expectedType, "Property MaximumCapacity in Ride class is not of type int");
-//         }
+        // Test to Check Ride Models Property MaximumCapacity Exists with correcct datatype int    
+        [Test]
+        public void Ride_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Models.Train";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = TrainType.GetProperty("MaximumCapacity");
+            Assert.IsNotNull(propertyInfo, "Property MaximumCapacity does not exist in Train class");
+            Type expectedType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(int), expectedType, "Property MaximumCapacity in Train class is not of type int");
+        }
 
 
 
@@ -912,66 +912,66 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 //         //    }
 //         //}
 
-//         // Test to Check RideController Controllers Method AvailableRides with no parameter Returns IActionResult
-//         [Test]
-//         public void RideController_AvailableRides_Method_with_NoParams_Returns_IActionResult()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.RideController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideControllerType = assembly.GetType(typeName);
-//             MethodInfo methodInfo = RideControllerType.GetMethod("AvailableRides", Type.EmptyTypes);
-//             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method AvailableRides in RideController class is not of type IActionResult");
-//         }
+        // Test to Check TrainController Controllers Method AvailableTrains with no parameter Returns IActionResult
+        [Test]
+        public void TrainController_AvailableTrains_Method_with_NoParams_Returns_IActionResult()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.TrainController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainControllerType = assembly.GetType(typeName);
+            MethodInfo methodInfo = TrainControllerType.GetMethod("AvailableTrains", Type.EmptyTypes);
+            Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method AvailableTrains in TrainController class is not of type IActionResult");
+        }
 
-//         // Test to Check RideController Controllers Method Details with parameter int Returns IActionResult
-//         [Test]
-//         public void RideController_Details_Method_Invokes_with_int_Param_Returns_IActionResult()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.RideController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             Type RideControllerType = assembly.GetType(typeName);
-//             object instance = Activator.CreateInstance(RideControllerType, _context);
-//             MethodInfo methodInfo = RideControllerType.GetMethod("Details", new[] { typeof(int) });
-//             object result = methodInfo.Invoke(instance, new object[] { default(int) });
-//             Assert.IsNotNull(result, "Result should not be null");
-//         }
+        // Test to Check TrainController Controllers Method Details with parameter int Returns IActionResult
+        [Test]
+        public void TrainController_Details_Method_Invokes_with_int_Param_Returns_IActionResult()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.TrainController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type TrainControllerType = assembly.GetType(typeName);
+            object instance = Activator.CreateInstance(TrainControllerType, _context);
+            MethodInfo methodInfo = TrainControllerType.GetMethod("Details", new[] { typeof(int) });
+            object result = methodInfo.Invoke(instance, new object[] { default(int) });
+            Assert.IsNotNull(result, "Result should not be null");
+        }
 
-//         // Test to Check RideController Controllers Method Create with parameter Ride Returns IActionResult
-//         [Test]
-//         public void RideController_Delete_Method_Invokes_with_RideID_Param_Returns_IActionResult()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.RideController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string typeName1 = "dotnetapp.Models.Ride";
-//             Type RideType = assembly.GetType(typeName1);
-//             object instance1 = Activator.CreateInstance(RideType);
-//             Type RideControllerType = assembly.GetType(typeName);
-//             object instance = Activator.CreateInstance(RideControllerType, _context);
-//             MethodInfo methodInfo = RideControllerType.GetMethod("Delete", new Type[] { typeof(int) });
-//             object result = methodInfo.Invoke(instance, new object[] { 1 });
-//             Assert.IsNotNull(result, "Result should not be null");
-//             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method Delete in RideController class is not of type IActionResult");
-//         }
+        // Test to Check TrainController Controllers Method Create with parameter Ride Returns IActionResult
+        [Test]
+        public void TrainController_Delete_Method_Invokes_with_RideID_Param_Returns_IActionResult()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.TrainController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string typeName1 = "dotnetapp.Models.Train";
+            Type TrainType = assembly.GetType(typeName1);
+            object instance1 = Activator.CreateInstance(TrainType);
+            Type TrainControllerType = assembly.GetType(typeName);
+            object instance = Activator.CreateInstance(TrainControllerType, _context);
+            MethodInfo methodInfo = TrainControllerType.GetMethod("Delete", new Type[] { typeof(int) });
+            object result = methodInfo.Invoke(instance, new object[] { 1 });
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method Delete in TrainController class is not of type IActionResult");
+        }
 
-//         [Test]
-//         public void RideController_DeleteConfirm_Method_Invokes_with_RideID_Param_Returns_IActionResult()
-//         {
-//             string assemblyName = "dotnetapp";
-//             string typeName = "dotnetapp.Controllers.RideController";
-//             Assembly assembly = Assembly.Load(assemblyName);
-//             string typeName1 = "dotnetapp.Models.Ride";
-//             Type RideType = assembly.GetType(typeName1);
-//             object instance1 = Activator.CreateInstance(RideType);
-//             Type RideControllerType = assembly.GetType(typeName);
-//             object instance = Activator.CreateInstance(RideControllerType, _context);
-//             MethodInfo methodInfo = RideControllerType.GetMethod("DeleteConfirm", new Type[] { typeof(int) });
-//             object result = methodInfo.Invoke(instance, new object[] { 1 });
-//             Assert.IsNotNull(result, "Result should not be null");
-//             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method DeleteConfirm in RideController class is not of type IActionResult");
-//         }
+        [Test]
+        public void TrainController_DeleteConfirm_Method_Invokes_with_RideID_Param_Returns_IActionResult()
+        {
+            string assemblyName = "dotnetapp";
+            string typeName = "dotnetapp.Controllers.TrainController";
+            Assembly assembly = Assembly.Load(assemblyName);
+            string typeName1 = "dotnetapp.Models.Train";
+            Type TrainType = assembly.GetType(typeName1);
+            object instance1 = Activator.CreateInstance(TrainType);
+            Type TrainControllerType = assembly.GetType(typeName);
+            object instance = Activator.CreateInstance(TrainControllerType, _context);
+            MethodInfo methodInfo = TrainControllerType.GetMethod("DeleteConfirm", new Type[] { typeof(int) });
+            object result = methodInfo.Invoke(instance, new object[] { 1 });
+            Assert.IsNotNull(result, "Result should not be null");
+            Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method DeleteConfirm in TrainController class is not of type IActionResult");
+        }
      }
 
 }
