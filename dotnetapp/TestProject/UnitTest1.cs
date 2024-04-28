@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using dotnetapp.Models;
+using dotnetapp.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -379,7 +380,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         //             var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
         //             if (propertyInfo != null)
         //             {
-        //                 propertyInfo.SetValue(Passenger1, kvp.Value);
+        //                 propertyInfo.SetValue(passenger1, kvp.Value);
         //             }
         //         }
         //         foreach (var kvp in teamData)
@@ -393,7 +394,7 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         //         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
 
-        //         var ride = _context.Rides.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("RideID").GetValue(o) == 1);
+        //         var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
         //         ride.Passengers.Add(passenger1);
         //         ride.Passengers.Add(passenger);
         //         var propertyInfo1 = ride.GetType().GetProperty("MaximumCapacity");
@@ -434,6 +435,37 @@ public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
         //         }
         //     }
         // }
+
+        [Test]
+public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string controllerTypeName = "dotnetapp.Controllers.TrainController";
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type exceptionType = typeof(TrainBookingException); // Use the TrainBookingException type directly
+
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        // Create a train with maximum capacity reached
+        var train = new Train { TrainID = 1, MaximumCapacity = 2 };
+        train.Passengers.Add(new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" });
+        train.Passengers.Add(new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" });
+        dbContext.Trains.Add(train);
+        dbContext.SaveChanges();
+
+        // Invoke the BookSeat method
+        var controller = Activator.CreateInstance(controllerType, dbContext);
+        var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+        var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
+
+        // Assert that the inner exception is of type TrainBookingException
+        var innerException = ex.InnerException;
+        Assert.IsNotNull(innerException);
+        Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
+    }
+}
+
 
 //         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached with correct message "Maximum capacity reached"
 //         [Test]
