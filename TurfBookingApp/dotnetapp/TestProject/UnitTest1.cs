@@ -21,7 +21,6 @@ namespace dotnetapp.Tests
         [SetUp]
         public void Setup()
         {
-            // Initialize a new in-memory ApplicationDbContext for testing
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
