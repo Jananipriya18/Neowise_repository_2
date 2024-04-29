@@ -52,22 +52,33 @@ namespace dotnetapp.Controllers
 
                 if (booking.ReservationDate < targetDate)
                 {
-                    throw new TurfBookingException("Booking Starts from 25/4/2024");
+                    throw new TurfBookingException("Booking starts from 25/4/2024");
                 }
+                
+                // Check if there are available seats
+                if (!turf.Availability)
+                {
+                    // If there are no available seats, set availability to false
+                    turf.Availability = false;
+                    _dbContext.SaveChanges(); // Save the changes to the database
+                    throw new Exception("No available seats in this turf. It is now under maintenance.");
+                }
+
                 booking.TurfID = turfId;
 
                 if (ModelState.IsValid)
                 {
-                    _dbContext.Bookings.Add(booking);
-                    _dbContext.SaveChanges();
+                    // Update seating capacity
+                    turf.Capacity--;
 
-                    // Update turf availability if all seats are booked
-                    if (turf.Bookings.Count >= turf.Capacity)
+                    // If seating capacity becomes zero, change availability to false
+                    if (turf.Capacity == 0)
                     {
                         turf.Availability = false;
-                        _dbContext.SaveChanges();
                     }
 
+                    _dbContext.Bookings.Add(booking);
+                    _dbContext.SaveChanges();
                     return RedirectToAction("Details", new { bookingId = booking.BookingID });
                 }
                 return View(booking);
