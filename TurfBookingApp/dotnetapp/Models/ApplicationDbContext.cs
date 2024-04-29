@@ -27,9 +27,8 @@ namespace dotnetapp.Models
                 new Turf { TurfID = 1, Name = "Turf A", Capacity = 4, Availability = true },
                 new Turf { TurfID = 2, Name = "Turf B", Capacity = 6, Availability = true },
                 new Turf { TurfID = 3, Name = "Turf C", Capacity = 2, Availability = true },
-                new Turf { TurfID = 4, Name = "Turf D", Capacity = 10, Availability = false },
-                new Turf { TurfID = 5, Name = "Turf E", Capacity = 2, Availability = true },
-                new Turf { TurfID = 6, Name = "Turf F", Capacity = 2, Availability = false }
+                new Turf { TurfID = 4, Name = "Turf D", Capacity = 10, Availability = true },
+                new Turf { TurfID = 5, Name = "Turf E", Capacity = 2, Availability = true }
             );
         }
     }
