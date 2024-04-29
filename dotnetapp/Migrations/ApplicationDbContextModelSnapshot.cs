@@ -83,7 +83,7 @@ namespace dotnetapp.Migrations
                         {
                             TrainID = 1,
                             DepartureLocation = "Delhi",
-                            DepartureTime = new DateTime(2024, 4, 27, 15, 16, 31, 349, DateTimeKind.Local).AddTicks(6829),
+                            DepartureTime = new DateTime(2024, 4, 29, 7, 25, 34, 983, DateTimeKind.Local).AddTicks(3413),
                             Destination = "Mumbai",
                             MaximumCapacity = 4
                         },
@@ -91,7 +91,7 @@ namespace dotnetapp.Migrations
                         {
                             TrainID = 2,
                             DepartureLocation = "Chennai",
-                            DepartureTime = new DateTime(2024, 4, 27, 16, 16, 31, 349, DateTimeKind.Local).AddTicks(6854),
+                            DepartureTime = new DateTime(2024, 4, 29, 8, 25, 34, 983, DateTimeKind.Local).AddTicks(3445),
                             Destination = "Kolkata",
                             MaximumCapacity = 3
                         },
@@ -99,7 +99,7 @@ namespace dotnetapp.Migrations
                         {
                             TrainID = 3,
                             DepartureLocation = "Bangalore",
-                            DepartureTime = new DateTime(2024, 4, 27, 22, 16, 31, 349, DateTimeKind.Local).AddTicks(6856),
+                            DepartureTime = new DateTime(2024, 4, 29, 14, 25, 34, 983, DateTimeKind.Local).AddTicks(3447),
                             Destination = "Hyderabad",
                             MaximumCapacity = 2
                         },
@@ -107,7 +107,7 @@ namespace dotnetapp.Migrations
                         {
                             TrainID = 4,
                             DepartureLocation = "Jaipur",
-                            DepartureTime = new DateTime(2024, 4, 27, 18, 16, 31, 349, DateTimeKind.Local).AddTicks(6857),
+                            DepartureTime = new DateTime(2024, 4, 29, 10, 25, 34, 983, DateTimeKind.Local).AddTicks(3448),
                             Destination = "Ahmedabad",
                             MaximumCapacity = 4
                         },
@@ -115,7 +115,7 @@ namespace dotnetapp.Migrations
                         {
                             TrainID = 5,
                             DepartureLocation = "Lucknow",
-                            DepartureTime = new DateTime(2024, 4, 27, 20, 16, 31, 349, DateTimeKind.Local).AddTicks(6858),
+                            DepartureTime = new DateTime(2024, 4, 29, 12, 25, 34, 983, DateTimeKind.Local).AddTicks(3449),
                             Destination = "Bhopal",
                             MaximumCapacity = 3
                         });
