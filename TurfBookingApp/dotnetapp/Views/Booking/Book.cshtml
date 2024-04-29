@@ -1,0 +1,40 @@
+@model Booking 
+
+
+@{
+    var tableId = Context.Request.Query["tableId"];
+}
+<h1>Make a Reservation</h1>
+
+<h2>Selected Table: @tableId</h2>
+@* 
+@if (ViewData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData["ErrorMessage"]
+    </div>
+} *@
+
+@using (Html.BeginForm())
+{
+    <div style="margin-bottom: 15px;">
+        <label for="reservationDate" style="font-weight: bold;">Reservation Date:</label>
+        @Html.TextBoxFor(model => model.ReservationDate, new { type = "date", @class = "form-control", id = "reservationDate"})
+        @Html.ValidationMessageFor(model => model.ReservationDate, "", new { @class = "text-danger" })
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label for="timeSlot" style="font-weight: bold;">Time Slot:</label>
+        @Html.TextBoxFor(model => model.TimeSlot, new { type = "time", @class = "form-control", id = "timeSlot"})
+        @Html.ValidationMessageFor(model => model.TimeSlot, "", new { @class = "text-danger" })
+    </div>
+
+    @* <div class="form-group">
+        @Html.Label("DiningTable", "Dining Table")
+        <input type="text" id="RideID" name="RideID" class="form-control" value="@tableId" readonly />
+    </div> *@
+
+    <button id="submit" type="submit" style="background-color: #007bff; color: #fff; border: none; padding: 8px 16px; cursor: pointer;">Submit</button>
+}
+
+<a id="back" href="@Url.Action("Index", "Table")">Back to Reservations</a>
+<br>

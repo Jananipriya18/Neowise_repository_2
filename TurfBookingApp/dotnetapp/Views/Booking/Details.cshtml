@@ -1,0 +1,10 @@
+@model dotnetapp.Models.Booking
+
+
+<h1>Reservation Details</h1>
+<p>Booking ID: @Model.BookingID</p>
+<p>Table ID: @Model.DiningTableID</p>
+<p>Reservation Date: @Model.ReservationDate.ToShortDateString()</p>
+<p>Time Slot: @Model.TimeSlot</p>
+
+<a href="@Url.Action("Index", "Table")">Back to Reservations</a><br>

@@ -1,4 +1,4 @@
-namespace RideShare.Models;
+namespace dotnetapp.Models;
 
 public class ErrorViewModel
 {
