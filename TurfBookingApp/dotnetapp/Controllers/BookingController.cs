@@ -54,7 +54,7 @@ namespace dotnetapp.Controllers
                 {
 
                     Console.WriteLine("Came");
-                    throw new TableBookingException("Booking Starts from 25/4/2024");
+                    throw new TurfBookingException("Booking Starts from 25/4/2024");
                 }
                 booking.DiningTableID = tableId;
 

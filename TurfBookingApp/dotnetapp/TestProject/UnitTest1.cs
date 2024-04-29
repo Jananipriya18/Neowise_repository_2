@@ -170,7 +170,7 @@ namespace dotnetapp.Tests
             _dbContext.SaveChanges();
 
             // Act & Assert
-            Assert.Throws<TableBookingException>(() =>
+            Assert.Throws<TurfBookingException>(() =>
             {
                 _bookingController.Book(tableId, booking1);
             });
@@ -188,7 +188,7 @@ namespace dotnetapp.Tests
             _dbContext.SaveChanges();
 
             // Act & Assert
-            var msg = Assert.Throws<TableBookingException>(() =>
+            var msg = Assert.Throws<TurfBookingException>(() =>
             {
                 _bookingController.Book(tableId, booking1);
             });
