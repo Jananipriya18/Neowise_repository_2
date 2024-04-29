@@ -30,91 +30,99 @@ namespace dotnetapp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"), 1L, 1);
 
-                    b.Property<int>("DiningTableID")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("ReservationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<TimeSpan>("TimeSlot")
                         .HasColumnType("time");
 
+                    b.Property<int?>("TurfID")
+                        .HasColumnType("int");
+
                     b.HasKey("BookingID");
 
-                    b.HasIndex("DiningTableID");
+                    b.HasIndex("TurfID");
 
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("dotnetapp.Models.DiningTable", b =>
+            modelBuilder.Entity("dotnetapp.Models.Turf", b =>
                 {
-                    b.Property<int>("DiningTableID")
+                    b.Property<int>("TurfID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DiningTableID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurfID"), 1L, 1);
 
                     b.Property<bool>("Availability")
                         .HasColumnType("bit");
 
-                    b.Property<int>("SeatingCapacity")
+                    b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.HasKey("DiningTableID");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("DiningTables");
+                    b.HasKey("TurfID");
+
+                    b.ToTable("Turfs");
 
                     b.HasData(
                         new
                         {
-                            DiningTableID = 1,
+                            TurfID = 1,
                             Availability = true,
-                            SeatingCapacity = 4
+                            Capacity = 4,
+                            Name = "Turf A"
                         },
                         new
                         {
-                            DiningTableID = 2,
+                            TurfID = 2,
                             Availability = true,
-                            SeatingCapacity = 6
+                            Capacity = 6,
+                            Name = "Turf B"
                         },
                         new
                         {
-                            DiningTableID = 3,
+                            TurfID = 3,
                             Availability = true,
-                            SeatingCapacity = 2
+                            Capacity = 2,
+                            Name = "Turf C"
                         },
                         new
                         {
-                            DiningTableID = 4,
+                            TurfID = 4,
                             Availability = false,
-                            SeatingCapacity = 10
+                            Capacity = 10,
+                            Name = "Turf D"
                         },
                         new
                         {
-                            DiningTableID = 5,
+                            TurfID = 5,
                             Availability = true,
-                            SeatingCapacity = 2
+                            Capacity = 2,
+                            Name = "Turf E"
                         },
                         new
                         {
-                            DiningTableID = 6,
+                            TurfID = 6,
                             Availability = false,
-                            SeatingCapacity = 2
+                            Capacity = 2,
+                            Name = "Turf F"
                         });
                 });
 
             modelBuilder.Entity("dotnetapp.Models.Booking", b =>
                 {
-                    b.HasOne("dotnetapp.Models.DiningTable", "DiningTable")
+                    b.HasOne("dotnetapp.Models.Turf", "Turf")
                         .WithMany("Bookings")
-                        .HasForeignKey("DiningTableID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TurfID");
 
-                    b.Navigation("DiningTable");
+                    b.Navigation("Turf");
                 });
 
-            modelBuilder.Entity("dotnetapp.Models.DiningTable", b =>
+            modelBuilder.Entity("dotnetapp.Models.Turf", b =>
                 {
                     b.Navigation("Bookings");
                 });

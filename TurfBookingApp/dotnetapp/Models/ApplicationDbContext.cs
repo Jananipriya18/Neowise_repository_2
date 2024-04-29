@@ -7,29 +7,29 @@ namespace dotnetapp.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
-        public DbSet<DiningTable> DiningTables { get; set; }
+        
+        // Update DbSet properties to represent turfs instead of dining tables
+        public DbSet<Turf> Turfs { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-
-        // Define the DbSet properties for the DiningTable and Booking classes - DiningTables and Bookings
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Define the relationship between the DiningTable and Booking classes - one-to-many
-            modelBuilder.Entity<DiningTable>()
+            // Define the relationship between the Turf and Booking classes - one-to-many
+            modelBuilder.Entity<Turf>()
                 .HasMany(t => t.Bookings)
-                .WithOne(b => b.DiningTable)
-                .HasForeignKey(b => b.DiningTableID);
-                
+                .WithOne(b => b.Turf)
+                .HasForeignKey(b => b.TurfID);
+
             base.OnModelCreating(modelBuilder);
 
-            // Seed data for DiningTables
-            modelBuilder.Entity<DiningTable>().HasData(
-                new DiningTable { DiningTableID = 1, SeatingCapacity = 4, Availability = true },
-                new DiningTable { DiningTableID = 2, SeatingCapacity = 6, Availability = true },
-                new DiningTable { DiningTableID = 3, SeatingCapacity = 2, Availability = true },
-                new DiningTable { DiningTableID = 4, SeatingCapacity = 10, Availability = false },
-                new DiningTable { DiningTableID = 5, SeatingCapacity = 2, Availability = true },
-                new DiningTable { DiningTableID = 6, SeatingCapacity = 2, Availability = false }
+            // Seed data for Turfs
+            modelBuilder.Entity<Turf>().HasData(
+                new Turf { TurfID = 1, Name = "Turf A", Capacity = 4, Availability = true },
+                new Turf { TurfID = 2, Name = "Turf B", Capacity = 6, Availability = true },
+                new Turf { TurfID = 3, Name = "Turf C", Capacity = 2, Availability = true },
+                new Turf { TurfID = 4, Name = "Turf D", Capacity = 10, Availability = false },
+                new Turf { TurfID = 5, Name = "Turf E", Capacity = 2, Availability = true },
+                new Turf { TurfID = 6, Name = "Turf F", Capacity = 2, Availability = false }
             );
         }
     }
