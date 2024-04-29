@@ -32,9 +32,9 @@
                 <td>
                     @if (turf.Availability)
                     {
-                        <a id="book" href="@Url.Action("Book","Booking", new { turfId = turf.TurfID })" class="btn btn-primary">Book</a>
+                        <a id="bookButton" href="@Url.Action("Book","Booking", new { turfId = turf.TurfID })" class="btn btn-primary">Book</a>
                     }
-                    <a id="delete" href="@Url.Action("Delete","Turf", new { turfId = turf.TurfID })" class="btn btn-danger">Delete</a>
+                    <a id="deleteButton" href="@Url.Action("Delete","Turf", new { turfId = turf.TurfID })" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
