@@ -7,7 +7,7 @@
         <tr>
             <th>Turf ID</th>
             <th>Name</th>
-            <th>Seating Capacity</th>
+            <th>Capacity</th>
             <th>Availability</th>
             <th>Action</th>
         </tr>
@@ -19,7 +19,16 @@
                 <td>@turf.TurfID</td>
                 <td>@turf.Name</td>
                 <td>@turf.Capacity</td>
-                <td>@(turf.Availability ? "Available" : "In Maintenance")</td>
+                <td>
+                    @if (turf.Availability)
+                    {
+                        <span class="text-success">Available</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">In Maintenance</span>
+                    }
+                </td>
                 <td>
                     @if (turf.Availability)
                     {
