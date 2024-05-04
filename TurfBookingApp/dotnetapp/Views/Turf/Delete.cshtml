@@ -1,0 +1,10 @@
+@model dotnetapp.Models.Turf
+
+<h1>Delete Turf</h1>
+
+<p>Are you sure you want to delete turf '@Model.Name'?</p>
+
+<form method="post">
+    <input type="submit" value="Delete" class="btn btn-danger" />
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
