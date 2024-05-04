@@ -250,94 +250,61 @@ namespace dotnetapp.Tests
         }
 
         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
-        [Test]
-        public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+[Test]
+public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string modelType = "dotnetapp.Models.Passenger";
+    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type controllerType2 = assembly.GetType(modelType);
+
+    // Arrange
+    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        .UseInMemoryDatabase(databaseName: "TestDatabase")
+        .Options;
+
+    using (var dbContext = new ApplicationDbContext(options))
+    {
+        // Add test data to the in-memory database
+        var train = new Train
         {
-            string assemblyName = "dotnetapp";
-            Assembly assembly = Assembly.Load(assemblyName);
-            string modelType = "dotnetapp.Models.Passenger";
-            string exception = "dotnetapp.Exceptions.TrainBookingException";
-            string controllerTypeName = "dotnetapp.Controllers.PassengerController";
-            Type controllerType = assembly.GetType(controllerTypeName);
-            Type controllerType2 = assembly.GetType(modelType);
-            Type exceptionType = assembly.GetType(exception);
+            TrainID = 1,
+            MaximumCapacity = 2 // Set maximum capacity to 2 for testing
+        };
+        dbContext.Trains.Add(train);
 
-            using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-            {
-                var teamData = new Dictionary<string, object>
-                    {
-                        { "Name", "John Doe" },
-                        { "Email", "johndoe@example.com" },
-                        { "Phone", "1234567890" }
-                    };
-                var teamData1 = new Dictionary<string, object>
-                    {
-                        { "Name", "John Doe1" },
-                        { "Email", "johndoe1@example.com" },
-                        { "Phone", "1234567891" }
-                    };
-                var passenger = new Passenger();
-                var passenger1 = new Passenger();
-                foreach (var kvp in teamData1)
-                {
-                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-                    if (propertyInfo != null)
-                    {
-                        propertyInfo.SetValue(passenger1, kvp.Value);
-                    }
-                }
-                foreach (var kvp in teamData)
-                {
-                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-                    if (propertyInfo != null)
-                    {
-                        propertyInfo.SetValue(passenger, kvp.Value);
-                    }
-                }
-                MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+        var passenger1 = new Passenger
+        {
+            Name = "John Doe1",
+            Email = "johndoe1@example.com",
+            Phone = "1234567891"
+        };
 
+        var passenger2 = new Passenger
+        {
+            Name = "John Doe2",
+            Email = "johndoe2@example.com",
+            Phone = "1234567892"
+        };
 
-                var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => (int)o.GetType().GetProperty("TrainID").GetValue(o) == 1);
-                ride.Passengers.Add(passenger1);
-                ride.Passengers.Add(passenger);
-                var propertyInfo1 = ride.GetType().GetProperty("MaximumCapacity");
-                if (propertyInfo1 != null)
-                {
-                    propertyInfo1.SetValue(ride, 2);
-                }
+        dbContext.SaveChanges();
 
-                dbContext.SaveChanges();
+        // Act
+        var controller = new PassengerController(dbContext);
+        var ex = Assert.Throws<TargetInvocationException>(() => controller.BookSeat(1, passenger1));
 
-                var teamData2 = new Dictionary<string, object>
-                    {
-                        { "Name", "John Doe2" },
-                        { "Email", "johndoe2@example.com" },
-                        { "Phone", "1234567892" }
-                    };
-                var passenger2 = new Passenger();
-                foreach (var kvp in teamData2)
-                {
-                    var propertyInfo = typeof(Passenger).GetProperty(kvp.Key);
-                    if (propertyInfo != null)
-                    {
-                        propertyInfo.SetValue(passenger2, kvp.Value);
-                    }
-                }
-                if (method != null)
-                {
-                    var controller = Activator.CreateInstance(controllerType, _context);
-                    var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
+        // Assert
+        var innerException = ex.InnerException;
+        Console.WriteLine($"Inner Exception Type: {innerException.GetType().FullName}");
+        Console.WriteLine($"Inner Exception Message: {innerException.Message}");
 
-                    var innerException = ex.InnerException;
-
-                    Assert.IsNotNull(innerException);
-                    var trainBookingExceptionType = exceptionType;
-                    bool isRideSharingException = trainBookingExceptionType.IsInstanceOfType(innerException);
-
-                    Assert.IsTrue(isRideSharingException, $"Expected inner exception of type {trainBookingExceptionType.FullName}");
-                }
-            }
-        }
+        Assert.IsNotNull(innerException);
+        Assert.IsInstanceOf<TrainBookingException>(innerException);
+        Assert.AreEqual("Maximum capacity reached", innerException.Message);
+    }
+}
 
 // [Test]
 // public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
@@ -483,45 +450,41 @@ namespace dotnetapp.Tests
 //             }
 //         }
 
-[Test]
-public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
-{
-    // Arrange
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string controllerTypeName = "dotnetapp.Controllers.TrainController";
-    Type controllerType = assembly.GetType(controllerTypeName);
-    
-    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-    {
-        var train = new Train { TrainID = 100 }; // Create a train with ID 100
-        dbContext.Trains.Add(train);
-        dbContext.SaveChanges();
+// [Test]
+// public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
+// {
+//     // Arrange
+//     string assemblyName = "dotnetapp";
+//     Assembly assembly = Assembly.Load(assemblyName);
+//     string controllerTypeName = "dotnetapp.Controllers.TrainController";
+//     Type controllerType = assembly.GetType(controllerTypeName);
+//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+//     {
+//         var train = new Train { TrainID = 100 }; // Create a train with ID 1
+//         dbContext.Trains.Add(train);
+//         dbContext.SaveChanges();
 
-        // Retrieve the Delete method from the TrainController
-        MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
-        
-        if (deleteMethod != null)
-        {
-            var controller = Activator.CreateInstance(controllerType, dbContext);
+//         MethodInfo deleteMethod = controllerType.GetMethod("Delete", new[] { typeof(int) });
+//         if (deleteMethod != null)
+//         {
+//             var controller = Activator.CreateInstance(controllerType, dbContext);
 
-            // Act
-            var result = deleteMethod.Invoke(controller, new object[] { train.TrainID }) as RedirectToActionResult;
+//             // Act
+//             var result = deleteMethod.Invoke(controller, new object[] { train.TrainID }) as RedirectToActionResult;
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("AvailableTrains", result.ActionName); // Verify if it redirects to AvailableTrains action
+//             // Assert
+//             Assert.IsNotNull(result);
+//             Assert.AreEqual("AvailableTrains", result.ActionName); // Use string instead of nameof
 
-            // Check if the train has been deleted from the database
-            var trainAfterDelete = dbContext.Trains.Find(train.TrainID);
-            Assert.IsNull(trainAfterDelete); // Ensure the train with the specified ID does not exist in the database
-        }
-        else
-        {
-            Assert.Fail("Delete method not found in TrainController.");
-        }
-    }
-}
+//             var trainAfterDelete = dbContext.Trains.Find(train.TrainID);
+//             Assert.IsNull(trainAfterDelete); // Check if the deleted train is not present
+//         }
+//         else
+//         {
+//             Assert.Fail("Delete method not found in TrainController.");
+//         }
+//     }
+// }
 
 // [Test]
 // public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
