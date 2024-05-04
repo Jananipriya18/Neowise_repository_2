@@ -73,7 +73,7 @@ namespace dotnetapp.Controllers
             _dbContext.Turfs.Remove(turf);
             _dbContext.SaveChanges();
 
-             return View(turf);
+            return View(turf);
         }
     }
 }
