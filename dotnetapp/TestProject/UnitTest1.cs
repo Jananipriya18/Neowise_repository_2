@@ -477,63 +477,76 @@ namespace dotnetapp.Tests
 //     }
 // }
 
-// [Test]
-// public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
-// {
-//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//     {
-//         // Arrange
-//         string assemblyName = "dotnetapp";
-//         Assembly assembly = Assembly.Load(assemblyName);
-//         string controllerTypeName = "dotnetapp.Controllers.PassengerController";
-//         Type controllerType = assembly.GetType(controllerTypeName);
+[Test]
+public void BookSeat_DestinationSameAsDeparture_ReturnsViewWithValidationError()
+{
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        // Arrange
+        string assemblyName = "dotnetapp";
+        Assembly assembly = Assembly.Load(assemblyName);
+        string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+        Type controllerType = assembly.GetType(controllerTypeName);
         
-//         var train = dbContext.Trains.FirstOrDefault(t => t.TrainID == 1);
-//         train.Destination = train.DepartureLocation; // Set the destination as the same as departure
-//         dbContext.SaveChanges();
+        var train = dbContext.Trains.FirstOrDefault(t => t.TrainID == 1);
+        train.Destination = train.DepartureLocation; // Set the destination as the same as departure
+        dbContext.SaveChanges();
 
-//         MethodInfo bookSeatMethod = controllerType.GetMethod("BookSeat", new[] { typeof(int), typeof(Passenger) });
-//         if (bookSeatMethod != null)
-//         {
-//             var passenger = new Passenger
-//             {
-//                 Name = "John Doe",
-//                 Email = "johndoe@example.com",
-//                 Phone = "1234567890"
-//             };
+        MethodInfo bookSeatMethod = controllerType.GetMethod("BookSeat", new[] { typeof(int), typeof(Passenger) });
+        if (bookSeatMethod != null)
+        {
+            var passenger = new Passenger
+            {
+                Name = "John Doe",
+                Email = "johndoe@example.com",
+                Phone = "1234567890"
+            };
 
-//             var passengerController = Activator.CreateInstance(controllerType, dbContext);
+            var passengerController = Activator.CreateInstance(controllerType, dbContext);
 
-//             try
-//             {
-//                 // Act
-//                 var result = bookSeatMethod.Invoke(passengerController, new object[] { 1, passenger }) as ViewResult;
+            try
+            {
+                // Act
+                var result = bookSeatMethod.Invoke(passengerController, new object[] { 1, passenger }) as ViewResult;
 
-//                 // Assert
-//                 Assert.IsNotNull(result);
-//                 Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//                 Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
-//             }
-//             catch (Exception ex)
-//             {
-//                 Console.WriteLine($"Exception during method invocation: {ex}");
-//                 throw;
-//             }
-//         }
-//         else
-//         {
-//             Assert.Fail("BookSeat method not found in PassengerController.");
-//         }
-//     }
-// }
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.IsFalse(result.ViewData.ModelState.IsValid);
+                Assert.IsTrue(result.ViewData.ModelState.ContainsKey("Destination"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception during method invocation: {ex}");
+                throw;
+            }
+        }
+        else
+        {
+            Assert.Fail("BookSeat method not found in PassengerController.");
+        }
+    }
+}
 
-       [Test]
+
+[Test]
 public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
 {
     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
     {
         // Arrange
-        var trainController = new TrainController(dbContext);
+        string assemblyName = "dotnetapp";
+        Assembly assembly = Assembly.Load(assemblyName);
+        string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name
+        Type controllerType = assembly.GetType(controllerTypeName);
+        
+        // Instantiate the controller using reflection
+        var passengerController = Activator.CreateInstance(controllerType, dbContext) as Controller;
+        
+        // Check if the controller instance and ModelState are not null
+        Assert.IsNotNull(passengerController, "Failed to instantiate controller");
+        Assert.IsNotNull(passengerController.ModelState, "ModelState is null");
+
+        // Create a passenger object for testing
         var passenger = new Passenger
         {
             Name = "John Doe",
@@ -543,15 +556,29 @@ public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidation
 
         // Act
         var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
-        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
+        
+        // Simulate negative value for MaximumCapacity
+        ride.MaximumCapacity = -5;
         dbContext.SaveChanges();
 
-        var result = trainController.BookSeat(1) as ViewResult;
+        // Simulate the controller's validation logic
+        var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
-        // Assert
-        Assert.IsNotNull(result);
-        Assert.IsFalse(result.ViewData.ModelState.IsValid);
-        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
+        try
+        {
+            // Invoke the BookSeat method
+            method.Invoke(passengerController, new object[] { 1 });
+
+            // If the method call does not throw an exception, fail the test
+            Assert.Fail("Expected exception was not thrown.");
+        }
+        catch (TargetInvocationException ex)
+        {
+            // Check if the inner exception is the expected exception
+            var innerException = ex.InnerException;
+            Assert.IsNotNull(innerException, "Inner exception is null");
+            Assert.AreEqual("Maximum capacity reached", innerException.Message, "Unexpected exception message");
+        }
     }
 }
 
