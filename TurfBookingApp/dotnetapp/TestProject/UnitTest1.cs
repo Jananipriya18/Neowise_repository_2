@@ -107,7 +107,7 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void TurfController_Delete_ValidTurfId_Success_Redirects_Index()
+        public void TurfController_Delete_ValidTurfId_Success_Redirects_Delete_Page()
         {
             // Arrange
             var turfId = 1;
@@ -121,7 +121,7 @@ namespace dotnetapp.Tests
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Index", result.ActionName);
+            Assert.AreEqual("Delete", result.ActionName);
             Assert.IsNull(deletedTurf);
         }
 
