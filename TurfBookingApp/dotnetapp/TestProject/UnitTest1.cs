@@ -107,7 +107,7 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void TurfController_Delete_ValidTurfId_Success_Redirects_Delete_Page()
+        public void TurfController_Delete_ValidTurfId_Success_Redirects_Delete()
         {
             // Arrange
             var turfId = 1;
