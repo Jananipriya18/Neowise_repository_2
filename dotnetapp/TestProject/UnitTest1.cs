@@ -671,7 +671,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method DeleteConfirm in TrainController class is not of type IActionResult");
         }
 
-        [Test]
+ [Test]
 public async Task BookSeat_PassengerController_MaximumCapacityReached_ThrowsException()
 {
     // Arrange
@@ -690,6 +690,11 @@ public async Task BookSeat_PassengerController_MaximumCapacityReached_ThrowsExce
             MaximumCapacity = 2 
         };
         dbContext.Trains.Add(train);
+
+        // Add two passengers to reach maximum capacity
+        var passenger1 = new Passenger { Name = "Passenger 1", Email = "passenger1@example.com", Phone = "1234567890", TrainID = 100 };
+        var passenger2 = new Passenger { Name = "Passenger 2", Email = "passenger2@example.com", Phone = "1234567890", TrainID = 100 };
+        dbContext.Passengers.AddRange(passenger1, passenger2);
         dbContext.SaveChanges();
 
         var controller = new dotnetapp.Controllers.PassengerController(dbContext); 
@@ -697,14 +702,15 @@ public async Task BookSeat_PassengerController_MaximumCapacityReached_ThrowsExce
         // Act & Assert
         try
         {
-            var passenger = new Passenger
+            // Attempt to book a 3rd passenger
+            var passenger3 = new Passenger
             {
-                Name = "Test Passenger",
-                Email = "test@example.com",
+                Name = "Passenger 3",
+                Email = "passenger3@example.com",
                 Phone = "1234567890",
-                // Ensure required properties are provided
+                TrainID = 100
             };
-            var actionResult = controller.BookSeat(100, passenger);
+            var actionResult = controller.BookSeat(100, passenger3);
             Assert.Fail("Expected exception was not thrown.");
         }
         catch (Exception ex)
