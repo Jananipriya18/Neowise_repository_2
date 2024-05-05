@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using dotnetapp.Controllers;
 
 namespace dotnetapp.Tests
 {
@@ -309,7 +310,7 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException_with
     string assemblyName = "dotnetapp";
     Assembly assembly = Assembly.Load(assemblyName);
     string modelType = $"{assemblyName}.Models.Passenger";
-    string exception = "System.Exception";
+    string exception = $"{assemblyName}.Exceptions.TrainBookingException"; // Update to the correct exception type
     string controllerTypeName = $"{assemblyName}.Controllers.PassengerController";
     Type controllerType = assembly.GetType(controllerTypeName);
     Type controllerType2 = assembly.GetType(modelType);
@@ -361,7 +362,7 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException_with
             if (innerException != null)
             {
                 // Assert that the inner exception is of the specified type
-                Assert.IsInstanceOf(exceptionType, innerException, "Inner exception should be of type System.Exception.");
+                Assert.IsInstanceOf(exceptionType, innerException, "Inner exception should be of type TrainBookingException.");
 
                 // Assert the message of the exception
                 Assert.AreEqual("Maximum capacity reached", innerException.Message, "Inner exception message should be 'Maximum capacity reached'.");
