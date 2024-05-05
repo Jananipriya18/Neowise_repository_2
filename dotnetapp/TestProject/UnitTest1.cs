@@ -671,9 +671,8 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method DeleteConfirm in TrainController class is not of type IActionResult");
         }
 
-
 [Test]
-public async Task BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+public async Task BookSeat_PassengerController_MaximumCapacityReached_ThrowsException()
 {
     // Arrange
     var options = new DbContextOptionsBuilder<ApplicationDbContext>()
@@ -686,30 +685,29 @@ public async Task BookSeat_TrainController_MaximumCapacityReached_ThrowsExceptio
         var train = new Train
         {
             TrainID = 100,
-            DepartureLocation = "Departure Location", // Provide DepartureLocation
-            Destination = "Destination", // Provide Destination
-            MaximumCapacity = 2 // Set maximum capacity to 2 for testing
+            DepartureLocation = "Departure Location", 
+            Destination = "Destination", 
+            MaximumCapacity = 2 
         };
         dbContext.Trains.Add(train);
 
         dbContext.SaveChanges();
 
-        var controller = new dotnetapp.Controllers.PassengerController(dbContext); // Correct namespace
+        var controller = new dotnetapp.Controllers.PassengerController(dbContext); 
 
-        // Act
-        var actionResult = controller.BookSeat(100);
-        
-        // As the action method is not async, we don't need to await here.
-
-        // Assert
-        Assert.NotNull(actionResult);
-        Assert.IsInstanceOf<ViewResult>(actionResult);
-        var result = actionResult as ViewResult;
-        Assert.NotNull(result);
-        Assert.False(result.ViewData.ModelState.IsValid);
-        Assert.True(result.ViewData.ModelState.ContainsKey("Destination"));
+        // Act & Assert
+        try
+        {
+            var actionResult = controller.BookSeat(3);
+            Assert.Fail("Expected exception was not thrown.");
+        }
+        catch (Exception ex)
+        {
+            Assert.AreEqual("Maximum capacity reached", ex.Message, "Exception message should be 'Maximum capacity reached'.");
+        }
     }
 }
+
 
      }
 
