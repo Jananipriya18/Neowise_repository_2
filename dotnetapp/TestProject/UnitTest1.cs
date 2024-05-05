@@ -250,57 +250,57 @@ namespace dotnetapp.Tests
         }
 
         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
-// [Test]
-// public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
-// {
-//     string assemblyName = "dotnetapp";
-//     Assembly assembly = Assembly.Load(assemblyName);
-//     string modelType = "dotnetapp.Models.Passenger";
-//     string exception = "dotnetapp.Exceptions.TrainBookingException";
-//     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
-//     Type controllerType = assembly.GetType(controllerTypeName);
-//     Type controllerType2 = assembly.GetType(modelType);
-//     Type exceptionType = assembly.GetType(exception);
+[Test]
+public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+{
+    string assemblyName = "dotnetapp";
+    Assembly assembly = Assembly.Load(assemblyName);
+    string modelType = "dotnetapp.Models.Passenger";
+    string exception = "dotnetapp.Exceptions.TrainBookingException";
+    string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+    Type controllerType = assembly.GetType(controllerTypeName);
+    Type controllerType2 = assembly.GetType(modelType);
+    Type exceptionType = assembly.GetType(exception);
 
-//     // Arrange
-//     var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-//         .UseInMemoryDatabase(databaseName: "TestDatabase")
-//         .Options;
+    // Arrange
+    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        .UseInMemoryDatabase(databaseName: "TestDatabase")
+        .Options;
 
-//     using (var dbContext = new ApplicationDbContext(options))
-//     {
-//         // Add test data to the in-memory database
-//         var train = new Train
-//         {
-//             TrainID = 1,
-//             MaximumCapacity = 2 // Set maximum capacity to 2 for testing
-//         };
-//         dbContext.Trains.Add(train);
+    using (var dbContext = new ApplicationDbContext(options))
+    {
+        // Add test data to the in-memory database
+        var train = new Train
+        {
+            TrainID = 1,
+            MaximumCapacity = 2 // Set maximum capacity to 2 for testing
+        };
+        dbContext.Trains.Add(train);
 
-//         var passenger1 = new Passenger
-//         {
-//             Name = "John Doe1",
-//             Email = "johndoe1@example.com",
-//             Phone = "1234567891"
-//         };
+        var passenger1 = new Passenger
+        {
+            Name = "John Doe1",
+            Email = "johndoe1@example.com",
+            Phone = "1234567891"
+        };
 
-//         var passenger2 = new Passenger
-//         {
-//             Name = "John Doe2",
-//             Email = "johndoe2@example.com",
-//             Phone = "1234567892"
-//         };
+        var passenger2 = new Passenger
+        {
+            Name = "John Doe2",
+            Email = "johndoe2@example.com",
+            Phone = "1234567892"
+        };
 
-//         dbContext.SaveChanges();
+        dbContext.SaveChanges();
 
-//         // Act & Assert
-//         var controller = new PassengerController(dbContext);
-//         var ex = Assert.Throws<Exception>(() => controller.BookSeat(1));
+        // Act & Assert
+        var controller = new PassengerController(dbContext);
+        var ex = Assert.Throws<Exception>(() => controller.BookSeat(1));
 
-//         // Assert
-//         Assert.AreEqual("Maximum capacity reached", ex.Message);
-//     }
-// }
+        // Assert
+        Assert.AreEqual("Maximum capacity reached", ex.Message);
+    }
+}
 
 [Test]
 public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException_with_Message()
@@ -343,18 +343,30 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException_with
         // Get the BookSeat method using reflection
         MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
-        // Act & Assert
-        var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { train.TrainID }));
+        // Check if controller and method are not null before performing assertions
+        Assert.IsNotNull(controller, "Controller instance should not be null.");
+        Assert.IsNotNull(method, "BookSeat method should not be null.");
 
-        // Retrieve the original exception thrown by the BookSeat method
-        var innerException = ex.InnerException;
+        if (controller != null && method != null)
+        {
+            // Act & Assert
+            var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { train.TrainID }));
 
-        // Assert that the inner exception is of the specified type
-        Assert.IsNotNull(innerException);
-        Assert.IsInstanceOf(exceptionType, innerException);
+            // Retrieve the original exception thrown by the BookSeat method
+            var innerException = ex.InnerException;
 
-        // Assert the message of the exception
-        Assert.AreEqual("Maximum capacity reached", innerException.Message);
+            // Assert that the inner exception exists
+            Assert.IsNotNull(innerException, "Inner exception should not be null.");
+
+            if (innerException != null)
+            {
+                // Assert that the inner exception is of the specified type
+                Assert.IsInstanceOf(exceptionType, innerException, "Inner exception should be of type System.Exception.");
+
+                // Assert the message of the exception
+                Assert.AreEqual("Maximum capacity reached", innerException.Message, "Inner exception message should be 'Maximum capacity reached'.");
+            }
+        }
     }
 }
 
