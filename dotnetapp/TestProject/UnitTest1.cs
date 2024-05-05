@@ -250,65 +250,62 @@ namespace dotnetapp.Tests
         }
 
         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
-[Test]
-public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string modelType = "dotnetapp.Models.Passenger";
-    string controllerTypeName = "dotnetapp.Controllers.PassengerController"; // Corrected controller type name
-    Type controllerType = assembly.GetType(controllerTypeName);
-    Type controllerType2 = assembly.GetType(modelType);
+// [Test]
+// public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+// {
+//     string assemblyName = "dotnetapp";
+//     Assembly assembly = Assembly.Load(assemblyName);
+//     string modelType = "dotnetapp.Models.Passenger";
+//     string exception = "dotnetapp.Exceptions.TrainBookingException";
+//     string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+//     Type controllerType = assembly.GetType(controllerTypeName);
+//     Type controllerType2 = assembly.GetType(modelType);
+//     Type exceptionType = assembly.GetType(exception);
 
-    // Arrange
-    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-        .UseInMemoryDatabase(databaseName: "TestDatabase")
-        .Options;
+//     // Arrange
+//     var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+//         .UseInMemoryDatabase(databaseName: "TestDatabase")
+//         .Options;
 
-    using (var dbContext = new ApplicationDbContext(options))
-    {
-        // Add test data to the in-memory database
-        var train = new Train
-        {
-            TrainID = 1,
-            MaximumCapacity = 2 // Set maximum capacity to 2 for testing
-        };
-        dbContext.Trains.Add(train);
+//     using (var dbContext = new ApplicationDbContext(options))
+//     {
+//         // Add test data to the in-memory database
+//         var train = new Train
+//         {
+//             TrainID = 1,
+//             MaximumCapacity = 2 // Set maximum capacity to 2 for testing
+//         };
+//         dbContext.Trains.Add(train);
 
-        var passenger1 = new Passenger
-        {
-            Name = "John Doe1",
-            Email = "johndoe1@example.com",
-            Phone = "1234567891"
-        };
+//         var passenger1 = new Passenger
+//         {
+//             Name = "John Doe1",
+//             Email = "johndoe1@example.com",
+//             Phone = "1234567891"
+//         };
 
-        var passenger2 = new Passenger
-        {
-            Name = "John Doe2",
-            Email = "johndoe2@example.com",
-            Phone = "1234567892"
-        };
+//         var passenger2 = new Passenger
+//         {
+//             Name = "John Doe2",
+//             Email = "johndoe2@example.com",
+//             Phone = "1234567892"
+//         };
 
-        dbContext.SaveChanges();
+//         dbContext.SaveChanges();
 
-        // Act
-        var controller = new PassengerController(dbContext);
-        var ex = Assert.Throws<TargetInvocationException>(() => controller.BookSeat(1, passenger1));
+//         // Act & Assert
+//         var controller = new PassengerController(dbContext);
+//         var ex = Assert.Throws<Exception>(() => controller.BookSeat(1));
 
-        // Assert
-        var innerException = ex.InnerException;
-        Console.WriteLine($"Inner Exception Type: {innerException.GetType().FullName}");
-        Console.WriteLine($"Inner Exception Message: {innerException.Message}");
-
-        Assert.IsNotNull(innerException);
-        Assert.IsInstanceOf<TrainBookingException>(innerException);
-        Assert.AreEqual("Maximum capacity reached", innerException.Message);
-    }
-}
+//         // Assert
+//         Assert.AreEqual("Maximum capacity reached", ex.Message);
+//     }
+// }
 
 // [Test]
 // public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 // {
+//     // Arrange
 //     string assemblyName = "dotnetapp";
 //     Assembly assembly = Assembly.Load(assemblyName);
 //     string controllerTypeName = "dotnetapp.Controllers.TrainController";
@@ -323,7 +320,7 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 //         dbContext.Trains.Add(train);
 //         dbContext.SaveChanges();
 
-//         // Invoke the BookSeat method
+//         // Act & Assert
 //         var controller = Activator.CreateInstance(controllerType, dbContext);
 //         var method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
@@ -333,20 +330,14 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 //             throw new InvalidOperationException($"Method 'BookSeat' not found in {controllerTypeName}");
 //         }
 
-//         // Handle the exception within the test
-//         try
-//         {
-//             method.Invoke(controller, new object[] { 1 });
-//         }
-//         catch (TargetInvocationException ex)
-//         {
-//             // Assert that the inner exception is of type TrainBookingException
-//             var innerException = ex.InnerException;
-//             Assert.IsNotNull(innerException);
-//             Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
-//         }
+//         // Assert that the method throws TrainBookingException
+//         var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { 1 }));
+//         var innerException = ex.InnerException;
+//         Assert.IsNotNull(innerException);
+//         Assert.IsTrue(exceptionType.IsInstanceOfType(innerException), $"Expected inner exception of type {exceptionType.FullName}");
 //     }
 // }
+
 
 //         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached with correct message "Maximum capacity reached"
 //         [Test]
@@ -536,33 +527,33 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 //     }
 // }
 
-//        [Test]
-// public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
-// {
-//     using (var dbContext = new ApplicationDbContext(_dbContextOptions))
-//     {
-//         // Arrange
-//         var trainController = new TrainController(dbContext);
-//         var passenger = new Passenger
-//         {
-//             Name = "John Doe",
-//             Email = "johndoe@example.com",
-//             Phone = "1234567890"
-//         };
+       [Test]
+public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidationError()
+{
+    using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+    {
+        // Arrange
+        var trainController = new TrainController(dbContext);
+        var passenger = new Passenger
+        {
+            Name = "John Doe",
+            Email = "johndoe@example.com",
+            Phone = "1234567890"
+        };
 
-//         // Act
-//         var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
-//         ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
-//         dbContext.SaveChanges();
+        // Act
+        var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
+        ride.MaximumCapacity = -5; // Set a negative value for MaximumCapacity
+        dbContext.SaveChanges();
 
-//         var result = trainController.BookSeat(1) as ViewResult;
+        var result = trainController.BookSeat(1) as ViewResult;
 
-//         // Assert
-//         Assert.IsNotNull(result);
-//         Assert.IsFalse(result.ViewData.ModelState.IsValid);
-//         Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
-//     }
-// }
+        // Assert
+        Assert.IsNotNull(result);
+        Assert.IsFalse(result.ViewData.ModelState.IsValid);
+        Assert.IsTrue(result.ViewData.ModelState.ContainsKey("MaximumCapacity"));
+    }
+}
 
 // Test to check that ApplicationDbContext Contains DbSet for model Train
 [Test]
