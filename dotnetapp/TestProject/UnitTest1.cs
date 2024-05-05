@@ -308,65 +308,55 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException_with
     // Arrange
     string assemblyName = "dotnetapp";
     Assembly assembly = Assembly.Load(assemblyName);
-    string modelType = "dotnetapp.Models.Passenger";
-    string exceptionType = "System.Exception"; // Change to System.Exception
-    string controllerTypeName = "dotnetapp.Controllers.PassengerController";
+    string modelType = $"{assemblyName}.Models.Passenger";
+    string exception = "System.Exception";
+    string controllerTypeName = $"{assemblyName}.Controllers.PassengerController";
     Type controllerType = assembly.GetType(controllerTypeName);
-    Type passengerType = assembly.GetType(modelType);
-    Type exception = assembly.GetType(exceptionType);
+    Type controllerType2 = assembly.GetType(modelType);
+    Type exceptionType = assembly.GetType(exception);
 
-    if (controllerType != null)
+    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        .UseInMemoryDatabase(databaseName: "TestDatabase")
+        .Options;
+
+    using (var dbContext = new ApplicationDbContext(options))
     {
-        using (var dbContext = new ApplicationDbContext(_dbContextOptions))
+        // Create a train with a maximum capacity of 2
+        var train = new Train { DepartureLocation = "Location A", Destination = "Location B", DepartureTime = DateTime.Now, MaximumCapacity = 2 };
+
+        // Add passengers to the train
+        train.Passengers = new List<Passenger>
         {
-            // Get the BookSeat method
-            MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
+            new Passenger { Name = "John Doe", Email = "johndoe@example.com", Phone = "1234567890" },
+            new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" }
+        };
 
-            if (method != null)
-            {
-                // Create a train with a maximum capacity of 2
-                var train = new Train { DepartureLocation = "Location A", Destination = "Location B", DepartureTime = DateTime.Now, MaximumCapacity = 2 };
+        dbContext.Trains.Add(train);
+        dbContext.SaveChanges();
 
-                // Add passengers to the train
-                train.Passengers = new List<Passenger>
-                {
-                    new Passenger { Name = "John Doe", Email = "johndoe@example.com", Phone = "1234567890" },
-                    new Passenger { Name = "John Doe1", Email = "johndoe1@example.com", Phone = "1234567891" }
-                };
+        // Add one more passenger to exceed the maximum capacity
+        var passenger3 = new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" };
 
-                dbContext.Trains.Add(train);
-                dbContext.SaveChanges();
+        // Create an instance of PassengerController using reflection
+        var controller = Activator.CreateInstance(controllerType, dbContext);
 
-                // Add one more passenger to exceed the maximum capacity
-                var passenger3 = new Passenger { Name = "John Doe2", Email = "johndoe2@example.com", Phone = "1234567892" };
+        // Get the BookSeat method using reflection
+        MethodInfo method = controllerType.GetMethod("BookSeat", new[] { typeof(int) });
 
-                var controller = Activator.CreateInstance(controllerType, dbContext);
+        // Act & Assert
+        var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { train.TrainID }));
 
-                // Act & Assert
-                var ex = Assert.Throws<TargetInvocationException>(() => method.Invoke(controller, new object[] { train.TrainID }));
+        // Retrieve the original exception thrown by the BookSeat method
+        var innerException = ex.InnerException;
 
-                // Retrieve the original exception thrown by the BookSeat method
-                var innerException = ex.InnerException;
+        // Assert that the inner exception is of the specified type
+        Assert.IsNotNull(innerException);
+        Assert.IsInstanceOf(exceptionType, innerException);
 
-                // Assert that the inner exception is of type System.Exception
-                Assert.IsNotNull(innerException);
-                Assert.IsInstanceOf(exception, innerException);
-
-                // Assert the message of the exception
-                Assert.AreEqual("Maximum capacity reached", innerException.Message);
-            }
-            else
-            {
-                Assert.Fail("BookSeat method not found in PassengerController.");
-            }
-        }
-    }
-    else
-    {
-        Assert.Fail("PassengerController type not found.");
+        // Assert the message of the exception
+        Assert.AreEqual("Maximum capacity reached", innerException.Message);
     }
 }
-
 
 
 [Test]
