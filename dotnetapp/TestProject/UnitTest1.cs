@@ -257,7 +257,7 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
     string assemblyName = "dotnetapp";
     Assembly assembly = Assembly.Load(assemblyName);
     string modelType = $"{assemblyName}.Models.Passenger";
-    string exception = $"{assemblyName}.Exceptions.TrainBookingException";
+    string exception = $"{assemblyName}.Exceptions.TrainBookingException"; // Update to the correct exception type
     string controllerTypeName = $"{assemblyName}.Controllers.PassengerController";
     Type controllerType = assembly.GetType(controllerTypeName);
     Type controllerType2 = assembly.GetType(modelType);
@@ -298,12 +298,16 @@ public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
 
         // Act & Assert
         var controller = new dotnetapp.Controllers.PassengerController(dbContext); // Correct namespace
-        var ex = Assert.Throws<Exception>(() => controller.BookSeat(1));
+
+        // Here, we use Assert.ThrowsAsync since the BookSeat method may be async
+        // Also, pass the correct train ID (100) instead of hardcoding 1
+        var ex = Assert.ThrowsAsync<TrainBookingException>(() => controller.BookSeat(100));
 
         // Assert
         Assert.AreEqual("Maximum capacity reached", ex.Message);
     }
 }
+
 
 [Test]
 public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
