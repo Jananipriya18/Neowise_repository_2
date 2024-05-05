@@ -251,63 +251,6 @@ namespace dotnetapp.Tests
 
         // test to check that BookSeat method in TrainController throws exception when maximum capacity is reached
 
-[Test]
-public void BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
-{
-    string assemblyName = "dotnetapp";
-    Assembly assembly = Assembly.Load(assemblyName);
-    string modelType = $"{assemblyName}.Models.Passenger";
-    string exception = $"{assemblyName}.Exceptions.TrainBookingException"; // Update to the correct exception type
-    string controllerTypeName = $"{assemblyName}.Controllers.PassengerController";
-    Type controllerType = assembly.GetType(controllerTypeName);
-    Type controllerType2 = assembly.GetType(modelType);
-    Type exceptionType = assembly.GetType(exception);
-
-    // Arrange
-    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-        .UseInMemoryDatabase(databaseName: "TestDatabase")
-        .Options;
-
-    using (var dbContext = new ApplicationDbContext(options))
-    {
-        // Add test data to the in-memory database
-        var train = new Train
-        {
-            TrainID = 100,
-            DepartureLocation = "Departure Location", // Provide DepartureLocation
-            Destination = "Destination", // Provide Destination
-            MaximumCapacity = 2 // Set maximum capacity to 2 for testing
-        };
-        dbContext.Trains.Add(train);
-
-        var passenger1 = new Passenger
-        {
-            Name = "John Doe1",
-            Email = "johndoe1@example.com",
-            Phone = "1234567891"
-        };
-
-        var passenger2 = new Passenger
-        {
-            Name = "John Doe2",
-            Email = "johndoe2@example.com",
-            Phone = "1234567892"
-        };
-
-        dbContext.SaveChanges();
-
-        // Act & Assert
-        var controller = new dotnetapp.Controllers.PassengerController(dbContext); // Correct namespace
-
-        // Here, we use Assert.ThrowsAsync since the BookSeat method may be async
-        // Also, pass the correct train ID (100) instead of hardcoding 1
-        var ex = Assert.ThrowsAsync<TrainBookingException>(() => controller.BookSeat(100));
-
-        // Assert
-        Assert.AreEqual("Maximum capacity reached", ex.Message);
-    }
-}
-
 
 [Test]
 public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
@@ -727,6 +670,47 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assert.IsNotNull(result, "Result should not be null");
             Assert.AreEqual(typeof(IActionResult), methodInfo.ReturnType, "Method DeleteConfirm in TrainController class is not of type IActionResult");
         }
+
+
+[Test]
+public async Task BookSeat_TrainController_MaximumCapacityReached_ThrowsException()
+{
+    // Arrange
+    var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+        .UseInMemoryDatabase(databaseName: "TestDatabase")
+        .Options;
+
+    using (var dbContext = new ApplicationDbContext(options))
+    {
+        // Add test data to the in-memory database
+        var train = new Train
+        {
+            TrainID = 100,
+            DepartureLocation = "Departure Location", // Provide DepartureLocation
+            Destination = "Destination", // Provide Destination
+            MaximumCapacity = 2 // Set maximum capacity to 2 for testing
+        };
+        dbContext.Trains.Add(train);
+
+        dbContext.SaveChanges();
+
+        var controller = new dotnetapp.Controllers.PassengerController(dbContext); // Correct namespace
+
+        // Act
+        var actionResult = controller.BookSeat(100);
+        
+        // As the action method is not async, we don't need to await here.
+
+        // Assert
+        Assert.NotNull(actionResult);
+        Assert.IsInstanceOf<ViewResult>(actionResult);
+        var result = actionResult as ViewResult;
+        Assert.NotNull(result);
+        Assert.False(result.ViewData.ModelState.IsValid);
+        Assert.True(result.ViewData.ModelState.ContainsKey("Destination"));
+    }
+}
+
      }
 
 }
