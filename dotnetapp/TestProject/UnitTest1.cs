@@ -253,7 +253,7 @@ namespace dotnetapp.Tests
 
 
 [Test]
-public void c()
+public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
 {
     // Arrange
     string assemblyName = "dotnetapp";
@@ -598,7 +598,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 
         // Test to Check train Models Property MaximumCapacity Exists with correcct datatype int    
         [Test]
-        public void train_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
+        public void Train_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
         {
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.Train";
