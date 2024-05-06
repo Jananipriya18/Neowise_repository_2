@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace dotnetapp.Controllers
 {
-    public class TrainController : Contr    oller
+    public class TrainController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
 
