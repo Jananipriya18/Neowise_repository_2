@@ -61,7 +61,7 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void BookSeat_TrainController_ValidPassenger_JoinsSuccessfully_Redirect_to_Details_TrainController()
+        public void BookSeat_TrainController_ValidPassenger_BookedSuccessfully_Redirect_to_Details_TrainController()
         {
             string assemblyName = "dotnetapp";
             Assembly assembly = Assembly.Load(assemblyName);
@@ -139,13 +139,13 @@ namespace dotnetapp.Tests
 
                 if (method != null)
                 {
-                    var ride1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
-                    Assert.AreEqual(0, ride1.Passengers.Count);
+                    var train1 = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the train
+                    Assert.AreEqual(0, train1.Passengers.Count);
                     var controller = Activator.CreateInstance(controllerType, _context);
                     var result = method.Invoke(controller, new object[] { 1, passenger }) as RedirectToActionResult;
-                    var ride = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the ride
-                    Assert.IsNotNull(ride);
-                    Assert.AreEqual(1, ride.Passengers.Count);
+                    var train = _context.Trains.Include(r => r.Passengers).ToList().FirstOrDefault(o => o.TrainID == 1); // Simplified retrieving the train
+                    Assert.IsNotNull(train);
+                    Assert.AreEqual(1, train.Passengers.Count);
                 }
                 else
                 {
@@ -192,9 +192,9 @@ namespace dotnetapp.Tests
         }
 
 
-        // test to check that BookSeat method in TrainController with invalid ride id returns NotFoundResult
+        // test to check that BookSeat method in TrainController with invalid train id returns NotFoundResult
         [Test]
-        public void BookSeat_TrainController_RideNotFound_ReturnsNotFoundResult()
+        public void BookSeat_TrainController_trainNotFound_ReturnsNotFoundResult()
         {
             string assemblyName = "dotnetapp";
             Assembly assembly = Assembly.Load(assemblyName);
@@ -253,7 +253,7 @@ namespace dotnetapp.Tests
 
 
 [Test]
-public void TrainController_Delete_Method_ValidId_DeletesTrainSuccessfully_Redirects_AvailableTrains()
+public void c()
 {
     // Arrange
     string assemblyName = "dotnetapp";
@@ -384,10 +384,10 @@ public void BookSeat_MaximumCapacityNotPositiveInteger_ReturnsViewWithValidation
         };
 
         // Act
-        var ride = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
+        var train = dbContext.Trains.FirstOrDefault(r => r.TrainID == 1);
         
         // Simulate negative value for MaximumCapacity
-        ride.MaximumCapacity = -5;
+        train.MaximumCapacity = -5;
         dbContext.SaveChanges();
 
         // Simulate the controller's validation logic
@@ -528,7 +528,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
 
         // Test to Check Passenger Models PropertyPassengerID Exists with correcct datatype int    
         [Test]
-        public void Passenger_RideID_PropertyExists_ReturnExpectedDataTypes_int()
+        public void Passenger_trainID_PropertyExists_ReturnExpectedDataTypes_int()
         {
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.Passenger";
@@ -563,9 +563,9 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assembly assembly = Assembly.Load(assemblyName);
             Type TrainType = assembly.GetType(typeName);
             PropertyInfo propertyInfo = TrainType.GetProperty("DepartureLocation");
-            Assert.IsNotNull(propertyInfo, "Property DepartureLocation does not exist in Ride class");
+            Assert.IsNotNull(propertyInfo, "Property DepartureLocation does not exist in train class");
             Type expectedType = propertyInfo.PropertyType;
-            Assert.AreEqual(typeof(string), expectedType, "Property DepartureLocation in Ride class is not of type string");
+            Assert.AreEqual(typeof(string), expectedType, "Property DepartureLocation in train class is not of type string");
         }
 
         // Test to Check Train Models Property Destination Exists with correcct datatype string    
@@ -577,9 +577,9 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assembly assembly = Assembly.Load(assemblyName);
             Type TrainType = assembly.GetType(typeName);
             PropertyInfo propertyInfo = TrainType.GetProperty("Destination");
-            Assert.IsNotNull(propertyInfo, "Property Destination does not exist in Ride class");
+            Assert.IsNotNull(propertyInfo, "Property Destination does not exist in train class");
             Type expectedType = propertyInfo.PropertyType;
-            Assert.AreEqual(typeof(string), expectedType, "Property Destination in Ride class is not of type string");
+            Assert.AreEqual(typeof(string), expectedType, "Property Destination in train class is not of type string");
         }
 
         // Test to Check Train Models Property DepartureTime Exists with correcct datatype DateTime    
@@ -596,9 +596,9 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assert.AreEqual(typeof(DateTime), expectedType, "Property DepartureTime in Train class is not of type DateTime");
         }
 
-        // Test to Check Ride Models Property MaximumCapacity Exists with correcct datatype int    
+        // Test to Check train Models Property MaximumCapacity Exists with correcct datatype int    
         [Test]
-        public void Ride_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
+        public void train_MaximumCapacity_PropertyExists_ReturnExpectedDataTypes_int()
         {
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Models.Train";
@@ -636,9 +636,9 @@ public void ApplicationDbContext_ContainsDbSet_Train()
             Assert.IsNotNull(result, "Result should not be null");
         }
 
-        // Test to Check TrainController Controllers Method Create with parameter Ride Returns IActionResult
+        // Test to Check TrainController Controllers Method Create with parameter train Returns IActionResult
         [Test]
-        public void TrainController_Delete_Method_Invokes_with_RideID_Param_Returns_IActionResult()
+        public void TrainController_Delete_Method_Invokes_with_trainID_Param_Returns_IActionResult()
         {
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Controllers.TrainController";
@@ -655,7 +655,7 @@ public void ApplicationDbContext_ContainsDbSet_Train()
         }
 
         [Test]
-        public void TrainController_DeleteConfirm_Method_Invokes_with_RideID_Param_Returns_IActionResult()
+        public void TrainController_DeleteConfirm_Method_Invokes_with_trainID_Param_Returns_IActionResult()
         {
             string assemblyName = "dotnetapp";
             string typeName = "dotnetapp.Controllers.TrainController";
