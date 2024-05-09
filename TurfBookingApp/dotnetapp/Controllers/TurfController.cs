@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -29,10 +28,23 @@ namespace dotnetapp.Controllers
                 return NotFound();
             }
 
+            return View(turf);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int turfId)
+        {
+            var turf = _dbContext.Turfs.FirstOrDefault(t => t.TurfID == turfId);
+            if (turf == null)
+            {
+                return NotFound();
+            }
+
             _dbContext.Turfs.Remove(turf);
             _dbContext.SaveChanges();
 
-            return View(turf);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
