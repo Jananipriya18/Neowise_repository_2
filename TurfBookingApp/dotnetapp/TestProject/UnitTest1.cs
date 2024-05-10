@@ -189,7 +189,7 @@ public void BookingController_Post_Book_by_InvalidDurationInMinutes_ThrowsExcept
     });
 
     // Assert
-    Assert.AreEqual("Booking duration cannot exceed 120 minutes.", ex.Message);
+    Assert.AreEqual("Booking duration cannot exceed 120 minutes", ex.Message);
 }
 
 [Test]
@@ -211,7 +211,7 @@ public void BookingController_Post_Book_ThrowsException_with_message()
     });
 
     // Assert
-    Assert.AreEqual("Booking duration cannot exceed 120 minutes.", ex.Message); 
+    Assert.AreEqual("Booking duration cannot exceed 120 minutes", ex.Message); 
 }
 
 

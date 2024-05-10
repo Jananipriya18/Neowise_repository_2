@@ -51,13 +51,10 @@ namespace dotnetapp.Controllers
 
                 // Assign Turf ID to the booking
                 booking.TurfID = turfId;
-
                 // Check if DurationInMinutes exceeds 120
                 if (booking.DurationInMinutes > 120)
                 {
-                    // throw new TurfBookingException("Booking duration cannot exceed 120 minutes.");
-                    ModelState.AddModelError("DurationInMinutes", "Booking duration cannot exceed 120 minutes.");
-                    return View(booking);
+                    throw new TurfBookingException("Booking duration cannot exceed 120 minutes");
                 }
 
                 // Add booking to the database
@@ -66,11 +63,6 @@ namespace dotnetapp.Controllers
 
                 // Redirect to booking details page
                 return RedirectToAction("Details", new { bookingId = booking.BookingID });
-            }
-            catch (TurfBookingException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(booking);
             }
             catch (Exception ex)
             {
