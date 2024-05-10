@@ -1,4 +1,4 @@
-@model Booking 
+@model dotnetapp.Models.Booking
 
 @{
     var turfId = Context.Request.Query["turfId"];
@@ -11,14 +11,14 @@
 @using (Html.BeginForm())
 {
     <div style="margin-bottom: 15px;">
-        <label for="reservationDate" style="font-weight: bold;">Reservation Date:</label>
-        @Html.TextBoxFor(model => model.ReservationDate, new { type = "date", @class = "form-control", id = "reservationDate"})
-        @Html.ValidationMessageFor(model => model.ReservationDate, "", new { @class = "text-danger" })
+        <label for="durationInMinutes" style="font-weight: bold;">Duration (in minutes):</label>
+        @Html.TextBoxFor(model => model.DurationInMinutes, new { @class = "form-control", id = "durationInMinutes"})
+        @Html.ValidationMessageFor(model => model.DurationInMinutes, "", new { @class = "text-danger" })
     </div>
     <div style="margin-bottom: 15px;">
-        <label for="timeSlot" style="font-weight: bold;">Time Slot:</label>
-        @Html.TextBoxFor(model => model.TimeSlot, new { type = "time", @class = "form-control", id = "timeSlot"})
-        @Html.ValidationMessageFor(model => model.TimeSlot, "", new { @class = "text-danger" })
+        <label for="numberOfPlayers" style="font-weight: bold;">Number of Players:</label>
+        @Html.TextBoxFor(model => model.NumberOfPlayers, new { @class = "form-control", id = "numberOfPlayers"})
+        @Html.ValidationMessageFor(model => model.NumberOfPlayers, "", new { @class = "text-danger" })
     </div>
 
     <button id="submit" type="submit" style="background-color: #007bff; color: #fff; border: none; padding: 8px 16px; cursor: pointer;">Submit</button>

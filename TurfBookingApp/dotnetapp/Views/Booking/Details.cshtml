@@ -3,7 +3,7 @@
 <h1>Reservation Details</h1>
 <p>Booking ID: @Model.BookingID</p>
 <p>Turf ID: @Model.TurfID</p>
-<p>Reservation Date: @Model.ReservationDate.ToShortDateString()</p>
-<p>Time Slot: @Model.TimeSlot</p>
+<p>Duration (in minutes): @Model.DurationInMinutes</p>
+<p>Number of Players: @Model.NumberOfPlayers</p>
 
 <a href="@Url.Action("Index", "Turf")">Back to Turf Reservations</a><br>

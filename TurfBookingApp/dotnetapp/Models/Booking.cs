@@ -10,7 +10,11 @@ namespace dotnetapp.Models
         public int? TurfID { get; set; } 
         public Turf? Turf { get; set; }
 
-        public DateTime ReservationDate { get; set; }
-        public TimeSpan TimeSlot { get; set; }
+        // public DateTime ReservationDate { get; set; }
+        // public TimeSpan TimeSlot { get; set; }
+
+
+        public int DurationInMinutes { get; set; }
+        public int NumberOfPlayers { get; set; }
     }
 }
