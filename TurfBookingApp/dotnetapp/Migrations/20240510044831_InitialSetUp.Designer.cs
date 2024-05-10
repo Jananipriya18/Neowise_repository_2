@@ -12,7 +12,7 @@ using dotnetapp.Models;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240429055341_InitialSetUp")]
+    [Migration("20240510044831_InitialSetUp")]
     partial class InitialSetUp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,11 +32,16 @@ namespace dotnetapp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"), 1L, 1);
 
-                    b.Property<DateTime>("ReservationDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ContactNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<TimeSpan>("TimeSlot")
-                        .HasColumnType("time");
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DurationInMinutes")
+                        .HasColumnType("int");
 
                     b.Property<int?>("TurfID")
                         .HasColumnType("int");

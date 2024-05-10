@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -31,8 +30,9 @@ namespace dotnetapp.Migrations
                     BookingID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TurfID = table.Column<int>(type: "int", nullable: true),
-                    ReservationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeSlot = table.Column<TimeSpan>(type: "time", nullable: false)
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DurationInMinutes = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -49,13 +49,6 @@ namespace dotnetapp.Controllers
                     return NotFound();
                 }
 
-                // Check if booking date is valid
-                DateTime targetDate = new DateTime(2024, 4, 25);
-                if (booking.ReservationDate < targetDate)
-                {
-                    throw new TurfBookingException("Booking starts from 25/4/2024");
-                }
-
                 // Assign Turf ID to the booking
                 booking.TurfID = turfId;
 
