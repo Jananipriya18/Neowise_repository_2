@@ -1,0 +1,11 @@
+// Extract the turfId from the query string
+Display a heading with h2 tag as Make a Reservation
+Display the selected turf ID
+Textbox for customer name with id "customerName" and Validation message for customer name
+Textbox for contact number with id "contactNumber"and Validation message for contact number
+Textbox for duration in minutes with id "durationInMinutes" and Validation message for duration in minutes
+Submit button with id "submit" -->
+}
+
+<a id="backtoturf" href="@Url.Action("Index", "Turf")">Back to Turf Reservations</a> <!-- Anchor tag for returning to Turf Reservations with id "backtoturf" -->
+<br>
