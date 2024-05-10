@@ -12,8 +12,8 @@ using dotnetapp.Models;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240510044831_InitialSetUp")]
-    partial class InitialSetUp
+    [Migration("20240510071822_Initip")]
+    partial class Initip
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,7 +100,7 @@ namespace dotnetapp.Migrations
                         new
                         {
                             TurfID = 4,
-                            Availability = true,
+                            Availability = false,
                             Capacity = 10,
                             Name = "Silver Tennis Oasis"
                         },

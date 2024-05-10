@@ -98,7 +98,7 @@ namespace dotnetapp.Migrations
                         new
                         {
                             TurfID = 4,
-                            Availability = true,
+                            Availability = false,
                             Capacity = 10,
                             Name = "Silver Tennis Oasis"
                         },

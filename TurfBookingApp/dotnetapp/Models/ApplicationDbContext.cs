@@ -27,7 +27,7 @@ namespace dotnetapp.Models
                 new Turf { TurfID = 1, Name = "Green Cricket Meadow", Capacity = 4, Availability = true },
                 new Turf { TurfID = 2, Name = "Sunny Football Fields", Capacity = 6, Availability = true },
                 new Turf { TurfID = 3, Name = "Golden Golf Garden", Capacity = 2, Availability = true },
-                new Turf { TurfID = 4, Name = "Silver Tennis Oasis", Capacity = 10, Availability = true },
+                new Turf { TurfID = 4, Name = "Silver Tennis Oasis", Capacity = 10, Availability = false },
                 new Turf { TurfID = 5, Name = "Blue Basketball Arena", Capacity = 2, Availability = true }
             );
         }

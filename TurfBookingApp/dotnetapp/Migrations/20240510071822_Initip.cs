@@ -4,7 +4,7 @@
 
 namespace dotnetapp.Migrations
 {
-    public partial class InitialSetUp : Migration
+    public partial class Initip : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,7 +52,7 @@ namespace dotnetapp.Migrations
                     { 1, true, 4, "Green Cricket Meadow" },
                     { 2, true, 6, "Sunny Football Fields" },
                     { 3, true, 2, "Golden Golf Garden" },
-                    { 4, true, 10, "Silver Tennis Oasis" },
+                    { 4, false, 10, "Silver Tennis Oasis" },
                     { 5, true, 2, "Blue Basketball Arena" }
                 });
 
