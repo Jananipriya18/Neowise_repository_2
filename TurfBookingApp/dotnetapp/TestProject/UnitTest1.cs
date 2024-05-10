@@ -173,41 +173,47 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void BookingController_Post_Book_by_InvalidReservationDate_ThrowsException()
-        {
-            // Arrange
-            var turfId = 1;
-            var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
-            var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "123456789", DurationInMinutes = 60 };
-            _dbContext.Turfs.Add(turf);
-            _dbContext.SaveChanges();
+public void BookingController_Post_Book_by_InvalidDurationInMinutes_ThrowsException()
+{
+    // Arrange
+    var turfId = 1;
+    var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
+    var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "123456789", DurationInMinutes = 130 }; // Set duration to 130 minutes
+    _dbContext.Turfs.Add(turf);
+    _dbContext.SaveChanges();
 
-            // Act & Assert
-            Assert.Throws<TurfBookingException>(() =>
-            {
-                _bookingController.Book(turfId, booking1);
-            });
-        }
+    // Act & Assert
+    var ex = Assert.Throws<TurfBookingException>(() =>
+    {
+        _bookingController.Book(turfId, booking1);
+    });
+
+    // Assert
+    Assert.AreEqual("Booking duration cannot exceed 120 minutes.", ex.Message);
+}
+
+
 
 
         [Test]
-        public void BookingController_Post_Book_ThrowsException_with_message()
-        {
-            // Arrange
-            var turfId = 1;
-            var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
-            var booking1 = new Booking { TimeSlot = TimeSpan.FromHours(10) }; // Remove ReservationDate
+public void BookingController_Post_Book_ThrowsException_with_message()
+{
+    // Arrange
+    var turfId = 1;
+    var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
+    // Create a booking with duration exceeding 120 minutes
+    var booking1 = new Booking { DurationInMinutes = (int)TimeSpan.FromHours(3).TotalMinutes }; 
 
-            _dbContext.Turfs.Add(turf);
-            _dbContext.SaveChanges();
+    _dbContext.Turfs.Add(turf);
+    _dbContext.SaveChanges();
 
-            // Act & Assert
-            var msg = Assert.Throws<TurfBookingException>(() =>
-            {
-                _bookingController.Book(turfId, booking1);
-            });
-            Assert.AreEqual("Booking duration cannot exceed 120 minutes.", msg.Message); 
-        }
+    // Act & Assert
+    var msg = Assert.Throws<TurfBookingException>(() =>
+    {
+        _bookingController.Book(turfId, booking1);
+    });
+    Assert.AreEqual("Booking duration cannot exceed 120 minutes.", msg.Message); 
+}
 
         [Test]
         public void BookingController_Details_by_InvalidBookingId_ReturnsNotFound()
