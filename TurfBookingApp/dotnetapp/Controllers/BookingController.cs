@@ -39,6 +39,7 @@ namespace dotnetapp.Controllers
                 {
                     return View(booking);
                 }
+                
                 var turf = _dbContext.Turfs
                     .Include(t => t.Bookings)
                     .FirstOrDefault(t => t.TurfID == turfId);
@@ -48,27 +49,30 @@ namespace dotnetapp.Controllers
                     return NotFound();
                 }
 
+                // Check if booking date is valid
                 DateTime targetDate = new DateTime(2024, 4, 25);
-
                 if (booking.ReservationDate < targetDate)
                 {
-                    throw new TurfBookingException("Booking Starts from 25/4/2024");
+                    throw new TurfBookingException("Booking starts from 25/4/2024");
                 }
+
+                // Assign Turf ID to the booking
                 booking.TurfID = turfId;
 
-                if (ModelState.IsValid)
-                {
-                    _dbContext.Bookings.Add(booking);
-                    _dbContext.SaveChanges();
-                    return RedirectToAction("Details", new { bookingId = booking.BookingID });
-                }
-                return View(booking);
+                // Add booking to the database
+                _dbContext.Bookings.Add(booking);
+                _dbContext.SaveChanges();
+
+                // Redirect to booking details page
+                return RedirectToAction("Details", new { bookingId = booking.BookingID });
             }
             catch (Exception ex)
             {
+                // Handle exceptions
                 throw;
             }
         }
+
 
         public IActionResult Details(int bookingId)
         {

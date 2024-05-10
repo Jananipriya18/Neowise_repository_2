@@ -73,9 +73,7 @@ namespace dotnetapp.Tests
             // Arrange
             var turfId = 1;
             var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
-            var booking1 = new Booking { ReservationDate = new DateTime(2024, 7, 30), TimeSlot = TimeSpan.FromHours(10) };
-            var reservationDate = new DateTime(2024, 7, 30);
-            var timeSlot = TimeSpan.FromHours(10);
+            var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "1234567890", DurationInMinutes = 60 };
             _dbContext.Turfs.Add(turf);
             _dbContext.SaveChanges();
 
@@ -88,16 +86,18 @@ namespace dotnetapp.Tests
             Assert.AreEqual("Details", result.ActionName);
             Assert.IsNotNull(booking);
             Assert.AreEqual(turfId, booking.Turf.TurfID);
-            Assert.AreEqual(booking1.ReservationDate.Date, booking.ReservationDate.Date);
-            Assert.AreEqual(booking1.TimeSlot, booking.TimeSlot);
+            Assert.AreEqual("John Doe", booking.CustomerName);
+            Assert.AreEqual("1234567890", booking.ContactNumber);
+            Assert.AreEqual(60, booking.DurationInMinutes);
         }
+
 
         [Test]
         public void BookingController_Post_Book_by_InvalidTurfId_ReturnsNotFound()
         {
             // Arrange
             var turfId = 1;
-            var booking1 = new Booking { ReservationDate = new DateTime(2024, 7, 30), TimeSlot = TimeSpan.FromHours(10) };
+            var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "123456789", DurationInMinutes = 60 };
 
             // Act
             var result = _bookingController.Book(turfId, booking1) as NotFoundResult;
@@ -160,9 +160,7 @@ namespace dotnetapp.Tests
             // Arrange
             var turfId = 1;
             var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
-            var booking1 = new Booking { ReservationDate = new DateTime(2024, 1, 1), TimeSlot = TimeSpan.FromHours(10) };
-            var reservationDate = new DateTime(2023, 1, 1);
-            var timeSlot = TimeSpan.FromHours(10);
+            var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "123456789", DurationInMinutes = 60 };
             _dbContext.Turfs.Add(turf);
             _dbContext.SaveChanges();
 
@@ -172,6 +170,7 @@ namespace dotnetapp.Tests
                 _bookingController.Book(turfId, booking1);
             });
         }
+
 
         [Test]
         public void BookingController_Post_Book_by_InvalidReservationDate_ThrowsException_with_message()
@@ -243,15 +242,17 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public void Booking_Properties_TimeSlot_GetSetCorrectly()
+        public void Booking_Properties_DurationInMinutes_GetSetCorrectly()
         {
             // Arrange
             var booking = new Booking();
 
-            booking.TimeSlot = new TimeSpan(14, 0, 0);
+            booking.DurationInMinutes = 90; // Example value
 
-            Assert.AreEqual(new TimeSpan(14, 0, 0), booking.TimeSlot);
+            // Assert
+            Assert.AreEqual(90, booking.DurationInMinutes);
         }
+
 
         [Test]
         public void Booking_Properties_BookingID_HaveCorrectDataTypes()
