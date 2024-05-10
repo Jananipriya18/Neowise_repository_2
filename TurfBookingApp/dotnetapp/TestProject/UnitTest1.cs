@@ -254,17 +254,6 @@ public void BookingController_Post_Book_ThrowsException_with_message()
             Assert.AreEqual(2, booking.TurfID);
         }
 
-        // [Test]
-        // public void Booking_Properties_ReservationDate_GetSetCorrectly()
-        // {
-        //     // Arrange
-        //     var booking = new Booking();
-
-        //     booking.ReservationDate = new DateTime(2023, 7, 1);
-
-        //     Assert.AreEqual(new DateTime(2023, 7, 1), booking.ReservationDate);
-        // }
-
         [Test]
         public void Booking_Properties_DurationInMinutes_GetSetCorrectly()
         {
@@ -299,14 +288,6 @@ public void BookingController_Post_Book_ThrowsException_with_message()
             // Assert
             Assert.That(booking.TurfID, Is.TypeOf<int>());
         }
-
-        // [Test]
-        // public void Booking_Properties_ReservationDate_HaveCorrectDataTypes()
-        // {
-        //     // Arrange
-        //     var booking = new Booking();
-        //     Assert.That(booking.ReservationDate, Is.TypeOf<DateTime>());
-        // }
 
         [Test]
         public void Booking_Properties_CustomerName_ContactNumber_DurationInMinutes_HaveCorrectDataTypes()
