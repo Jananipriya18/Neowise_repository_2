@@ -106,7 +106,7 @@ namespace dotnetapp.Tests
             Assert.IsNotNull(result);
         }
 
-        [Test]
+       [Test]
         public void TurfController_Delete_ValidTurfId_Success_Redirects_Delete()
         {
             // Arrange
@@ -116,12 +116,13 @@ namespace dotnetapp.Tests
             _dbContext.SaveChanges();
 
             // Act
-            var result = _turfController.Delete(turfId) as ViewResult;
+            var result = _turfController.DeleteConfirmed(turfId) as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("Delete", result.ViewName); // Change "DeleteConfirm" to "Delete"
+            Assert.AreEqual("Index", result.ActionName); // Check if it redirects to Index action
         }
+
 
         [Test]
         public void TurfController_DeleteConfirmed_ValidTurfId_RedirectsTo_Index()
@@ -171,42 +172,42 @@ namespace dotnetapp.Tests
             Assert.AreEqual(1, model?.Count);
         }
 
-        // [Test]
-        // public void BookingController_Post_Book_by_InvalidReservationDate_ThrowsException()
-        // {
-        //     // Arrange
-        //     var turfId = 1;
-        //     var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
-        //     var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "123456789", DurationInMinutes = 60 };
-        //     _dbContext.Turfs.Add(turf);
-        //     _dbContext.SaveChanges();
+        [Test]
+        public void BookingController_Post_Book_by_InvalidReservationDate_ThrowsException()
+        {
+            // Arrange
+            var turfId = 1;
+            var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
+            var booking1 = new Booking { CustomerName = "John Doe", ContactNumber = "123456789", DurationInMinutes = 60 };
+            _dbContext.Turfs.Add(turf);
+            _dbContext.SaveChanges();
 
-        //     // Act & Assert
-        //     Assert.Throws<TurfBookingException>(() =>
-        //     {
-        //         _bookingController.Book(turfId, booking1);
-        //     });
-        // }
+            // Act & Assert
+            Assert.Throws<TurfBookingException>(() =>
+            {
+                _bookingController.Book(turfId, booking1);
+            });
+        }
 
 
-        // [Test]
-        // public void BookingController_Post_Book_by_InvalidReservationDate_ThrowsException_with_message()
-        // {
-        //     // Arrange
-        //     var turfId = 1;
-        //     var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
-        //     var booking1 = new Booking { ReservationDate = new DateTime(2024, 1, 1), TimeSlot = TimeSpan.FromHours(10) };
+        [Test]
+        public void BookingController_Post_Book_ThrowsException_with_message()
+        {
+            // Arrange
+            var turfId = 1;
+            var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
+            var booking1 = new Booking { TimeSlot = TimeSpan.FromHours(10) }; // Remove ReservationDate
 
-        //     _dbContext.Turfs.Add(turf);
-        //     _dbContext.SaveChanges();
+            _dbContext.Turfs.Add(turf);
+            _dbContext.SaveChanges();
 
-        //     // Act & Assert
-        //     var msg = Assert.Throws<TurfBookingException>(() =>
-        //     {
-        //         _bookingController.Book(turfId, booking1);
-        //     });
-        //     Assert.AreEqual("Booking Starts from 25/4/2024", msg.Message);
-        // }
+            // Act & Assert
+            var msg = Assert.Throws<TurfBookingException>(() =>
+            {
+                _bookingController.Book(turfId, booking1);
+            });
+            Assert.AreEqual("Booking duration cannot exceed 120 minutes.", msg.Message); 
+        }
 
         [Test]
         public void BookingController_Details_by_InvalidBookingId_ReturnsNotFound()
