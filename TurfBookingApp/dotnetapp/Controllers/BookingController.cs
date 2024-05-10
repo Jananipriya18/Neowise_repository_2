@@ -55,7 +55,9 @@ namespace dotnetapp.Controllers
                 // Check if DurationInMinutes exceeds 120
                 if (booking.DurationInMinutes > 120)
                 {
-                    throw new TurfBookingException("Booking duration cannot exceed 120 minutes.");
+                    // throw new TurfBookingException("Booking duration cannot exceed 120 minutes.");
+                    ModelState.AddModelError("DurationInMinutes", "Booking duration cannot exceed 120 minutes.");
+                    return View(booking);
                 }
 
                 // Add booking to the database

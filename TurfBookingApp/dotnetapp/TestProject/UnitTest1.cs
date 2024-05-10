@@ -172,7 +172,7 @@ namespace dotnetapp.Tests
             Assert.AreEqual(1, model?.Count);
         }
 
-        [Test]
+[Test]
 public void BookingController_Post_Book_by_InvalidDurationInMinutes_ThrowsException()
 {
     // Arrange
@@ -192,28 +192,28 @@ public void BookingController_Post_Book_by_InvalidDurationInMinutes_ThrowsExcept
     Assert.AreEqual("Booking duration cannot exceed 120 minutes.", ex.Message);
 }
 
-
-
-
-        [Test]
+[Test]
 public void BookingController_Post_Book_ThrowsException_with_message()
 {
     // Arrange
     var turfId = 1;
     var turf = new Turf { TurfID = turfId, Name = "Turf 1", Capacity = 4, Availability = true };
     // Create a booking with duration exceeding 120 minutes
-    var booking1 = new Booking { DurationInMinutes = (int)TimeSpan.FromHours(3).TotalMinutes }; 
+    var booking1 = new Booking { DurationInMinutes = 180 }; // Set duration to 180 minutes 
 
     _dbContext.Turfs.Add(turf);
     _dbContext.SaveChanges();
 
     // Act & Assert
-    var msg = Assert.Throws<TurfBookingException>(() =>
+    var ex = Assert.Throws<TurfBookingException>(() =>
     {
         _bookingController.Book(turfId, booking1);
     });
-    Assert.AreEqual("Booking duration cannot exceed 120 minutes.", msg.Message); 
+
+    // Assert
+    Assert.AreEqual("Booking duration cannot exceed 120 minutes.", ex.Message); 
 }
+
 
         [Test]
         public void BookingController_Details_by_InvalidBookingId_ReturnsNotFound()
