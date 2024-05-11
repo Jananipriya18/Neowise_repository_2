@@ -10,9 +10,9 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>SubjectsOffered</th>
-                <th>Instructions</th>
-                <th>Author</th>
+                <th>Subjects Offered</th>
+                <th>Contact Number</th>
+                <th>Availability</th>
                 <!-- <th>Action</th> -->
             </tr>
         </thead>
@@ -21,8 +21,8 @@
                 <td>{{ recipe.name }}</td>
                 <td>{{ recipe.email }}</td>
                 <td>{{ recipe.subjectsOffered }}</td>
-                <td>{{ recipe.instructions }}</td>
-                <td>{{ recipe.author }}</td>
+                <td>{{ recipe.contactNumber }}</td>
+                <td>{{ recipe.availability }}</td>
 
                 <td>
                      <button id = "delete" class="delete-button" (click)="Delete(recipe.tutorId)">Delete</button>

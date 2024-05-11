@@ -8,7 +8,7 @@ describe('Recipe', () => {
       email: 'Test Email',
       subjectsOffered: 'Test SubjectsOffered',
       contactNumber: 'Test ContactNumber',
-      author: 'Test Author'
+      availability: 'Test Availability'
     };
 
     // Check if the recipe object exists
@@ -20,7 +20,7 @@ describe('Recipe', () => {
     expect(recipe.email).toBe('Test Email');
     expect(recipe.subjectsOffered).toBe('Test SubjectsOffered');
     expect(recipe.contactNumber).toBe('Test ContactNumber');
-    expect(recipe.author).toBe('Test Author');
+    expect(recipe.availability).toBe('Test Availability');
 });
 
 });

@@ -20,9 +20,9 @@
         <div *ngIf="isFieldInvalid('contactNumber')" class="error-message">Contact Number is required</div>
     </div>
     <div>
-        <label for="author">Author:</label>
-        <input type="text" id="author" [(ngModel)]="newRecipe.author" name="author" required>
-        <div *ngIf="isFieldInvalid('author')" class="error-message">Author is required</div>
+        <label for="availability">Availability:</label>
+        <input type="text" id="availability" [(ngModel)]="newRecipe.availability" name="availability" required>
+        <div *ngIf="isFieldInvalid('availability')" class="error-message">Availability is required</div>
     </div>
     <button type="submit">Add Recipe</button>
 </form>

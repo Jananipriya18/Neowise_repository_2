@@ -5,6 +5,6 @@ export interface Recipe {
     email: string;
     subjectsOffered: string;
     contactNumber: string;
-    author: string;
+    availability: string;
   }
   

@@ -52,7 +52,7 @@ describe('RecipeFormComponent', () => {
         email: '',
         subjectsOffered: '',
         contactNumber: '',
-        author: ''
+        availability: ''
     };
 
     // Trigger form submission
@@ -70,7 +70,7 @@ describe('RecipeFormComponent', () => {
     expect(errorMessages[1].nativeElement.textContent).toContain('Email is required');
     expect(errorMessages[2].nativeElement.textContent).toContain('SubjectsOffered are required');
     expect(errorMessages[3].nativeElement.textContent).toContain('ContactNumber are required');
-    expect(errorMessages[4].nativeElement.textContent).toContain('Author is required');
+    expect(errorMessages[4].nativeElement.textContent).toContain('Availability is required');
 }));
 
 
@@ -95,7 +95,7 @@ describe('RecipeFormComponent', () => {
       email: 'Test Email',
       subjectsOffered: 'Test SubjectsOffered',
       contactNumber: 'Test ContactNumber',
-      author: 'Test Author'
+      availability: 'Test Availability'
     };
 
     fixture.detectChanges();
@@ -107,7 +107,7 @@ describe('RecipeFormComponent', () => {
     expect(compiled.querySelector('#emailError')).toBeNull();
     expect(compiled.querySelector('#subjectsOfferedError')).toBeNull();
     expect(compiled.querySelector('#contactNumberError')).toBeNull();
-    expect(compiled.querySelector('#authorError')).toBeNull();
+    expect(compiled.querySelector('#availabilityError')).toBeNull();
   });
 
   fit('should_call_add_recipe_method_while_adding_the_recipe', () => {
@@ -118,7 +118,7 @@ describe('RecipeFormComponent', () => {
       email: 'Test Recipe Email', 
       subjectsOffered: 'Ingredient 2', 
       contactNumber: 'Test Recipe ContactNumber', 
-      author: 'Test Author'
+      availability: 'Test Availability'
     };
     const addRecipeSpy = spyOn(component, 'addRecipe').and.callThrough();
     component.addRecipe();

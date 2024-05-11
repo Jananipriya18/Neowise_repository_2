@@ -17,7 +17,7 @@ export class RecipeFormComponent {
     email: '',
     subjectsOffered: '',
     contactNumber: '',
-    author: ''
+    availability: ''
   };
   
   formSubmitted = false; // Track form submission
@@ -42,7 +42,7 @@ export class RecipeFormComponent {
   isFormValid(): boolean {
     return !this.isFieldInvalid('name') && !this.isFieldInvalid('email') &&
       !this.isFieldInvalid('subjectsOffered') && !this.isFieldInvalid('contactNumber') &&
-      !this.isFieldInvalid('author');
+      !this.isFieldInvalid('availability');
   }
 }
 

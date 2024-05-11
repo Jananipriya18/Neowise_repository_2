@@ -23,33 +23,33 @@ namespace dotnetapp.Migrations
 
             modelBuilder.Entity("dotnetapp.Models.Recipe", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("tutorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("tutorId"), 1L, 1);
 
-                    b.Property<string>("Author")
+                    b.Property<string>("availability")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("contactNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ingredients")
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Instructions")
+                    b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("subjectsOffered")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RecipeId");
+                    b.HasKey("tutorId");
 
                     b.ToTable("Recipes");
                 });

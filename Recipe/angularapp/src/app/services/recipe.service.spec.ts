@@ -39,8 +39,8 @@
 //       name: 'Test Recipe',
 //       email: 'Test Email',
 //       subjectsOffered: 'Test SubjectsOffered',
-//       instructions: 'Test Instructions',
-//       author: 'Test Author'
+//       contactNumber: 'Test ContactNumber',
+//       availability: 'Test Availability'
 //     };
 
 //     service.addRecipe(mockRecipe).subscribe((recipe) => {
@@ -59,8 +59,8 @@
 //         name: 'Test Recipe 1',
 //         email: 'Test Email',
 //         subjectsOffered: 'Test SubjectsOffered',
-//         instructions: 'Test Instructions',
-//         author: 'Test Author'
+//         contactNumber: 'Test ContactNumber',
+//         availability: 'Test Availability'
 //       }
 //     ];
 
@@ -109,8 +109,8 @@ describe('RecipeService', () => {
       name: 'Test Recipe',
       email: 'Test Email',
       subjectsOffered: 'Test SubjectsOffered',
-      instructions: 'Test Instructions',
-      author: 'Test Author'
+      contactNumber: 'Test ContactNumber',
+      availability: 'Test Availability'
     };
 
     service.addRecipe(mockRecipe).subscribe((recipe) => {
@@ -129,8 +129,8 @@ describe('RecipeService', () => {
         name: 'Test Recipe 1',
         email: 'Test Email',
         subjectsOffered: 'Test SubjectsOffered',
-        instructions: 'Test Instructions',
-        author: 'Test Author'
+        contactNumber: 'Test ContactNumber',
+        availability: 'Test Availability'
       }
     ];
 
@@ -162,8 +162,8 @@ describe('RecipeService', () => {
       name: 'Test Recipe',
       email: 'Test Email',
       subjectsOffered: 'Test SubjectsOffered',
-      instructions: 'Test Instructions',
-      author: 'Test Author'
+      contactNumber: 'Test ContactNumber',
+      availability: 'Test Availability'
     };
 
     service.getRecipe(tutorId).subscribe((recipe) => {
