@@ -1,11 +1,11 @@
 <div class="container">
-    <h2>Recipe List</h2>
+    <h2>Tutor List</h2>
   
-    <div *ngIf="recipes.length === 0" class="no-recipes-message">
-        No recipes available.
+    <div *ngIf="tutors.length === 0" class="no-tutors-message">
+        No tutors available.
     </div>
   
-    <table *ngIf="recipes.length > 0" class="recipe-table">
+    <table *ngIf="tutors.length > 0" class="tutor-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -17,15 +17,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let recipe of recipes" class="recipe-item">
-                <td>{{ recipe.name }}</td>
-                <td>{{ recipe.email }}</td>
-                <td>{{ recipe.subjectsOffered }}</td>
-                <td>{{ recipe.contactNumber }}</td>
-                <td>{{ recipe.availability }}</td>
+            <tr *ngFor="let tutor of tutors" class="tutor-item">
+                <td>{{ tutor.name }}</td>
+                <td>{{ tutor.email }}</td>
+                <td>{{ tutor.subjectsOffered }}</td>
+                <td>{{ tutor.contactNumber }}</td>
+                <td>{{ tutor.availability }}</td>
 
                 <td>
-                     <button id = "delete" class="delete-button" (click)="Delete(recipe.tutorId)">Delete</button>
+                     <button id = "delete" class="delete-button" (click)="Delete(tutor.tutorId)">Delete</button>
                 </td>
 
             </tr>

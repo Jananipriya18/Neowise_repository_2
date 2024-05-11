@@ -7,33 +7,33 @@
     text-align: center;
   }
   
-  .no-recipes-message {
+  .no-tutors-message {
     text-align: center;
     margin-top: 20px;
   }
   
-  .recipe-table {
+  .tutor-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
   }
   
-  .recipe-table th,
-  .recipe-table td {
+  .tutor-table th,
+  .tutor-table td {
     padding: 8px;
     border-bottom: 1px solid #ddd;
   }
   
-  .recipe-table th {
+  .tutor-table th {
     background-color: #f2f2f2;
     text-align: left;
   }
   
-  .recipe-item:nth-child(even) {
+  .tutor-item:nth-child(even) {
     background-color: #f2f2f2;
   }
   
-  .recipe-item:hover {
+  .tutor-item:hover {
     background-color: #ddd;
   }
 

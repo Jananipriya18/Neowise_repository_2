@@ -1,26 +1,26 @@
-import { Recipe } from './tutor.model';
+import { Tutor } from './tutor.model';
 
-describe('Recipe', () => {
-  fit('should_create_recipe_instance', () => {
-    const recipe: Recipe = {
+describe('Tutor', () => {
+  fit('should_create_tutor_instance', () => {
+    const tutor: Tutor = {
       tutorId: 1,
-      name: 'Test Recipe',
+      name: 'Test Tutor',
       email: 'Test Email',
       subjectsOffered: 'Test SubjectsOffered',
       contactNumber: 'Test ContactNumber',
       availability: 'Test Availability'
     };
 
-    // Check if the recipe object exists
-    expect(recipe).toBeTruthy();
+    // Check if the tutor object exists
+    expect(tutor).toBeTruthy();
 
-    // Check individual properties of the recipe
-    expect(recipe.tutorId).toBe(1);
-    expect(recipe.name).toBe('Test Recipe');
-    expect(recipe.email).toBe('Test Email');
-    expect(recipe.subjectsOffered).toBe('Test SubjectsOffered');
-    expect(recipe.contactNumber).toBe('Test ContactNumber');
-    expect(recipe.availability).toBe('Test Availability');
+    // Check individual properties of the tutor
+    expect(tutor.tutorId).toBe(1);
+    expect(tutor.name).toBe('Test Tutor');
+    expect(tutor.email).toBe('Test Email');
+    expect(tutor.subjectsOffered).toBe('Test SubjectsOffered');
+    expect(tutor.contactNumber).toBe('Test ContactNumber');
+    expect(tutor.availability).toBe('Test Availability');
 });
 
 });

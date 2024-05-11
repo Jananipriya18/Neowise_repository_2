@@ -1,30 +1,30 @@
-// recipe-list.component.ts
+// tutor-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../models/tutor.model';
-import { RecipeService } from '../services/tutor.service';
+import { Tutor } from '../models/tutor.model';
+import { TutorService } from '../services/tutor.service';
 import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-recipe-list',
-  templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  selector: 'app-tutor-list',
+  templateUrl: './tutor-list.component.html',
+  styleUrls: ['./tutor-list.component.css']
 })
-export class RecipeListComponent implements OnInit {
-  recipes: Recipe[] = [];
+export class TutorListComponent implements OnInit {
+  tutors: Tutor[] = [];
 
-  constructor(private recipeService: RecipeService,private router: Router) { }
+  constructor(private tutorService: TutorService,private router: Router) { }
 
   ngOnInit(): void {
-    this.loadRecipes();
+    this.loadTutors();
   }
 
-  loadRecipes(): void {
-    this.recipeService.getRecipes().subscribe(recipes => this.recipes = recipes);
+  loadTutors(): void {
+    this.tutorService.getTutors().subscribe(tutors => this.tutors = tutors);
   }
 
   Delete(tutorId: number): void {
-    // Navigate to confirm delete page with the recipe ID as a parameter
+    // Navigate to confirm delete page with the tutor ID as a parameter
     this.router.navigate(['/confirmDelete', tutorId]);
   }
 }

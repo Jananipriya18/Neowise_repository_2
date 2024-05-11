@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipeFormComponent } from './tutor-form/tutor-form.component';
-import { RecipeListComponent } from './tutor-list/tutor-list.component';
+import { TutorFormComponent } from './tutor-form/tutor-form.component';
+import { TutorListComponent } from './tutor-list/tutor-list.component';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 
 
 const routes: Routes = [
-  { path: 'addNewRecipe', component: RecipeFormComponent },
-  { path: 'viewRecipes', component: RecipeListComponent },
+  { path: 'addNewTutor', component: TutorFormComponent },
+  { path: 'viewTutors', component: TutorListComponent },
   { path: 'confirmDelete/:id', component: DeleteConfirmComponent},
 
 ];

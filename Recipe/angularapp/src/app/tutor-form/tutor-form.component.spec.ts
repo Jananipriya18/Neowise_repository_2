@@ -1,52 +1,52 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { RouterTestingModule } from '@angular/router/testing';
-import { RecipeFormComponent } from './tutor-form.component';
-import { RecipeService } from '../services/tutor.service';
+import { TutorFormComponent } from './tutor-form.component';
+import { TutorService } from '../services/tutor.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { Recipe } from '../models/tutor.model';
+import { Tutor } from '../models/tutor.model';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { RecipeListComponent } from '../tutor-list/tutor-list.component';
+import { TutorListComponent } from '../tutor-list/tutor-list.component';
 
-describe('RecipeFormComponent', () => {
-  let component: RecipeFormComponent;
-  let fixture: ComponentFixture<RecipeFormComponent>;
-  let recipeService: RecipeService;
+describe('TutorFormComponent', () => {
+  let component: TutorFormComponent;
+  let fixture: ComponentFixture<TutorFormComponent>;
+  let tutorService: TutorService;
   let router: Router;
-  let recipeListComponent: RecipeListComponent;
+  let tutorListComponent: TutorListComponent;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RecipeFormComponent],
+      declarations: [TutorFormComponent],
       imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
       providers: [
-        RecipeService,
+        TutorService,
       ]
     })
       .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecipeFormComponent);
+    fixture = TestBed.createComponent(TutorFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
-    recipeService = TestBed.inject(RecipeService);
+    tutorService = TestBed.inject(TutorService);
     router = TestBed.inject(Router);
 
   });
 
-  fit('should_have_addRecipe_method', () => {
-    expect(component.addRecipe).toBeTruthy();
+  fit('should_have_addTutor_method', () => {
+    expect(component.addTutor).toBeTruthy();
   });
 
   fit('should_show_error_messages_for_required_fields_on_submit', fakeAsync(() => {
-    // Mock new recipe data
-    component.newRecipe = {
+    // Mock new tutor data
+    component.newTutor = {
         tutorId: 1,
         name: '',
         email: '',
@@ -89,7 +89,7 @@ describe('RecipeFormComponent', () => {
     const form = compiled.querySelector('form');
 
     // Fill all fields
-    component.newRecipe = {
+    component.newTutor = {
       tutorId: null, // or omit this line if tutorId is auto-generated
       name: 'Test Name',
       email: 'Test Email',
@@ -110,19 +110,19 @@ describe('RecipeFormComponent', () => {
     expect(compiled.querySelector('#availabilityError')).toBeNull();
   });
 
-  fit('should_call_add_recipe_method_while_adding_the_recipe', () => {
-    // Create a mock Recipe object with all required properties
-    const recipe: Recipe = { 
+  fit('should_call_add_tutor_method_while_adding_the_tutor', () => {
+    // Create a mock Tutor object with all required properties
+    const tutor: Tutor = { 
       tutorId: 1, 
-      name: 'Test Recipe', 
-      email: 'Test Recipe Email', 
+      name: 'Test Tutor', 
+      email: 'Test Tutor Email', 
       subjectsOffered: 'Ingredient 2', 
-      contactNumber: 'Test Recipe ContactNumber', 
+      contactNumber: 'Test Tutor ContactNumber', 
       availability: 'Test Availability'
     };
-    const addRecipeSpy = spyOn(component, 'addRecipe').and.callThrough();
-    component.addRecipe();
-    expect(addRecipeSpy).toHaveBeenCalled();
+    const addTutorSpy = spyOn(component, 'addTutor').and.callThrough();
+    component.addTutor();
+    expect(addTutorSpy).toHaveBeenCalled();
   });
 });
 
