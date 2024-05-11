@@ -37,8 +37,8 @@
 //     const mockRecipe: Recipe = {
 //       tutorId: 1,
 //       name: 'Test Recipe',
-//       description: 'Test Description',
-//       ingredients: 'Test Ingredients',
+//       email: 'Test Email',
+//       subjectsOffered: 'Test SubjectsOffered',
 //       instructions: 'Test Instructions',
 //       author: 'Test Author'
 //     };
@@ -57,8 +57,8 @@
 //       {
 //         tutorId: 1,
 //         name: 'Test Recipe 1',
-//         description: 'Test Description',
-//         ingredients: 'Test Ingredients',
+//         email: 'Test Email',
+//         subjectsOffered: 'Test SubjectsOffered',
 //         instructions: 'Test Instructions',
 //         author: 'Test Author'
 //       }
@@ -107,8 +107,8 @@ describe('RecipeService', () => {
     const mockRecipe: Recipe = {
       tutorId: 100,
       name: 'Test Recipe',
-      description: 'Test Description',
-      ingredients: 'Test Ingredients',
+      email: 'Test Email',
+      subjectsOffered: 'Test SubjectsOffered',
       instructions: 'Test Instructions',
       author: 'Test Author'
     };
@@ -127,8 +127,8 @@ describe('RecipeService', () => {
       {
         tutorId: 100,
         name: 'Test Recipe 1',
-        description: 'Test Description',
-        ingredients: 'Test Ingredients',
+        email: 'Test Email',
+        subjectsOffered: 'Test SubjectsOffered',
         instructions: 'Test Instructions',
         author: 'Test Author'
       }
@@ -160,8 +160,8 @@ describe('RecipeService', () => {
     const mockRecipe: Recipe = {
       tutorId: tutorId,
       name: 'Test Recipe',
-      description: 'Test Description',
-      ingredients: 'Test Ingredients',
+      email: 'Test Email',
+      subjectsOffered: 'Test SubjectsOffered',
       instructions: 'Test Instructions',
       author: 'Test Author'
     };

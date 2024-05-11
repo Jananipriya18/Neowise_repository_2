@@ -49,9 +49,9 @@ describe('RecipeFormComponent', () => {
     component.newRecipe = {
         tutorId: 1,
         name: '',
-        description: '',
-        ingredients: '',
-        instructions: '',
+        email: '',
+        subjectsOffered: '',
+        contactNumber: '',
         author: ''
     };
 
@@ -67,9 +67,9 @@ describe('RecipeFormComponent', () => {
 
     // Check error messages content
     expect(errorMessages[0].nativeElement.textContent).toContain('Name is required');
-    expect(errorMessages[1].nativeElement.textContent).toContain('Description is required');
-    expect(errorMessages[2].nativeElement.textContent).toContain('Ingredients are required');
-    expect(errorMessages[3].nativeElement.textContent).toContain('Instructions are required');
+    expect(errorMessages[1].nativeElement.textContent).toContain('Email is required');
+    expect(errorMessages[2].nativeElement.textContent).toContain('SubjectsOffered are required');
+    expect(errorMessages[3].nativeElement.textContent).toContain('ContactNumber are required');
     expect(errorMessages[4].nativeElement.textContent).toContain('Author is required');
 }));
 
@@ -92,9 +92,9 @@ describe('RecipeFormComponent', () => {
     component.newRecipe = {
       tutorId: null, // or omit this line if tutorId is auto-generated
       name: 'Test Name',
-      description: 'Test Description',
-      ingredients: 'Test Ingredients',
-      instructions: 'Test Instructions',
+      email: 'Test Email',
+      subjectsOffered: 'Test SubjectsOffered',
+      contactNumber: 'Test ContactNumber',
       author: 'Test Author'
     };
 
@@ -104,9 +104,9 @@ describe('RecipeFormComponent', () => {
 
     // Check if no error messages are rendered
     expect(compiled.querySelector('#nameError')).toBeNull();
-    expect(compiled.querySelector('#descriptionError')).toBeNull();
-    expect(compiled.querySelector('#ingredientsError')).toBeNull();
-    expect(compiled.querySelector('#instructionsError')).toBeNull();
+    expect(compiled.querySelector('#emailError')).toBeNull();
+    expect(compiled.querySelector('#subjectsOfferedError')).toBeNull();
+    expect(compiled.querySelector('#contactNumberError')).toBeNull();
     expect(compiled.querySelector('#authorError')).toBeNull();
   });
 
@@ -115,9 +115,9 @@ describe('RecipeFormComponent', () => {
     const recipe: Recipe = { 
       tutorId: 1, 
       name: 'Test Recipe', 
-      description: 'Test Recipe Description', 
-      ingredients: 'Ingredient 2', 
-      instructions: 'Test Recipe Instructions', 
+      email: 'Test Recipe Email', 
+      subjectsOffered: 'Ingredient 2', 
+      contactNumber: 'Test Recipe ContactNumber', 
       author: 'Test Author'
     };
     const addRecipeSpy = spyOn(component, 'addRecipe').and.callThrough();

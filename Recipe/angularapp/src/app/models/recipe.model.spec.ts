@@ -5,9 +5,9 @@ describe('Recipe', () => {
     const recipe: Recipe = {
       tutorId: 1,
       name: 'Test Recipe',
-      description: 'Test Description',
-      ingredients: 'Test Ingredients',
-      instructions: 'Test Instructions',
+      email: 'Test Email',
+      subjectsOffered: 'Test SubjectsOffered',
+      contactNumber: 'Test ContactNumber',
       author: 'Test Author'
     };
 
@@ -17,9 +17,9 @@ describe('Recipe', () => {
     // Check individual properties of the recipe
     expect(recipe.tutorId).toBe(1);
     expect(recipe.name).toBe('Test Recipe');
-    expect(recipe.description).toBe('Test Description');
-    expect(recipe.ingredients).toBe('Test Ingredients');
-    expect(recipe.instructions).toBe('Test Instructions');
+    expect(recipe.email).toBe('Test Email');
+    expect(recipe.subjectsOffered).toBe('Test SubjectsOffered');
+    expect(recipe.contactNumber).toBe('Test ContactNumber');
     expect(recipe.author).toBe('Test Author');
 });
 

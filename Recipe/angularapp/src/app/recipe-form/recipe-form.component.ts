@@ -14,9 +14,9 @@ export class RecipeFormComponent {
   newRecipe: Recipe = {
     tutorId: 0,
     name: '',
-    description: '',
-    ingredients: '',
-    instructions: '',
+    email: '',
+    subjectsOffered: '',
+    contactNumber: '',
     author: ''
   };
   
@@ -40,8 +40,8 @@ export class RecipeFormComponent {
   }
 
   isFormValid(): boolean {
-    return !this.isFieldInvalid('name') && !this.isFieldInvalid('description') &&
-      !this.isFieldInvalid('ingredients') && !this.isFieldInvalid('instructions') &&
+    return !this.isFieldInvalid('name') && !this.isFieldInvalid('email') &&
+      !this.isFieldInvalid('subjectsOffered') && !this.isFieldInvalid('contactNumber') &&
       !this.isFieldInvalid('author');
   }
 }

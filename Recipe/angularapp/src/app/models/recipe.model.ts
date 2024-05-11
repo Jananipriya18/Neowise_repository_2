@@ -2,9 +2,9 @@
 export interface Recipe {
     tutorId: number;
     name: string;
-    description: string;
-    ingredients: string;
-    instructions: string;
+    email: string;
+    subjectsOffered: string;
+    contactNumber: string;
     author: string;
   }
   

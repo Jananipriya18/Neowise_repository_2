@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Description</th>
-                <th>Ingredients</th>
+                <th>Email</th>
+                <th>SubjectsOffered</th>
                 <th>Instructions</th>
                 <th>Author</th>
                 <!-- <th>Action</th> -->
@@ -19,8 +19,8 @@
         <tbody>
             <tr *ngFor="let recipe of recipes" class="recipe-item">
                 <td>{{ recipe.name }}</td>
-                <td>{{ recipe.description }}</td>
-                <td>{{ recipe.ingredients }}</td>
+                <td>{{ recipe.email }}</td>
+                <td>{{ recipe.subjectsOffered }}</td>
                 <td>{{ recipe.instructions }}</td>
                 <td>{{ recipe.author }}</td>
 

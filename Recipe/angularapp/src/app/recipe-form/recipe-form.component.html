@@ -5,19 +5,19 @@
         <div *ngIf="isFieldInvalid('name')" class="error-message">Name is required</div>
     </div>
     <div>
-        <label for="description">Description:</label>
-        <textarea id="description" [(ngModel)]="newRecipe.description" name="description" required></textarea>
-        <div *ngIf="isFieldInvalid('description')" class="error-message">Description is required</div>
+        <label for="email">Email:</label>
+        <textarea id="email" [(ngModel)]="newRecipe.email" name="email" required></textarea>
+        <div *ngIf="isFieldInvalid('email')" class="error-message">Email is required</div>
     </div>
     <div>
-        <label for="ingredients">Ingredients:</label>
-        <textarea id="ingredients" [(ngModel)]="newRecipe.ingredients" name="ingredients" required></textarea>
-        <div *ngIf="isFieldInvalid('ingredients')" class="error-message">Ingredients are required</div>
+        <label for="subjectsOffered">Subjects Offered:</label>
+        <textarea id="subjectsOffered" [(ngModel)]="newRecipe.subjectsOffered" name="subjectsOffered" required></textarea>
+        <div *ngIf="isFieldInvalid('subjectsOffered')" class="error-message">Subjects Offered are required</div>
     </div>
     <div>
-        <label for="instructions">Instructions:</label>
-        <textarea id="instructions" [(ngModel)]="newRecipe.instructions" name="instructions" required></textarea>
-        <div *ngIf="isFieldInvalid('instructions')" class="error-message">Instructions are required</div>
+        <label for="contactNumber">Contact Number:</label>
+        <textarea id="contactNumber" [(ngModel)]="newRecipe.contactNumber" name="contactNumber" required></textarea>
+        <div *ngIf="isFieldInvalid('contactNumber')" class="error-message">Contact Number is required</div>
     </div>
     <div>
         <label for="author">Author:</label>

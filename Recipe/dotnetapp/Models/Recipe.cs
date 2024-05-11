@@ -11,13 +11,13 @@ namespace dotnetapp.Models
         [Required(ErrorMessage = "Recipe name is required")]
         public string name { get; set; }
 
-        public string description { get; set; }
+        public string email { get; set; }
 
-        [Required(ErrorMessage = "Ingredients are required")]
-        public string ingredients { get; set; }
+        [Required(ErrorMessage = "SubjectsOffered are required")]
+        public string subjectsOffered { get; set; }
 
-        [Required(ErrorMessage = "Instructions are required")]
-        public string instructions { get; set; }
+        [Required(ErrorMessage = "ContactNumber are required")]
+        public string contactNumber { get; set; }
 
         public string author { get; set; }
 
