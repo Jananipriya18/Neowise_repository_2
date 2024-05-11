@@ -1,0 +1,28 @@
+   <form (submit)="addRecipe()">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" [(ngModel)]="newRecipe.name" name="name" required>
+        <div *ngIf="isFieldInvalid('name')" class="error-message">Name is required</div>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="newRecipe.description" name="description" required></textarea>
+        <div *ngIf="isFieldInvalid('description')" class="error-message">Description is required</div>
+    </div>
+    <div>
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" [(ngModel)]="newRecipe.ingredients" name="ingredients" required></textarea>
+        <div *ngIf="isFieldInvalid('ingredients')" class="error-message">Ingredients are required</div>
+    </div>
+    <div>
+        <label for="instructions">Instructions:</label>
+        <textarea id="instructions" [(ngModel)]="newRecipe.instructions" name="instructions" required></textarea>
+        <div *ngIf="isFieldInvalid('instructions')" class="error-message">Instructions are required</div>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <input type="text" id="author" [(ngModel)]="newRecipe.author" name="author" required>
+        <div *ngIf="isFieldInvalid('author')" class="error-message">Author is required</div>
+    </div>
+    <button type="submit">Add Recipe</button>
+</form>
