@@ -4,12 +4,12 @@
 
 namespace dotnetapp.Migrations
 {
-    public partial class InitialSetUp : Migration
+    public partial class InitialSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Recipes",
+                name: "Tutors",
                 columns: table => new
                 {
                     tutorId = table.Column<int>(type: "int", nullable: false)
@@ -22,14 +22,14 @@ namespace dotnetapp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Recipes", x => x.tutorId);
+                    table.PrimaryKey("PK_Tutors", x => x.tutorId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "Tutors");
         }
     }
 }

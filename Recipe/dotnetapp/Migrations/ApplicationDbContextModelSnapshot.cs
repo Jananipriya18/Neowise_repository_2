@@ -21,7 +21,7 @@ namespace dotnetapp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("dotnetapp.Models.Recipe", b =>
+            modelBuilder.Entity("dotnetapp.Models.Tutor", b =>
                 {
                     b.Property<int>("tutorId")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace dotnetapp.Migrations
 
                     b.HasKey("tutorId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Tutors");
                 });
 #pragma warning restore 612, 618
         }

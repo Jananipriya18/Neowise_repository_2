@@ -42,12 +42,12 @@
 
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RecipeService } from '../services/recipe.service';
-import { RecipeListComponent } from './recipe-list.component';
+import { RecipeService } from '../services/tutor.service';
+import { RecipeListComponent } from './tutor-list.component';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Recipe } from '../models/recipe.model';
+import { Recipe } from '../models/tutor.model';
 
 describe('RecipeListComponent', () => {
     let component: RecipeListComponent;

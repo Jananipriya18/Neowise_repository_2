@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RecipeFormComponent } from './recipe-form/recipe-form.component';
-import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeFormComponent } from './tutor-form/tutor-form.component';
+import { RecipeListComponent } from './tutor-list/tutor-list.component';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 
 

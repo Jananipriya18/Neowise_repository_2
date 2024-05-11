@@ -1,5 +1,5 @@
-// src/app/models/recipe.model.ts
-export interface Recipe {
+// src/app/models/tutor.model.ts
+export interface Tutor {
     tutorId: number;
     name: string;
     email: string;

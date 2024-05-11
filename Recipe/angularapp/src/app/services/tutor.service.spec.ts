@@ -79,8 +79,8 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { Recipe } from '../models/recipe.model';
-import { RecipeService } from './recipe.service';
+import { Recipe } from '../models/tutor.model';
+import { RecipeService } from './tutor.service';
 
 describe('RecipeService', () => {
   let service: RecipeService;

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecipeService } from '../services/recipe.service';
-import { Recipe } from '../models/recipe.model'; // Import Recipe interface
+import { TutorService } from '../services/tutor.service';
+import { Tutor } from '../models/tutor.model'; // Import Tutor interface
 
 @Component({
   selector: 'app-delete-confirm',
@@ -10,41 +10,41 @@ import { Recipe } from '../models/recipe.model'; // Import Recipe interface
 })
 export class DeleteConfirmComponent implements OnInit {
   tutorId: number;
-  recipe: Recipe; // Initialize recipe property with an empty object
+  tutor: Tutor; // Initialize tutor property with an empty object
 
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
-    private recipeService: RecipeService
+    private tutorService: TutorService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.tutorId = +params['id'];
-      this.recipeService.getRecipe(this.tutorId).subscribe(
-        (recipe: Recipe) => {
-          this.recipe = recipe;
+      this.tutorService.getTutor(this.tutorId).subscribe(
+        (tutor: Tutor) => {
+          this.tutor = tutor;
         },
         error => {
-          console.error('Error fetching recipe:', error);
+          console.error('Error fetching tutor:', error);
         }
       );
     });
   }
 
   confirmDelete(tutorId: number): void {
-    this.recipeService.deleteRecipe(tutorId).subscribe(
+    this.tutorService.deleteTutor(tutorId).subscribe(
       () => {
-        console.log('Recipe deleted successfully.');
-        this.router.navigate(['/viewRecipes']);
+        console.log('Tutor deleted successfully.');
+        this.router.navigate(['/viewTutors']);
       },
       (error) => {
-        console.error('Error deleting recipe:', error);
+        console.error('Error deleting tutor:', error);
       }
     );
   }
 
   cancelDelete(): void {
-    this.router.navigate(['/viewRecipes']);
+    this.router.navigate(['/viewTutors']);
   }
 }

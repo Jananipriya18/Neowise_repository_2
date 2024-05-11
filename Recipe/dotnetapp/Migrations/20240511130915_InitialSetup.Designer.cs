@@ -11,8 +11,8 @@ using dotnetapp.Data;
 namespace dotnetapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240511130112_InitialSetUp")]
-    partial class InitialSetUp
+    [Migration("20240511130915_InitialSetup")]
+    partial class InitialSetup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace dotnetapp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("dotnetapp.Models.Recipe", b =>
+            modelBuilder.Entity("dotnetapp.Models.Tutor", b =>
                 {
                     b.Property<int>("tutorId")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace dotnetapp.Migrations
 
                     b.HasKey("tutorId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Tutors");
                 });
 #pragma warning restore 612, 618
         }

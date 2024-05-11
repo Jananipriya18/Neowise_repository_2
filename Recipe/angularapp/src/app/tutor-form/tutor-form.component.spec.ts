@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { RouterTestingModule } from '@angular/router/testing';
-import { RecipeFormComponent } from './recipe-form.component';
-import { RecipeService } from '../services/recipe.service';
+import { RecipeFormComponent } from './tutor-form.component';
+import { RecipeService } from '../services/tutor.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { Recipe } from '../models/recipe.model';
+import { Recipe } from '../models/tutor.model';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { RecipeListComponent } from '../recipe-list/recipe-list.component';
+import { RecipeListComponent } from '../tutor-list/tutor-list.component';
 
 describe('RecipeFormComponent', () => {
   let component: RecipeFormComponent;

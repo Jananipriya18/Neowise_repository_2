@@ -1,4 +1,4 @@
-import { Recipe } from '../models/recipe.model';
+import { Recipe } from './tutor.model';
 
 describe('Recipe', () => {
   fit('should_create_recipe_instance', () => {
