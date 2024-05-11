@@ -14,20 +14,20 @@ export class TutorService {
   constructor(private http: HttpClient) { }
 
   addTutor(tutor: Tutor): Observable<Tutor> {
-    return this.http.post<Tutor>(`${this.apiUrl}api/Tutor`, tutor);
+    return this.http.post<Tutor>(`${this.apiUrl}api/Tutoring`, tutor);
   }
 
   getTutors(): Observable<Tutor[]> {
-    return this.http.get<Tutor[]>(`${this.apiUrl}api/Tutor`);
+    return this.http.get<Tutor[]>(`${this.apiUrl}api/Tutoring`);
   }
 
   deleteTutor(tutorId: number): Observable<void> {
-    const url = `${this.apiUrl}api/Tutor/${tutorId}`; // Adjust the URL to match your API endpoint
+    const url = `${this.apiUrl}api/Tutoring/${tutorId}`; // Adjust the URL to match your API endpoint
     return this.http.delete<void>(url);
   }
 
   getTutor(tutorId: number): Observable<Tutor> {
-    const url = `${this.apiUrl}api/Tutor/${tutorId}`;
+    const url = `${this.apiUrl}api/Tutoring/${tutorId}`;
     return this.http.get<Tutor>(url);
   }
 }
