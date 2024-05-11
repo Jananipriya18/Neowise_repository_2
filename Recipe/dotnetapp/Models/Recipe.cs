@@ -6,7 +6,7 @@ namespace dotnetapp.Models
     public class Recipe
     {
         [Key]
-        public int recipeId { get; set; }
+        public int tutorId { get; set; }
 
         [Required(ErrorMessage = "Recipe name is required")]
         public string name { get; set; }

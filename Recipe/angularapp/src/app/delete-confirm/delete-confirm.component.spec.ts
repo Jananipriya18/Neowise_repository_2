@@ -49,16 +49,16 @@ describe('DeleteConfirmComponent', () => {
     // });
 
     fit('DeleteConfirmComponent_should_call_deleteRecipe_method_when_confirmDelete_is_called', () => {
-        const recipeId = 1;
+        const tutorId = 1;
         
         // Spy on the deleteRecipe method of the RecipeService
         mockRecipeService.deleteRecipe.and.returnValue(of(null));
 
         // Call the confirmDelete method
-        component.confirmDelete(recipeId);
+        component.confirmDelete(tutorId);
 
-        // Expect the deleteRecipe method to have been called with the recipeId
-        expect(mockRecipeService.deleteRecipe).toHaveBeenCalledWith(recipeId);
+        // Expect the deleteRecipe method to have been called with the tutorId
+        expect(mockRecipeService.deleteRecipe).toHaveBeenCalledWith(tutorId);
     });
 });
 

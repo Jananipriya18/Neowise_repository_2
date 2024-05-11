@@ -84,7 +84,7 @@ describe('RecipeListComponent', () => {
     });
 
     // fit('should_add_a_recipe_to_the_database', () => {
-    //     const newRecipe: Recipe = { recipeId: 1, name: 'New Recipe', description: 'Description', ingredients: 'Ingredients', instructions: 'Instructions', author: 'Author' };
+    //     const newRecipe: Recipe = { tutorId: 1, name: 'New Recipe', description: 'Description', ingredients: 'Ingredients', instructions: 'Instructions', author: 'Author' };
     //     const initialDatabaseLength = 0; // Assuming there are initially 2 recipes in the database
     
     //     mockRecipeService.addRecipe.and.returnValue(of()); // Mock addRecipe method to return a successful response

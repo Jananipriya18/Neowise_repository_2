@@ -21,13 +21,13 @@ export class RecipeService {
     return this.http.get<Recipe[]>(`${this.apiUrl}api/Recipe`);
   }
 
-  deleteRecipe(recipeId: number): Observable<void> {
-    const url = `${this.apiUrl}api/Recipe/${recipeId}`; // Adjust the URL to match your API endpoint
+  deleteRecipe(tutorId: number): Observable<void> {
+    const url = `${this.apiUrl}api/Recipe/${tutorId}`; // Adjust the URL to match your API endpoint
     return this.http.delete<void>(url);
   }
 
-  getRecipe(recipeId: number): Observable<Recipe> {
-    const url = `${this.apiUrl}api/Recipe/${recipeId}`;
+  getRecipe(tutorId: number): Observable<Recipe> {
+    const url = `${this.apiUrl}api/Recipe/${tutorId}`;
     return this.http.get<Recipe>(url);
   }
 }

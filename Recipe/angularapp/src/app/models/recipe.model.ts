@@ -1,6 +1,6 @@
 // src/app/models/recipe.model.ts
 export interface Recipe {
-    recipeId: number;
+    tutorId: number;
     name: string;
     description: string;
     ingredients: string;

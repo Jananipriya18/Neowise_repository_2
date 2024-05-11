@@ -9,7 +9,7 @@ import { Recipe } from '../models/recipe.model'; // Import Recipe interface
   styleUrls: ['./delete-confirm.component.css']
 })
 export class DeleteConfirmComponent implements OnInit {
-  recipeId: number;
+  tutorId: number;
   recipe: Recipe; // Initialize recipe property with an empty object
 
   constructor(
@@ -20,8 +20,8 @@ export class DeleteConfirmComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.recipeId = +params['id'];
-      this.recipeService.getRecipe(this.recipeId).subscribe(
+      this.tutorId = +params['id'];
+      this.recipeService.getRecipe(this.tutorId).subscribe(
         (recipe: Recipe) => {
           this.recipe = recipe;
         },
@@ -32,8 +32,8 @@ export class DeleteConfirmComponent implements OnInit {
     });
   }
 
-  confirmDelete(recipeId: number): void {
-    this.recipeService.deleteRecipe(recipeId).subscribe(
+  confirmDelete(tutorId: number): void {
+    this.recipeService.deleteRecipe(tutorId).subscribe(
       () => {
         console.log('Recipe deleted successfully.');
         this.router.navigate(['/viewRecipes']);

@@ -35,7 +35,7 @@
 
 //   fit('RecipeService_should_add_a_recipe_and_return_it', () => {
 //     const mockRecipe: Recipe = {
-//       recipeId: 1,
+//       tutorId: 1,
 //       name: 'Test Recipe',
 //       description: 'Test Description',
 //       ingredients: 'Test Ingredients',
@@ -55,7 +55,7 @@
 //   fit('RecipeService_should_get_recipes', () => {
 //     const mockRecipes: Recipe[] = [
 //       {
-//         recipeId: 1,
+//         tutorId: 1,
 //         name: 'Test Recipe 1',
 //         description: 'Test Description',
 //         ingredients: 'Test Ingredients',
@@ -105,7 +105,7 @@ describe('RecipeService', () => {
 
   fit('RecipeService_should_add_a_recipe_and_return_it', () => {
     const mockRecipe: Recipe = {
-      recipeId: 100,
+      tutorId: 100,
       name: 'Test Recipe',
       description: 'Test Description',
       ingredients: 'Test Ingredients',
@@ -125,7 +125,7 @@ describe('RecipeService', () => {
   fit('RecipeService_should_get_recipes', () => {
     const mockRecipes: Recipe[] = [
       {
-        recipeId: 100,
+        tutorId: 100,
         name: 'Test Recipe 1',
         description: 'Test Description',
         ingredients: 'Test Ingredients',
@@ -144,21 +144,21 @@ describe('RecipeService', () => {
   });
 
   fit('RecipeService_should_delete_recipe', () => {
-    const recipeId = 100;
+    const tutorId = 100;
 
-    service.deleteRecipe(recipeId).subscribe(() => {
+    service.deleteRecipe(tutorId).subscribe(() => {
       expect().nothing();
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe/${recipeId}`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe/${tutorId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush({});
   });
 
   fit('RecipeService_should_get_recipe_by_id', () => {
-    const recipeId = 100;
+    const tutorId = 100;
     const mockRecipe: Recipe = {
-      recipeId: recipeId,
+      tutorId: tutorId,
       name: 'Test Recipe',
       description: 'Test Description',
       ingredients: 'Test Ingredients',
@@ -166,11 +166,11 @@ describe('RecipeService', () => {
       author: 'Test Author'
     };
 
-    service.getRecipe(recipeId).subscribe((recipe) => {
+    service.getRecipe(tutorId).subscribe((recipe) => {
       expect(recipe).toEqual(mockRecipe);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe/${recipeId}`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe/${tutorId}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockRecipe);
   });

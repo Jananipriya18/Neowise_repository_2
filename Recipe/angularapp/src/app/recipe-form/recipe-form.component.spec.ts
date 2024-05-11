@@ -47,7 +47,7 @@ describe('RecipeFormComponent', () => {
   fit('should_show_error_messages_for_required_fields_on_submit', fakeAsync(() => {
     // Mock new recipe data
     component.newRecipe = {
-        recipeId: 1,
+        tutorId: 1,
         name: '',
         description: '',
         ingredients: '',
@@ -90,7 +90,7 @@ describe('RecipeFormComponent', () => {
 
     // Fill all fields
     component.newRecipe = {
-      recipeId: null, // or omit this line if recipeId is auto-generated
+      tutorId: null, // or omit this line if tutorId is auto-generated
       name: 'Test Name',
       description: 'Test Description',
       ingredients: 'Test Ingredients',
@@ -113,7 +113,7 @@ describe('RecipeFormComponent', () => {
   fit('should_call_add_recipe_method_while_adding_the_recipe', () => {
     // Create a mock Recipe object with all required properties
     const recipe: Recipe = { 
-      recipeId: 1, 
+      tutorId: 1, 
       name: 'Test Recipe', 
       description: 'Test Recipe Description', 
       ingredients: 'Ingredient 2', 

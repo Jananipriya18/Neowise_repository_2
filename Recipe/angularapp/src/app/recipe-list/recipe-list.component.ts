@@ -23,9 +23,9 @@ export class RecipeListComponent implements OnInit {
     this.recipeService.getRecipes().subscribe(recipes => this.recipes = recipes);
   }
 
-  Delete(recipeId: number): void {
+  Delete(tutorId: number): void {
     // Navigate to confirm delete page with the recipe ID as a parameter
-    this.router.navigate(['/confirmDelete', recipeId]);
+    this.router.navigate(['/confirmDelete', tutorId]);
   }
 }
 

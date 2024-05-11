@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 export class RecipeFormComponent {
   newRecipe: Recipe = {
-    recipeId: 0,
+    tutorId: 0,
     name: '',
     description: '',
     ingredients: '',
