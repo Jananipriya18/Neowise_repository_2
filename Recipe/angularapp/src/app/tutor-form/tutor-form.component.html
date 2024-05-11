@@ -1,4 +1,4 @@
-   <form (submit)="addTutor()">
+<form (submit)="addTutor()">
     <div>
         <label for="name">Name:</label>
         <input type="text" id="name" [(ngModel)]="newTutor.name" name="name" required>
@@ -6,17 +6,17 @@
     </div>
     <div>
         <label for="email">Email:</label>
-        <textarea id="email" [(ngModel)]="newTutor.email" name="email" required></textarea>
+        <input type="email" id="email" [(ngModel)]="newTutor.email" name="email" required>
         <div *ngIf="isFieldInvalid('email')" class="error-message">Email is required</div>
     </div>
     <div>
         <label for="subjectsOffered">Subjects Offered:</label>
-        <textarea id="subjectsOffered" [(ngModel)]="newTutor.subjectsOffered" name="subjectsOffered" required></textarea>
+        <input type="text" id="subjectsOffered" [(ngModel)]="newTutor.subjectsOffered" name="subjectsOffered" required>
         <div *ngIf="isFieldInvalid('subjectsOffered')" class="error-message">Subjects Offered are required</div>
     </div>
     <div>
         <label for="contactNumber">Contact Number:</label>
-        <textarea id="contactNumber" [(ngModel)]="newTutor.contactNumber" name="contactNumber" required></textarea>
+        <input type="tel" id="contactNumber" [(ngModel)]="newTutor.contactNumber" name="contactNumber" required>
         <div *ngIf="isFieldInvalid('contactNumber')" class="error-message">Contact Number is required</div>
     </div>
     <div>

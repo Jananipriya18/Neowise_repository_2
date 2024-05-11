@@ -1,33 +1,33 @@
-// src/app/services/recipe.service.ts
+// src/app/services/tutor.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Recipe } from '../models/tutor.model';
+import { Tutor } from '../models/tutor.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeService {
-  private apiUrl = 'https://8080-bfdeeddcedfa312011766dbabbecfebfefftwo.premiumproject.examly.io/'; // Replace this with your API endpoint
+export class TutorService {
+  private apiUrl = 'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/'; // Replace this with your API endpoint
 
   constructor(private http: HttpClient) { }
 
-  addRecipe(recipe: Recipe): Observable<Recipe> {
-    return this.http.post<Recipe>(`${this.apiUrl}api/Recipe`, recipe);
+  addTutor(tutor: Tutor): Observable<Tutor> {
+    return this.http.post<Tutor>(`${this.apiUrl}api/Tutor`, tutor);
   }
 
-  getRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(`${this.apiUrl}api/Recipe`);
+  getTutors(): Observable<Tutor[]> {
+    return this.http.get<Tutor[]>(`${this.apiUrl}api/Tutor`);
   }
 
-  deleteRecipe(tutorId: number): Observable<void> {
-    const url = `${this.apiUrl}api/Recipe/${tutorId}`; // Adjust the URL to match your API endpoint
+  deleteTutor(tutorId: number): Observable<void> {
+    const url = `${this.apiUrl}api/Tutor/${tutorId}`; // Adjust the URL to match your API endpoint
     return this.http.delete<void>(url);
   }
 
-  getRecipe(tutorId: number): Observable<Recipe> {
-    const url = `${this.apiUrl}api/Recipe/${tutorId}`;
-    return this.http.get<Recipe>(url);
+  getTutor(tutorId: number): Observable<Tutor> {
+    const url = `${this.apiUrl}api/Tutor/${tutorId}`;
+    return this.http.get<Tutor>(url);
   }
 }
