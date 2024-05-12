@@ -39,7 +39,7 @@ describe('TutorService', () => {
       expect(tutor).toEqual(mockTutor);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutor`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutoring`);
     expect(req.request.method).toBe('POST');
     req.flush(mockTutor);
   });
@@ -60,7 +60,7 @@ describe('TutorService', () => {
       expect(Tutors).toEqual(mockTutors);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutor`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutoring`);
     expect(req.request.method).toBe('GET');
     req.flush(mockTutors);
   });
@@ -72,7 +72,7 @@ describe('TutorService', () => {
       expect().nothing();
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutor/${tutorId}`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutoring/${tutorId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush({});
   });
@@ -92,7 +92,7 @@ describe('TutorService', () => {
       expect(tutor).toEqual(mockTutor);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutor/${tutorId}`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Tutoring/${tutorId}`);
     expect(req.request.method).toBe('GET');
     req.flush(mockTutor);
   });
