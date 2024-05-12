@@ -68,8 +68,8 @@ describe('TutorFormComponent', () => {
     // Check error messages content
     expect(errorMessages[0].nativeElement.textContent).toContain('Name is required');
     expect(errorMessages[1].nativeElement.textContent).toContain('Email is required');
-    expect(errorMessages[2].nativeElement.textContent).toContain('SubjectsOffered are required');
-    expect(errorMessages[3].nativeElement.textContent).toContain('ContactNumber are required');
+    expect(errorMessages[2].nativeElement.textContent).toContain('Subjects Offered are required');
+    expect(errorMessages[3].nativeElement.textContent).toContain('Contact Number is required');
     expect(errorMessages[4].nativeElement.textContent).toContain('Availability is required');
 }));
 
