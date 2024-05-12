@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
+import { DeleteConfirmComponent } from './delete-confirm.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { TutorService } from './services/tutor.service'; // Import TutorService
-import { Tutor } from './models/tutor.model';
+import { TutorService } from '../services/tutor.service';
+import { Tutor } from '../models/tutor.model'
 
 describe('DeleteConfirmComponent', () => {
     let component: DeleteConfirmComponent;
