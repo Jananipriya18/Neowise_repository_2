@@ -1,0 +1,92 @@
+[
+  {
+    "testcases": [
+      {
+        "name": "Tutors_table_rows_exist",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "CreateTutor_form_exists_and_input_fields_present_in_Create_Tutor",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "Tutor_table_header_content",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "Verify_Navigation_to_ConfirmDelete_Page_and_Details",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "Verify_required_validation_on_Add_Tutor_button",
+        "weightage": 0.0090909090909091
+      }
+    ],
+    "testcase_path": "/home/coder/project/workspace/puppeteer",
+    "evaluation_type": "Puppeteer",
+    "testcase_run_command": "node /home/coder/project/workspace/puppeteer/test.js"
+  },
+  {
+    "testcases": [
+      {
+        "name": "should_create_TutorFormComponent",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "TutorFormComponent_should_render_error_messages_when_required_fields_are_empty_on_submit",
+        "weightage": 0.1
+      },
+      {
+        "name": "TutorFormComponent_should_call_add_tutor_method_while_adding_the_tutor",
+        "weightage": 0.1
+      },
+      {
+        "name": "should_create_tutor_listComponent",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "tutor_listComponent_should_call_loadTutors_on_ngOnInit",
+        "weightage": 0.1
+      },
+      {
+        "name": "Models_should_create_tutor_instance",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "should_create_DeleteConfirmComponent",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "DeleteConfirmComponent_should_call_deleteTutor_method_when_confirmDelete_is_called",
+        "weightage": 0.15
+      },
+      {
+        "name": "should_create_HeaderComponent",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "TutorService_should_be_created",
+        "weightage": 0.0090909090909091
+      },
+      {
+        "name": "TutorService_should_add_a_tutor_and_return_it",
+        "weightage": 0.1
+      },
+      {
+        "name": "TutorService_should_get_tutors",
+        "weightage": 0.1
+      },
+      {
+        "name": "TutorService_should_delete_tutor",
+        "weightage": 0.15
+      },
+      {
+        "name": "TutorService_should_get_tutor_by_id",
+        "weightage": 0.1
+      }
+    ],
+    "testcase_path": "/home/coder/project/workspace/karma",
+    "evaluation_type": "Karma",
+    "testcase_run_command": "sh /home/coder/project/workspace/karma/karma.sh"
+  }
+]
