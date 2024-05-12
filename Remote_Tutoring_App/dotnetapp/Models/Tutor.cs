@@ -17,7 +17,7 @@ namespace dotnetapp.Models
         public string subjectsOffered { get; set; }
 
         [Required(ErrorMessage = "ContactNumber are required")]
-        public string c { get; set; }
+        public string contactNumber { get; set; }
 
         public string availability { get; set; }
 
