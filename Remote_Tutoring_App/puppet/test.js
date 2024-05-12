@@ -41,7 +41,7 @@ try {
   // Test Case: Check if form exists and specific input fields are present
   const formExists = await page2.evaluate(() => {
     const form = document.querySelector('form');
-    const inputFields = ['name', 'description' , 'ingredients', 'instructions', 'author'];
+    const inputFields = ['name', 'email' , 'subjectsOffered', 'contactNumber', 'availability'];
     const formHasInputFields = inputFields.every(field => !!form.querySelector(`[name="${field}"]`));
     return !!form && formHasInputFields;
   });
@@ -71,7 +71,7 @@ try {
     return thElements.map(th => th.textContent.trim());
   });
 
-  const expectedHeaders = ['Name', 'Description', 'Ingredients', 'Instructions', 'Author'];
+  const expectedHeaders = ['Name', 'Email', 'Subjects Offered', 'Contact Number', 'Availability'];
 
   const headerMatch = expectedHeaders.every(header => tableHeaderContent.includes(header));
 
@@ -120,10 +120,10 @@ try {
   
   // Wait for the form elements to load
   await page5.waitForSelector('#name');
-  await page5.waitForSelector('#description');
-  await page5.waitForSelector('#ingredients');
-  await page5.waitForSelector('#instructions');
-  await page5.waitForSelector('#author');
+  await page5.waitForSelector('#email');
+  await page5.waitForSelector('#subjectsOffered');
+  await page5.waitForSelector('#contactNumber');
+  await page5.waitForSelector('#availability');
   await page5.waitForSelector('button[type="submit"]');
 
   // Click the Add Tutor button without entering any data
@@ -135,10 +135,10 @@ try {
   // Define an array of field names and their corresponding error messages
   const fieldsToCheck = [
     { id: '#name', message: 'Name is required' },
-    { id: '#description', message: 'Description is required' },
-    { id: '#ingredients', message: 'Ingredients are required' },
-    { id: '#instructions', message: 'Instructions are required' },
-    { id: '#author', message: 'Author is required' }
+    { id: '#email', message: 'Email is required' },
+    { id: '#subjectsOffered', message: 'Subjects Offered are required' },
+    { id: '#contactNumber', message: 'Contact Number is required' },
+    { id: '#availability', message: 'Availability is required' }
   ];
 
   let isValidationFailed = false;
