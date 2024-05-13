@@ -65,7 +65,7 @@ describe('TutorService', () => {
     req.flush(mockTutors);
   });
 
-  fit('TutorService_should_delete_Tutor', () => {
+  fit('TutorService_should_delete_tutor', () => {
     const tutorId = 100;
 
     service.deleteTutor(tutorId).subscribe(() => {
@@ -77,7 +77,7 @@ describe('TutorService', () => {
     req.flush({});
   });
 
-  fit('TutorService_should_get_Tutor_by_id', () => {
+  fit('TutorService_should_get_tutor_by_id', () => {
     const tutorId = 100;
     const mockTutor: Tutor = {
       tutorId: tutorId,

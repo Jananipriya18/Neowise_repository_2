@@ -1,7 +1,7 @@
 import { Tutor } from './tutor.model';
 
 describe('Tutor', () => {
-  fit('should_create_tutor_instance', () => {
+  fit('Models_should_create_tutor_instance', () => {
     const tutor: Tutor = {
       tutorId: 1,
       name: 'Test Tutor',

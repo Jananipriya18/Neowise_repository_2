@@ -15,7 +15,7 @@ then
         cp /home/coder/project/workspace/karma/tutor-form.component.spec.ts /home/coder/project/workspace/angularapp/src/app/tutor-form/tutor-form.component.spec.ts;
     else
         echo "should_create_TutorFormComponent FAILED";
-	echo "TutorFormComponent_should_render_error_messages_when_required_fields_are_empty_on_submit FAILED";
+	    echo "TutorFormComponent_should_render_error_messages_when_required_fields_are_empty_on_submit FAILED";
         echo "TutorFormComponent_should_call_add_tutor_method_while_adding_the_tutor FAILED";
     fi
 
