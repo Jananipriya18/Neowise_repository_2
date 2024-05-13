@@ -52,8 +52,8 @@ describe('RecipeFormComponent', () => {
     name: '',
     email: '',
     subjectsOffered: '',
-    instructions: '',
-    author: ''
+    contactNumber: '',
+    availability: ''
   } as any;
  
   // Manually trigger form submission
@@ -73,8 +73,8 @@ describe('RecipeFormComponent', () => {
   expect(fixture.debugElement.query(By.css('#name + .error-message'))).toBeTruthy();
   expect(fixture.debugElement.query(By.css('#email + .error-message'))).toBeTruthy();
   expect(fixture.debugElement.query(By.css('#subjectsOffered + .error-message'))).toBeTruthy();
-  expect(fixture.debugElement.query(By.css('#instructions + .error-message'))).toBeTruthy();
-  expect(fixture.debugElement.query(By.css('#author + .error-message'))).toBeTruthy();
+  expect(fixture.debugElement.query(By.css('#contactNumber + .error-message'))).toBeTruthy();
+  expect(fixture.debugElement.query(By.css('#availability + .error-message'))).toBeTruthy();
 });
  
   fit('RecipeFormComponent_should_call_add_recipe_method_while_adding_the_recipe', () => {
@@ -84,12 +84,12 @@ describe('RecipeFormComponent', () => {
       name: 'Test Recipe', 
       email: 'Test Recipe Email', 
       subjectsOffered: ' Test subjects Offered', 
-      instructions: 'Test Recipe Instructions', 
-      author: 'Test Author'
+      contactNumber: 'Test Contact Number', 
+      availability: 'Test Availability'
     } as any;
-    const addRecipeSpy = spyOn(component, 'addRecipe').and.callThrough();
-    component.addRecipe();
-    expect(addRecipeSpy).toHaveBeenCalled();
+    const addRecipeSpy = spyOn(component, 'addTutor').and.callThrough();
+    component.addTutor();
+    expect(addTutorSpy).toHaveBeenCalled();
   });
 });
  
