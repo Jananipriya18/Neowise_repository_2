@@ -182,23 +182,6 @@ then
         echo "Frontend_should_contain_leave_requests_heading_in_the_myleave_component FAILED";
     fi
 
-    # checking for usernav.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/usernav" ]
-    then
-        cp /home/coder/project/workspace/karma/usernav.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/usernav/usernav.component.spec.ts;
-    else
-        echo "Frontend_should_create_usernav_component FAILED";
-    fi
-
-    # checking for userviewfeedback.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/userviewfeedback" ]
-    then
-        cp /home/coder/project/workspace/karma/userviewfeedback.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/userviewfeedback/userviewfeedback.component.spec.ts;
-    else
-        echo "Frontend_should_create_userviewfeedback_component FAILED";
-        echo "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component FAILED";
-    fi
-
     # checking for mywfh.component.spec.ts component
     if [ -d "/home/coder/project/workspace/angularapp/src/app/components/mywfh" ]
     then
@@ -233,7 +216,6 @@ then
         npm test
     fi 
 else   
-    echo "Frontend_should_create_usernav_component FAILED";
     echo "Frontend_should_create_userviewfeedback_component FAILED";
     echo "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component FAILED";
     echo "Frontend_should_create_adminnav_component FAILED";
@@ -265,7 +247,6 @@ else
     echo "Frontend_should_create_myleave_component FAILED";
     echo "Frontend_should_contain_leave_requests_heading_in_the_myleave_component FAILED";
     echo "Frontend_should_create_usernav_component FAILED";
-    echo "Frontend_should_create_userviewfeedback_component FAILED";
     echo "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component FAILED";
     echo "Frontend_should_create_mywfh_component FAILED";
     echo "Frontend_should_contain_wfh_requests_heading_in_the_mywfh_component FAILED";

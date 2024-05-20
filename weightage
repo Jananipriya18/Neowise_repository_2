@@ -126,17 +126,17 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_usernav_component",
+        "name": "Frontend_should_create_addleave_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_userviewfeedback_component",
+        "name": "Frontend_should_create_addwfh_component",
         "weightage": 0.002857143
       },
-      // {
-      //   "name": "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component",
-      //   "weightage": 0.002857143
-      // },
+      {
+        "name": "Frontend_should_contain_wfh_requests_heading_in_the_mywfh_component",
+        "weightage": 0.002857143
+      },
       {
         "name": "Frontend_should_create_mywfh_component",
         "weightage": 0.002857143
@@ -194,7 +194,7 @@
       },
       {
         "name": "Backend_Test_Delete_Method_Feedback_In_Feeback_Service_Deletes_Successfully",
-        "weightage": 0.05
+        "weightage": 0.1
       },
       {
         "name": "Backend_Test_Get_Method_GetAllLeaveRequests_In_LeaveService_Returns_All_LeaveRequests",
@@ -202,7 +202,7 @@
       },
       {
         "name": "Backend_Test_Post_Method_AddWfhRequest_In_WfhService_Occurs_WfhException_For_Overlapping_Request",
-        "weightage": 0.1
+        "weightage": 0.05
       }
     ],
     "testcase_path": "/home/coder/project/workspace/nunit",
