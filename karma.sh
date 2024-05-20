@@ -15,25 +15,25 @@ then
     then
         cp /home/coder/project/workspace/karma/usernav.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/usernav/usernav.component.spec.ts;
     else
-        echo "Frontend_should_create_admineditloan_component FAILED";
-        echo "Frontend_should_contain_edit_loan_heading_in_the_admineditloan_component FAILED";
+        echo "Frontend_should_create_usernav_component FAILED";
     fi
 
-    # checking for adminnav.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/adminnav" ]
+    # checking for userviewfeedback.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/userviewfeedback" ]
     then
-        cp /home/coder/project/workspace/karma/adminnav.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/adminnav/adminnav.component.spec.ts;
+        cp /home/coder/project/workspace/karma/userviewfeedback.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/userviewfeedback/userviewfeedback.component.spec.ts;
     else
-        echo "Frontend_should_create_adminnav_component FAILED";
+        echo "Frontend_should_create_userviewfeedback_component FAILED";
+        echo "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component FAILED";
     fi
 
-    # checking for adminviewfeedback.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/adminviewfeedback" ]
+    # checking for viewemployees.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/viewemployees" ]
     then
-        cp /home/coder/project/workspace/karma/adminviewfeedback.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/adminviewfeedback/adminviewfeedback.component.spec.ts;
+        cp /home/coder/project/workspace/karma/viewemployees.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/viewemployees/viewemployees.component.spec.ts;
     else
-        echo "Frontend_should_create_adminviewfeedback_component FAILED";
-        echo "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component FAILED";
+        echo "Frontend_should_create_viewemployees_component FAILED";
+        echo "Frontend_should_contain_view_employees_heading_in_the_viewemployees_component FAILED";
     fi
 
     # checking for auth.service.spec.ts component
@@ -52,13 +52,13 @@ then
         echo "Frontend_should_create_leave_service FAILED";
     fi
 
-    # checking for createloan.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/createloan" ]
+    # checking for viewleave.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/viewleave" ]
     then
-        cp /home/coder/project/workspace/karma/createloan.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/createloan/createloan.component.spec.ts;
+        cp /home/coder/project/workspace/karma/viewleave.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/viewleave/viewleave.component.spec.ts;
     else
-        echo "Frontend_should_create_createloan_component FAILED";
-        echo "Frontend_should_contain_create_new_loan_heading_in_the_createloan_component FAILED";
+        echo "Frontend_should_create_viewleave_component FAILED";
+        echo "Frontend_should_contain_leave_requests_for_approval_heading_in_the_viewleave_component FAILED";
     fi
 
     # checking for error.component.spec.ts component
@@ -78,6 +78,14 @@ then
         echo "Frontend_should_create_employee_service FAILED";
     fi
 
+     # checking for wfh.service.spec.ts component
+    if [ -e "/home/coder/project/workspace/angularapp/src/app/services/wfh.service.ts" ]
+    then
+        cp /home/coder/project/workspace/karma/wfh.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/wfh.service.spec.ts;
+    else
+        echo "Frontend_should_create_wfh_service FAILED";
+    fi
+
     # checking for home.component.spec.ts component
     if [ -d "/home/coder/project/workspace/angularapp/src/app/components/home" ]
     then
@@ -95,13 +103,13 @@ then
         echo "Frontend_should_create_feedback_service FAILED";
     fi
 
-    # checking for loanform.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/loanform" ]
+    # checking for viewwfh.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/viewwfh" ]
     then
-        cp /home/coder/project/workspace/karma/loanform.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/loanform/loanform.component.spec.ts;
+        cp /home/coder/project/workspace/karma/viewwfh.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/viewwfh/viewwfh.component.spec.ts;
     else
-        echo "Frontend_should_create_loanform_component FAILED";
-        echo "Frontend_should_contain_loan_application_form_heading_in_the_loanform_component FAILED";
+        echo "Frontend_should_create_viewwfh_component FAILED";
+        echo "Frontend_should_contain_wfh_requests_for_approval_heading_in_the_viewwfh_component FAILED";
     fi
 
     # checking for login.component.spec.ts component
@@ -131,13 +139,13 @@ then
         echo "Frontend_should_contain_registration_heading_in_the_registration_component FAILED";
     fi
 
-    # checking for requestedloan.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/requestedloan" ]
+    # checking for adminviewfeedback.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/adminviewfeedback" ]
     then
-        cp /home/coder/project/workspace/karma/requestedloan.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/requestedloan/requestedloan.component.spec.ts;
+        cp /home/coder/project/workspace/karma/adminviewfeedback.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/adminviewfeedback/adminviewfeedback.component.spec.ts;
     else
-        echo "Frontend_should_create_requestedloan_component FAILED";
-        echo "Frontend_should_contain_loan_requests_for_approval_heading_in_the_requestedloan_component FAILED";
+        echo "Frontend_should_create_adminviewfeedback_component FAILED";
+        echo "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component FAILED";
     fi
 
     # checking for useraddfeedback.component.spec.ts component
