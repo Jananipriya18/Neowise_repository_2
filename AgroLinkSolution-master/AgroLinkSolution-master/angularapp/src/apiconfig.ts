@@ -1,1 +1,1 @@
-export const apiUrl = 'https://localhost:8000';
+export const apiUrl = 'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
