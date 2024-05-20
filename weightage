@@ -184,10 +184,6 @@
         "name": "Backend_Test_Get_Method_GetAllWfhRequests_In_WfhService_Returns_All_WfhRequests",
         "weightage": 0.083333333
       },
-      // {
-      //   "name": "Backend_Test_Put_Method_Update_In_LoanApplication_Service_Updates_Successfully",
-      //   "weightage": 0.05
-      // },
       {
         "name": "Backend_Test_Get_Method_GetFeedbacksByUserId_In_Feedback_Service_Fetches_Successfully",
         "weightage": 0.1
