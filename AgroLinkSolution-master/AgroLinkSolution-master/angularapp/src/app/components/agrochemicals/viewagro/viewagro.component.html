@@ -1,0 +1,65 @@
+
+
+<div>
+    <div id="loanHomeBody">
+      <h1>Available AgroChemicals</h1>
+      <hr>
+  
+      <!-- Search Box -->
+      <div class="top-container">
+        <input
+          id="searchBox"
+          type="text"
+          placeholder="Search..."
+          [(ngModel)]="searchField"
+          (ngModelChange)="handleSearchChange($event)"
+        />
+  
+      </div>
+  
+      <!-- Available Loans Table -->
+      <table class="loan-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Brand</th>
+            <th>Category</th>
+            <th>SuitableCrop</th>
+            <th>Quantity</th>
+            <th>PricePerUnit</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="filteredagro.length; else noRecords">
+            <tr *ngFor="let agro of filteredagro,let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ agro.Name }}</td>
+              <td>{{ agro.Brand }}</td>
+              <td>{{ agro.SuitableCrop }}%</td>
+              <td>{{ agro.Quantity }}</td>
+              <td>{{ agro.PricePerUnit }}</td>
+              <td>{{ agro.Image }}</td>
+              <td>
+                <!-- <button
+                  id="greenButton"
+                  *ngIf="!isLoanApplied(loan)"
+                  (click)="handleApplyClick(loan)"
+                >
+                  Apply
+                </button> -->
+                <!--   -->
+              </td>
+            </tr>
+          </tbody>
+        <ng-template #noRecords>
+          <tbody>
+            <tr>
+              <td colSpan="6" class="no-records-cell">Oops! No records Found</td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+    </div>
+  </div>
+  
