@@ -2,11 +2,15 @@
   {
     "testcases": [
       {
-        "name": "Frontend_should_create_admineditloan_component",
+        "name": "Frontend_should_create_usernav_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_edit_loan_heading_in_the_admineditloan_component",
+        "name": "Frontend_should_create_userviewfeedback_component",
+        "weightage": 0.002857143
+      },
+      {
+        "name": "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component",
         "weightage": 0.002857143
       },
       {
@@ -14,11 +18,11 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_adminviewfeedback_component",
+        "name": "Frontend_should_create_viewemployees_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component",
+        "name": "Frontend_should_contain_view_employees_heading_in_the_viewemployees_component",
         "weightage": 0.002857143
       },
       {
@@ -26,11 +30,15 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_createloan_component",
+        "name": "Frontend_should_create_leave_service",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_create_new_loan_heading_in_the_createloan_component",
+        "name": "Frontend_should_create_viewleave_component",
+        "weightage": 0.002857143
+      },
+      {
+        "name": "Frontend_should_contain_leave_requests_for_approval_heading_in_the_viewleave_component",
         "weightage": 0.002857143
       },
       {
@@ -42,7 +50,11 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_feedback_service",
+        "name": "Frontend_should_create_employee_service",
+        "weightage": 0.002857143
+      },
+      {
+        "name": "Frontend_should_create_wfh_service",
         "weightage": 0.002857143
       },
       {
@@ -50,19 +62,19 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_vehicle_loan_hub_heading_in_the_home_component",
+        "name": "Frontend_should_contain_workbuddy_heading_in_the_home_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_loan_service",
+        "name": "Frontend_should_create_feedback_service",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_loanform_component",
+        "name": "Frontend_should_create_viewwfh_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_loan_application_form_heading_in_the_loanform_component",
+        "name": "Frontend_should_contain_wfh_requests_for_approval_heading_in_the_viewwfh_component",
         "weightage": 0.002857143
       },
       {
@@ -78,7 +90,7 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_vehicle_loan_hub_heading_in_the_navbar_component",
+        "name": "Frontend_should_contain_work_buddy_heading_in_the_navbar_component",
         "weightage": 0.002857143
       },
       {
@@ -90,11 +102,11 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_requestedloan_component",
+        "name": "Frontend_should_create_adminviewfeedback_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_loan_requests_for_approval_heading_in_the_requestedloan_component",
+        "name": "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component",
         "weightage": 0.002857143
       },
       {
@@ -106,11 +118,11 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_userappliedloan_component",
+        "name": "Frontend_should_create_myleave_component",
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_contain_applied_loans_heading_in_the_userappliedloan_component",
+        "name": "Frontend_should_contain_leave_requests_heading_in_the_myleave_component",
         "weightage": 0.002857143
       },
       {
@@ -126,19 +138,7 @@
         "weightage": 0.002857143
       },
       {
-        "name": "Frontend_should_create_userviewloan_component",
-        "weightage": 0.002857143
-      },
-      {
-        "name": "Frontend_should_contain_available_vehicle_loans_heading_in_the_userviewloan_component",
-        "weightage": 0.002857143
-      },
-      {
-        "name": "Frontend_should_create_viewloan_component",
-        "weightage": 0.002857143
-      },
-      {
-        "name": "Frontend_should_contain_vehicle_loans_heading_in_the_viewloan_component",
+        "name": "Frontend_should_create_mywfh_component",
         "weightage": 0.002857143
       }
     ],
@@ -149,48 +149,48 @@
   {
     "testcases": [
       {
-        "name": "Backend_Test_Post_Method_Register_Admin_Returns_HttpStatusCode_OK",
+        "name": "Backend_Test_Post_Method_Register_Manager_Returns_HttpStatusCode_OK",
         "weightage": 0.0625
       },
       {
-        "name": "Backend_Test_Post_Method_Login_Admin_Returns_HttpStatusCode_OK",
+        "name": "Backend_Test_Post_Method_Login_Manager_Returns_HttpStatusCode_OK",
         "weightage": 0.0625
       },
       {
-        "name": "Backend_Test_Post_Loan_With_Token_By_Admin_Returns_HttpStatusCode_OK",
+        "name": "Backend_Test_Get_All_LeaveRequest_With_Token_By_Manager_Returns_HttpStatusCode_OK",
         "weightage": 0.025
       },
       {
-        "name": "Backend_Test_Post_Loan_Without_Token_By_Admin_Returns_HttpStatusCode_Unauthorized",
+        "name": "Backend_Test_Get_All_LeaveRequest_Without_Token_By_Manager_Returns_HttpStatusCode_Unauthorized",
         "weightage": 0.025
       },
       {
-        "name": "Backend_Test_Get_Method_Get_LoanById_In_Loan_Service_Fetches_Loan_Successfully",
+        "name": "Backend_Test_Get_Method_Get_LeaveRequestById_In_Leave_Service_Fetches_LeaveRequest_Successfully",
         "weightage": 0.083333333
       },
       {
-        "name": "Backend_Test_Put_Method_UpdateLoan_In_Loan_Service_Updates_Loan_Successfully",
+        "name": "Backend_Test_Put_Method_UpdateLeaveRequest_In_Leave_Service_Updates_LeaveRequest_Successfully",
         "weightage": 0.05
       },
       {
-        "name": "Backend_Test_Delete_Method_DeleteLoan_In_Loan_Service_Deletes_Loan_Successfully",
+        "name": "Backend_Test_Delete_Method_DeleteWfhRequest_In_Wfh_Service_Deletes_WfhRequest_Successfully",
         "weightage": 0.05
       },
       {
-        "name": "Backend_Test_Post_Method_AddLoanApplication_In_LoanApplication_Service_Posts_Successfully",
+        "name": "Backend_Test_Get_Method_GetWfhRequestsByUserId_In_Wfh_Service_Fetches_Successfully",
         "weightage": 0.0625
       },
       {
-        "name": "Backend_Test_Get_Method_GetLoanApplicationByUserId_In_LoanApplication_Fetches_Successfully",
+        "name": "Backend_Test_Get_Method_GetAllWfhRequests_In_WfhService_Returns_All_WfhRequests",
         "weightage": 0.083333333
       },
+      // {
+      //   "name": "Backend_Test_Put_Method_Update_In_LoanApplication_Service_Updates_Successfully",
+      //   "weightage": 0.05
+      // },
       {
-        "name": "Backend_Test_Put_Method_Update_In_LoanApplication_Service_Updates_Successfully",
-        "weightage": 0.05
-      },
-      {
-        "name": "Backend_Test_Delete_Method_DeleteLoanApplication_Service_Deletes_LoanApplication_Successfully",
-        "weightage": 0.05
+        "name": "Backend_Test_Get_Method_GetFeedbacksByUserId_In_Feedback_Service_Fetches_Successfully",
+        "weightage": 0.1
       },
       {
         "name": "Backend_Test_Post_Method_AddFeedback_In_Feedback_Service_Posts_Successfully",
@@ -201,11 +201,11 @@
         "weightage": 0.05
       },
       {
-        "name": "Backend_Test_Get_Method_GetFeedbacksByUserId_In_Feedback_Service_Fetches_Successfully",
+        "name": "Backend_Test_Get_Method_GetAllLeaveRequests_In_LeaveService_Returns_All_LeaveRequests",
         "weightage": 0.083333333
       },
       {
-        "name": "Backend_Test_Post_Method_AddLoan_In_LoanService_Occurs_LoanException_For_Duplicate_LoanType",
+        "name": "Backend_Test_Post_Method_AddWfhRequest_In_WfhService_Occurs_WfhException_For_Overlapping_Request",
         "weightage": 0.1
       }
     ],
