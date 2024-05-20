@@ -78,10 +78,10 @@ then
         echo "Frontend_should_contain_wrong_message_in_the_error_component FAILED";
     fi
 
-    # checking for feedback.service.spec.ts component
+    # checking for employee.service.spec.ts component
     if [ -e "/home/coder/project/workspace/angularapp/src/app/services/employee.service.ts" ]
     then
-        cp /home/coder/project/workspace/karma/feedback.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/employee.service.spec.ts;
+        cp /home/coder/project/workspace/karma/employee.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/employee.service.spec.ts;
     else
         echo "Frontend_should_create_employee_service FAILED";
     fi
