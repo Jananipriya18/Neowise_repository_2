@@ -10,10 +10,10 @@ then
     echo "project folder present"
     cp /home/coder/project/workspace/karma/karma.conf.js /home/coder/project/workspace/angularapp/karma.conf.js;
 
-    # checking for admineditloan.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/admineditloan" ]
+    # checking for usernav.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/usernav" ]
     then
-        cp /home/coder/project/workspace/karma/admineditloan.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/admineditloan/admineditloan.component.spec.ts;
+        cp /home/coder/project/workspace/karma/usernav.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/usernav/usernav.component.spec.ts;
     else
         echo "Frontend_should_create_admineditloan_component FAILED";
         echo "Frontend_should_contain_edit_loan_heading_in_the_admineditloan_component FAILED";
@@ -44,6 +44,14 @@ then
         echo "Frontend_should_create_auth_service FAILED";
     fi
 
+    # checking for leave.service.spec.ts component
+    if [ -e "/home/coder/project/workspace/angularapp/src/app/services/leave.service.ts" ]
+    then
+        cp /home/coder/project/workspace/karma/auth.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/leave.service.spec.ts;
+    else
+        echo "Frontend_should_create_leave_service FAILED";
+    fi
+
     # checking for createloan.component.spec.ts component
     if [ -d "/home/coder/project/workspace/angularapp/src/app/components/createloan" ]
     then
@@ -63,11 +71,11 @@ then
     fi
 
     # checking for feedback.service.spec.ts component
-    if [ -e "/home/coder/project/workspace/angularapp/src/app/services/feedback.service.ts" ]
+    if [ -e "/home/coder/project/workspace/angularapp/src/app/services/employee.service.ts" ]
     then
-        cp /home/coder/project/workspace/karma/feedback.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/feedback.service.spec.ts;
+        cp /home/coder/project/workspace/karma/feedback.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/employee.service.spec.ts;
     else
-        echo "Frontend_should_create_feedback_service FAILED";
+        echo "Frontend_should_create_employee_service FAILED";
     fi
 
     # checking for home.component.spec.ts component
@@ -80,11 +88,11 @@ then
     fi
 
     # checking for loan.service.spec.ts component
-    if [ -e "/home/coder/project/workspace/angularapp/src/app/services/loan.service.ts" ]
+    if [ -e "/home/coder/project/workspace/angularapp/src/app/services/feedback.service.ts" ]
     then
-        cp /home/coder/project/workspace/karma/loan.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/loan.service.spec.ts;
+        cp /home/coder/project/workspace/karma/loan.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/feedback.service.spec.ts;
     else
-        echo "Frontend_should_create_loan_service FAILED";
+        echo "Frontend_should_create_feedback_service FAILED";
     fi
 
     # checking for loanform.component.spec.ts component
@@ -201,14 +209,15 @@ else
     echo "Frontend_should_create_adminviewfeedback_component FAILED";
     echo "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component FAILED";
     echo "Frontend_should_create_auth_service FAILED";
+    echo "Frontend_should_create_leave_service FAILED;
     echo "Frontend_should_create_createloan_component FAILED";
     echo "Frontend_should_contain_create_new_loan_heading_in_the_createloan_component FAILED";
     echo "Frontend_should_create_error_component FAILED";
     echo "Frontend_should_contain_wrong_message_in_the_error_component FAILED";
-    echo "Frontend_should_create_feedback_service FAILED";
+    echo "Frontend_should_create_employee_service FAILED";
     echo "Frontend_should_create_home_component FAILED";
     echo "Frontend_should_contain_vehicle_loan_hub_heading_in_the_home_component FAILED";
-    echo "Frontend_should_create_loan_service FAILED";
+    echo "Frontend_should_create_feedback_service FAILED";
     echo "Frontend_should_create_loanform_component FAILED";
     echo "Frontend_should_contain_loan_application_form_heading_in_the_loanform_component FAILED";
     echo "Frontend_should_create_login_component FAILED";
