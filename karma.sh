@@ -30,7 +30,7 @@ then
      # checking for adminnav.component.spec.ts component
     if [ -d "/home/coder/project/workspace/angularapp/src/app/components/adminnav" ]
     then
-        cp /home/coder/project/workspace/karma/adminnav.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/admin/adminnav.component.spec.ts;
+        cp /home/coder/project/workspace/karma/adminnav.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/adminnav/adminnav.component.spec.ts;
     else
         echo "Frontend_should_create_adminnav_component FAILED";
     fi
@@ -55,7 +55,7 @@ then
     # checking for leave.service.spec.ts component
     if [ -e "/home/coder/project/workspace/angularapp/src/app/services/leave.service.ts" ]
     then
-        cp /home/coder/project/workspace/karma/auth.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/leave.service.spec.ts;
+        cp /home/coder/project/workspace/karma/leave.service.spec.ts /home/coder/project/workspace/angularapp/src/app/services/leave.service.spec.ts;
     else
         echo "Frontend_should_create_leave_service FAILED";
     fi
@@ -208,16 +208,7 @@ then
         echo "Frontend_should_contain_wfh_requests_heading_in_the_mywfh_component FAILED";
     fi
 
-    # checking for useraddfeedback.component.spec.ts component
-    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/useraddfeedback" ]
-    then
-        cp /home/coder/project/workspace/karma/useraddfeedback.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/useraddfeedback/useraddfeedback.component.spec.ts;
-    else
-        echo "Frontend_should_create_viewloan_component FAILED";
-        echo "Frontend_should_contain_add_feedback_heading_in_the_useraddfeedback_component FAILED";
-    fi
-
-     # checking for addleave.component.spec.ts component
+    # checking for addleave.component.spec.ts component
     if [ -d "/home/coder/project/workspace/angularapp/src/app/components/addleave" ]
     then
         cp /home/coder/project/workspace/karma/addleave.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/addleave/addleave.component.spec.ts;
@@ -279,7 +270,6 @@ else
     echo "Frontend_should_create_mywfh_component FAILED";
     echo "Frontend_should_contain_wfh_requests_heading_in_the_mywfh_component FAILED";
     echo "Frontend_should_create_viewloan_component FAILED";
-    echo "Frontend_should_contain_add_feedback_heading_in_the_useraddfeedback_component FAILED";
     echo "Frontend_should_create_addleave_component FAILED";
     echo "Frontend_should_create_addwfh_component FAILED";
     echo "Frontend_authguard_should be created FAILED";

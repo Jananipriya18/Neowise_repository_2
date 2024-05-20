@@ -1,0 +1,20 @@
+AddleaveComponent
+    SUCCESS-Frontend_should_create_addleave_component
+
+  AddwfhComponent
+    SUCCESS-Frontend_should_create_addwfh_component
+
+  MyleaveComponent
+    SUCCESS-Frontend_should_create_myleave_component
+    SUCCESS-Frontend_should_contain_leave_requests_heading_in_the_myleave_component
+
+  MywfhComponent
+    SUCCESS-Frontend_should_create_mywfh_component
+    SUCCESS-Frontend_should_contain_wfh_requests_heading_in_the_mywfh_component
+LOG LOG: null
+LOG LOG: null
+
+
+
+
+
