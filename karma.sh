@@ -165,6 +165,14 @@ then
         echo "Frontend_should_contain_add_feedback_heading_in_the_useraddfeedback_component FAILED";
     fi
 
+    # checking for authguard.component.spec.ts component
+    if [ -d "/home/coder/project/workspace/angularapp/src/app/components/authguard" ]
+    then
+        cp /home/coder/project/workspace/karma/authguard.component.spec.ts /home/coder/project/workspace/angularapp/src/app/components/authguard/authguard.component.spec.ts;
+    else
+        echo "Frontend_authguard_should be created FAILED";
+    fi
+
     # checking for myleave.component.spec.ts component
     if [ -d "/home/coder/project/workspace/angularapp/src/app/components/myleave" ]
     then
@@ -234,40 +242,46 @@ then
         npm test
     fi 
 else   
-    echo "Frontend_should_create_admineditloan_component FAILED";
-    echo "Frontend_should_contain_edit_loan_heading_in_the_admineditloan_component FAILED";
-    echo "Frontend_should_create_adminnav_component FAILED";
-    echo "Frontend_should_create_adminviewfeedback_component FAILED";
-    echo "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component FAILED";
-    echo "Frontend_should_create_auth_service FAILED";
-    echo "Frontend_should_create_leave_service FAILED;
-    echo "Frontend_should_create_createloan_component FAILED";
-    echo "Frontend_should_contain_create_new_loan_heading_in_the_createloan_component FAILED";
-    echo "Frontend_should_create_error_component FAILED";
-    echo "Frontend_should_contain_wrong_message_in_the_error_component FAILED";
-    echo "Frontend_should_create_employee_service FAILED";
-    echo "Frontend_should_create_home_component FAILED";
-    echo "Frontend_should_contain_vehicle_loan_hub_heading_in_the_home_component FAILED";
-    echo "Frontend_should_create_feedback_service FAILED";
-    echo "Frontend_should_create_loanform_component FAILED";
-    echo "Frontend_should_contain_loan_application_form_heading_in_the_loanform_component FAILED";
-    echo "Frontend_should_create_login_component FAILED";
-    echo "Frontend_should_contain_login_heading_in_the_login_component FAILED";
-    echo "Frontend_should_create_navbar_component FAILED";
-    echo "Frontend_should_contain_vehicle_loan_hub_heading_in_the_navbar_component FAILED";
-    echo "Frontend_should_create_registration_component FAILED";
-    echo "Frontend_should_contain_registration_heading_in_the_registration_component FAILED";
-    echo "Frontend_should_create_requestedloan_component FAILED";
-    echo "Frontend_should_contain_loan_requests_for_approval_heading_in_the_requestedloan_component FAILED";
-    echo "Frontend_should_create_useraddfeedback_component FAILED";
-    echo "Frontend_should_contain_add_feedback_heading_in_the_useraddfeedback_component FAILED";
-    echo "Frontend_should_create_userappliedloan_component FAILED";
-    echo "Frontend_should_contain_applied_loans_heading_in_the_userappliedloan_component FAILED";
     echo "Frontend_should_create_usernav_component FAILED";
     echo "Frontend_should_create_userviewfeedback_component FAILED";
     echo "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component FAILED";
-    echo "Frontend_should_create_userviewloan_component FAILED";
-    echo "Frontend_should_contain_available_vehicle_loans_heading_in_the_userviewloan_component FAILED";
+    echo "Frontend_should_create_adminnav_component FAILED";
+    echo "Frontend_should_create_viewemployees_component FAILED";
+    echo "Frontend_should_contain_view_employees_heading_in_the_viewemployees_component FAILED";
+    echo "Frontend_should_create_auth_service FAILED";
+    echo "Frontend_should_create_leave_service FAILED";
+    echo "Frontend_should_create_viewleave_component FAILED";
+    echo "Frontend_should_contain_leave_requests_for_approval_heading_in_the_viewleave_component FAILED";
+    echo "Frontend_should_create_error_component FAILED";
+    echo "Frontend_should_contain_wrong_message_in_the_error_component FAILED";
+    echo "Frontend_should_create_employee_service FAILED";
+    echo "Frontend_should_create_wfh_service FAILED";
+    echo "Frontend_should_create_home_component FAILED";
+    echo "Frontend_should_contain_workbuddy_heading_in_the_home_component FAILED";
+    echo "Frontend_should_create_feedback_service FAILED";
+    echo "Frontend_should_create_viewwfh_component FAILED";
+    echo "Frontend_should_contain_wfh_requests_for_approval_heading_in_the_viewwfh_component FAILED";
+    echo "Frontend_should_create_login_component FAILED";
+    echo "Frontend_should_contain_login_heading_in_the_login_component FAILED";
+    echo "Frontend_should_create_navbar_component FAILED";
+    echo "Frontend_should_contain_work_buddy_heading_in_the_navbar_component FAILED";
+    echo "Frontend_should_create_registration_component FAILED";
+    echo "Frontend_should_contain_registration_heading_in_the_registration_component FAILED";
+    echo "Frontend_should_create_adminviewfeedback_component FAILED";
+    echo "Frontend_should_contain_feedback_details_heading_in_the_adminviewfeedback_component FAILED";
+    echo "Frontend_should_create_useraddfeedback_component FAILED";
+    echo "Frontend_should_contain_add_feedback_heading_in_the_useraddfeedback_component FAILED";
+    echo "Frontend_should_create_myleave_component FAILED";
+    echo "Frontend_should_contain_leave_requests_heading_in_the_myleave_component FAILED";
+    echo "Frontend_should_create_usernav_component FAILED";
+    echo "Frontend_should_create_userviewfeedback_component FAILED";
+    echo "Frontend_should_contain_my_feedback_heading_in_the_userviewfeedback_component FAILED";
+    echo "Frontend_should_create_mywfh_component FAILED";
+    echo "Frontend_should_contain_wfh_requests_heading_in_the_mywfh_component FAILED";
     echo "Frontend_should_create_viewloan_component FAILED";
-    echo "Frontend_should_contain_vehicle_loans_heading_in_the_viewloan_component FAILED";
+    echo "Frontend_should_contain_add_feedback_heading_in_the_useraddfeedback_component FAILED";
+    echo "Frontend_should_create_addleave_component FAILED";
+    echo "Frontend_should_create_addwfh_component FAILED";
+    echo "Frontend_authguard_should be created FAILED";
+
 fi
