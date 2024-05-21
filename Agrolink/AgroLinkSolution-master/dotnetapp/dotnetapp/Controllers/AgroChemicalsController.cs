@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetapp.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AgroChemicalsController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace dotnetapp.Controllers
             _agrochemicalService = agrochemicalService;
         }
         //addAgrochemical
-        [HttpPost("addAgrochemical")]
+        [HttpPost]
         public async Task<ActionResult> AddAgrochemical(AgroChemicals agroChemicals)
         {
             try
