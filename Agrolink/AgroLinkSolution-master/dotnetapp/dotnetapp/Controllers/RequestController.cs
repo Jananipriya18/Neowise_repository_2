@@ -31,7 +31,7 @@ namespace dotnetapp.Controllers
             }
         }
         //getRequestByRequestId
-        [HttpGet("getRequestByRequestId/:requestId")]
+        [HttpGet("{requestId}")]
         public async Task<ActionResult<Crop>> GetRequestByRequestId(int requestId)
         {
             var request = await _requestService.GetRequestByRequestId(requestId);
@@ -42,7 +42,7 @@ namespace dotnetapp.Controllers
 
         //addRequest
 
-        [HttpPost("addRequest")]
+        [HttpPost]
         public async Task<ActionResult> AddRequest([FromBody] Request request)
         {
             try
