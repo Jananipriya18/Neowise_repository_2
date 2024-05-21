@@ -1,0 +1,60 @@
+
+<div>
+    <div id="loanHomeBody">
+      <h1>Available Crops</h1>
+      <hr>
+  
+      <!-- Search Box -->
+      <div class="top-container">
+        <input
+          id="searchBox"
+          type="text"
+          placeholder="Search..."
+          [(ngModel)]="searchField"
+          (ngModelChange)="handleSearchChange($event)"
+        />
+  
+      </div>
+  
+      <!-- Available Loans Table -->
+      <table class="loan-table">
+        <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Crop Name</th>
+            <th>Crop Type</th>
+            <th>Description</th>
+            <th>PlantingDate</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="filteredcrops.length; else noRecords">
+            <tr *ngFor="let crop of filteredcrops,let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ crop.CropName }}</td>
+              <td>{{ crop.CropType }}</td>
+              <td>{{ crop.Description }}%</td>
+              <td>{{ crop.PlantingDate }}</td>
+              <td>
+                <!-- <button
+                  id="greenButton"
+                  *ngIf="!isLoanApplied(loan)"
+                  (click)="handleApplyClick(loan)"
+                >
+                  Apply
+                </button> -->
+                <!--   -->
+              </td>
+            </tr>
+          </tbody>
+        <ng-template #noRecords>
+          <tbody>
+            <tr>
+              <td colSpan="6" class="no-records-cell">Oops! No records Found</td>
+            </tr>
+          </tbody>
+        </ng-template>
+      </table>
+    </div>
+  </div>
+  

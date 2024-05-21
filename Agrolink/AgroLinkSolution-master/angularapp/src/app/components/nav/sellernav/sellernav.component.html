@@ -1,0 +1,25 @@
+
+    <ul class="nav-links">
+      <ng-container *ngIf="isLoggedIn">
+        <li *ngIf="isSeller">
+          <a routerLinkActive="active">FarmerRequest</a>
+          <ul class="sub-menu">
+            <li><a routerLink="seller/formerrequest/viewrequest">View Request</a></li>
+            <li><a routerLink="seller/formerrequest/changeStatus">Change Status</a></li>
+          </ul>
+        </li>
+        <li *ngIf="isSeller">
+            <a routerLinkActive="active">AgroChemicals</a>
+            <ul class="sub-menu">
+              <li><a routerLink="/seller/agro/create">Create</a></li>
+              <li><a routerLink="/seller/agro/view">View</a></li>
+              <li><a routerLink="/seller/agro/update">Update</a></li>
+              <li><a routerLink="/seller/agro/delete">Delete</a></li>
+            </ul>
+          </li>
+        <li *ngIf="isSeller"><a routerLink="seller/agro/view">My AgroChemicals</a></li>
+        <li *ngIf="isSeller"><a routerLink="seller/feedback/myfeedback">Feedbacks</a></li>
+      </ng-container>
+    </ul>
+
+  

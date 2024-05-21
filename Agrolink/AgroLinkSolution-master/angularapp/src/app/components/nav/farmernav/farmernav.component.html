@@ -1,0 +1,45 @@
+<!-- Farmer  Navigation -->
+
+<ul class="nav-links">
+    <ng-container *ngIf="isLoggedIn">
+        <li *ngIf="isFarmer">
+
+            <a routerLinkActive="active">Crop</a>
+            <ul class="sub-menu">
+                <li><a routerLink="/farmer/crop/add">Create</a></li>
+                <li><a routerLink="/farmer/crop/view">Views</a></li>
+                <li><a routerLink="/farmer/crop/update">Update</a></li>
+                <li><a routerLink="/farmer/crop/delete">Delkete</a></li>
+            </ul>
+        </li>
+        <li *ngIf="isFarmer">
+            <a routerLinkActive="active">AgroChemicals</a>
+            <ul class="sub-menu">
+                <li><a routerLink="/farmer/agro/view">view</a></li>
+                <li><a routerLink="/farmer/request/create">Apply Request</a></li>
+
+            </ul>
+        </li>
+
+        <li *ngIf="isFarmer">
+            <a routerLinkActive="active">My Request</a>
+            <ul class="sub-menu">
+                <li><a routerLink="/farmer/request/view">View</a></li>
+                <li><a routerLink="/farmer/request/update">Update</a></li>
+                <li><a routerLink="/farmer/request/delete">Delete</a></li>
+
+            </ul>
+        </li>
+        <li *ngIf="isFarmer">
+            <a routerLinkActive="active">Feedbacks</a>
+            <ul class="sub-menu">
+                <li><a routerLink="/farmer/feedback/create">Give Feedback</a></li>
+                <li><a routerLink="/farmer/feedback/myfeedback">View Feedback</a></li>
+            </ul>
+        </li>
+
+
+
+
+    </ng-container>
+</ul>
