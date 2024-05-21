@@ -17,7 +17,7 @@ namespace dotnetapp.Controllers
         }
 
         //getAllRequest
-        [HttpGet("getAllRequest")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Crop>>> GetAllRequest()
         {
             var request = await _requestService.GetAllRequest();
@@ -66,7 +66,7 @@ namespace dotnetapp.Controllers
 
         //updateRequestByRequestId
 
-        [HttpPut("updateRequestByRequestId/:requestId")]
+        [HttpPut("{requestId}")]
         public async Task<ActionResult> UpdateCropByCropId(int requestId, [FromBody] Request request)
         {
             try
@@ -85,7 +85,7 @@ namespace dotnetapp.Controllers
         }
 
         //deleteRequestByRequestId
-        [HttpDelete("deleteRequestByRequestId/:requestId")]
+        [HttpDelete("{requestId}")]
         public async Task<ActionResult> DeleteRequestByRequestId(int requestId)
         {
             try
@@ -102,7 +102,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{userId}")]
         //getRequestByUserId
         public async Task<ActionResult<Crop>> GetRequestByUserId(int userId)
         {

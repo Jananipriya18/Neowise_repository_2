@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetapp.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CropController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace dotnetapp.Controllers
         }
 
         // getAllCrop
-        [HttpGet("GetAllCrop")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Crop>>> GetAllCrop()
         {
             var crops = await _cropService.GetAllCrop();
@@ -30,7 +30,7 @@ namespace dotnetapp.Controllers
             }
         }
         //getCropByCropID
-        [HttpGet("getCropByCropID/:cropId")]
+        [HttpGet("{cropId}")]
         public async Task<ActionResult<Crop>> GetCropByCropID(int cropId)
         {
             var crop = await _cropService.GetGropByCropId(cropId);
@@ -41,7 +41,7 @@ namespace dotnetapp.Controllers
 
         //addCrops
 
-        [HttpPost("addCrop")]
+        [HttpPost]
         public async Task<ActionResult> AddCrop([FromBody] Crop crop)
         {
             try
@@ -65,7 +65,7 @@ namespace dotnetapp.Controllers
 
         // updateCropByCropID
 
-        [HttpPut("updateCropByCropID/:cropId")]
+        [HttpPut("{cropId}")]
         public async Task<ActionResult> UpdateCropByCropId(int cropId, [FromBody] Crop crop)
         {
             try
@@ -84,7 +84,7 @@ namespace dotnetapp.Controllers
         }
 
         //deleteCropByCropID
-        [HttpDelete("deleteCropByCropID/:cropId")]
+        [HttpDelete("{cropId}")]
         public async Task<ActionResult> DeleteCropByCropID(int cropId)
         {
             try

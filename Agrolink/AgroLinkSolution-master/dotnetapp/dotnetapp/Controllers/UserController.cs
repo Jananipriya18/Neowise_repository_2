@@ -69,7 +69,7 @@ namespace dotnetapp.Controllers
             }
         }
 
-        [HttpGet("getAllFormers")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllFormers()
         {
            var formers= await _authService.GetAllFarmers();

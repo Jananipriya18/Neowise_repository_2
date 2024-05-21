@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetapp.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class FeedbackController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace dotnetapp.Controllers
         }
         //getAllFeedbacks
 
-        [HttpGet("getAllFeedbacks")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Crop>>> GetAllFeedbacks()
         {
             var feedbacks = await _feedbackService.GetAllFeedbacks();
@@ -31,7 +31,7 @@ namespace dotnetapp.Controllers
         }
         //getFeedbacksByUserId
 
-        [HttpGet("/getFeedbacksByUserId/:userId")]
+        [HttpGet("{userId}")]
         public async Task<ActionResult<Crop>> GetFeedbacksByUserId(int userID)
         {
             var crop = await _feedbackService.GetFeedbacksByUserId(userID);
@@ -42,7 +42,7 @@ namespace dotnetapp.Controllers
 
 
         //addFeedback
-        [HttpPost("addFeedback")]
+        [HttpPost]
         public async Task<ActionResult> AddFeedback([FromBody] Feedback feedback)
         {
             try

@@ -40,7 +40,7 @@ namespace dotnetapp.Controllers
         }
        
         //getAgrochemicalByAgrochemicalID
-        [HttpGet("getAgrochemicalByAgrochemicalID/:agroChemicalID")]
+        [HttpGet("{agrochemicalId}")]
         public async Task<ActionResult> GetAgrochemicalByAgrochemicalID(int agroChemicalID)
         {
             var agroChemical = await _agrochemicalService.GetAgrochemicalByAgrochemicalID(agroChemicalID);
@@ -49,7 +49,7 @@ namespace dotnetapp.Controllers
             return Ok(agroChemical);
         }
         //updateAgrochemicalByAgrochemicalID
-        [HttpPut("updateAgrochemicalByAgrochemicalID/:agrochemicalId")]
+        [HttpPut("{agrochemicalId}")]
         public async Task<ActionResult> UpdateAgrochemicalByAgrochemicalID(int agroChemicalID, AgroChemicals agroChemicals)
         {
             try
@@ -68,7 +68,7 @@ namespace dotnetapp.Controllers
         }
 
         //deleteAgrochemicalByAgrochemicalID
-        [HttpDelete("deleteAgrochemicalByAgrochemicalID/:agrochemicalId")]
+        [HttpDelete("{agrochemicalId}")]
         public async Task<ActionResult> DeleteAgrochemicalByAgrochemicalID(int agroChemicalID)
         {
 
@@ -86,7 +86,7 @@ namespace dotnetapp.Controllers
             }
         }
         //getAllAgrochemicals
-        [HttpGet("getAllAgrochemicals")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<AgroChemicals>>> GetAllAgrochemicals()
         {
             var agroChemicalas = await _agrochemicalService.GetAllAgrochemicals();
