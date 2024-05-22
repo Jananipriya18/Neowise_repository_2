@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecipeService } from '../services/recipe.service';
-import { Recipe } from '../models/recipe.model'; // Import Recipe interface
+import { LaptopService } from '../services/laptop.service';
+import { Laptop } from '../models/laptop.model'; // Import Laptop interface
 
 @Component({
   selector: 'app-delete-confirm',
@@ -9,42 +9,42 @@ import { Recipe } from '../models/recipe.model'; // Import Recipe interface
   styleUrls: ['./delete-confirm.component.css']
 })
 export class DeleteConfirmComponent implements OnInit {
-  recipeId: number;
-  recipe: Recipe; // Initialize recipe property with an empty object
+  laptopId: number;
+  laptop: Laptop; // Initialize laptop property
 
   constructor(
     private route: ActivatedRoute, 
     private router: Router,
-    private recipeService: RecipeService
+    private laptopService: LaptopService
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.recipeId = +params['id'];
-      this.recipeService.getRecipe(this.recipeId).subscribe(
-        (recipe: Recipe) => {
-          this.recipe = recipe;
+      this.laptopId = +params['id'];
+      this.laptopService.getLaptop(this.laptopId).subscribe(
+        (laptop: Laptop) => {
+          this.laptop = laptop;
         },
         error => {
-          console.error('Error fetching recipe:', error);
+          console.error('Error fetching laptop:', error);
         }
       );
     });
   }
 
-  confirmDelete(recipeId: number): void {
-    this.recipeService.deleteRecipe(recipeId).subscribe(
+  confirmDelete(laptopId: number): void {
+    this.laptopService.deleteLaptop(laptopId).subscribe(
       () => {
-        console.log('Recipe deleted successfully.');
-        this.router.navigate(['/viewRecipes']);
+        console.log('Laptop deleted successfully.');
+        this.router.navigate(['/viewLaptops']);
       },
       (error) => {
-        console.error('Error deleting recipe:', error);
+        console.error('Error deleting laptop:', error);
       }
     );
   }
 
   cancelDelete(): void {
-    this.router.navigate(['/viewRecipes']);
+    this.router.navigate(['/viewLaptops']);
   }
 }
