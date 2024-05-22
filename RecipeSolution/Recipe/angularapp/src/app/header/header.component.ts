@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   constructor(private router: Router) {}
 
-  navigateToAddRecipe() {
-    this.router.navigate(['/addNewRecipe']);
+  navigateToAddLaptop() {
+    this.router.navigate(['/addNewLaptop']);
   }
 
-  navigateToViewRecipes() {
-    this.router.navigate(['/viewRecipes']);
+  navigateToViewLaptop() {
+    this.router.navigate(['/viewLaptops']);
   }
 }

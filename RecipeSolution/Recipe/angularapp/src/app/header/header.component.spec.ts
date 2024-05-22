@@ -23,15 +23,15 @@ describe('HeaderComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    fit('HeaderComponent_should_navigate_to_Add_New_Recipe', () => {
+    fit('HeaderComponent_should_navigate_to_Add_New_Laptop', () => {
         spyOn(router, 'navigate');
-        component.navigateToAddRecipe();
-        expect(router.navigate).toHaveBeenCalledWith(['/addNewRecipe']);
+        component.navigateToAddLaptop();
+        expect(router.navigate).toHaveBeenCalledWith(['/addNewLaptop']);
     });
 
     fit('HeaderComponent_should_navigate_to_View_Recipe', () => {
         spyOn(router, 'navigate');
-        component.navigateToViewRecipes();
-        expect(router.navigate).toHaveBeenCalledWith(['/viewRecipes']);
+        component.navigateToViewLaptop();
+        expect(router.navigate).toHaveBeenCalledWith(['/viewLaptops']);
     });
 });

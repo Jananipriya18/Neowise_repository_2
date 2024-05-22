@@ -1,0 +1,33 @@
+<form (submit)="addLaptop()">
+    <div>
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" [(ngModel)]="newLaptop.brand" name="brand" required>
+        <div *ngIf="isFieldInvalid('brand')" class="error-message">Brand is required</div>
+    </div>
+    <div>
+        <label for="model">Model:</label>
+        <input type="text" id="model" [(ngModel)]="newLaptop.model" name="model" required>
+        <div *ngIf="isFieldInvalid('model')" class="error-message">Model is required</div>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" [(ngModel)]="newLaptop.description" name="description" required></textarea>
+        <div *ngIf="isFieldInvalid('description')" class="error-message">Description is required</div>
+    </div>
+    <div>
+        <label for="processor">Processor:</label>
+        <input type="text" id="processor" [(ngModel)]="newLaptop.processor" name="processor" required>
+        <div *ngIf="isFieldInvalid('processor')" class="error-message">Processor is required</div>
+    </div>
+    <div>
+        <label for="storage">Storage:</label>
+        <input type="text" id="storage" [(ngModel)]="newLaptop.storage" name="storage" required>
+        <div *ngIf="isFieldInvalid('storage')" class="error-message">Storage is required</div>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" [(ngModel)]="newLaptop.price" name="price" required>
+        <div *ngIf="isFieldInvalid('price')" class="error-message">Price is required</div>
+    </div>
+    <button type="submit">Add Laptop</button>
+</form>

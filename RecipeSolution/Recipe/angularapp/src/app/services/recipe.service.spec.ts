@@ -1,97 +1,19 @@
-// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-// import { TestBed } from '@angular/core/testing';
-
-// import { Recipe } from '../models/recipe.model';
-// import { RecipeService } from './recipe.service';
-
-// describe('RecipeService', () => {
-//   let service: RecipeService;
-//   let httpTestingController: HttpTestingController;
-
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       imports: [HttpClientTestingModule],
-//       providers: [RecipeService],
-//     });
-//     service = TestBed.inject(RecipeService);
-//     httpTestingController = TestBed.inject(HttpTestingController);
-//   });
-
-//   afterEach(() => {
-//     httpTestingController.verify();
-//   });
-
-//   fit('RecipeService_should_be_created', () => {
-//     expect(service).toBeTruthy();
-//   });
-
-//   // fit('RecipeService_should_have_addRecipe_method', () => {
-//   //   expect(service.addRecipe).toBeTruthy();
-//   // });
-
-//   // fit('RecipeService_should_have_getRecipes_method', () => {
-//   //   expect(service.getRecipes).toBeTruthy();
-//   // });
-
-//   fit('RecipeService_should_add_a_recipe_and_return_it', () => {
-//     const mockRecipe: Recipe = {
-//       recipeId: 1,
-//       name: 'Test Recipe',
-//       description: 'Test Description',
-//       ingredients: 'Test Ingredients',
-//       instructions: 'Test Instructions',
-//       author: 'Test Author'
-//     };
-
-//     service.addRecipe(mockRecipe).subscribe((recipe) => {
-//       expect(recipe).toEqual(mockRecipe);
-//     });
-
-//     const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe`);
-//     expect(req.request.method).toBe('POST');
-//     req.flush(mockRecipe);
-//   });
-
-//   fit('RecipeService_should_get_recipes', () => {
-//     const mockRecipes: Recipe[] = [
-//       {
-//         recipeId: 1,
-//         name: 'Test Recipe 1',
-//         description: 'Test Description',
-//         ingredients: 'Test Ingredients',
-//         instructions: 'Test Instructions',
-//         author: 'Test Author'
-//       }
-//     ];
-
-//     service.getRecipes().subscribe((recipes) => {
-//       expect(recipes).toEqual(mockRecipes);
-//     });
-
-//     const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe`);
-//     expect(req.request.method).toBe('GET');
-//     req.flush(mockRecipes);
-//   });
-// });
-
-
-
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { Recipe } from '../models/recipe.model';
-import { RecipeService } from './recipe.service';
+import { Laptop } from '../models/laptop.model';
+import { LaptopService } from './laptop.service';
 
-describe('RecipeService', () => {
-  let service: RecipeService;
+describe('LaptopService', () => {
+  let service: LaptopService;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [RecipeService],
+      providers: [LaptopService],
     });
-    service = TestBed.inject(RecipeService);
+    service = TestBed.inject(LaptopService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
@@ -99,79 +21,82 @@ describe('RecipeService', () => {
     httpTestingController.verify();
   });
 
-  fit('RecipeService_should_be_created', () => {
+  fit('LaptopService_should_be_created', () => {
     expect(service).toBeTruthy();
   });
 
-  fit('RecipeService_should_add_a_recipe_and_return_it', () => {
-    const mockRecipe: Recipe = {
-      recipeId: 100,
-      name: 'Test Recipe',
+  fit('LaptopService_should_add_a_laptop_and_return_it', () => {
+    const mockLaptop: Laptop = {
+      laptopId: 100,
+      brand: 'Test Brand',
+      model: 'Test Model',
       description: 'Test Description',
-      ingredients: 'Test Ingredients',
-      instructions: 'Test Instructions',
-      author: 'Test Author'
+      processor: 'Test Processor',
+      storage: 'Test Storage',
+      price: 1000
     };
 
-    service.addRecipe(mockRecipe).subscribe((recipe) => {
-      expect(recipe).toEqual(mockRecipe);
+    service.addLaptop(mockLaptop).subscribe((laptop) => {
+      expect(laptop).toEqual(mockLaptop);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Laptop`);
     expect(req.request.method).toBe('POST');
-    req.flush(mockRecipe);
+    req.flush(mockLaptop);
   });
 
-  fit('RecipeService_should_get_recipes', () => {
-    const mockRecipes: Recipe[] = [
+  fit('LaptopService_should_get_laptops', () => {
+    const mockLaptops: Laptop[] = [
       {
-        recipeId: 100,
-        name: 'Test Recipe 1',
+        laptopId: 100,
+        brand: 'Test Brand 1',
+        model: 'Test Model 1',
         description: 'Test Description',
-        ingredients: 'Test Ingredients',
-        instructions: 'Test Instructions',
-        author: 'Test Author'
+        processor: 'Test Processor',
+        storage: 'Test Storage',
+        price: 1000
       }
     ];
 
-    service.getRecipes().subscribe((recipes) => {
-      expect(recipes).toEqual(mockRecipes);
+    service.getLaptops().subscribe((laptops) => {
+      expect(laptops).toEqual(mockLaptops);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Laptop`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockRecipes);
+    req.flush(mockLaptops);
   });
 
-  fit('RecipeService_should_delete_recipe', () => {
-    const recipeId = 100;
+  fit('LaptopService_should_delete_laptop', () => {
+    const laptopId = 100;
 
-    service.deleteRecipe(recipeId).subscribe(() => {
+    service.deleteLaptop(laptopId).subscribe(() => {
       expect().nothing();
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe/${recipeId}`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Laptop/${laptopId}`);
     expect(req.request.method).toBe('DELETE');
     req.flush({});
   });
 
-  fit('RecipeService_should_get_recipe_by_id', () => {
-    const recipeId = 100;
-    const mockRecipe: Recipe = {
-      recipeId: recipeId,
-      name: 'Test Recipe',
+  fit('LaptopService_should_get_laptop_by_id', () => {
+    const laptopId = 100;
+    const mockLaptop: Laptop = {
+      laptopId: laptopId,
+      brand: 'Test Brand',
+      model: 'Test Model',
       description: 'Test Description',
-      ingredients: 'Test Ingredients',
-      instructions: 'Test Instructions',
-      author: 'Test Author'
+      processor: 'Test Processor',
+      storage: 'Test Storage',
+      price: 1000
     };
 
-    service.getRecipe(recipeId).subscribe((recipe) => {
-      expect(recipe).toEqual(mockRecipe);
+    service.getLaptop(laptopId).subscribe((laptop) => {
+      expect(laptop).toEqual(mockLaptop);
     });
 
-    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Recipe/${recipeId}`);
+    const req = httpTestingController.expectOne(`${service['apiUrl']}api/Laptop/${laptopId}`);
     expect(req.request.method).toBe('GET');
-    req.flush(mockRecipe);
+    req.flush(mockLaptop);
   });
 });

@@ -1,0 +1,35 @@
+<div class="container">
+    <h2>Laptop List</h2>
+  
+    <div *ngIf="laptops.length === 0" class="no-laptops-message">
+        No laptops available.
+    </div>
+  
+    <table *ngIf="laptops.length > 0" class="laptop-table">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Description</th>
+                <th>Processor</th>
+                <th>Storage</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let laptop of laptops" class="laptop-item">
+                <td>{{ laptop.brand }}</td>
+                <td>{{ laptop.model }}</td>
+                <td>{{ laptop.description }}</td>
+                <td>{{ laptop.processor }}</td>
+                <td>{{ laptop.storage }}</td>
+                <td>{{ laptop.price | currency }}</td>
+
+                <td>
+                    <button id="delete" class="delete-button" (click)="Delete(laptop.laptopId)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
