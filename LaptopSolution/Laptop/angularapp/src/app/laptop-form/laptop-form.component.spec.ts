@@ -99,7 +99,7 @@ describe('LaptopFormComponent', () => {
   //   expect(compiled.querySelector('#priceError')).toBeNull();
   // });
 
-  fit('should_call_add_laptop_method_while_adding_the_laptop', () => {
+  fit('LaptopFormComponent_should_call_add_laptop_method_while_adding_the_laptop', () => {
     // Create a mock Laptop object with all required properties
     const laptop: Laptop = {
       laptopId: 1,
