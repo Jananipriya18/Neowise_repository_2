@@ -2,15 +2,15 @@
   {
     "testcases": [
       {
-        "name": "Recipes_table_rows_exist",
+        "name": "Laptops_table_rows_exist",
         "weightage": 0.0090909090909091
       },
       {
-        "name": "CreateRecipe_form_exists_and_input_fields_present_in_Create_Recipe",
+        "name": "CreateLaptop_form_exists_and_input_fields_present_in_Create_Laptop",
         "weightage": 0.0090909090909091
       },
       {
-        "name": "Recipe_table_header_content",
+        "name": "Laptop_table_header_content",
         "weightage": 0.0090909090909091
       },
       {
@@ -18,7 +18,7 @@
         "weightage": 0.0090909090909091
       },
       {
-        "name": "Verify_required_validation_on_Add_Recipe_button",
+        "name": "Verify_required_validation_on_Add_Laptop_button",
         "weightage": 0.0090909090909091
       }
     ],

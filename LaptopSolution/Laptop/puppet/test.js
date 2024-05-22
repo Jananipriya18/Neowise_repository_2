@@ -9,7 +9,7 @@ const puppeteer = require('puppeteer');
   const page1 = await browser.newPage();
 // Test Case: Check if table body is present
 try {
-  await page1.goto('https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/viewLaptops');
+  await page1.goto('https://api.example.com/viewLaptops');
 
   await page1.waitForSelector('table tbody tr', { timeout: 5000 });
   
@@ -36,7 +36,7 @@ try {
 
   const page2 = await browser.newPage();
 try {
-  await page2.goto('https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/addNewLaptop');
+  await page2.goto('https://api.example.com/addNewLaptop');
 
   // Test Case: Check if form exists and specific input fields are present
   const formExists = await page2.evaluate(() => {
@@ -60,7 +60,7 @@ const page3 = await browser.newPage();
   // Test Case: Check if table headers are present
 
 try {
-  await page3.goto('https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/viewLaptops');
+  await page3.goto('https://api.example.com/viewLaptops');
 
   // Wait for the table to be rendered
   // await page3.waitForSelector('table');
@@ -86,7 +86,7 @@ try {
 
 const page4 = await browser.newPage();
 try {
-  await page4.goto('https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/viewLaptops');
+  await page4.goto('https://api.example.com/viewLaptops');
   await page4.setViewport({
     width: 1200,
     height: 1200,
@@ -112,7 +112,7 @@ try {
 
 const page5 = await browser.newPage();
 try {
-  await page5.goto('https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/addNewLaptop');
+  await page5.goto('https://api.example.com/addNewLaptop');
   await page5.setViewport({
     width: 1200,
     height: 1200,
@@ -138,8 +138,8 @@ try {
     { id: '#brand', message: 'Brand is required' },
     { id: '#model', message: 'Model is required' },
     { id: '#description', message: 'Description is required' },
-    { id: '#processor', message: 'Processor are required' },
-    { id: '#storage', message: 'Storage are required' },
+    { id: '#processor', message: 'Processor is required' },
+    { id: '#storage', message: 'Storage is required' },
     { id: '#price', message: 'Price is required' }
   ];
 
