@@ -8,7 +8,7 @@ import { Laptop } from '../models/laptop.model';
   providedIn: 'root'
 })
 export class LaptopService {
-  private apiUrl = 'https://8080-bfdeeddcedfa312011766dbabbecfebfefftwo.premiumproject.examly.io/'; // Replace this with your API endpoint
+  private apiUrl = 'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io/'; // Replace this with your API endpoint
 
   constructor(private http: HttpClient) { }
 
