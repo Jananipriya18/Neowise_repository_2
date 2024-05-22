@@ -21,37 +21,40 @@ namespace dotnetapp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("dotnetapp.Models.Recipe", b =>
+            modelBuilder.Entity("dotnetapp.Models.Laptop", b =>
                 {
-                    b.Property<int>("RecipeId")
+                    b.Property<int>("laptopId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("laptopId"), 1L, 1);
 
-                    b.Property<string>("Author")
+                    b.Property<string>("brand")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Ingredients")
+                    b.Property<string>("model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Instructions")
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("processor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("storage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RecipeId");
+                    b.HasKey("laptopId");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Laptops");
                 });
 #pragma warning restore 612, 618
         }

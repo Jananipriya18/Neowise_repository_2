@@ -10,7 +10,7 @@ import { Recipe } from '../models/recipe.model';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { RecipeListComponent } from '../recipe-list/recipe-list.component';
+import { RecipeListComponent } from '../laptop-list/laptop-list.component';
 
 describe('RecipeFormComponent', () => {
   let component: RecipeFormComponent;

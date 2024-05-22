@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RecipeFormComponent } from './recipe-form/recipe-form.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipeListComponent } from './recipe-list/recipe-list.component';
+import { RecipeListComponent } from './laptop-list/laptop-list.component';
 import { DeleteConfirmComponent } from './delete-confirm/delete-confirm.component';
 
 
