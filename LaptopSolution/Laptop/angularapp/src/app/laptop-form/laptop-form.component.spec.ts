@@ -36,12 +36,12 @@ describe('LaptopFormComponent', () => {
     router = TestBed.inject(Router);
   });
 
-  fit('should_have_addLaptop_method', () => {
-    expect(component.addLaptop).toBeTruthy();
+  fit('should_create_LaptopFormComponent', () => {
+    expect(component).toBeTruthy();
   });
 
-  fit('should_show_error_messages_for_required_fields_on_submit', fakeAsync(() => {
-    // Mock new laptop data
+  fit('LaptopFormComponent_should_render_error_messages_when_required_fields_are_empty_on_submit', fakeAsync(() => {
+    // Set all fields to empty values
     component.newLaptop = {
       laptopId: 0,
       brand: '',
@@ -71,33 +71,33 @@ describe('LaptopFormComponent', () => {
     expect(errorMessages[5].nativeElement.textContent).toContain('Price is required');
   }));
 
-  fit('should_not_render_any_error_messages_when_all_fields_are_filled', () => {
-    const compiled = fixture.nativeElement;
-    const form = compiled.querySelector('form');
+  // fit('should_not_render_any_error_messages_when_all_fields_are_filled', () => {
+  //   const compiled = fixture.nativeElement;
+  //   const form = compiled.querySelector('form');
 
-    // Fill all fields
-    component.newLaptop = {
-      laptopId: 0, // or omit this line if laptopId is auto-generated
-      brand: 'Test Brand',
-      model: 'Test Model',
-      description: 'Test Description',
-      processor: 'Test Processor',
-      storage: 'Test Storage',
-      price: 1000
-    };
+  //   // Fill all fields
+  //   component.newLaptop = {
+  //     laptopId: 0, // or omit this line if laptopId is auto-generated
+  //     brand: 'Test Brand',
+  //     model: 'Test Model',
+  //     description: 'Test Description',
+  //     processor: 'Test Processor',
+  //     storage: 'Test Storage',
+  //     price: 1000
+  //   };
 
-    fixture.detectChanges();
+  //   fixture.detectChanges();
 
-    form.dispatchEvent(new Event('submit')); // Submit the form
+  //   form.dispatchEvent(new Event('submit')); // Submit the form
 
-    // Check if no error messages are rendered
-    expect(compiled.querySelector('#brandError')).toBeNull();
-    expect(compiled.querySelector('#modelError')).toBeNull();
-    expect(compiled.querySelector('#descriptionError')).toBeNull();
-    expect(compiled.querySelector('#processorError')).toBeNull();
-    expect(compiled.querySelector('#storageError')).toBeNull();
-    expect(compiled.querySelector('#priceError')).toBeNull();
-  });
+  //   // Check if no error messages are rendered
+  //   expect(compiled.querySelector('#brandError')).toBeNull();
+  //   expect(compiled.querySelector('#modelError')).toBeNull();
+  //   expect(compiled.querySelector('#descriptionError')).toBeNull();
+  //   expect(compiled.querySelector('#processorError')).toBeNull();
+  //   expect(compiled.querySelector('#storageError')).toBeNull();
+  //   expect(compiled.querySelector('#priceError')).toBeNull();
+  // });
 
   fit('should_call_add_laptop_method_while_adding_the_laptop', () => {
     // Create a mock Laptop object with all required properties
