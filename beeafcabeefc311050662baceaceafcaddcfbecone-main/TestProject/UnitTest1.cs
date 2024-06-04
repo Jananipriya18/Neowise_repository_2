@@ -35,10 +35,11 @@ namespace dotnetapp.Tests
         {
             var newOrder = new Order
             {
-                Id = 0, 
-                Name = "Test Order",
-                Price = 9.99m,
-                Description = "Test Order Description"
+                OrderId = 0,
+                CustomerName = "Test Order",
+                OrderDate = DateTime.Now,
+                TotalAmount = 9.99m,
+                Status = "Test Order Description"
             };
 
             var json = JsonConvert.SerializeObject(newOrder);
@@ -66,22 +67,23 @@ namespace dotnetapp.Tests
             Assert.IsTrue(orders.Length > 0);
         }
 
-        // [Test]
-        // public async Task Test_GetOrderById_ValidId_ReturnsOrder()
-        // {
-        //     // Arrange - no specific arrangement needed as we're not modifying state
-        //     // Act
-        //     var response = await _httpClient.GetAsync($"api/order/{_testOrder.OrderId}");
+        [Test]
+        public async Task Test_GetOrderById_ValidId_ReturnsOrder()
+        {
+            // Arrange - no specific arrangement needed as we're not modifying state
+            // Act
+            var response = await _httpClient.GetAsync($"api/order/{_testOrder.OrderId}");
 
-        //     // Assert
-        //     Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
-        //     var content = await response.Content.ReadAsStringAsync();
-        //     var order = JsonConvert.DeserializeObject<Order>(content);
+            var content = await response.Content.ReadAsStringAsync();
+            var order = JsonConvert.DeserializeObject<Order>(content);
 
-        //     Assert.IsNotNull(order);
-        //     Assert.AreEqual(_testOrder.OrderId, order.Id);
-        // }
+            Assert.IsNotNull(order);
+            Assert.AreEqual(_testOrder.OrderId, order.OrderId);
+        }
+
         [Test]
         public async Task Test_GetOrderById_InvalidId_ReturnsNotFound()
         {
