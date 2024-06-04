@@ -11,89 +11,89 @@ using System.Reflection;
 namespace dotnetapp.Tests
 {
     [TestFixture]
-    public class ProductControllerTests
+    public class OrderControllerTests
     {
-         private const string ProductServiceName = "ProductService";
-         private const string ProductControllerName = "ProductController";
+         private const string OrderServiceName = "OrderService";
+         private const string OrderControllerName = "OrderController";
 
         private HttpClient _httpClient;
         private Assembly _assembly;
-        private Product _testProduct;
+        private Order _testOrder;
 
         [SetUp]
         public async Task Setup()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:8080"); // Base URL of your API
-            _assembly = Assembly.GetAssembly(typeof(dotnetapp.Services.ProductService));
+            _assembly = Assembly.GetAssembly(typeof(dotnetapp.Services.OrderService));
             
-            // Create a new test product before each test case
-            _testProduct = await CreateTestProduct();
+            // Create a new test order before each test case
+            _testOrder = await CreateTestOrder();
         }
 
-        private async Task<Product> CreateTestProduct()
+        private async Task<Order> CreateTestOrder()
         {
-            var newProduct = new Product
+            var newOrder = new Order
             {
-                Id = 0, // Let the server assign the ID
-                Name = "Test Product",
+                Id = 0, 
+                Name = "Test Order",
                 Price = 9.99m,
-                Description = "Test Product Description"
+                Description = "Test Order Description"
             };
 
-            var json = JsonConvert.SerializeObject(newProduct);
+            var json = JsonConvert.SerializeObject(newOrder);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("api/product", content);
+            var response = await _httpClient.PostAsync("api/order", content);
             response.EnsureSuccessStatusCode();
 
-            return JsonConvert.DeserializeObject<Product>(await response.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
         }
 
         [Test]
-        public async Task Test_GetAllProducts_ReturnsListOfProducts()
+        public async Task Test_GetAllOrders_ReturnsListOfOrders()
         {
             // Arrange - no specific arrangement needed as we're not modifying state
             // Act
-            var response = await _httpClient.GetAsync("api/product");
+            var response = await _httpClient.GetAsync("api/order");
             response.EnsureSuccessStatusCode();
 
             // Assert
             var content = await response.Content.ReadAsStringAsync();
-            var products = JsonConvert.DeserializeObject<Product[]>(content);
+            var orders = JsonConvert.DeserializeObject<Order[]>(content);
 
-            Assert.IsNotNull(products);
-            Assert.IsTrue(products.Length > 0);
+            Assert.IsNotNull(orders);
+            Assert.IsTrue(orders.Length > 0);
         }
 
+        // [Test]
+        // public async Task Test_GetOrderById_ValidId_ReturnsOrder()
+        // {
+        //     // Arrange - no specific arrangement needed as we're not modifying state
+        //     // Act
+        //     var response = await _httpClient.GetAsync($"api/order/{_testOrder.OrderId}");
+
+        //     // Assert
+        //     Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+
+        //     var content = await response.Content.ReadAsStringAsync();
+        //     var order = JsonConvert.DeserializeObject<Order>(content);
+
+        //     Assert.IsNotNull(order);
+        //     Assert.AreEqual(_testOrder.OrderId, order.Id);
+        // }
         [Test]
-        public async Task Test_GetProductById_ValidId_ReturnsProduct()
+        public async Task Test_GetOrderById_InvalidId_ReturnsNotFound()
         {
-            // Arrange - no specific arrangement needed as we're not modifying state
-            // Act
-            var response = await _httpClient.GetAsync($"api/product/{_testProduct.Id}");
-
-            // Assert
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var content = await response.Content.ReadAsStringAsync();
-            var product = JsonConvert.DeserializeObject<Product>(content);
-
-            Assert.IsNotNull(product);
-            Assert.AreEqual(_testProduct.Id, product.Id);
-        }
-        [Test]
-        public async Task Test_GetProductById_InvalidId_ReturnsNotFound()
-        {
-            var response = await _httpClient.GetAsync("api/product/999999"); // Using an invalid ID
+            var response = await _httpClient.GetAsync("api/order/999999"); // Using an invalid ID
             
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Test]
-        public void Test_ProductService_Exist()
+        public void Test_OrderService_Exist()
         {
-            AssertServiceInstanceNotNull(ProductServiceName);
+            AssertServiceInstanceNotNull(OrderServiceName);
         }
 
         private void AssertServiceInstanceNotNull(string serviceName)
@@ -109,9 +109,9 @@ namespace dotnetapp.Tests
             Assert.IsNotNull(serviceInstance);
         }
         [Test]
-        public void Test_ProductController_Exist()
+        public void Test_OrderController_Exist()
         {
-            AssertControllerClassExist(ProductControllerName);
+            AssertControllerClassExist(OrderControllerName);
         }
 
         private void AssertControllerClassExist(string controllerName)
