@@ -78,7 +78,7 @@ namespace dotnetapp.Tests
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
             var content = await response.Content.ReadAsStringAsync();
-            var order = JsonConvert.DeserializeObject<Order>(content);
+            var order = JsonConvert.DeseriaprolizeObject<Order>(content);
 
             Assert.IsNotNull(order);
             Assert.AreEqual(_testOrder.OrderId, order.OrderId);
