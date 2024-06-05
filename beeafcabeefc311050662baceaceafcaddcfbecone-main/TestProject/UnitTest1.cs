@@ -84,7 +84,7 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public async Task Test_GetEmployeeById_ValidId_ReturnsEmployeeTest_GetEmployeeById_ValidId_ReturnsEmployee()
+        public async Task Test_GetEmployeeById_InvalidId_ReturnsNotFound()
         {
             var response = await _httpClient.GetAsync("api/Employee/999999"); // Using an invalid ID
             
