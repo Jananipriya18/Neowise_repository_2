@@ -18,7 +18,7 @@ namespace dotnetapp.Tests
 
         private HttpClient _httpClient;
         private Assembly _assembly;
-        private EmployeeItem _testEmployeeItem;
+        private Employee _testEmployee;
 
         [SetUp]
         public async Task Setup()
@@ -28,7 +28,7 @@ namespace dotnetapp.Tests
             _assembly = Assembly.GetAssembly(typeof(dotnetapp.Services.EmployeeService));
             
             // Create a new test item before each test case
-            _testEmployeeItem = await CreateTestEmployeeItem();
+            _testEmployee = await CreateTestEmployee();
         }
 
         private async Task<Employee> CreateTestEmployee()
@@ -60,31 +60,31 @@ namespace dotnetapp.Tests
 
             // Assert
             var content = await response.Content.ReadAsStringAsync();
-            var items = JsonConvert.DeserializeObject<EmployeeItem[]>(content);
+            var items = JsonConvert.DeserializeObject<Employee[]>(content);
 
             Assert.IsNotNull(items);
             Assert.IsTrue(items.Length > 0);
         }
 
         [Test]
-        public async Task Test_GetEmployeeById_ValidId_ReturnsItem()
+        public async Task Test_GetEmployeeById_ValidId_ReturnsEmployee()
         {
             // Arrange - no specific arrangement needed as we're not modifying state
             // Act
-            var response = await _httpClient.GetAsync($"api/employee/{_testEmployeeItem.ItemId}");
+            var response = await _httpClient.GetAsync($"api/employee/{_testEmployee.EmployeeId}");
 
             // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
             var content = await response.Content.ReadAsStringAsync();
-            var employee = JsonConvert.DeserializeObject<EmployeeItem>(content);
+            var employee = JsonConvert.DeserializeObject<Employee>(content);
 
             Assert.IsNotNull(employee);
-            Assert.AreEqual(_testEmployeeItem.ItemId, employee.ItemId);
+            Assert.AreEqual(_testEmployee.EmployeeId, employee.EmployeeId);
         }
 
         [Test]
-        public async Task Test_GetEmployeeById_ValidId_ReturnsItemTest_GetEmployeeById_ValidId_ReturnsItem()
+        public async Task Test_GetEmployeeById_ValidId_ReturnsEmployeeTest_GetEmployeeById_ValidId_ReturnsEmployee()
         {
             var response = await _httpClient.GetAsync("api/Employee/999999"); // Using an invalid ID
             
