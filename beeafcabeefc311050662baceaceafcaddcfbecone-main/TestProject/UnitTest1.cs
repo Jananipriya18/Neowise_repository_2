@@ -85,7 +85,7 @@ namespace dotnetapp.Tests
         }
 
         [Test]
-        public async Task Test_GetInventoryById_InvalidId_ReturnsNotFound()
+        public async Task Test_GetInventoryById_ValidId_ReturnsItemTest_GetInventoryById_ValidId_ReturnsItem()
         {
             var response = await _httpClient.GetAsync("api/Inventory/999999"); // Using an invalid ID
             
