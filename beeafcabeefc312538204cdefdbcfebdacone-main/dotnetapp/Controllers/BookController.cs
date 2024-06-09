@@ -6,55 +6,55 @@ namespace dotnetapp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BooksController : ControllerBase
+    public class MobilePhoneController : ControllerBase
     {
-        private readonly IBookService _bookService;
+        private readonly IMobilePhoneService _mobilePhoneService;
 
-        public BooksController(IBookService bookService)
+        public MobilePhoneController(IMobilePhoneService mobilePhoneService)
         {
-            _bookService = bookService;
+            _mobilePhoneService = mobilePhoneService;
         }
 
         [HttpGet]
-        public IActionResult GetAllBooks()
+        public IActionResult GetAllMobilePhones()
         {
-            var books = _bookService.GetAllBooks();
-            return Ok(books);
+            var mobilePhones = _mobilePhoneService.GetAllMobilePhones();
+            return Ok(mobilePhones);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetBookById(int id)
+        public IActionResult GetMobilePhoneById(int id)
         {
-            var book = _bookService.GetBookById(id);
-            if (book == null)
+            var mobilePhone = _mobilePhoneService.GetMobilePhoneById(id);
+            if (mobilePhone == null)
             {
                 return NotFound();
             }
-            return Ok(book);
+            return Ok(mobilePhone);
         }
 
         [HttpPost]
-        public IActionResult AddBook(Book book)
+        public IActionResult AddMobilePhone(MobilePhone mobilePhone)
         {
-            _bookService.AddBook(book);
-            return CreatedAtAction(nameof(GetBookById), new { id = book.BookId }, book);
+            _mobilePhoneService.AddMobilePhone(mobilePhone);
+            return CreatedAtAction(nameof(GetMobilePhoneById), new { id = mobilePhone.MobilePhoneId }, mobilePhone);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, Book book)
+        public IActionResult UpdateMobilePhone(int id, MobilePhone mobilePhone)
         {
-            if (id != book.BookId)
+            if (id != mobilePhone.MobilePhoneId)
             {
                 return BadRequest();
             }
-            _bookService.UpdateBook(book);
+            _mobilePhoneService.UpdateMobilePhone(mobilePhone);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteBook(int id)
+        public IActionResult DeleteMobilePhone(int id)
         {
-            _bookService.DeleteBook(id);
+            _mobilePhoneService.DeleteMobilePhone(id);
             return NoContent();
         }
     }

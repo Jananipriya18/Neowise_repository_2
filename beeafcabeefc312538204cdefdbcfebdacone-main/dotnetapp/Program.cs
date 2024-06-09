@@ -10,10 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Add services for repositories and services
-builder.Services.AddScoped<BookRepository>();
-builder.Services.AddScoped<OrderRepository>();
-builder.Services.AddScoped<IBookService, BookService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<MobilePhoneRepository>();
+builder.Services.AddScoped<IMobilePhoneService, MobilePhoneService>();
 
 var app = builder.Build();
 

@@ -12,246 +12,140 @@ using System.Reflection;
 namespace dotnetapp.Tests
 {
     [TestFixture]
-    public class BooksControllerTests
+    public class MobilePhonesControllerTests
     {
-        private const string BookServiceName = "BookService";
-        private const string OrderServiceName = "OrderService";
-        private const string BookRepositoryName = "BookRepository";
-        private const string OrderRepositoryName = "OrderRepository";
+        private const string MobilePhoneServiceName = "MobilePhoneService";
+        private const string MobilePhoneRepositoryName = "MobilePhoneRepository";
         private HttpClient _httpClient;
         private Assembly _assembly;
 
-        private Book _testBook;
-        private Order _testOrder;
+        private MobilePhone _testMobilePhone;
 
 
         [SetUp]
         public async Task Setup()
         {
-            _assembly = Assembly.GetAssembly(typeof(dotnetapp.Services.IBookService));
+            _assembly = Assembly.GetAssembly(typeof(dotnetapp.Services.IMobilePhoneService));
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri("http://localhost:8080"); // Base URL of your API
 
-            // Create a new test book before each test case
-            _testBook = await CreateTestBook();
-            _testOrder = await CreateTestOrder();
+            // Create a new test mobilePhone before each test case
+            _testMobilePhone = await CreateTestMobilePhone();
         }
 
-        private async Task<Book> CreateTestBook()
+        private async Task<MobilePhone> CreateTestMobilePhone()
         {
-            var newBook = new Book
+            var newMobilePhone = new MobilePhone
             {
-                BookId = 0, // Let the server assign the ID
-                BookName = "Test Book",
-                Category = "Test Category",
-                Price = 10.99m
+                Brand = "Test Brand",
+                Model = "Test Model",
+                Price = 199.99m,
+                StockQuantity = 10
             };
 
-            var json = JsonConvert.SerializeObject(newBook);
+            var json = JsonConvert.SerializeObject(newMobilePhone);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("api/books", content);
+            var response = await _httpClient.PostAsync("api/MobilePhone", content);
             response.EnsureSuccessStatusCode();
 
-            return JsonConvert.DeserializeObject<Book>(await response.Content.ReadAsStringAsync());
+            return JsonConvert.DeserializeObject<MobilePhone>(await response.Content.ReadAsStringAsync());
         }
 
         [Test]
-        public async Task Test_GetAllBooks_ReturnsListOfBooks()
+        public async Task Test_GetAllMobilePhones_ReturnsListOfMobilePhones()
         {
-            var response = await _httpClient.GetAsync("api/books");
+            var response = await _httpClient.GetAsync("api/MobilePhone");
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var books = JsonConvert.DeserializeObject<Book[]>(content);
+            var mobilePhones = JsonConvert.DeserializeObject<MobilePhone[]>(content);
 
-            Assert.IsNotNull(books);
-            Assert.IsTrue(books.Length > 0);
+            Assert.IsNotNull(mobilePhones);
+            Assert.IsTrue(mobilePhones.Length > 0);
         }
 
         [Test]
-        public async Task Test_GetBookById_ValidId_ReturnsBook()
+        public async Task Test_GetMobilePhoneById_ValidId_ReturnsMobilePhone()
         {
-            var response = await _httpClient.GetAsync($"api/books/{_testBook.BookId}");
+            var response = await _httpClient.GetAsync($"api/MobilePhone/{_testMobilePhone.MobilePhoneId}");
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
 
             var content = await response.Content.ReadAsStringAsync();
-            var book = JsonConvert.DeserializeObject<Book>(content);
+            var mobilePhone = JsonConvert.DeserializeObject<MobilePhone>(content);
 
-            Assert.IsNotNull(book);
-            Assert.AreEqual(_testBook.BookId, book.BookId);
+            Assert.IsNotNull(mobilePhone);
+            Assert.AreEqual(_testMobilePhone.MobilePhoneId, mobilePhone.MobilePhoneId);
         }
 
         [Test]
-        public async Task Test_GetBookById_InvalidId_ReturnsNotFound()
+        public async Task Test_GetMobilePhoneById_InvalidId_ReturnsNotFound()
         {
-            var response = await _httpClient.GetAsync($"api/books/999");
+            var response = await _httpClient.GetAsync($"api/MobilePhone/999");
 
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Test]
-        public async Task Test_AddBook_ReturnsCreatedResponse()
+        public async Task Test_AddMobilePhone_ReturnsCreatedResponse()
         {
-            var newBook = new Book
+            var newMobilePhone = new MobilePhone
             {
-                BookId = 0, // Let the server assign the ID
-                BookName = "New Book",
-                Category = "Fiction",
-                Price = 19.99m
+                Brand = "Test Brand",
+                Model = "Test Model",
+                Price = 199.99m,
+                StockQuantity = 10
             };
 
-            var json = JsonConvert.SerializeObject(newBook);
+            var json = JsonConvert.SerializeObject(newMobilePhone);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("api/books", content);
+            var response = await _httpClient.PostAsync("api/MobilePhone", content);
             response.EnsureSuccessStatusCode();
 
-            var createdBook = JsonConvert.DeserializeObject<Book>(await response.Content.ReadAsStringAsync());
+            var createdMobilePhone = JsonConvert.DeserializeObject<MobilePhone>(await response.Content.ReadAsStringAsync());
 
-            Assert.IsNotNull(createdBook);
-            Assert.AreEqual(newBook.BookName, createdBook.BookName);
+            Assert.IsNotNull(createdMobilePhone);
+            Assert.AreEqual(newMobilePhone.MobilePhoneName, createdMobilePhone.MobilePhoneName);
         }
 
         [Test]
-        public async Task Test_UpdateBook_ValidId_ReturnsNoContent()
+        public async Task Test_UpdateMobilePhone_ValidId_ReturnsNoContent()
         {
-            _testBook.BookName = "Updated Book";
+            _testMobilePhone.MobilePhoneName = "Updated MobilePhone";
 
-            var json = JsonConvert.SerializeObject(_testBook);
+            var json = JsonConvert.SerializeObject(_testMobilePhone);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PutAsync($"api/books/{_testBook.BookId}", content);
+            var response = await _httpClient.PutAsync($"api/MobilePhone/{_testMobilePhone.MobilePhoneId}", content);
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
 
         [Test]
-        public async Task Test_DeleteBook_ValidId_ReturnsNoContent()
+        public async Task Test_DeleteMobilePhone_ValidId_ReturnsNoContent()
         {
-            var response = await _httpClient.DeleteAsync($"api/books/{_testBook.BookId}");
+            var response = await _httpClient.DeleteAsync($"api/MobilePhone/{_testMobilePhone.MobilePhoneId}");
 
             Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
         }
-          private async Task<Order> CreateTestOrder()
-        {
-            var newOrder = new Order
-            {
-                OrderId = 0, // Let the server assign the ID
-                CustomerName = "Test Customer",
-                TotalAmount = 50.00m
-            };
-
-            var json = JsonConvert.SerializeObject(newOrder);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync("api/orders", content);
-            response.EnsureSuccessStatusCode();
-
-            return JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
-        }
+          
 
         [Test]
-        public async Task Test_GetAllOrders_ReturnsListOfOrders()
+        public void Test_MobilePhoneService_Exist()
         {
-            var response = await _httpClient.GetAsync("api/orders");
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-            var orders = JsonConvert.DeserializeObject<Order[]>(content);
-
-            Assert.IsNotNull(orders);
-            Assert.IsTrue(orders.Length > 0);
+            AssertServiceInstanceNotNull(MobilePhoneServiceName);
         }
+
+       
 
         [Test]
-        public async Task Test_GetOrderById_ValidId_ReturnsOrder()
+        public void Test_MobilePhoneRepository_Exist()
         {
-            var response = await _httpClient.GetAsync($"api/orders/{_testOrder.OrderId}");
-
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var content = await response.Content.ReadAsStringAsync();
-            var order = JsonConvert.DeserializeObject<Order>(content);
-
-            Assert.IsNotNull(order);
-            Assert.AreEqual(_testOrder.OrderId, order.OrderId);
+            AssertRepositoryInstanceNotNull(MobilePhoneRepositoryName);
         }
 
-        [Test]
-        public async Task Test_GetOrderById_InvalidId_ReturnsNotFound()
-        {
-            var response = await _httpClient.GetAsync($"api/orders/999");
-
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
-        }
-
-        [Test]
-        public async Task Test_AddOrder_ReturnsCreatedResponse()
-        {
-            var newOrder = new Order
-            {
-                OrderId = 0, // Let the server assign the ID
-                CustomerName = "New Customer",
-                TotalAmount = 100.00m
-            };
-
-            var json = JsonConvert.SerializeObject(newOrder);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PostAsync("api/orders", content);
-            response.EnsureSuccessStatusCode();
-
-            var createdOrder = JsonConvert.DeserializeObject<Order>(await response.Content.ReadAsStringAsync());
-
-            Assert.IsNotNull(createdOrder);
-            Assert.AreEqual(newOrder.CustomerName, createdOrder.CustomerName);
-        }
-
-        [Test]
-        public async Task Test_UpdateOrder_ValidId_ReturnsNoContent()
-        {
-            _testOrder.CustomerName = "Updated Customer";
-
-            var json = JsonConvert.SerializeObject(_testOrder);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = await _httpClient.PutAsync($"api/orders/{_testOrder.OrderId}", content);
-
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
-        }
-
-        [Test]
-        public async Task Test_DeleteOrder_ValidId_ReturnsNoContent()
-        {
-            var response = await _httpClient.DeleteAsync($"api/orders/{_testOrder.OrderId}");
-
-            Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
-        }
-        [Test]
-        public void Test_BookService_Exist()
-        {
-            AssertServiceInstanceNotNull(BookServiceName);
-        }
-
-        [Test]
-        public void Test_OrderService_Exist()
-        {
-            AssertServiceInstanceNotNull(OrderServiceName);
-        }
-
-        [Test]
-        public void Test_BookRepository_Exist()
-        {
-            AssertRepositoryInstanceNotNull(BookRepositoryName);
-        }
-
-        [Test]
-        public void Test_OrderRepository_Exist()
-        {
-            AssertRepositoryInstanceNotNull(OrderRepositoryName);
-        }
 
         private void AssertServiceInstanceNotNull(string serviceName)
         {
@@ -283,19 +177,12 @@ namespace dotnetapp.Tests
         [TearDown]
         public async Task Cleanup()
         {
-            // Delete the test book after each test case
-            if (_testBook != null)
+            // Delete the test mobilePhone after each test case
+            if (_testMobilePhone != null)
             {
-                var response = await _httpClient.DeleteAsync($"api/books/{_testBook.BookId}");
+                var response = await _httpClient.DeleteAsync($"api/MobilePhone/{_testMobilePhone.MobilePhoneId}");
                 response.EnsureSuccessStatusCode();
             }
-            if (_testOrder != null)
-            {
-                var response = await _httpClient.DeleteAsync($"api/orders/{_testOrder.OrderId}");
-                response.EnsureSuccessStatusCode();
-            }
-
-
             _httpClient.Dispose();
         }
     }

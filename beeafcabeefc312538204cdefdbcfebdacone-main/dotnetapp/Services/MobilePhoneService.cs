@@ -1,50 +1,51 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using dotnetapp.Models;
 
 namespace dotnetapp.Services
 {
-    public class BookService : IBookService
+    public class MobilePhoneService : IMobilePhoneService
     {
-        private static List<Book> _books = new List<Book>
+        private static List<MobilePhone> _mobilePhones = new List<MobilePhone>
         {
-            new Book { BookId = 1, BookName = "Book 1", Category = "Fiction", Price = 20.99m },
-            new Book { BookId = 2, BookName = "Book 2", Category = "Non-Fiction", Price = 15.99m }
+            new MobilePhone { MobilePhoneId = 1, Brand = "Brand A", Model = "Model X", Price = 699.99m, StockQuantity = 50 },
+            new MobilePhone { MobilePhoneId = 2, Brand = "Brand B", Model = "Model Y", Price = 799.99m, StockQuantity = 30 }
         };
 
-        public IEnumerable<Book> GetAllBooks()
+        public IEnumerable<MobilePhone> GetAllMobilePhones()
         {
-            return _books;
+            return _mobilePhones;
         }
 
-        public Book GetBookById(int id)
+        public MobilePhone GetMobilePhoneById(int id)
         {
-            return _books.FirstOrDefault(b => b.BookId == id);
+            return _mobilePhones.FirstOrDefault(mp => mp.MobilePhoneId == id);
         }
 
-        public void AddBook(Book book)
+        public void AddMobilePhone(MobilePhone mobilePhone)
         {
-            _books.Add(book);
+            mobilePhone.MobilePhoneId = _mobilePhones.Count > 0 ? _mobilePhones.Max(mp => mp.MobilePhoneId) + 1 : 1;
+            _mobilePhones.Add(mobilePhone);
         }
 
-        public void UpdateBook(Book book)
+        public void UpdateMobilePhone(MobilePhone mobilePhone)
         {
-            var existingBook = _books.FirstOrDefault(b => b.BookId == book.BookId);
-            if (existingBook != null)
+            var existingMobilePhone = _mobilePhones.FirstOrDefault(mp => mp.MobilePhoneId == mobilePhone.MobilePhoneId);
+            if (existingMobilePhone != null)
             {
-                existingBook.BookName = book.BookName;
-                existingBook.Category = book.Category;
-                existingBook.Price = book.Price;
+                existingMobilePhone.Brand = mobilePhone.Brand;
+                existingMobilePhone.Model = mobilePhone.Model;
+                existingMobilePhone.Price = mobilePhone.Price;
+                existingMobilePhone.StockQuantity = mobilePhone.StockQuantity;
             }
         }
 
-        public void DeleteBook(int id)
+        public void DeleteMobilePhone(int id)
         {
-            var bookToRemove = _books.FirstOrDefault(b => b.BookId == id);
-            if (bookToRemove != null)
+            var mobilePhoneToRemove = _mobilePhones.FirstOrDefault(mp => mp.MobilePhoneId == id);
+            if (mobilePhoneToRemove != null)
             {
-                _books.Remove(bookToRemove);
+                _mobilePhones.Remove(mobilePhoneToRemove);
             }
         }
     }

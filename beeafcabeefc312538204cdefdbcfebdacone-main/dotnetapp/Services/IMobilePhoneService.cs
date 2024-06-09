@@ -3,12 +3,12 @@ using dotnetapp.Models;
 
 namespace dotnetapp.Services
 {
-    public interface IBookService
+    public interface IMobilePhoneService
     {
-        IEnumerable<Book> GetAllBooks();
-        Book GetBookById(int id);
-        void AddBook(Book book);
-        void UpdateBook(Book book);
-        void DeleteBook(int id);
+        IEnumerable<MobilePhone> GetAllMobilePhones();
+        MobilePhone GetMobilePhoneById(int id);
+        void AddMobilePhone(MobilePhone mobilePhone);
+        void UpdateMobilePhone(MobilePhone mobilePhone);
+        void DeleteMobilePhone(int id);
     }
 }
