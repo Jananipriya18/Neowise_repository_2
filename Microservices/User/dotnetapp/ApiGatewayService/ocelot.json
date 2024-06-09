@@ -1,0 +1,19 @@
+{
+    "Routes": [
+      {
+        "DownstreamPathTemplate": "/api/User",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/user-api/user",
+        "UpstreamHttpMethod": ["GET", "POST"],
+        "RouteIsCaseSensitive": false,
+        "DownstreamHttpVersion": "2.0",
+        "DangerousAcceptAnyServerCertificate": false
+      }
+    ]
+  }
