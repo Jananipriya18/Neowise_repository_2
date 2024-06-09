@@ -22,14 +22,14 @@ public class Tests
     }
 
     [Test, Order(1)]
-    public async Task SalesService_8080_PostSales()
+    public async Task ProductService_8080_PostProduct()
     {
         string uniqueId = Guid.NewGuid().ToString();
 
         string uniquename = $"abcd_{uniqueId}";
 
         string requestBody = $"{{\"name\": \"{uniquename}\", \"description\": \"abc@123A\", \"price\": 10.23}}";
-        HttpResponseMessage response = await _httpClient.PostAsync("/api/sales", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        HttpResponseMessage response = await _httpClient.PostAsync("/api/product", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
         string responseString = await response.Content.ReadAsStringAsync();
@@ -39,21 +39,21 @@ public class Tests
     }
 
     [Test, Order(2)]
-    public async Task SalesService_8080_GetSaless()
+    public async Task ProductService_8080_GetProducts()
     {
-        HttpResponseMessage prodresponse = await _httpClient.GetAsync("/api/sales");
+        HttpResponseMessage prodresponse = await _httpClient.GetAsync("/api/product");
         Assert.AreEqual(HttpStatusCode.OK, prodresponse.StatusCode);
     }
 
     [Test, Order(3)]
-    public async Task ApiGatewayService_8081_PostSales()
+    public async Task ApiGatewayService_8081_PostProduct()
     {
         string uniqueId = Guid.NewGuid().ToString();
 
         string uniquename = $"abcd_{uniqueId}";
 
         string requestBody = $"{{\"name\": \"{uniquename}\", \"description\": \"abc@123A\", \"price\": 10.23}}";
-        HttpResponseMessage response = await _httpClient1.PostAsync("/sales-api/sales", new StringContent(requestBody, Encoding.UTF8, "application/json"));
+        HttpResponseMessage response = await _httpClient1.PostAsync("/product-api/product", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
         string responseString = await response.Content.ReadAsStringAsync();
@@ -63,60 +63,60 @@ public class Tests
     }
 
     [Test, Order(4)]
-    public async Task ApiGatewayService_8081_GetSaless()
+    public async Task ApiGatewayService_8081_GetProducts()
     {
-        HttpResponseMessage prodresponse = await _httpClient1.GetAsync("/sales-api/sales");
+        HttpResponseMessage prodresponse = await _httpClient1.GetAsync("/product-api/product");
         Assert.AreEqual(HttpStatusCode.OK, prodresponse.StatusCode);
     }
 
     [Test]
-    public void Sales_Properties_SalesId_ReturnExpectedDataTypes_int()
+    public void Product_Properties_ProductId_ReturnExpectedDataTypes_int()
     {
-            string assemblyName = "SalesService";
-            string typeName = "SalesService.Models.Sales";
-            Assembly assembly = Assembly.Load(assemblyName);
-            Type salesType = assembly.GetType(typeName);
-            PropertyInfo propertyInfo = salesType.GetProperty("SalesId");
-            Assert.IsNotNull(propertyInfo, "The property 'SalesId' was not found on the Sales class.");
-            Type propertyType = propertyInfo.PropertyType;
-            Assert.AreEqual(typeof(int), propertyType, "The data type of 'SalesId' property is not as expected (int).");
+        string assemblyName = "ProductService";
+        string typeName = "ProductService.Models.Product";
+        Assembly assembly = Assembly.Load(assemblyName);
+        Type commuterType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = commuterType.GetProperty("ProductId");
+        Assert.IsNotNull(propertyInfo, "The property 'ProductId' was not found on the Product class.");
+        Type propertyType = propertyInfo.PropertyType;
+        Assert.AreEqual(typeof(int), propertyType, "The data type of 'ProductId' property is not as expected (int).");
     }
 
     [Test]
-    public void Sales_Properties_Price_ReturnExpectedDataTypes_decimal()
+    public void Product_Properties_Price_ReturnExpectedDataTypes_decimal()
     {
-        string assemblyName = "SalesService";
-        string typeName = "SalesService.Models.Sales";
+        string assemblyName = "ProductService";
+        string typeName = "ProductService.Models.Product";
         Assembly assembly = Assembly.Load(assemblyName);
-        Type salesType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = salesType.GetProperty("Price");
-        Assert.IsNotNull(propertyInfo, "The property 'Price' was not found on the Sales class.");
+        Type commuterType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = commuterType.GetProperty("Price");
+        Assert.IsNotNull(propertyInfo, "The property 'Price' was not found on the Product class.");
         Type propertyType = propertyInfo.PropertyType;
         Assert.AreEqual(typeof(decimal), propertyType, "The data type of 'Price' property is not as expected (decimal).");
     }
 
     [Test]
-    public void Sales_Properties_Name_ReturnExpectedDataTypes_String()
+    public void Product_Properties_Name_ReturnExpectedDataTypes_String()
     {
-        string assemblyName = "SalesService";
-        string typeName = "SalesService.Models.Sales";
+        string assemblyName = "ProductService";
+        string typeName = "ProductService.Models.Product";
         Assembly assembly = Assembly.Load(assemblyName);
-        Type salesType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = salesType.GetProperty("Name");
-        Assert.IsNotNull(propertyInfo, "The property 'Name' was not found on the Sales class.");
+        Type commuterType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = commuterType.GetProperty("Name");
+        Assert.IsNotNull(propertyInfo, "The property 'Name' was not found on the Product class.");
         Type propertyType = propertyInfo.PropertyType;
         Assert.AreEqual(typeof(string), propertyType, "The data type of 'Name' property is not as expected (string).");
     }
 
     [Test]
-    public void Sales_Properties_Description_ReturnExpectedDataTypes_String()
+    public void Product_Properties_Description_ReturnExpectedDataTypes_String()
     {
-        string assemblyName = "SalesService";
-        string typeName = "SalesService.Models.Sales";
+        string assemblyName = "ProductService";
+        string typeName = "ProductService.Models.Product";
         Assembly assembly = Assembly.Load(assemblyName);
-        Type salesType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = salesType.GetProperty("Description");
-        Assert.IsNotNull(propertyInfo, "The property 'Description' was not found on the Sales class.");
+        Type commuterType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = commuterType.GetProperty("Description");
+        Assert.IsNotNull(propertyInfo, "The property 'Description' was not found on the Product class.");
         Type propertyType = propertyInfo.PropertyType;
         Assert.AreEqual(typeof(string), propertyType, "The data type of 'Description' property is not as expected (string).");
     }

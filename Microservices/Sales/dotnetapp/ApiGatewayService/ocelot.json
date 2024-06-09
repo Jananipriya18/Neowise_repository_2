@@ -1,0 +1,19 @@
+{
+    "Routes": [
+      {
+        "DownstreamPathTemplate": "/api/Sales",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 8080
+          }
+        ],
+        "UpstreamPathTemplate": "/Sales-api/Sales",
+        "UpstreamHttpMethod": ["GET", "POST"],
+        "RouteIsCaseSensitive": false,
+        "DownstreamHttpVersion": "2.0",
+        "DangerousAcceptAnyServerCertificate": false
+      }
+    ]
+  }
