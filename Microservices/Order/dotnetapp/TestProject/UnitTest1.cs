@@ -72,14 +72,14 @@ public class Tests
     [Test]
     public void Sales_Properties_SalesId_ReturnExpectedDataTypes_int()
     {
-        string assemblyName = "SalesService";
-        string typeName = "SalesService.Models.Sales";
-        Assembly assembly = Assembly.Load(assemblyName);
-        Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("SalesId");
-        Assert.IsNotNull(propertyInfo, "The property 'SalesId' was not found on the Sales class.");
-        Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(int), propertyType, "The data type of 'SalesId' property is not as expected (int).");
+            string assemblyName = "SalesService";
+            string typeName = "SalesService.Models.Sales";
+            Assembly assembly = Assembly.Load(assemblyName);
+            Type salesType = assembly.GetType(typeName);
+            PropertyInfo propertyInfo = salesType.GetProperty("SalesId");
+            Assert.IsNotNull(propertyInfo, "The property 'SalesId' was not found on the Sales class.");
+            Type propertyType = propertyInfo.PropertyType;
+            Assert.AreEqual(typeof(int), propertyType, "The data type of 'SalesId' property is not as expected (int).");
     }
 
     [Test]
@@ -88,8 +88,8 @@ public class Tests
         string assemblyName = "SalesService";
         string typeName = "SalesService.Models.Sales";
         Assembly assembly = Assembly.Load(assemblyName);
-        Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Price");
+        Type salesType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = salesType.GetProperty("Price");
         Assert.IsNotNull(propertyInfo, "The property 'Price' was not found on the Sales class.");
         Type propertyType = propertyInfo.PropertyType;
         Assert.AreEqual(typeof(decimal), propertyType, "The data type of 'Price' property is not as expected (decimal).");
@@ -101,8 +101,8 @@ public class Tests
         string assemblyName = "SalesService";
         string typeName = "SalesService.Models.Sales";
         Assembly assembly = Assembly.Load(assemblyName);
-        Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Name");
+        Type salesType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = salesType.GetProperty("Name");
         Assert.IsNotNull(propertyInfo, "The property 'Name' was not found on the Sales class.");
         Type propertyType = propertyInfo.PropertyType;
         Assert.AreEqual(typeof(string), propertyType, "The data type of 'Name' property is not as expected (string).");
@@ -114,8 +114,8 @@ public class Tests
         string assemblyName = "SalesService";
         string typeName = "SalesService.Models.Sales";
         Assembly assembly = Assembly.Load(assemblyName);
-        Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Description");
+        Type salesType = assembly.GetType(typeName);
+        PropertyInfo propertyInfo = salesType.GetProperty("Description");
         Assert.IsNotNull(propertyInfo, "The property 'Description' was not found on the Sales class.");
         Type propertyType = propertyInfo.PropertyType;
         Assert.AreEqual(typeof(string), propertyType, "The data type of 'Description' property is not as expected (string).");

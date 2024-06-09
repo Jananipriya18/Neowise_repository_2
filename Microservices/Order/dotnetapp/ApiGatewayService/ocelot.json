@@ -9,7 +9,7 @@
             "Port": 8080
           }
         ],
-        "UpstreamPathTemplate": "/sales-api/sales",
+        "UpstreamPathTemplate": "/Sales-api/Sales",
         "UpstreamHttpMethod": ["GET", "POST"],
         "RouteIsCaseSensitive": false,
         "DownstreamHttpVersion": "2.0",

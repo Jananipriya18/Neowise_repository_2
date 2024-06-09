@@ -22,16 +22,16 @@ namespace SalesService.Controllers
 
         // GET: api/sales
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sales>>> GetSaless()
+        public async Task<ActionResult<IEnumerable<Sales>>> GetSales()
         {
             Console.WriteLine("Gateway Timeout");
-            return await _context.Saless.ToListAsync();
+            return await _context.Sales.ToListAsync();
         }
 
         [HttpPost]
         public async Task<ActionResult<Sales>> CreateSales(Sales sales)
         {
-            _context.Saless.Add(sales);
+            _context.Sales.Add(sales);
             await _context.SaveChangesAsync();
 
             // Constructing custom JSON response
