@@ -95,41 +95,41 @@ public class Tests
     }
 
     [Test]
-    public void User_Properties_Price_ReturnExpectedDataTypes_decimal()
+    public void User_Properties_Username_ReturnExpectedDataTypes_string()
     {
         string assemblyName = "UserService";
         string typeName = "UserService.Models.User";
         Assembly assembly = Assembly.Load(assemblyName);
         Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Price");
-        Assert.IsNotNull(propertyInfo, "The property 'Price' was not found on the User class.");
+        PropertyInfo propertyInfo = commuterType.GetProperty("Username");
+        Assert.IsNotNull(propertyInfo, "The property 'Username' was not found on the User class.");
         Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(decimal), propertyType, "The data type of 'Price' property is not as expected (decimal).");
+        Assert.AreEqual(typeof(string), propertyType, "The data type of 'Username' property is not as expected (string).");
     }
 
     [Test]
-    public void User_Properties_Name_ReturnExpectedDataTypes_String()
+    public void User_Properties_Email_ReturnExpectedDataTypes_String()
     {
         string assemblyName = "UserService";
         string typeName = "UserService.Models.User";
         Assembly assembly = Assembly.Load(assemblyName);
         Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Name");
-        Assert.IsNotNull(propertyInfo, "The property 'Name' was not found on the User class.");
+        PropertyInfo propertyInfo = commuterType.GetProperty("Email");
+        Assert.IsNotNull(propertyInfo, "The property 'Email' was not found on the User class.");
         Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(string), propertyType, "The data type of 'Name' property is not as expected (string).");
+        Assert.AreEqual(typeof(string), propertyType, "The data type of 'Email' property is not as expected (string).");
     }
 
     [Test]
-    public void User_Properties_Description_ReturnExpectedDataTypes_String()
+    public void User_Properties_Address_ReturnExpectedDataTypes_String()
     {
         string assemblyName = "UserService";
         string typeName = "UserService.Models.User";
         Assembly assembly = Assembly.Load(assemblyName);
         Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Description");
-        Assert.IsNotNull(propertyInfo, "The property 'Description' was not found on the User class.");
+        PropertyInfo propertyInfo = commuterType.GetProperty("Address");
+        Assert.IsNotNull(propertyInfo, "The property 'Address' was not found on the User class.");
         Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(string), propertyType, "The data type of 'Description' property is not as expected (string).");
+        Assert.AreEqual(typeof(string), propertyType, "The data type of 'Address' property is not as expected (string).");
     }
 }
