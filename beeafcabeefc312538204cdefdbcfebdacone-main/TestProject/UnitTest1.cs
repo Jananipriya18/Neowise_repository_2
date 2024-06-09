@@ -107,13 +107,13 @@ namespace dotnetapp.Tests
             var createdMobilePhone = JsonConvert.DeserializeObject<MobilePhone>(await response.Content.ReadAsStringAsync());
 
             Assert.IsNotNull(createdMobilePhone);
-            Assert.AreEqual(newMobilePhone.MobilePhoneName, createdMobilePhone.MobilePhoneName);
+            Assert.AreEqual(newMobilePhone.Brand, createdMobilePhone.Brand);
         }
 
         [Test]
         public async Task Test_UpdateMobilePhone_ValidId_ReturnsNoContent()
         {
-            _testMobilePhone.MobilePhoneName = "Updated MobilePhone";
+            _testMobilePhone.Brand = "Updated Brand";
 
             var json = JsonConvert.SerializeObject(_testMobilePhone);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
