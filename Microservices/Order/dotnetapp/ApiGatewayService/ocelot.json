@@ -1,7 +1,7 @@
 {
     "Routes": [
       {
-        "DownstreamPathTemplate": "/api/Product",
+        "DownstreamPathTemplate": "/api/Order",
         "DownstreamScheme": "http",
         "DownstreamHostAndPorts": [
           {
@@ -9,7 +9,7 @@
             "Port": 8080
           }
         ],
-        "UpstreamPathTemplate": "/product-api/product",
+        "UpstreamPathTemplate": "/order-api/order",
         "UpstreamHttpMethod": ["GET", "POST"],
         "RouteIsCaseSensitive": false,
         "DownstreamHttpVersion": "2.0",

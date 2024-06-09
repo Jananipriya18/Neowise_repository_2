@@ -28,7 +28,7 @@ public class Tests
 
         string uniquename = $"abcd_{uniqueId}";
 
-        string requestBody = $"{{\"name\": \"{uniquename}\", \"description\": \"abc@123A\", \"price\": 10.23}}";
+        string requestBody = $"{{\"customername\": \"{uniquename}\", \"description\": \"abc@123A\", \"totalAmount\": 10.23}}";
         HttpResponseMessage response = await _httpClient.PostAsync("/api/order", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
@@ -52,7 +52,7 @@ public class Tests
 
         string uniquename = $"abcd_{uniqueId}";
 
-        string requestBody = $"{{\"name\": \"{uniquename}\", \"description\": \"abc@123A\", \"price\": 10.23}}";
+        string requestBody = $"{{\"customername\": \"{uniquename}\", \"description\": \"abc@123A\", \"totalAmount\": 10.23}}";
         HttpResponseMessage response = await _httpClient1.PostAsync("/order-api/order", new StringContent(requestBody, Encoding.UTF8, "application/json"));
 
         Console.WriteLine(response.StatusCode);
@@ -83,41 +83,41 @@ public class Tests
     }
 
     [Test]
-    public void Order_Properties_Price_ReturnExpectedDataTypes_decimal()
+    public void Order_Properties_TotalAmount_ReturnExpectedDataTypes_decimal()
     {
         string assemblyName = "OrderService";
         string typeName = "OrderService.Models.Order";
         Assembly assembly = Assembly.Load(assemblyName);
         Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("Price");
-        Assert.IsNotNull(propertyInfo, "The property 'Price' was not found on the Order class.");
+        PropertyInfo propertyInfo = commuterType.GetProperty("TotalAmount");
+        Assert.IsNotNull(propertyInfo, "The property 'TotalAmount' was not found on the Order class.");
         Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(decimal), propertyType, "The data type of 'Price' property is not as expected (decimal).");
+        Assert.AreEqual(typeof(decimal), propertyType, "The data type of 'TotalAmount' property is not as expected (decimal).");
     }
 
     [Test]
-    public void Order_Properties_OrderDate _ReturnExpectedDataTypes_String()
+    public void Order_Properties_OrderDate_ReturnExpectedDataTypes_DateTime()
     {
         string assemblyName = "OrderService";
         string typeName = "OrderService.Models.Order";
         Assembly assembly = Assembly.Load(assemblyName);
         Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("OrderDate ");
-        Assert.IsNotNull(propertyInfo, "The property 'OrderDate ' was not found on the Order class.");
+        PropertyInfo propertyInfo = commuterType.GetProperty("OrderDate");
+        Assert.IsNotNull(propertyInfo, "The property 'OrderDate' was not found on the Order class.");
         Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(string), propertyType, "The data type of 'OrderDate ' property is not as expected (string).");
+        Assert.AreEqual(typeof(DateTime), propertyType, "The data type of 'OrderDate' property is not as expected (DateTime).");
     }
 
     [Test]
-    public void Order_Properties_CustomerName _ReturnExpectedDataTypes_String()
+    public void Order_Properties_CustomerName_ReturnExpectedDataTypes_String()
     {
         string assemblyName = "OrderService";
         string typeName = "OrderService.Models.Order";
         Assembly assembly = Assembly.Load(assemblyName);
         Type commuterType = assembly.GetType(typeName);
-        PropertyInfo propertyInfo = commuterType.GetProperty("CustomerName ");
-        Assert.IsNotNull(propertyInfo, "The property 'CustomerName ' was not found on the Order class.");
+        PropertyInfo propertyInfo = commuterType.GetProperty("CustomerName");
+        Assert.IsNotNull(propertyInfo, "The property 'CustomerName' was not found on the Order class.");
         Type propertyType = propertyInfo.PropertyType;
-        Assert.AreEqual(typeof(string), propertyType, "The data type of 'CustomerName ' property is not as expected (string).");
+        Assert.AreEqual(typeof(string), propertyType, "The data type of 'CustomerName' property is not as expected (string).");
     }
 }
