@@ -11,7 +11,7 @@ using UserService.Data;
 namespace UserService.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240609132858_dfygui")]
+    [Migration("20240609135250_dfygui")]
     partial class dfygui
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
