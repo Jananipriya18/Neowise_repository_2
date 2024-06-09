@@ -39,7 +39,7 @@ public class Tests
     }
 
     [Test, Order(2)]
-    public async Task SalesService_8080_GetSaless()
+    public async Task SalesService_8080_GetSales()
     {
         HttpResponseMessage prodresponse = await _httpClient.GetAsync("/api/sales");
         Assert.AreEqual(HttpStatusCode.OK, prodresponse.StatusCode);
@@ -63,7 +63,7 @@ public class Tests
     }
 
     [Test, Order(4)]
-    public async Task ApiGatewayService_8081_GetSaless()
+    public async Task ApiGatewayService_8081_GetSales()
     {
         HttpResponseMessage prodresponse = await _httpClient1.GetAsync("/sales-api/sales");
         Assert.AreEqual(HttpStatusCode.OK, prodresponse.StatusCode);
