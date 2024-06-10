@@ -41,11 +41,16 @@ namespace dotnetapp.Controllers
             return artwork;
         }
 
-        // GET: api/artworks?category={categoryName}
+        // GET: api/artworks/filter?artist={artistName}
         [HttpGet("filter")]
-        public ActionResult<IEnumerable<Artwork>> GetArtworksByCategory([FromQuery] string category)
+        public ActionResult<IEnumerable<Artwork>> GetArtworksByArtist([FromQuery] string artist)
         {
-            var artworks = _context.Artworks.Where(p => p.Category == category).ToList();
+            var artworks = _context.Artworks.Where(a => a.Artist == artist).ToList();
+
+            if (!artworks.Any())
+            {
+                return NotFound();
+            }
 
             return artworks;
         }
