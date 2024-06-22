@@ -22,7 +22,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowOrigin",
         builder =>
         {
-            builder.WithOrigins("https://8081-bfabeabdaebdadfccdadbafeaecccaaeccf.premiumproject.examly.io")
+            builder.WithOrigins("https://8081-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io")
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });

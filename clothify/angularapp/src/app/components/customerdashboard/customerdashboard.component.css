@@ -21,19 +21,19 @@
     transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
   }
   
-  .my-gifts-link {
+  .my-products-link {
     background-color: #28a745;
   }
   
-  .my-gifts-link:hover {
+  .my-products-link:hover {
     background-color: #f05518;
   }
   
-  .add-gifts-link {
+  .add-products-link {
     background-color: #28a745;
   }
   
-  .add-gifts-link:hover {
+  .add-products-link:hover {
     background-color: #f05518;
   }
   

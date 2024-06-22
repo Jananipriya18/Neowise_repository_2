@@ -1,17 +1,17 @@
 <app-customerdashboard></app-customerdashboard>
 <div class="container">
-  <div *ngFor="let giftData of gifts">
-    <h2>{{ giftData.giftType }}</h2>
-    <img [src]="giftData.giftImageUrl" alt="{{ giftData.giftType }}" />
-    <p>{{ giftData.giftDetails }}</p>
-    <p>Price: {{ giftData.giftPrice }}</p>
-    <p>Available Quantity: {{ giftData.quantity }}</p>
+  <div *ngFor="let productData of products">
+    <h2>{{ productData.productType }}</h2>
+    <img [src]="productData.productImageUrl" alt="{{ productData.productType }}" />
+    <p>{{ productData.productDetails }}</p>
+    <p>Price: {{ productData.productPrice }}</p>
+    <p>Available Quantity: {{ productData.quantity }}</p>
     <p>
       Quantity:
-      <input type="number" class="userquantity" style="width: 50px;" [min]="1" [max]="giftData.quantity" [(ngModel)]="giftData.userQuantity" (ngModelChange)="validateQuantity(giftData)">
-      <span *ngIf="giftData.userQuantity > giftData.quantity" style="color: red;">Quantity exceeds available quantity!</span>
+      <input type="number" class="userquantity" style="width: 50px;" [min]="1" [max]="productData.quantity" [(ngModel)]="productData.userQuantity" (ngModelChange)="validateQuantity(productData)">
+      <span *ngIf="productData.userQuantity > productData.quantity" style="color: red;">Quantity exceeds available quantity!</span>
     </p>
-    <button (click)="removeFromCart(giftData.giftId)" id="remove-btn" class="remove">Remove from Cart</button>
+    <button (click)="removeFromCart(productData.productId)" id="remove-btn" class="remove">Remove from Cart</button>
   </div>
 </div>
 <div class="button-container">

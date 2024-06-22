@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
         // Successful login
         console.log(asd);
         if (this.authService.isAdmin()) {
-          this.router.navigate(['/admin/gifts/view']); // Navigate to admin page
+          this.router.navigate(['/admin/products/view']); // Navigate to admin page
         } else {
-          this.router.navigate(['/customer/gifts/view']); // Navigate to organizer page
+          this.router.navigate(['/customer/products/view']); // Navigate to organizer page
         }
       },
       (error) => {
