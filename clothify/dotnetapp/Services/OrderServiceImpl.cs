@@ -16,32 +16,23 @@ namespace dotnetapp.Services
         }
  
         public Order AddOrder(Order order)
-        {
-            // Additional business logic, if needed
+        {    
             return _orderRepository.AddOrder(order);
         }
  
         public List<Order> GetAllOrders()
-        {
-            // Additional business logic, if needed
+        {    
             return _orderRepository.GetAllOrders();
         }
  
         public Order GetOrderById(long orderId)
         {
-            // Additional business logic, if needed
             return _orderRepository.GetOrderById(orderId);
         }
  
-        // public Order DeleteOrder(long orderId)
-        // {
-        //     // Additional business logic, if needed
-        //     return _orderRepository.DeleteOrder(orderId);
-        // }
- 
         public List<Order> GetOrdersByCustomerId(long customerId)
         {
-            // Additional business logic, if needed
+            
             return _orderRepository.GetOrdersByCustomerId(customerId);
         }
     }

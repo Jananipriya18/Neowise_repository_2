@@ -1,32 +1,32 @@
 using System.Collections.Generic;
 using dotnetapp.Models;
 using dotnetapp.Services;
-public class GiftServiceImpl : GiftService
+public class ProductServiceImpl : ProductService
 {
-    private readonly GiftRepository _giftRepository;
+    private readonly ProductRepository _productRepository;
 
-    public GiftServiceImpl(GiftRepository giftRepository)
+    public ProductServiceImpl(ProductRepository productRepository)
     {
-        _giftRepository = giftRepository;
+        _productRepository = productRepository;
     }
 
-    public Gift AddGift(Gift gift)
+    public Product AddProduct(Product product)
     {
-        return _giftRepository.addGift(gift);
+        return _productRepository.addProduct(product);
     }
 
-    public List<Gift> GetAllGifts()
+    public List<Product> GetAllProducts()
     {
-        return _giftRepository.getAllGifts();
+        return _productRepository.getAllProducts();
     }
 
-    public Gift EditGift(long giftId, Gift updatedGift)
+    public Product EditProduct(long productId, Product updatedProduct)
     {
-        return _giftRepository.editGift(giftId, updatedGift);
+        return _productRepository.editProduct(productId, updatedProduct);
     }
 
-    public Gift DeleteGift(long giftId)
+    public Product DeleteProduct(long productId)
     {
-        return _giftRepository.deleteGift(giftId);
+        return _productRepository.deleteProduct(productId);
     }
 }
