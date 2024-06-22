@@ -53,32 +53,31 @@ p {
     color: rgb(180, 184, 187); /* Slightly darker text color */
 }
 
+  
 /* Container for the album */
 .album {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid layout */
+    display: inline; /* Use flexbox for horizontal layout */
     gap: 10px; /* Gap between items */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
   }
   
   /* Style for each card */
   .album .card {
-    margin-top: 10%;
-    position: relative;
-    width: 80%; /* Ensure cards take full width of their container */
+    flex: 0 0 auto; /* Do not grow or shrink, maintain initial size */
   }
   
   /* Style for the square images */
   .clothes {
     display: block;
     overflow: hidden;
-    border-radius: 30%; /* Remove circular border */
+    border-radius: 10px; /* Rounded corners */
   }
   
   .clothes img {
     display: block;
-    width: 80%; /* Ensure image fills its container */
+    width: 150px; /* Fixed width for each image */
     height: auto; /* Maintain aspect ratio */
-    border-radius: 30%;
-    border-color: rgb(254, 196, 255);
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid rgb(254, 196, 255); /* Optional: Border color */
   }
   
