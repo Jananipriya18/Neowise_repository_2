@@ -21,7 +21,7 @@ h1 {
 p {
     margin-top: 35px;
     color: #666;
-    text-align: center;
+    /* text-align: center; */
     max-width: 900px;
     font-size: 18px;
 }
@@ -50,7 +50,7 @@ p {
 .jumbotron p {
     font-size: 1rem; 
     color: rgb(179, 22, 179); 
-    text-align: center;
+    /* text-align: center; */
 }
 
 /* Container for the album */
