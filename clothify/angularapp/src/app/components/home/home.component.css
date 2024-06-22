@@ -8,7 +8,7 @@ body {
     max-width: auto;
     margin: 0 auto;
     padding: 10px;
-    background-color: white;
+    background-color: aliceblue;
     opacity: 0.9;
 }
 
@@ -36,7 +36,7 @@ p {
 
 
 .jumbotron {
-    background-color: #ffffff; 
+    background-color: #1eefa2a3; 
     padding: 10px; 
     font-size: medium;
 
@@ -49,7 +49,7 @@ p {
 
 .jumbotron p {
     font-size: 1rem; 
-    color: rgb(180, 184, 187); 
+    color: rgb(179, 22, 179); 
     text-align: center;
 }
 
