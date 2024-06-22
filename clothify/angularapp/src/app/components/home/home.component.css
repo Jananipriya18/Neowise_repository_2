@@ -62,20 +62,23 @@ p {
   
   /* Style for each card */
   .album .card {
+    margin-top: 10%;
     position: relative;
-    width: 100%; /* Ensure cards take full width of their container */
+    width: 80%; /* Ensure cards take full width of their container */
   }
   
-  /* Style for the circular images */
+  /* Style for the square images */
   .clothes {
     display: block;
-    overflow: hidden; /* Ensure image stays within the bounds of its container */
-    border-radius: 50%; /* Circular border */
+    overflow: hidden;
+    border-radius: 30%; /* Remove circular border */
   }
   
   .clothes img {
     display: block;
-    width: 100%; /* Ensure image fills its container */
+    width: 80%; /* Ensure image fills its container */
     height: auto; /* Maintain aspect ratio */
+    border-radius: 30%;
+    border-color: rgb(254, 196, 255);
   }
   
