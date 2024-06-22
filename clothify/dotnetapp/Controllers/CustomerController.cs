@@ -30,7 +30,7 @@ namespace dotnetapp.Controllers
             var newCart = new Cart
             {
                 CustomerId = customer.CustomerId,
-                // Gifts = new List<Gift>(), // Assuming Gifts is initialized as an empty list
+                // Products = new List<Product>(), // Assuming Products is initialized as an empty list
                 TotalAmount = 0
             };
 

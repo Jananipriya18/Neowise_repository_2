@@ -1,0 +1,121 @@
+<!-- <app-customerdashboard></app-customerdashboard>
+<div class="main-container">
+    <h1>Add Review Details</h1>
+
+<form [formGroup]="addReviewForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+        <label for="userId">User Id:</label>
+        <input type="number" id="userId" formControlName="userId" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="subject">Select :</label>
+        Compliants
+        <input type="text" id="subject" formControlName="subject">
+        <div *ngIf="addReviewForm.get('subject').hasError('required') && addReviewForm.get('subject').touched"
+             class="error-message">
+            *Subject is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="body">Feedback comments:</label>
+        <textarea id="body" formControlName="body"></textarea>
+        <div *ngIf="addReviewForm.get('body').hasError('required') && addReviewForm.get('body').touched"
+             class="error-message">
+            *Body is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" formControlName="rating" min="1" max="5">
+        <div *ngIf="addReviewForm.get('rating').hasError('required') && addReviewForm.get('rating').touched"
+             class="error-message">
+            *Rating is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="dateCreated">Date Created:</label>
+        <input type="date" id="dateCreated" formControlName="dateCreated" readonly>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        *{{ errorMessage }}
+    </div>
+
+    <div class="add-btn">
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+
+</div> -->
+<app-customerdashboard></app-customerdashboard>
+<div class="main-container">
+    <h2>Add Review Details</h2>
+
+<form [formGroup]="addReviewForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+        <label for="userName">Email Address:</label>
+        <input type="text" id="userName" formControlName="userName" readonly>
+    </div>
+
+    <div class="form-group">
+        <label for="subject">Gift Type:<span class="asterisk">*</span></label>
+        <select id="subject" formControlName="subject" >
+            <option value="" disabled selected>Select Gift Type</option>
+            <option *ngFor="let giftType of giftTypes" [value]="giftType">{{ giftType }}</option>
+        </select>
+        <div class="error-message" *ngIf="addReviewForm.get('subject').hasError('required') && addReviewForm.get('subject').touched">
+            Gift Type is required
+        </div>
+        
+    </div>
+    
+
+    <div class="form-group">
+        <div class="validation">
+            <label for="body">Feedback comments:<span class="asterisk">*</span></label>
+            <div class="error-message" *ngIf="addReviewForm.get('body').hasError('required') && addReviewForm.get('body').touched">
+                Feedback comments are required
+            </div>
+        </div>
+        <textarea id="body" formControlName="body"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <div class="validation">
+            <label for="rating">Rating:<span class="asterisk">*</span></label>
+            <div class="error-message" *ngIf="addReviewForm.get('rating').hasError('required') && addReviewForm.get('rating').touched">
+                Rating is required
+            </div>
+        </div>
+        <div class="rating-buttons">
+            <label *ngFor="let i of [1, 2, 3, 4, 5]" class="rating-option">
+                <input type="radio" id="rating{{i}}" formControlName="rating" [value]="i">
+                {{i}}
+            </label>
+        </div>
+    </div>
+    
+
+    <!-- <div class="form-group">
+        <label for="dateCreated">Date Created:</label>
+        <input type="date" id="dateCreated" formControlName="dateCreated" readonly>
+    </div> -->
+
+    <div *ngIf="errorMessage" class="error-message">
+        *{{ errorMessage }}
+    </div>
+
+    <div class="add-btn">
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+
+</div>

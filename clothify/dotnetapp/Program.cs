@@ -35,7 +35,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
     });
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Gift")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
  
  
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -65,11 +65,11 @@ builder.Services.AddAuthentication(options =>
  
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<CustomerRepository>();
-builder.Services.AddScoped<GiftRepository>();
+builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<CartRepository>();
 builder.Services.AddScoped<OrderRepository>();
 builder.Services.AddScoped<IReviewRepo, ReviewRepo>();
-builder.Services.AddScoped<GiftService, GiftServiceImpl>();
+builder.Services.AddScoped<ProductService, ProductServiceImpl>();
 builder.Services.AddScoped<CustomerService, CustomerServiceImpl>();
 builder.Services.AddScoped<CartService, CartServiceImpl>();
 builder.Services.AddScoped<ReviewService, ReviewServiceImpl>();

@@ -7,7 +7,7 @@
 //     {
 //         public DbSet<User> Users { get; set; }
 //         public DbSet<Customer> Customers { get; set; }
-//         public DbSet<Gift> Gifts { get; set; }
+//         public DbSet<Product> Products { get; set; }
 //         public DbSet<Orders> Orders { get; set; }
 //         public DbSet<Cart> Carts { get; set; }
 
@@ -22,15 +22,15 @@
 //                 .WithOne()
 //                 .HasForeignKey<Customer>(c => c.UserId);
 
-//             modelBuilder.Entity<Gift>()
+//             modelBuilder.Entity<Product>()
 //                 .HasOne(g => g.Cart)
-//                 .WithMany(c => c.Gifts)
+//                 .WithMany(c => c.Products)
 //                 .HasForeignKey(g => g.CartId)
 //                 .OnDelete(DeleteBehavior.Restrict);
 
-//             modelBuilder.Entity<Gift>()
+//             modelBuilder.Entity<Product>()
 //                 .HasOne(g => g.Orders)
-//                 .WithMany(o => o.Gifts)
+//                 .WithMany(o => o.Products)
 //                 .HasForeignKey(g => g.OrdersId)
 //                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -57,7 +57,7 @@ namespace dotnetapp.Data
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Gift> Gifts { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -76,12 +76,6 @@ namespace dotnetapp.Data
                 .WithOne()
                 .HasForeignKey<Customer>(c => c.UserId);
  
-            // modelBuilder.Entity<Gift>()
-            //     .HasOne(g => g.Cart)
-            //     .WithMany(c => c.Gifts)
-            //     .HasForeignKey(g => g.CartId)
-            //     .OnDelete(DeleteBehavior.Restrict);
- 
             modelBuilder.Entity<Cart>()
                 .HasOne(c => c.Customer)
                 .WithOne()
@@ -93,14 +87,11 @@ namespace dotnetapp.Data
                 .HasForeignKey(o => o.CustomerId);
  
             modelBuilder.Entity<Order>()
-                .HasMany(o => o.Gifts)
+                .HasMany(o => o.Products)
                 .WithOne(g => g.Order)
                 .HasForeignKey(g => g.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
- 
- 
         }
     }
 }

@@ -1,0 +1,133 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+  .userquantity{
+    width: 200px;
+  }
+  .container div {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .container img {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+  
+  .container p {
+    margin-bottom: 5px;
+  }
+  
+  .order{
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+
+
+
+  .button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #remove-btn{
+    background-color: red;
+    color: white;
+    width: 200px;
+    font-size: 14px;
+  }
+
+  input{
+    width: 30px;
+    height: 20x;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  /* Gift details */
+.gift-details {
+  margin-bottom: 10px;
+}
+
+/* Price */
+.price {
+  margin-bottom: 10px;
+}
+
+/* Quantity container */
+.quantity-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Quantity buttons */
+.quantity-container button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 12px;
+  margin: 0 5px;
+}
+
+/* Disabled state for decrement button */
+.quantity-container button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Quantity input */
+.quantity-container input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+}
+
+
+/* Remove button */
+#remove-btn {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+/* Remove button hover */
+#remove-btn:hover {
+  background-color: #c82333;
+}
+button {
+  /* existing styles */
+  margin: 0 5px; /* add horizontal margin */
+}

@@ -72,47 +72,6 @@ namespace dotnetapp.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("dotnetapp.Models.Gift", b =>
-                {
-                    b.Property<long>("GiftId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("GiftId"), 1L, 1);
-
-                    b.Property<long?>("CartId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("GiftDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GiftImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("GiftPrice")
-                        .HasColumnType("float");
-
-                    b.Property<string>("GiftType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("OrderId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("GiftId");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Gifts");
-                });
-
             modelBuilder.Entity("dotnetapp.Models.Order", b =>
                 {
                     b.Property<long>("OrderId")
@@ -135,6 +94,47 @@ namespace dotnetapp.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("dotnetapp.Models.Product", b =>
+                {
+                    b.Property<long>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ProductId"), 1L, 1);
+
+                    b.Property<long?>("CartId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("OrderId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ProductDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ProductPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId");
+
+                    b.HasIndex("CartId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("dotnetapp.Models.Review", b =>
@@ -415,22 +415,6 @@ namespace dotnetapp.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("dotnetapp.Models.Gift", b =>
-                {
-                    b.HasOne("dotnetapp.Models.Cart", "Cart")
-                        .WithMany("Gifts")
-                        .HasForeignKey("CartId");
-
-                    b.HasOne("dotnetapp.Models.Order", "Order")
-                        .WithMany("Gifts")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("dotnetapp.Models.Order", b =>
                 {
                     b.HasOne("dotnetapp.Models.Customer", "Customer")
@@ -438,6 +422,22 @@ namespace dotnetapp.Migrations
                         .HasForeignKey("CustomerId");
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("dotnetapp.Models.Product", b =>
+                {
+                    b.HasOne("dotnetapp.Models.Cart", "Cart")
+                        .WithMany("Products")
+                        .HasForeignKey("CartId");
+
+                    b.HasOne("dotnetapp.Models.Order", "Order")
+                        .WithMany("Products")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Cart");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("dotnetapp.Models.Review", b =>
@@ -504,7 +504,7 @@ namespace dotnetapp.Migrations
 
             modelBuilder.Entity("dotnetapp.Models.Cart", b =>
                 {
-                    b.Navigation("Gifts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("dotnetapp.Models.Customer", b =>
@@ -514,7 +514,7 @@ namespace dotnetapp.Migrations
 
             modelBuilder.Entity("dotnetapp.Models.Order", b =>
                 {
-                    b.Navigation("Gifts");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,82 @@
+/* Styles for the form container */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #fff; /* Add a white background */
+  padding: 20px;
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 10px; /* Add rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+span {
+  color: red;
+}
+
+
+h2 {
+  text-align: center;
+  margin: 20px;
+}
+
+/* Styles for form groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Styles for labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Styles for text inputs and textareas */
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Styles for error messages */
+/* Styles for the Add Gift button */
+.add-btn {
+  margin-top: 20px;
+  text-align: center;
+}
+
+button {
+  background-color: #007bff; /* Blue color */
+  color: #fff;
+  opacity: 0.7;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:disabled {
+  cursor: not-allowed; /* Change cursor for disabled state */
+  background-color: #ccc; /* Change background color for disabled state */
+  opacity: 1; /* Adjust opacity for disabled state */
+}
+
+button:hover:disabled {
+  background-color: #ccc; /* Darker gray on hover for disabled state */
+}
+
+.error-message {
+  color: red;
+  position: absolute;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

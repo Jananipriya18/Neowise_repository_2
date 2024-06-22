@@ -1,0 +1,71 @@
+<!-- <app-customerdashboard></app-customerdashboard>
+<h1>My Orders</h1>
+<div *ngFor="let order of orders">
+  <div class="main-container">
+    <div class="left-container">
+      <h2>Order ID: {{ order.orderId }}</h2>
+      <p>Order Price: ${{ order.orderPrice }}</p>
+      <p>Quantity: {{ order.quantity }}</p>
+    </div>
+  </div>
+ 
+  <div class="main-container">
+    <div class="gift-list">
+      <div *ngFor="let gift of order.gifts" class="gift-container">
+        <img [src]="gift.giftImageUrl" alt="Gift Image" />
+        <h2>Gift Type: {{ gift.giftType }}</h2>
+        <p>Gift Details{{ gift.giftDetails }}</p>
+        <p>Price: ${{ gift.giftPrice }}</p>
+        <p>Quantity: {{ gift.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<app-customerdashboard></app-customerdashboard>
+<h2>My Orders</h2>
+<div *ngIf="orders.length === 0">
+  <p>No orders placed yet.</p>
+</div>
+<table *ngIf="orders.length > 0">
+  <thead>
+    <tr>
+      <!-- <th>Order ID</th> -->
+      <th>Order Price</th>
+      <!-- <th>Quantity</th> -->
+      <th>Gifts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let order of orders">
+      <!-- <td>{{ order.orderId }}</td> -->
+      <td>${{ order.orderPrice }}</td>
+      <!-- <td>{{ order.quantity }}</td> -->
+      <td>
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Type</th>
+              <th>Details</th>
+              <th>Price</th>
+              <!-- <th>Quantity</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gift of order.gifts">
+              <td><img [src]="gift.giftImageUrl" alt="Gift Image" /></td>
+              <td>{{ gift.giftType }}</td>
+              <td>{{ gift.giftDetails }}</td>
+              <td>${{ gift.giftPrice }}</td>
+              <!-- <td>{{ gift.userQuantity }}</td> -->
+              <!-- <button (click)="cancelOrder(order.orderId)">Cancel Order</button> -->
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="reviewbutton" style="text-align: center;"   (click)="navigateToAddReview()" [disabled]="disableAddReview">Add Review</button>

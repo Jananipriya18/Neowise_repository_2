@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace dotnetapp.Migrations
 {
-    public partial class initialsetup : Migration
+    public partial class sdfghj : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -255,29 +255,29 @@ namespace dotnetapp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Gifts",
+                name: "Products",
                 columns: table => new
                 {
-                    GiftId = table.Column<long>(type: "bigint", nullable: false)
+                    ProductId = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GiftType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GiftImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GiftDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GiftPrice = table.Column<double>(type: "float", nullable: false),
+                    ProductType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductDetails = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductPrice = table.Column<double>(type: "float", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     CartId = table.Column<long>(type: "bigint", nullable: true),
                     OrderId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Gifts", x => x.GiftId);
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                     table.ForeignKey(
-                        name: "FK_Gifts_Carts_CartId",
+                        name: "FK_Products_Carts_CartId",
                         column: x => x.CartId,
                         principalTable: "Carts",
                         principalColumn: "CartId");
                     table.ForeignKey(
-                        name: "FK_Gifts_Orders_OrderId",
+                        name: "FK_Products_Orders_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
@@ -337,19 +337,19 @@ namespace dotnetapp.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Gifts_CartId",
-                table: "Gifts",
-                column: "CartId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Gifts_OrderId",
-                table: "Gifts",
-                column: "OrderId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
                 table: "Orders",
                 column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CartId",
+                table: "Products",
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_OrderId",
+                table: "Products",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reviews_UserId",
@@ -375,7 +375,7 @@ namespace dotnetapp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Gifts");
+                name: "Products");
 
             migrationBuilder.DropTable(
                 name: "Reviews");
