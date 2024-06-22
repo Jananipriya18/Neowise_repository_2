@@ -5,9 +5,11 @@ body {
 }
 
 .container {
-    max-width: 800px;
+    max-width: auto;
     margin: 0 auto;
     padding: 10px;
+    background-color: aliceblue;
+    opacity: 0.9;
 }
 
 h1 {
@@ -27,57 +29,55 @@ p {
 .container {
     margin-top: 5px;
   }
-  
-  /* styles.css */
 
-/* Custom styles for the carousel */
 .carousel-item img {
-    max-height: 200px; /* Adjust maximum height of carousel images */
+    max-height: 200px; 
 }
 
-/* Custom styles for the jumbotron */
+
 .jumbotron {
-    background-color: #f8f9fa; /* Light background color */
-    padding: 10px; /* Adjust padding as needed */
+    background-color: #ffffff; 
+    padding: 10px; 
     font-size: medium;
 
 }
 
 .jumbotron h1 {
-    font-size: 45x; /* Larger font size for headline */
-    color: #343a40; /* Dark text color */
+    font-size: 45x; 
+    color: #343a40; 
 }
 
 .jumbotron p {
-    font-size: 1rem; /* Larger font size for paragraph */
-    color: rgb(180, 184, 187); /* Slightly darker text color */
+    font-size: 1rem; 
+    color: rgb(180, 184, 187); 
 }
 
-  
 /* Container for the album */
 .album {
-    display: inline; /* Use flexbox for horizontal layout */
-    gap: 10px; /* Gap between items */
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    display: inline-block; 
+    /* flex-wrap: nowrap;  */
+    gap: 10px; 
+    overflow-x: auto; 
+    font-size: 0; 
+    margin-top: 10px; 
   }
   
-  /* Style for each card */
-  .album .card {
-    flex: 0 0 auto; /* Do not grow or shrink, maintain initial size */
-  }
+  /* .album .card {
+    flex: 0 0 auto; 
+  } */
   
-  /* Style for the square images */
   .clothes {
     display: block;
     overflow: hidden;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 20px; 
   }
   
   .clothes img {
     display: block;
-    width: 150px; /* Fixed width for each image */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 8px; /* Rounded corners */
-    border: 1px solid rgb(254, 196, 255); /* Optional: Border color */
+    width: 150px; 
+    height: auto;
+    border-radius: 10px; 
+    border: 1px solid rgb(254, 196, 255); 
+    margin:10px;
   }
   
