@@ -7,11 +7,11 @@ import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CustomerdashboardComponent } from './components/customerdashboard/customerdashboard.component';
-import { ViewGiftsComponent } from './components/view-gifts/view-gifts.component';
-import { CustomerViewGiftsComponent } from './components/customer-view-gifts/customer-view-gifts.component';
+import { ViewProductsComponent } from './components/view-products/view-products.component';
+import { CustomerViewProductsComponent } from './components/customer-view-products/customer-view-products.component';
 import { MyCartComponent } from './components/my-cart/my-cart.component';
-import { EditGiftComponent } from './components/edit-gift/edit-gift.component';
-import { AddGiftComponent } from './components/add-gift/add-gift.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddReviewComponent } from './components/add-review/add-review.component';
 import { ViewReviewComponent } from './components/view-review/view-review.component';
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
@@ -25,11 +25,11 @@ const routes: Routes = [
   {path: 'login', component:LoginComponent},
   {path: 'admin/dashboard', component:DashboardComponent, canActivate: [AuthGuard]},
   {path: 'customer/dashboard', component:CustomerdashboardComponent, canActivate: [AuthGuard]},
-  {path: 'admin/gifts/view', component:ViewGiftsComponent, canActivate: [AuthGuard]},
-  {path: 'customer/gifts/view', component:CustomerViewGiftsComponent, canActivate: [AuthGuard]},
+  {path: 'admin/products/view', component:ViewProductsComponent, canActivate: [AuthGuard]},
+  {path: 'customer/products/view', component:CustomerViewProductsComponent, canActivate: [AuthGuard]},
   {path: 'customer/mycart', component:MyCartComponent, canActivate: [AuthGuard]},
-  {path: 'admin/editgift/:giftId', component:EditGiftComponent, canActivate: [AuthGuard]},
-  {path: 'admin/addgift', component:AddGiftComponent, canActivate: [AuthGuard]},
+  {path: 'admin/editproduct/:productId', component:EditProductComponent, canActivate: [AuthGuard]},
+  {path: 'admin/addproduct', component:AddProductComponent, canActivate: [AuthGuard]},
   {path:'customer/addreview', component:AddReviewComponent, canActivate: [AuthGuard]},
   {path: 'admin/viewreview', component:ViewReviewComponent, canActivate: [AuthGuard]},
   {path: 'customer/placeorder', component:PlaceOrderComponent, canActivate: [AuthGuard]},

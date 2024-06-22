@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class CartService {
   public apiUrl =
-    'https://8080-bfabeabdaebdadfccdadbafeaecccaaeccf.premiumproject.examly.io';
+    'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
 
   constructor(private http: HttpClient) { }
 
@@ -23,16 +23,16 @@ export class CartService {
     return this.http.put(`${this.apiUrl}/api/cart/update/${cartId}`, cartDetails, { headers });
   }
 
-  removeGiftsFromCart(cartDetails: any, giftId: any): any {
+  removeGiftsFromCart(cartDetails: any, productId: any): any {
     console.log("cartId", cartDetails.cartId)
     console.log("cartDetails", cartDetails)
-    console.log("Gift Details", cartDetails.gifts)
+    console.log("Gift Details", cartDetails.products)
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
     });
-    return this.http.delete(`${this.apiUrl}/api/cart/${cartDetails.cartId}?giftId=${giftId}`, { headers });
+    return this.http.delete(`${this.apiUrl}/api/cart/${cartDetails.cartId}?productId=${productId}`, { headers });
   }
 
   getGiftsFromCart(cartId: any): any {

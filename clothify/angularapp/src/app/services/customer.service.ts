@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CustomerService {
   public apiUrl =
-    'https://8080-bfabeabdaebdadfccdadbafeaecccaaeccf.premiumproject.examly.io';
+    'https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io';
 
   constructor(private http: HttpClient) {}
 

@@ -1,0 +1,57 @@
+<app-dashboard></app-dashboard>
+<h2>Add New Product</h2>
+ 
+<form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="productType" style="position: relative;"> <!-- Add relative positioning to the label -->
+            Product Type:<span class="asterisk">*</span>
+            <input type="text" id="productType" formControlName="productType">
+            <div *ngIf="addProductForm.get('productType').invalid && addProductForm.get('productType').touched" class="error-message">Product Type is required</div> <!-- Display the error message conditionally -->
+        </label>
+    </div><br>
+ 
+    <div class="form-group">
+        <label for="productImageUrl" style="position: relative;">
+            Product Image:<span class="asterisk">*</span>
+            <input type="file" id="productImageUrl" formControlName="productImageUrl" (change)="handleFileChange($event)"
+            accept=".png, .jpg">
+            <div *ngIf="addProductForm.get('productImageUrl').invalid && addProductForm.get('productImageUrl').touched" class="error-message">Product Image is required</div> 
+        </label>
+    </div><br>
+    
+ 
+    <div class="form-group">
+        <label for="productDetails" style="position: relative;"> <!-- Add relative positioning to the label -->
+            Product Details:<span class="asterisk">*</span>
+            <textarea id="productDetails" formControlName="productDetails"></textarea>
+            <div *ngIf="addProductForm.get('productDetails').invalid && addProductForm.get('productDetails').touched" class="error-message">Product Details is required</div> <!-- Display the error message conditionally -->
+        </label>
+    </div><br>
+
+    <div class="form-group">
+        <label for="quantity" style="position: relative;"> <!-- Add relative positioning to the label -->
+            Quantity:<span class="asterisk">*</span>
+            <input type="number" id="quantity" formControlName="quantity">
+            <div *ngIf="addProductForm.get('quantity').invalid && addProductForm.get('quantity').touched" class="error-message">Quantity is required</div> <!-- Display the error message conditionally -->
+        </label>
+    </div><br>
+ 
+    <div class="form-group">
+        <label for="productPrice" style="position: relative;"> <!-- Add relative positioning to the label -->
+            Price:<span class="asterisk">*</span>
+            <input type="number" id="productPrice" formControlName="productPrice">
+            <div *ngIf="addProductForm.get('productPrice').invalid && addProductForm.get('productPrice').touched" class="error-message">Price is required</div> <!-- Display the error message conditionally -->
+        </label>
+    </div><br>
+ 
+    <div *ngIf="errorMessage" class="error-message">
+        *{{ errorMessage }}
+    </div>
+ 
+    <div class="add-btn">
+        <button type="submit" [disabled]="addProductForm.invalid">Add Product</button>
+        <!-- <button type="submit">Add Product</button> -->
+    </div>
+</form>
+
+

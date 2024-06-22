@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Review } from 'src/app/models/review.model';
 import { CartService } from 'src/app/services/cart.service';
 import { Router } from '@angular/router';
-import { GiftService } from 'src/app/services/gift.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-add-review',
@@ -13,12 +13,12 @@ import { GiftService } from 'src/app/services/gift.service';
 export class AddReviewComponent implements OnInit {
   addReviewForm: FormGroup;
   errorMessage = '';
-  gifts: any =[];
-  giftTypes: string[] = [];
+  products: any =[];
+  productTypes: string[] = [];
 
   // userName: string | null = localStorage.getItem('userName');
   // userName: string | null;
-  constructor(private fb: FormBuilder, private cartService: CartService, private router: Router, private giftService: GiftService) {
+  constructor(private fb: FormBuilder, private cartService: CartService, private router: Router, private productService: ProductService) {
     this.addReviewForm = this.fb.group({
       userName: [localStorage.getItem('currentUser'), Validators.required],
       subject: ['', Validators.required],
@@ -30,7 +30,7 @@ export class AddReviewComponent implements OnInit {
 
   ngOnInit() {
     console.log(localStorage.getItem('currentUser'))
-    this.viewAllGifts();
+    this.viewAllProducts();
     // this.addReviewForm.patchValue({
     //   userName: this.emailaddress;
     // });
@@ -48,14 +48,14 @@ export class AddReviewComponent implements OnInit {
     return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
   }
 
-  viewAllGifts(){
-    this.giftService.viewAllGifts().subscribe(
+  viewAllProducts(){
+    this.productService.viewAllProducts().subscribe(
 
       (data: any) => {
-        this.giftTypes = data.$values.map((gift:any) =>gift.giftType);
-        console.log(this.giftTypes);
-        this.gifts = data;
-        console.log(this.gifts);
+        this.productTypes = data.$values.map((product:any) =>product.productType);
+        console.log(this.productTypes);
+        this.products = data;
+        console.log(this.products);
       },
       (err) => {
         console.log(err);

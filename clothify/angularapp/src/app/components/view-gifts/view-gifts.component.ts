@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 // import { Gift } from 'src/app/models/gift.model';
-import { GiftService } from 'src/app/services/gift.service';
+import { GiftService } from 'src/app/services/product.service';
 
 interface Gift {
   giftId: string;

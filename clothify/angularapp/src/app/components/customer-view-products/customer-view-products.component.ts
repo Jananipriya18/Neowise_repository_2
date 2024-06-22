@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
-import { GiftService } from 'src/app/services/gift.service';
+import { GiftService } from 'src/app/services/product.service';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { Gift } from 'src/app/models/gift.model';

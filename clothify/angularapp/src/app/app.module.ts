@@ -10,13 +10,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { ErrorComponent } from './components/error/error.component';
 import { MyCartComponent } from './components/my-cart/my-cart.component';
-import { ViewGiftsComponent } from './components/view-gifts/view-gifts.component';
-import { EditGiftComponent } from './components/edit-gift/edit-gift.component';
-import { AddGiftComponent } from './components/add-gift/add-gift.component';
+import { ViewProductsComponent } from './components/view-products/view-products.component';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CustomerdashboardComponent } from './components/customerdashboard/customerdashboard.component';
 import { AuthGuard } from './components/authguard/auth.guard';
-import { CustomerViewGiftsComponent } from './components/customer-view-gifts/customer-view-gifts.component';
+import { CustomerViewProductsComponent } from './components/customer-view-products/customer-view-products.component';
 import { CommonModule } from '@angular/common';
 import { AddReviewComponent } from './components/add-review/add-review.component';
 import { ViewReviewComponent } from './components/view-review/view-review.component';
@@ -33,12 +33,12 @@ import { ViewOrdersComponent } from './components/view-orders/view-orders.compon
     HomeComponent,
     ErrorComponent,
     MyCartComponent,
-    ViewGiftsComponent,
-    EditGiftComponent,
-    AddGiftComponent,
+    ViewProductsComponent,
+    EditProductComponent,
+    AddProductComponent,
     DashboardComponent,
     CustomerdashboardComponent,
-    CustomerViewGiftsComponent,
+    CustomerViewProductsComponent,
     AddReviewComponent,
     ViewReviewComponent,
     PlaceOrderComponent,

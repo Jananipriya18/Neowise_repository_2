@@ -20,9 +20,9 @@ describe('CartService', () => {
     httpMock.verify();
   });
   
-  fit('Frontend_should_get_all_gifts_from_cart_when_getAllGiftsFromCart_is_called', () => {
-    (service as any).getAllGiftsFromCart().subscribe((gifts) => {
-      expect(gifts).toBeTruthy();
+  fit('Frontend_should_get_all_products_from_cart_when_getAllProductsFromCart_is_called', () => {
+    (service as any).getAllProductsFromCart().subscribe((products) => {
+      expect(products).toBeTruthy();
     });
   
     const customerId = localStorage.getItem('customerId');

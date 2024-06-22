@@ -6,44 +6,44 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GiftService {
+export class ProductService {
 
-  public apiUrl='https://8080-bfabeabdaebdadfccdadbafeaecccaaeccf.premiumproject.examly.io'
+  public apiUrl='https://8080-aabdbffdadabafcfdbcfacbdcbaeadbebabcdebdca.premiumproject.examly.io'
 
   constructor(private http: HttpClient) { }
 
-  addGift(gift: any): any {
+  addProduct(product: any): any {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
     });
-    console.log(gift);
-    return this.http.post(`${this.apiUrl}/api/gift`, gift, {headers});
+    console.log(product);
+    return this.http.post(`${this.apiUrl}/api/product`, product, {headers});
   }
 
-  viewAllGifts(): Observable<any[]> {
+  viewAllProducts(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
     });
-    return this.http.get<any[]>(`${this.apiUrl}/api/gift`, {headers});
+    return this.http.get<any[]>(`${this.apiUrl}/api/product`, {headers});
   }
 
-  // updateGift(giftId: any, updatedGift: any): any {
+  // updateProduct(productId: any, updatedProduct: any): any {
   //   const token = localStorage.getItem('token');
   //   const headers = new HttpHeaders({
   //     'Content-Type': 'application/json',
   //     'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
   //   });
   //   const cartId = localStorage.getItem('cartId'); // Get the cartId from localStorage
-  //   updatedGift.cartId = cartId; 
-  //   console.log(giftId,updatedGift);
-  //   return this.http.put(`${this.apiUrl}/api/gift/${giftId}`, updatedGift, {headers});
+  //   updatedProduct.cartId = cartId; 
+  //   console.log(productId,updatedProduct);
+  //   return this.http.put(`${this.apiUrl}/api/product/${productId}`, updatedProduct, {headers});
   // }
 
-  updateGift(giftId: any, updatedGift: any): any {
+  updateProduct(productId: any, updatedProduct: any): any {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -54,22 +54,22 @@ export class GiftService {
     const customerId = localStorage.getItem('customerId');
     if (customerId) {
       const cartId = localStorage.getItem('cartId'); // Get the cartId from localStorage
-      updatedGift.cartId = cartId;
+      updatedProduct.cartId = cartId;
     }
   
-    console.log(giftId, updatedGift);
-    return this.http.put(`${this.apiUrl}/api/gift/${giftId}`, updatedGift, { headers });
+    console.log(productId, updatedProduct);
+    return this.http.put(`${this.apiUrl}/api/product/${productId}`, updatedProduct, { headers });
   }
   
 
 
-  deleteGift(giftId: any): any {
+  deleteProduct(productId: any): any {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}` // Assuming your token is a bearer token, replace it accordingly
     });
-    return this.http.delete(`${this.apiUrl}/api/gift/${giftId}`,{headers});
+    return this.http.delete(`${this.apiUrl}/api/product/${productId}`,{headers});
   }
 
 }

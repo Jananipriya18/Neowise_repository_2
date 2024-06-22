@@ -1,7 +1,7 @@
   import { Component, OnInit } from '@angular/core';
   import { OrderService } from 'src/app/services/order.service';
   import { CustomerService } from 'src/app/services/customer.service';
-  import { GiftService } from 'src/app/services/gift.service';
+  import { ProductService } from 'src/app/services/product.service';
   import { Router } from '@angular/router';
 
   @Component({
@@ -12,10 +12,10 @@
   export class MyOrdersComponent implements OnInit {
     orders = [];
     customers = {};
-    giftTypes: string[] = [];
+    productTypes: string[] = [];
 
     disableAddReview = true;
-    constructor(private orderService: OrderService, private customerService: CustomerService, private giftService:GiftService, private router: Router) { }
+    constructor(private orderService: OrderService, private customerService: CustomerService, private productService:ProductService, private router: Router) { }
 
     ngOnInit(): void {
       this.viewOrderByUserId();
@@ -38,11 +38,11 @@
           console.log(response);
           this.orders = response.$values;
           this.orders.forEach(order => {
-            if (order.gifts && order.gifts.$values) {
-              order.gifts = order.gifts.$values;
+            if (order.products && order.products.$values) {
+              order.products = order.products.$values;
               
             } else {
-              console.error('order.gifts.$values is not defined:', order.gifts);
+              console.error('order.products.$values is not defined:', order.products);
             }
           });
           this.disableAddReview = this.orders.length === 0;

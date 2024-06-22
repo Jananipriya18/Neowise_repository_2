@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GiftService } from 'src/app/services/gift.service';
+import { GiftService } from 'src/app/services/product.service';
 import { Gift } from 'src/app/models/gift.model';
 
 @Component({

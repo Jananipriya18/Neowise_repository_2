@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { GiftService } from 'src/app/services/gift.service';
+import { ProductService } from 'src/app/services/product.service';
  
-interface Gift {
-  giftType: string;
-  giftImageUrl: string;
-  giftDetails: string;
-  giftPrice: number;
+interface Product {
+  productType: string;
+  productImageUrl: string;
+  productDetails: string;
+  productPrice: number;
   quantity: number;
 }
  
 @Component({
-  selector: 'app-add-gift',
-  templateUrl: './add-gift.component.html',
-  styleUrls: ['./add-gift.component.css']
+  selector: 'app-add-product',
+  templateUrl: './add-product.component.html',
+  styleUrls: ['./add-product.component.css']
 })
-export class AddGiftComponent implements OnInit {
-  addGiftForm: FormGroup;
+export class AddProductComponent implements OnInit {
+  addProductForm: FormGroup;
   errorMessage = '';
   selectedFile: File | null = null;
   photoImage="";
  
-  constructor(private fb: FormBuilder, private giftService: GiftService, private route: Router) {
-    this.addGiftForm = this.fb.group({
-      giftType: ['', Validators.required],
-      giftImageUrl: [null, Validators.required],
-      giftDetails: ['', Validators.required],
-      giftPrice: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+  constructor(private fb: FormBuilder, private productService: ProductService, private route: Router) {
+    this.addProductForm = this.fb.group({
+      productType: ['', Validators.required],
+      productImageUrl: [null, Validators.required],
+      productDetails: ['', Validators.required],
+      productPrice: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       quantity: ['', [Validators.required, Validators.min(1)]],
     });
   }
@@ -36,24 +36,24 @@ export class AddGiftComponent implements OnInit {
   }
  
   onSubmit(): void {
-    if (this.addGiftForm.valid) {
-      const newGift = this.addGiftForm.value;
-      const requestObj: Gift = {
-        giftType: newGift.giftType,
-        giftImageUrl: this.photoImage,
-        giftDetails: newGift.giftDetails,
-        giftPrice: newGift.giftPrice,
-        quantity: newGift.quantity,
+    if (this.addProductForm.valid) {
+      const newProduct = this.addProductForm.value;
+      const requestObj: Product = {
+        productType: newProduct.productType,
+        productImageUrl: this.photoImage,
+        productDetails: newProduct.productDetails,
+        productPrice: newProduct.productPrice,
+        quantity: newProduct.quantity,
       };
 
-      this.giftService.addGift(requestObj).subscribe(
+      this.productService.addProduct(requestObj).subscribe(
         (response) => {
-          console.log('Gift added successfully', response);
-          this.route.navigate(['/admin/gifts/view']);
-          this.addGiftForm.reset(); // Reset the form
+          console.log('Product added successfully', response);
+          this.route.navigate(['/admin/products/view']);
+          this.addProductForm.reset(); // Reset the form
         },
         (error) => {
-          console.error('ErrorAddingGift', error);
+          console.error('ErrorAddingProduct', error);
         }
       );
     } else {
