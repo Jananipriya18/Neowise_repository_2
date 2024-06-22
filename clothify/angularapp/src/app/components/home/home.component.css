@@ -7,7 +7,7 @@ body {
 .container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 10px;
 }
 
 h1 {
@@ -25,28 +25,57 @@ p {
 }
 
 .container {
-    margin-top: 20px;
+    margin-top: 5px;
   }
   
   /* styles.css */
 
 /* Custom styles for the carousel */
 .carousel-item img {
-    max-height: 400px; /* Adjust maximum height of carousel images */
+    max-height: 200px; /* Adjust maximum height of carousel images */
 }
 
 /* Custom styles for the jumbotron */
 .jumbotron {
     background-color: #f8f9fa; /* Light background color */
-    padding: 4rem 2rem; /* Adjust padding as needed */
+    padding: 10px; /* Adjust padding as needed */
+    font-size: medium;
+
 }
 
 .jumbotron h1 {
-    font-size: 3rem; /* Larger font size for headline */
+    font-size: 45x; /* Larger font size for headline */
     color: #343a40; /* Dark text color */
 }
 
 .jumbotron p {
-    font-size: 1.5rem; /* Larger font size for paragraph */
-    color: #6c757d; /* Slightly darker text color */
+    font-size: 1rem; /* Larger font size for paragraph */
+    color: rgb(180, 184, 187); /* Slightly darker text color */
 }
+
+/* Container for the album */
+.album {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Responsive grid layout */
+    gap: 10px; /* Gap between items */
+  }
+  
+  /* Style for each card */
+  .album .card {
+    position: relative;
+    width: 100%; /* Ensure cards take full width of their container */
+  }
+  
+  /* Style for the circular images */
+  .clothes {
+    display: block;
+    overflow: hidden; /* Ensure image stays within the bounds of its container */
+    border-radius: 50%; /* Circular border */
+  }
+  
+  .clothes img {
+    display: block;
+    width: 100%; /* Ensure image fills its container */
+    height: auto; /* Maintain aspect ratio */
+  }
+  

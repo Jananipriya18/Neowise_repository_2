@@ -23,7 +23,6 @@ import { ViewReviewComponent } from './components/view-review/view-review.compon
 import { PlaceOrderComponent } from './components/place-order/place-order.component';
 import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { ViewOrdersComponent } from './components/view-orders/view-orders.component';
-import { CarouselModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -52,8 +51,7 @@ import { CarouselModule } from '@coreui/angular';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    CommonModule,
-    CarouselModule
+    CommonModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

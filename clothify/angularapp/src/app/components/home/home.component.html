@@ -20,47 +20,17 @@
   </div>
    -->
 
-   <!-- <div class="container">
+   <div class="container">
   <div class="jumbotron text-center">
     <h1>Welcome to Clothify</h1>
     <p>Your one-stop shop for all your clothing needs!</p>
   </div>
   <div class="row">
     <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="path_to_your_image" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Item Name</h5>
-          <p class="card-text">Item Description</p>
-          <a href="#" class="btn btn-primary">Buy Now</a>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
-<!-- clothing-carousel.component.html -->
-<div class="container">
-    <div class="jumbotron text-center">
-      <h1>Welcome to Clothify</h1>
-      <p>Your one-stop shop for all your clothing needs!</p>
-    </div>
-    <div class="row">
-      <div class="col">
-        <c-carousel>
-          <c-carousel-inner>
-            <c-carousel-item *ngFor="let slide of slides">
-              <img [src]="slide.src" alt="{{ slide.title }}" class="d-block w-100" loading="lazy">
-              <c-carousel-caption>
-                <h3>{{ slide.title }}</h3>
-                <p>{{ slide.description }}</p>
-              </c-carousel-caption>
-            </c-carousel-item>
-          </c-carousel-inner>
-          <c-carousel-control caption="Previous" direction="prev"></c-carousel-control>
-          <c-carousel-control caption="Next" direction="next"></c-carousel-control>
-        </c-carousel>
+      <div class="album">
+        <span class = "clothes">
+            <img src="../../../assets/Clothes/frock.jpg" alt="frock">
+        </span>
       </div>
     </div>
   </div>
-  
