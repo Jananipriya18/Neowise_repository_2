@@ -23,10 +23,10 @@ export class CartService {
     return this.http.put(`${this.apiUrl}/api/cart/update/${cartId}`, cartDetails, { headers });
   }
 
-  removeGiftsFromCart(cartDetails: any, productId: any): any {
+  removeProductsFromCart(cartDetails: any, productId: any): any {
     console.log("cartId", cartDetails.cartId)
     console.log("cartDetails", cartDetails)
-    console.log("Gift Details", cartDetails.products)
+    console.log("Product Details", cartDetails.products)
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ export class CartService {
     return this.http.delete(`${this.apiUrl}/api/cart/${cartDetails.cartId}?productId=${productId}`, { headers });
   }
 
-  getGiftsFromCart(cartId: any): any {
+  getProductsFromCart(cartId: any): any {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export class CartService {
   }
 
 
-  getAllGiftsFromCart(): any {
+  getAllProductsFromCart(): any {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

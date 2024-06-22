@@ -164,9 +164,9 @@ this.orderService.viewAllOrders().subscribe((response: any) => {
     this.orders.forEach((order: any) => {
       this.customerService.viewCustomerById(order.customerId).subscribe((customer: any) => {
         order.customer = customer; // Add the customer details to the order
-        if (order.gifts && typeof order.gifts === 'object') {
-          // Convert gifts to an array if it's an object
-          order.gifts = Object.values(order.gifts);
+        if (order.products && typeof order.products === 'object') {
+          // Convert products to an array if it's an object
+          order.products = Object.values(order.products);
         }
       });
     });

@@ -24,11 +24,11 @@ export class PlaceOrderComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.totalAmount = params['totalAmount'];
     });
-    this.getAllGiftsFromCart()
+    this.getAllProductsFromCart()
   }
 
-  getAllGiftsFromCart() {
-    this.cartService.getAllGiftsFromCart().subscribe(
+  getAllProductsFromCart() {
+    this.cartService.getAllProductsFromCart().subscribe(
       response => {
         console.log(response);
         this.customerData = response;
@@ -39,7 +39,7 @@ export class PlaceOrderComponent implements OnInit {
     );
   }
   submitOrder() {
-    if (!this.customerData || !this.customerData.gifts || !this.customerData.gifts.$values || this.customerData.gifts.$values.length === 0) {
+    if (!this.customerData || !this.customerData.products || !this.customerData.products.$values || this.customerData.products.$values.length === 0) {
       console.error('Invalid customer data');
       return;
     }
@@ -48,16 +48,16 @@ export class PlaceOrderComponent implements OnInit {
    
     const orderData = {
       customerId: this.customerId,
-      quantity: this.customerData.gifts.$values.length,
+      quantity: this.customerData.products.$values.length,
       orderPrice:this.totalAmount,
-      gifts: this.customerData.gifts.$values.map(gift => ({
-        // giftId: gift.giftId,
-        giftType: gift.giftType,
-        giftImageUrl: gift.giftImageUrl,
-        giftDetails: gift.giftDetails,
-        giftPrice: gift.giftPrice,
-        quantity: gift.quantity,
-        cartId: gift.cartId
+      products: this.customerData.products.$values.map(product => ({
+        // productId: product.productId,
+        productType: product.productType,
+        productImageUrl: product.productImageUrl,
+        productDetails: product.productDetails,
+        productPrice: product.productPrice,
+        quantity: product.quantity,
+        cartId: product.cartId
       }))
     };
   

@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/services/customer.service';
-import { GiftService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/services/product.service';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
-import { Gift } from 'src/app/models/gift.model';
+import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
-  selector: 'app-customer-view-gifts',
-  templateUrl: './customer-view-gifts.component.html',
-  styleUrls: ['./customer-view-gifts.component.css']
+  selector: 'app-customer-view-products',
+  templateUrl: './customer-view-products.component.html',
+  styleUrls: ['./customer-view-products.component.css']
 })
-export class CustomerViewGiftsComponent implements OnInit {
+export class CustomerViewProductsComponent implements OnInit {
   name: string;
   address: string;
-  gifts: any[] = [];
+  products: any[] = [];
   user: User;
   totalAmount: number;
   customer: Customer;
@@ -27,10 +27,10 @@ export class CustomerViewGiftsComponent implements OnInit {
   showPopup: boolean = false;
   message = "";
 
-  constructor(private customerService: CustomerService, private giftService: GiftService, private router: Router, private cartService: CartService) { }
-  gift: Gift[]
+  constructor(private customerService: CustomerService, private productService: ProductService, private router: Router, private cartService: CartService) { }
+  product: Product[]
   ngOnInit(): void {
-    this.viewAllGifts();
+    this.viewAllProducts();
     this.customerId = localStorage.getItem('customerId');
     console.log(this.customerId);
   }
@@ -72,7 +72,7 @@ return false
         console.log(customerId);
         const cardId = localStorage.getItem("cartId")
         console.log(cardId)
-        // this.viewAllGifts();
+        // this.viewAllProducts();
         this.formSubmitted = true;
       },
       (error) => {
@@ -81,8 +81,8 @@ return false
     );
   }
 
-  viewAllGifts(): void {
-    this.giftService.viewAllGifts().subscribe(
+  viewAllProducts(): void {
+    this.productService.viewAllProducts().subscribe(
       (response: any) => { // Assuming the response is of type any
         console.log(response);
         console.log("response--------------------",response);
@@ -91,11 +91,11 @@ return false
         const id = response.$id;
         const values = response.$values;
 
-        // Assuming this.gifts is an array where you want to store the gifts
-        this.gifts = values
+        // Assuming this.products is an array where you want to store the products
+        this.products = values
 
 
-        console.log(this.gifts, "this.gifts");
+        console.log(this.products, "this.products");
       },
       (error) => {
         console.error(error);
@@ -104,14 +104,14 @@ return false
   }
 
 
-  goToCart(gift): void {
+  goToCart(product): void {
     let cartId = localStorage.getItem('cartId');
     if (cartId === null) {
-      this.addCart(gift.giftId, gift);
+      this.addCart(product.productId, product);
     } else {
-      this.updateCart(gift, cartId);
+      this.updateCart(product, cartId);
     }
-    gift.addedToCart = true;
+    product.addedToCart = true;
   }
 
   customers: Customer = {
@@ -119,22 +119,22 @@ return false
     user: { id: Number(localStorage.getItem('userId')) } as User,
   };
 
-  addCart(giftId: any, updatedGift: any): void {
-    this.totalAmount = updatedGift.giftPrice;
+  addCart(productId: any, updatedProduct: any): void {
+    this.totalAmount = updatedProduct.productPrice;
     console.log(this.totalAmount);
     console.log(this.customer);
-    this.gift = updatedGift;
-    console.log(this.gift);
+    this.product = updatedProduct;
+    console.log(this.product);
 
     let cart = {
       customer: this.customers,
-      gifts: [this.gift],
+      products: [this.product],
       totalAmount: this.totalAmount,
     };
 
     console.log('check cart', cart);
 
-    this.giftService.updateGift(giftId, updatedGift).subscribe(
+    this.productService.updateProduct(productId, updatedProduct).subscribe(
       (response) => {
         console.log(response, "cart updated succesfully");
         this.addedToCart = true;
@@ -148,33 +148,33 @@ return false
     );
   }
 
-  calculateTotalAmount(gift) {
-    if (gift && gift.giftPrice && gift.quantity) {
-      return gift.giftPrice * gift.quantity;
+  calculateTotalAmount(product) {
+    if (product && product.productPrice && product.quantity) {
+      return product.productPrice * product.quantity;
     }
     return 0;
   }
 
-  updateCart(gift, cartId) {
+  updateCart(product, cartId) {
     // Implement this method to update the cart
-    this.totalAmount = this.calculateTotalAmount(gift);
+    this.totalAmount = this.calculateTotalAmount(product);
     console.log(this.totalAmount);
     console.log(this.customerId);
-    this.gift = gift;
-    console.log(this.gift);
+    this.product = product;
+    console.log(this.product);
 
     let cart = {
       cartId: cartId,
       customerId:localStorage.getItem('customerId'),
       // customer: this.customers,
-      gifts: [this.gift],
+      products: [this.product],
       totalAmount: this.totalAmount,
       updatedCart: true
     };
 
     console.log('check cart', cart);
 
-    this.giftService.updateGift(gift.giftId, gift).subscribe(
+    this.productService.updateProduct(product.productId, product).subscribe(
       (response) => {
         console.log(response);
         this.addedToCart = true;

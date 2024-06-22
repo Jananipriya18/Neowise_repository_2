@@ -1,0 +1,58 @@
+<app-dashboard></app-dashboard>
+<h2>Edit Product</h2>
+
+<form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="productType"> <!-- Remove position: relative from label -->
+      Product Type:<span class="asterisk">*</span>
+      <input type="text" id="productType" formControlName="productType">
+      <div *ngIf="editProductForm.get('productType').invalid && editProductForm.get('productType').touched" class="error-message">Product Type is required</div> <!-- Display the error message conditionally -->
+    </label>
+  </div><br>
+
+  <div class="form-group">
+    <label for="productImageUrl">
+      Product Image:<span class="asterisk">*</span>
+      <input type="file" id="productImageUrl" formControlName="productImageUrl" (change)="handleFileChange($event)"
+            accept=".png, .jpg">
+      <div *ngIf="editProductForm.get('productImageUrl').invalid && editProductForm.get('productImageUrl').touched" class="error-message">Product Image is required</div> <!-- Display the error message conditionally -->
+    </label>
+  </div><br>
+
+  <div class="form-group">
+    <label for="productDetails">
+      Product Details:<span class="asterisk">*</span>
+      <textarea id="productDetails" formControlName="productDetails"></textarea>
+      <div *ngIf="editProductForm.get('productDetails').invalid && editProductForm.get('productDetails').touched" class="error-message">Product Details is required</div> <!-- Display the error message conditionally -->
+    </label>
+  </div><br>
+
+  <div class="form-group">
+    <label for="quantity">
+      Quantity:<span class="asterisk">*</span>
+      <input type="number" id="quantity" formControlName="quantity">
+      <div *ngIf="editProductForm.get('quantity').invalid && editProductForm.get('quantity').touched" class="error-message">Quantity is required</div> <!-- Display the error message conditionally -->
+      <div *ngIf="editProductForm.get('quantity').hasError('min') && editProductForm.get('quantity').touched" class="error-message">Quantity must be greater than zero</div> <!-- Display the error message conditionally -->
+    </label>
+  </div><br>
+
+  <div class="form-group">
+    <label for="productPrice">
+      Price:<span class="asterisk">*</span>
+      <input type="number" id="productPrice" formControlName="productPrice">
+      <div *ngIf="editProductForm.get('productPrice').invalid && editProductForm.get('productPrice').touched" class="error-message">Price is required</div> <!-- Display the error message conditionally -->
+      <div *ngIf="editProductForm.get('productPrice').hasError('min') && editProductForm.get('productPrice').touched" class="error-message">Price must be greater than zero</div> <!-- Display the error message conditionally -->
+    </label>
+  </div><br>
+
+  <div *ngIf="errorMessage" class="error-message">
+    *{{ errorMessage }}
+  </div>
+
+  <div class="add-btn">
+    <button type="submit">Update Product</button>
+    <button type="submit" (click)="onCancel()" class="cancel">Cancel</button>
+  </div>
+</form>
+
+

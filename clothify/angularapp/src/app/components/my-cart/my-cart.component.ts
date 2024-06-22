@@ -10,37 +10,37 @@ import { Router } from '@angular/router';
 export class MyCartComponent implements OnInit {
   maxQuantity: number; // Define maxQuantity
   customerData = { totalAmount: 0 };
-  gifts = [];
+  products = [];
   totalAmount = 0;
-  giftsCart: any;
+  productsCart: any;
   
   cartId = Number(localStorage.getItem('cartId'));
   userQuantity: number = 1;
   
   constructor(private cartService: CartService, private router: Router) {}
   
-  // giftsCart = {};
+  // productsCart = {};
   ngOnInit(): void {
     this.updateTotalAmount();
-    this.getAllGiftsFromCart();
+    this.getAllProductsFromCart();
   }
 
-  getAllGiftsFromCart() {
-    this.cartService.getAllGiftsFromCart().subscribe(
+  getAllProductsFromCart() {
+    this.cartService.getAllProductsFromCart().subscribe(
       (response) => {
         console.log(response);
-        if (response && response.gifts) {
-          // Check if the gifts property is an object with $values array
-          if (Array.isArray(response.gifts.$values)) {
+        if (response && response.products) {
+          // Check if the products property is an object with $values array
+          if (Array.isArray(response.products.$values)) {
             // Extract the array from the nested object
-            this.gifts = response.gifts.$values;
+            this.products = response.products.$values;
           } else {
-            // If $values array is not present, consider gifts itself as the array
-            this.gifts = response.gifts;
+            // If $values array is not present, consider products itself as the array
+            this.products = response.products;
           }
           this.totalAmount = response.totalAmount;
-          this.gifts.forEach(gift => {
-            gift.userQuantity = 1;
+          this.products.forEach(product => {
+            product.userQuantity = 1;
           });
         } else {
           console.error('Invalid response format:', response);
@@ -55,18 +55,18 @@ export class MyCartComponent implements OnInit {
   
   calculateTotalAmount(): number {
     let totalAmount = 0;
-    for (const gift of this.gifts) {
-      totalAmount += gift.userQuantity * gift.giftPrice;
+    for (const product of this.products) {
+      totalAmount += product.userQuantity * product.productPrice;
     }
     return totalAmount;
   }
-  validateQuantity(giftData: any): void {
-    // Your validation logic here, using giftData.userQuantity
+  validateQuantity(productData: any): void {
+    // Your validation logic here, using productData.userQuantity
   }
   
   // initializeQuantity() {
-  //   this.gifts.forEach(giftData => {
-  //     giftData.maxQuantity = 1;
+  //   this.products.forEach(productData => {
+  //     productData.maxQuantity = 1;
   //   });
   // }
 
@@ -77,12 +77,12 @@ export class MyCartComponent implements OnInit {
   }
 
 
-  updateQuantity(giftData: any): void {
-    if (giftData.quantity > giftData.userQuantity) {
-      giftData.quantity = giftData.userQuantity;
+  updateQuantity(productData: any): void {
+    if (productData.quantity > productData.userQuantity) {
+      productData.quantity = productData.userQuantity;
     }
     
-    giftData.totalAmount = giftData.userQuantity * giftData.giftPrice; // Update the total amount for the specific gift
+    productData.totalAmount = productData.userQuantity * productData.productPrice; // Update the total amount for the specific product
     
     const customerId = localStorage.getItem('customerId'); // Get the customerId from local storage
     
@@ -99,56 +99,56 @@ export class MyCartComponent implements OnInit {
     console.log('Total amount updated:', this.totalAmount);
   }
   updateTotalAmount(): void {
-    this.totalAmount = this.gifts.reduce((total, gift) => total + (this.userQuantity * gift.giftPrice), 0);
+    this.totalAmount = this.products.reduce((total, product) => total + (this.userQuantity * product.productPrice), 0);
     console.log('Total amount:', this.totalAmount);
   }
 
-  // removeFromCart(giftId: number) {
-  //   this.gifts = this.gifts.filter(gift => gift.giftId !== giftId);
-  //   this.giftsCart = {
+  // removeFromCart(productId: number) {
+  //   this.products = this.products.filter(product => product.productId !== productId);
+  //   this.productsCart = {
   //     cartId: Number(localStorage.getItem('cartId')),
   //     customer: { customerId: Number(localStorage.getItem('customerId')) },
-  //     gifts: [...this.gifts],
-  //     totalAmount: this.totalAmount - this.gifts.filter(gift => gift.giftId === giftId)[0].giftPrice
+  //     products: [...this.products],
+  //     totalAmount: this.totalAmount - this.products.filter(product => product.productId === productId)[0].productPrice
   //   } 
-  //   console.log(this.giftsCart);
-  //   this.cartService.updateCart(this.giftsCart).subscribe(
+  //   console.log(this.productsCart);
+  //   this.cartService.updateCart(this.productsCart).subscribe(
   //     response => {
   //       console.log(response);
-  //       console.log('Gift removed from cart successfully');
-  //       this.getAllGiftsFromCart();
+  //       console.log('Product removed from cart successfully');
+  //       this.getAllProductsFromCart();
   //     },
   //     error => {
   //       console.error(error);
   //     }
   //   );
   // }
-  removeFromCart(giftId: number) {
-    const index = this.gifts.findIndex(gift => gift.giftId === giftId);
+  removeFromCart(productId: number) {
+    const index = this.products.findIndex(product => product.productId === productId);
     if (index !== -1) {
-      const removedGift = this.gifts.splice(index, 1)[0]; // Remove the gift from the array
-      this.totalAmount -= removedGift.giftPrice; // Adjust the total amount
-      const giftsCart = {
+      const removedProduct = this.products.splice(index, 1)[0]; // Remove the product from the array
+      this.totalAmount -= removedProduct.productPrice; // Adjust the total amount
+      const productsCart = {
         cartId: this.cartId,
-        // giftId:this.giftId,
+        // productId:this.productId,
         customer: { customerId: Number(localStorage.getItem('customerId')) },
-        gifts: [...this.gifts],
+        products: [...this.products],
         totalAmount: this.totalAmount,
         updatedCart: true
       }; 
-      console.log(giftsCart);
-      this.cartService.removeGiftsFromCart(giftsCart, giftId).subscribe(
+      console.log(productsCart);
+      this.cartService.removeProductsFromCart(productsCart, productId).subscribe(
         response => {
           console.log(response);
-          console.log('Gift removed from cart successfully');
-          this.getAllGiftsFromCart();
+          console.log('Product removed from cart successfully');
+          this.getAllProductsFromCart();
         },
         error => {
           console.error(error);
         }
       );
     } else {
-      console.error('Gift not found in the cart');
+      console.error('Product not found in the cart');
     }
   }
 

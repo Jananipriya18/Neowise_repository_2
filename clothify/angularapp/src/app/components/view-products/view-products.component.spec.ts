@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditGiftComponent } from './edit-gift.component';
+import { ViewProductsComponent } from './view-products.component';
 
-describe('EditGiftComponent', () => {
-  let component: EditGiftComponent;
-  let fixture: ComponentFixture<EditGiftComponent>;
+describe('ViewProductsComponent', () => {
+  let component: ViewProductsComponent;
+  let fixture: ComponentFixture<ViewProductsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditGiftComponent ]
+      declarations: [ ViewProductsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditGiftComponent);
+    fixture = TestBed.createComponent(ViewProductsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

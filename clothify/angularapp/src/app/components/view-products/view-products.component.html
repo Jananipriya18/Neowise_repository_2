@@ -1,0 +1,18 @@
+<app-dashboard></app-dashboard>
+
+<div class="products-container"  *ngIf="products.length; else noProducts" >
+    <div *ngFor="let product of products" class="product-card">
+      <h2>{{ product.productType }}</h2>
+      <img [src]="product.productImageUrl" alt="{{ product.productType }}">
+      <p>Details: {{ product.productDetails }}</p>
+      <p>Price: {{ product.productPrice }}</p>
+        <p>Quantity: {{ product.quantity }}</p>
+      <!-- Edit and Delete Buttons -->
+      <button (click)="editProduct(product)">Edit</button>&nbsp;
+      <button (click)="deleteProduct(product)">Delete</button>
+    </div>
+  </div>
+
+  <ng-template #noProducts>
+    <div id="noProducts">No products available</div>
+  </ng-template>
